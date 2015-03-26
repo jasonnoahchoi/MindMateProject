@@ -7,6 +7,8 @@
 //
 
 #import "Recording.h"
+#import "Group.h"
+#import "User.h"
 
 
 @implementation Recording
@@ -16,6 +18,7 @@
 @dynamic memoName;
 @dynamic showAt;
 @dynamic updatedAt;
+@dynamic idNumber;
 @dynamic fromUser;
 @dynamic group;
 @dynamic toUser;

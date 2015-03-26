@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Group, User;
 
 @interface Recording : NSManagedObject
 
@@ -17,8 +18,9 @@
 @property (nonatomic, retain) NSString * memoName;
 @property (nonatomic, retain) NSDate * showAt;
 @property (nonatomic, retain) NSDate * updatedAt;
-@property (nonatomic, retain) NSManagedObject *fromUser;
-@property (nonatomic, retain) NSManagedObject *group;
-@property (nonatomic, retain) NSManagedObject *toUser;
+@property (nonatomic, retain) NSString * idNumber;
+@property (nonatomic, retain) User *fromUser;
+@property (nonatomic, retain) Group *group;
+@property (nonatomic, retain) User *toUser;
 
 @end
