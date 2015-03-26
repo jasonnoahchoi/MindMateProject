@@ -14,6 +14,11 @@
 		083D6E851AC4C5770005E67C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E841AC4C5770005E67C /* Images.xcassets */; };
 		083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E861AC4C5770005E67C /* LaunchScreen.xib */; };
 		083D6E941AC4C5780005E67C /* MindMateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E931AC4C5780005E67C /* MindMateTests.m */; };
+		083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E9E1AC4C6E70005E67C /* Stack.m */; };
+		083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */; };
+		083D6EA51AC4C7F80005E67C /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA41AC4C7F80005E67C /* Recording.m */; };
+		083D6EA81AC4C7F80005E67C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA71AC4C7F80005E67C /* User.m */; };
+		083D6EAB1AC4C7F80005E67C /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EAA1AC4C7F80005E67C /* Group.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +45,15 @@
 		083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		083D6E921AC4C5770005E67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		083D6E931AC4C5780005E67C /* MindMateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MindMateTests.m; sourceTree = "<group>"; };
+		083D6E9D1AC4C6E70005E67C /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stack.h; sourceTree = "<group>"; };
+		083D6E9E1AC4C6E70005E67C /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stack.m; sourceTree = "<group>"; };
+		083D6EA11AC4C7070005E67C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		083D6EA31AC4C7F80005E67C /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
+		083D6EA41AC4C7F80005E67C /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
+		083D6EA61AC4C7F80005E67C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		083D6EA71AC4C7F80005E67C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		083D6EA91AC4C7F80005E67C /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		083D6EAA1AC4C7F80005E67C /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +99,15 @@
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				083D6E7E1AC4C5770005E67C /* ViewController.h */,
 				083D6E7F1AC4C5770005E67C /* ViewController.m */,
+				083D6E9D1AC4C6E70005E67C /* Stack.h */,
+				083D6E9E1AC4C6E70005E67C /* Stack.m */,
+				083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */,
+				083D6EA91AC4C7F80005E67C /* Group.h */,
+				083D6EAA1AC4C7F80005E67C /* Group.m */,
+				083D6EA61AC4C7F80005E67C /* User.h */,
+				083D6EA71AC4C7F80005E67C /* User.m */,
+				083D6EA31AC4C7F80005E67C /* Recording.h */,
+				083D6EA41AC4C7F80005E67C /* Recording.m */,
 				083D6E811AC4C5770005E67C /* Main.storyboard */,
 				083D6E841AC4C5770005E67C /* Images.xcassets */,
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
@@ -219,9 +242,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */,
+				083D6EA81AC4C7F80005E67C /* User.m in Sources */,
 				083D6E801AC4C5770005E67C /* ViewController.m in Sources */,
+				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
+				083D6EA51AC4C7F80005E67C /* Recording.m in Sources */,
+				083D6EAB1AC4C7F80005E67C /* Group.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +450,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				083D6EA11AC4C7070005E67C /* Model.xcdatamodel */,
+			);
+			currentVersion = 083D6EA11AC4C7070005E67C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 083D6E6C1AC4C5770005E67C /* Project object */;
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recording" inverseName="group" inverseEntity="Recording" syncable="YES"/>
+    </entity>
+    <entity name="Recording" representedClassName="Recording" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="memo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="memoName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="showAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="fromUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="recordingsReceived" inverseEntity="User" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="recordings" inverseEntity="Group" syncable="YES"/>
+        <relationship name="toUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="recordingsGiven" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="recordingsGiven" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recording" inverseName="toUser" inverseEntity="Recording" syncable="YES"/>
+        <relationship name="recordingsReceived" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recording" inverseName="fromUser" inverseEntity="Recording" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Group" positionX="-18" positionY="27" width="128" height="73"/>
+        <element name="Recording" positionX="36" positionY="81" width="128" height="163"/>
+        <element name="User" positionX="9" positionY="54" width="128" height="118"/>
+    </elements>
+</model>
