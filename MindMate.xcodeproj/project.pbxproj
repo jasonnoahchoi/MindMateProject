@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
+		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
+		083D6E801AC4C5770005E67C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7F1AC4C5770005E67C /* ViewController.m */; };
+		083D6E831AC4C5770005E67C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E811AC4C5770005E67C /* Main.storyboard */; };
+		083D6E851AC4C5770005E67C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E841AC4C5770005E67C /* Images.xcassets */; };
+		083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E861AC4C5770005E67C /* LaunchScreen.xib */; };
+		083D6E941AC4C5780005E67C /* MindMateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E931AC4C5780005E67C /* MindMateTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		083D6E8E1AC4C5770005E67C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 083D6E6C1AC4C5770005E67C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 083D6E731AC4C5770005E67C;
+			remoteInfo = MindMate;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		083D6E741AC4C5770005E67C /* MindMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		083D6E781AC4C5770005E67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		083D6E791AC4C5770005E67C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		083D6E7B1AC4C5770005E67C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		083D6E7C1AC4C5770005E67C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		083D6E7E1AC4C5770005E67C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		083D6E7F1AC4C5770005E67C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		083D6E821AC4C5770005E67C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		083D6E841AC4C5770005E67C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		083D6E871AC4C5770005E67C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		083D6E921AC4C5770005E67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		083D6E931AC4C5780005E67C /* MindMateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MindMateTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		083D6E711AC4C5770005E67C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		083D6E8A1AC4C5770005E67C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		083D6E6B1AC4C5770005E67C = {
+			isa = PBXGroup;
+			children = (
+				083D6E761AC4C5770005E67C /* MindMate */,
+				083D6E901AC4C5770005E67C /* MindMateTests */,
+				083D6E751AC4C5770005E67C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		083D6E751AC4C5770005E67C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				083D6E741AC4C5770005E67C /* MindMate.app */,
+				083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		083D6E761AC4C5770005E67C /* MindMate */ = {
+			isa = PBXGroup;
+			children = (
+				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
+				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
+				083D6E7E1AC4C5770005E67C /* ViewController.h */,
+				083D6E7F1AC4C5770005E67C /* ViewController.m */,
+				083D6E811AC4C5770005E67C /* Main.storyboard */,
+				083D6E841AC4C5770005E67C /* Images.xcassets */,
+				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
+				083D6E771AC4C5770005E67C /* Supporting Files */,
+			);
+			path = MindMate;
+			sourceTree = "<group>";
+		};
+		083D6E771AC4C5770005E67C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				083D6E781AC4C5770005E67C /* Info.plist */,
+				083D6E791AC4C5770005E67C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		083D6E901AC4C5770005E67C /* MindMateTests */ = {
+			isa = PBXGroup;
+			children = (
+				083D6E931AC4C5780005E67C /* MindMateTests.m */,
+				083D6E911AC4C5770005E67C /* Supporting Files */,
+			);
+			path = MindMateTests;
+			sourceTree = "<group>";
+		};
+		083D6E911AC4C5770005E67C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				083D6E921AC4C5770005E67C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		083D6E731AC4C5770005E67C /* MindMate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 083D6E971AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMate" */;
+			buildPhases = (
+				083D6E701AC4C5770005E67C /* Sources */,
+				083D6E711AC4C5770005E67C /* Frameworks */,
+				083D6E721AC4C5770005E67C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MindMate;
+			productName = MindMate;
+			productReference = 083D6E741AC4C5770005E67C /* MindMate.app */;
+			productType = "com.apple.product-type.application";
+		};
+		083D6E8C1AC4C5770005E67C /* MindMateTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 083D6E9A1AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMateTests" */;
+			buildPhases = (
+				083D6E891AC4C5770005E67C /* Sources */,
+				083D6E8A1AC4C5770005E67C /* Frameworks */,
+				083D6E8B1AC4C5770005E67C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				083D6E8F1AC4C5770005E67C /* PBXTargetDependency */,
+			);
+			name = MindMateTests;
+			productName = MindMateTests;
+			productReference = 083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		083D6E6C1AC4C5770005E67C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Jason Choi";
+				TargetAttributes = {
+					083D6E731AC4C5770005E67C = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					083D6E8C1AC4C5770005E67C = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 083D6E731AC4C5770005E67C;
+					};
+				};
+			};
+			buildConfigurationList = 083D6E6F1AC4C5770005E67C /* Build configuration list for PBXProject "MindMate" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 083D6E6B1AC4C5770005E67C;
+			productRefGroup = 083D6E751AC4C5770005E67C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				083D6E731AC4C5770005E67C /* MindMate */,
+				083D6E8C1AC4C5770005E67C /* MindMateTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		083D6E721AC4C5770005E67C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				083D6E831AC4C5770005E67C /* Main.storyboard in Resources */,
+				083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */,
+				083D6E851AC4C5770005E67C /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		083D6E8B1AC4C5770005E67C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		083D6E701AC4C5770005E67C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				083D6E801AC4C5770005E67C /* ViewController.m in Sources */,
+				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
+				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		083D6E891AC4C5770005E67C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				083D6E941AC4C5780005E67C /* MindMateTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		083D6E8F1AC4C5770005E67C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 083D6E731AC4C5770005E67C /* MindMate */;
+			targetProxy = 083D6E8E1AC4C5770005E67C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		083D6E811AC4C5770005E67C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				083D6E821AC4C5770005E67C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		083D6E861AC4C5770005E67C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				083D6E871AC4C5770005E67C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		083D6E951AC4C5780005E67C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		083D6E961AC4C5780005E67C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		083D6E981AC4C5780005E67C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MindMate/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		083D6E991AC4C5780005E67C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MindMate/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		083D6E9B1AC4C5780005E67C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MindMateTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MindMate.app/MindMate";
+			};
+			name = Debug;
+		};
+		083D6E9C1AC4C5780005E67C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MindMateTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MindMate.app/MindMate";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		083D6E6F1AC4C5770005E67C /* Build configuration list for PBXProject "MindMate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				083D6E951AC4C5780005E67C /* Debug */,
+				083D6E961AC4C5780005E67C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		083D6E971AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				083D6E981AC4C5780005E67C /* Debug */,
+				083D6E991AC4C5780005E67C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		083D6E9A1AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMateTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				083D6E9B1AC4C5780005E67C /* Debug */,
+				083D6E9C1AC4C5780005E67C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 083D6E6C1AC4C5770005E67C /* Project object */;
+}
