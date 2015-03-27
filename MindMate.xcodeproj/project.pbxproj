@@ -16,9 +16,10 @@
 		083D6E941AC4C5780005E67C /* MindMateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E931AC4C5780005E67C /* MindMateTests.m */; };
 		083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E9E1AC4C6E70005E67C /* Stack.m */; };
 		083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */; };
-		083D6EA51AC4C7F80005E67C /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA41AC4C7F80005E67C /* Recording.m */; };
 		083D6EA81AC4C7F80005E67C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA71AC4C7F80005E67C /* User.m */; };
 		083D6EAB1AC4C7F80005E67C /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EAA1AC4C7F80005E67C /* Group.m */; };
+		083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EAD1AC4C8550005E67C /* RecordingController.m */; };
+		083D6EB11AC4D0CD0005E67C /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EB01AC4D0CD0005E67C /* Recording.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,12 +49,14 @@
 		083D6E9D1AC4C6E70005E67C /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stack.h; sourceTree = "<group>"; };
 		083D6E9E1AC4C6E70005E67C /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stack.m; sourceTree = "<group>"; };
 		083D6EA11AC4C7070005E67C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		083D6EA31AC4C7F80005E67C /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
-		083D6EA41AC4C7F80005E67C /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
 		083D6EA61AC4C7F80005E67C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		083D6EA71AC4C7F80005E67C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		083D6EA91AC4C7F80005E67C /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		083D6EAA1AC4C7F80005E67C /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		083D6EAC1AC4C8550005E67C /* RecordingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingController.h; sourceTree = "<group>"; };
+		083D6EAD1AC4C8550005E67C /* RecordingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingController.m; sourceTree = "<group>"; };
+		083D6EAF1AC4D0CD0005E67C /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
+		083D6EB01AC4D0CD0005E67C /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,12 +105,14 @@
 				083D6E9D1AC4C6E70005E67C /* Stack.h */,
 				083D6E9E1AC4C6E70005E67C /* Stack.m */,
 				083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */,
+				083D6EAF1AC4D0CD0005E67C /* Recording.h */,
+				083D6EB01AC4D0CD0005E67C /* Recording.m */,
 				083D6EA91AC4C7F80005E67C /* Group.h */,
 				083D6EAA1AC4C7F80005E67C /* Group.m */,
 				083D6EA61AC4C7F80005E67C /* User.h */,
 				083D6EA71AC4C7F80005E67C /* User.m */,
-				083D6EA31AC4C7F80005E67C /* Recording.h */,
-				083D6EA41AC4C7F80005E67C /* Recording.m */,
+				083D6EAC1AC4C8550005E67C /* RecordingController.h */,
+				083D6EAD1AC4C8550005E67C /* RecordingController.m */,
 				083D6E811AC4C5770005E67C /* Main.storyboard */,
 				083D6E841AC4C5770005E67C /* Images.xcassets */,
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
@@ -191,6 +196,7 @@
 				TargetAttributes = {
 					083D6E731AC4C5770005E67C = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = GQHC8CPYGZ;
 					};
 					083D6E8C1AC4C5770005E67C = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -247,8 +253,9 @@
 				083D6E801AC4C5770005E67C /* ViewController.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
+				083D6EB11AC4D0CD0005E67C /* Recording.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
-				083D6EA51AC4C7F80005E67C /* Recording.m in Sources */,
+				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
 				083D6EAB1AC4C7F80005E67C /* Group.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MindMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -381,6 +389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MindMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
