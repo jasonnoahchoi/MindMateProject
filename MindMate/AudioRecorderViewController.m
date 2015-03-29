@@ -234,6 +234,11 @@
         NSLog(@"%@", self.recorder.url);
         [self.microphone stopFetchingAudio];
 
+        NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
+        [data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
+        NSLog(@"Data File: %@", data);
+        //[[NSFileManager defaultManager] createFileAtPath:[self filePath] contents:data attributes:nil];
+
     } else {
         // start
         self.play.enabled = NO;
@@ -278,14 +283,32 @@
 
     NSString *destinationString = [[self documentsPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4a", nowString]];
 
+    NSString *findString = destinationString;
+    findString = [self filePath];
+    NSLog(@"Self filePath: %@", [self filePath]);
+
+
     NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
 
     return destinationURL;
 }
+- (NSString *)filePath {
+    NSString *string = [NSString string];
+    return string;
+}
 
 - (NSString *)documentsPath {
+    //NSFileManager *fileMgr = [NSFileManager defaultManager];
+    //NSString *documentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+   // NSArray *searchPaths = [fileMgr     //
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [searchPaths objectAtIndex:0];
+    NSError *error;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:documentsPath withIntermediateDirectories:NO attributes:nil error:&error]) {
+            NSLog(@"Create directory error: %@", error);
+        }
+    }
 
     return documentsPath;
 }
