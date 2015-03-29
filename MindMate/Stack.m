@@ -52,18 +52,18 @@
     self.managedObjectContext.undoManager = [[NSUndoManager alloc] init];
 }
 
-- (NSURL*)storeURL
+- (NSURL *)storeURL
 {
     NSURL* documentsDirectory = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
     return [documentsDirectory URLByAppendingPathComponent:@"db.sqlite"];
 }
 
-- (NSURL*)modelURL
+- (NSURL *)modelURL
 {
     return [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
 }
 
-- (NSManagedObjectModel*)managedObjectModel
+- (NSManagedObjectModel *)managedObjectModel
 {
     return [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
 }

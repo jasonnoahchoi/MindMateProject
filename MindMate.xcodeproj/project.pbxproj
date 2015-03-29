@@ -10,7 +10,6 @@
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
 		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
 		083D6E801AC4C5770005E67C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7F1AC4C5770005E67C /* ViewController.m */; };
-		083D6E831AC4C5770005E67C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E811AC4C5770005E67C /* Main.storyboard */; };
 		083D6E851AC4C5770005E67C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E841AC4C5770005E67C /* Images.xcassets */; };
 		083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E861AC4C5770005E67C /* LaunchScreen.xib */; };
 		083D6E941AC4C5780005E67C /* MindMateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E931AC4C5780005E67C /* MindMateTests.m */; };
@@ -20,6 +19,16 @@
 		083D6EAB1AC4C7F80005E67C /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EAA1AC4C7F80005E67C /* Group.m */; };
 		083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EAD1AC4C8550005E67C /* RecordingController.m */; };
 		083D6EB11AC4D0CD0005E67C /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EB01AC4D0CD0005E67C /* Recording.m */; };
+		086914261AC891E80064B6AE /* AudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0869141B1AC891E80064B6AE /* AudioRecorderViewController.m */; };
+		086914271AC891E80064B6AE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141C1AC891E80064B6AE /* pause.png */; };
+		086914281AC891E80064B6AE /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141D1AC891E80064B6AE /* pause@2x.png */; };
+		086914291AC891E80064B6AE /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141E1AC891E80064B6AE /* play.png */; };
+		0869142A1AC891E80064B6AE /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141F1AC891E80064B6AE /* play@2x.png */; };
+		0869142B1AC891E80064B6AE /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 086914201AC891E80064B6AE /* record.png */; };
+		0869142C1AC891E80064B6AE /* record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 086914211AC891E80064B6AE /* record@2x.png */; };
+		0869142D1AC891E80064B6AE /* UIImage+BlurredFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 086914231AC891E80064B6AE /* UIImage+BlurredFrame.m */; };
+		0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 086914251AC891E80064B6AE /* UIImage+ImageEffects.m */; };
+		086914301AC891F40064B6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0869142F1AC891F40064B6AE /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +49,6 @@
 		083D6E7C1AC4C5770005E67C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		083D6E7E1AC4C5770005E67C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		083D6E7F1AC4C5770005E67C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		083D6E821AC4C5770005E67C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		083D6E841AC4C5770005E67C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		083D6E871AC4C5770005E67C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +65,19 @@
 		083D6EAD1AC4C8550005E67C /* RecordingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingController.m; sourceTree = "<group>"; };
 		083D6EAF1AC4D0CD0005E67C /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
 		083D6EB01AC4D0CD0005E67C /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
+		0869141A1AC891E80064B6AE /* AudioRecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorderViewController.h; sourceTree = "<group>"; };
+		0869141B1AC891E80064B6AE /* AudioRecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderViewController.m; sourceTree = "<group>"; };
+		0869141C1AC891E80064B6AE /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		0869141D1AC891E80064B6AE /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
+		0869141E1AC891E80064B6AE /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		0869141F1AC891E80064B6AE /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
+		086914201AC891E80064B6AE /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record.png; sourceTree = "<group>"; };
+		086914211AC891E80064B6AE /* record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record@2x.png"; sourceTree = "<group>"; };
+		086914221AC891E80064B6AE /* UIImage+BlurredFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BlurredFrame.h"; sourceTree = "<group>"; };
+		086914231AC891E80064B6AE /* UIImage+BlurredFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BlurredFrame.m"; sourceTree = "<group>"; };
+		086914241AC891E80064B6AE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		086914251AC891E80064B6AE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		0869142F1AC891F40064B6AE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +134,19 @@
 				083D6EA71AC4C7F80005E67C /* User.m */,
 				083D6EAC1AC4C8550005E67C /* RecordingController.h */,
 				083D6EAD1AC4C8550005E67C /* RecordingController.m */,
-				083D6E811AC4C5770005E67C /* Main.storyboard */,
+				0869141A1AC891E80064B6AE /* AudioRecorderViewController.h */,
+				0869141B1AC891E80064B6AE /* AudioRecorderViewController.m */,
+				0869141C1AC891E80064B6AE /* pause.png */,
+				0869141D1AC891E80064B6AE /* pause@2x.png */,
+				0869141E1AC891E80064B6AE /* play.png */,
+				0869141F1AC891E80064B6AE /* play@2x.png */,
+				086914201AC891E80064B6AE /* record.png */,
+				086914211AC891E80064B6AE /* record@2x.png */,
+				086914221AC891E80064B6AE /* UIImage+BlurredFrame.h */,
+				086914231AC891E80064B6AE /* UIImage+BlurredFrame.m */,
+				086914241AC891E80064B6AE /* UIImage+ImageEffects.h */,
+				086914251AC891E80064B6AE /* UIImage+ImageEffects.m */,
+				0869142F1AC891F40064B6AE /* Main.storyboard */,
 				083D6E841AC4C5770005E67C /* Images.xcassets */,
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
 				083D6E771AC4C5770005E67C /* Supporting Files */,
@@ -228,9 +261,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				083D6E831AC4C5770005E67C /* Main.storyboard in Resources */,
 				083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */,
+				0869142C1AC891E80064B6AE /* record@2x.png in Resources */,
+				086914291AC891E80064B6AE /* play.png in Resources */,
+				0869142B1AC891E80064B6AE /* record.png in Resources */,
+				0869142A1AC891E80064B6AE /* play@2x.png in Resources */,
 				083D6E851AC4C5770005E67C /* Images.xcassets in Resources */,
+				086914301AC891F40064B6AE /* Main.storyboard in Resources */,
+				086914271AC891E80064B6AE /* pause.png in Resources */,
+				086914281AC891E80064B6AE /* pause@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,12 +287,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0869142D1AC891E80064B6AE /* UIImage+BlurredFrame.m in Sources */,
 				083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */,
 				083D6EA81AC4C7F80005E67C /* User.m in Sources */,
 				083D6E801AC4C5770005E67C /* ViewController.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
+				086914261AC891E80064B6AE /* AudioRecorderViewController.m in Sources */,
 				083D6EB11AC4D0CD0005E67C /* Recording.m in Sources */,
+				0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
 				083D6EAB1AC4C7F80005E67C /* Group.m in Sources */,
@@ -279,14 +321,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		083D6E811AC4C5770005E67C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				083D6E821AC4C5770005E67C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		083D6E861AC4C5770005E67C /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -449,6 +483,7 @@
 				083D6E991AC4C5780005E67C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		083D6E9A1AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMateTests" */ = {
 			isa = XCConfigurationList;
@@ -457,6 +492,7 @@
 				083D6E9C1AC4C5780005E67C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
