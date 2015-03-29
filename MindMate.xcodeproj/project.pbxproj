@@ -29,6 +29,8 @@
 		0869142D1AC891E80064B6AE /* UIImage+BlurredFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 086914231AC891E80064B6AE /* UIImage+BlurredFrame.m */; };
 		0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 086914251AC891E80064B6AE /* UIImage+ImageEffects.m */; };
 		086914301AC891F40064B6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0869142F1AC891F40064B6AE /* Main.storyboard */; };
+		086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086914311AC893D70064B6AE /* AVFoundation.framework */; };
+		8A489E03571846AD9609F824 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3C9177DE0048FEF6A37531 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,10 @@
 		086914241AC891E80064B6AE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		086914251AC891E80064B6AE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		0869142F1AC891F40064B6AE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		086914311AC893D70064B6AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4F47C3241880CF0F720F6C19 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9A3C9177DE0048FEF6A37531 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDDD9BD0EB2DF803753FA4DD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */,
+				8A489E03571846AD9609F824 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +112,8 @@
 				083D6E761AC4C5770005E67C /* MindMate */,
 				083D6E901AC4C5770005E67C /* MindMateTests */,
 				083D6E751AC4C5770005E67C /* Products */,
+				4E62A4014AF5226767D546DF /* Pods */,
+				389A77263D7056F4363E0CD5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -180,6 +190,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		389A77263D7056F4363E0CD5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				086914311AC893D70064B6AE /* AVFoundation.framework */,
+				9A3C9177DE0048FEF6A37531 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4E62A4014AF5226767D546DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4F47C3241880CF0F720F6C19 /* Pods.debug.xcconfig */,
+				DDDD9BD0EB2DF803753FA4DD /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -187,9 +215,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 083D6E971AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMate" */;
 			buildPhases = (
+				87CCCABD72612E04EB124009 /* Check Pods Manifest.lock */,
 				083D6E701AC4C5770005E67C /* Sources */,
 				083D6E711AC4C5770005E67C /* Frameworks */,
 				083D6E721AC4C5770005E67C /* Resources */,
+				B1507186F1F459C4394A0C9A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -281,6 +311,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		87CCCABD72612E04EB124009 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B1507186F1F459C4394A0C9A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		083D6E701AC4C5770005E67C /* Sources */ = {
@@ -410,6 +473,7 @@
 		};
 		083D6E981AC4C5780005E67C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F47C3241880CF0F720F6C19 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -421,6 +485,7 @@
 		};
 		083D6E991AC4C5780005E67C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDDD9BD0EB2DF803753FA4DD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

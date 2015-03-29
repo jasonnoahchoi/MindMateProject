@@ -210,12 +210,14 @@
         [UIView animateWithDuration:0.5 animations:^{
             self.controlsBackground.center = CGPointMake(self.controlsBackground.center.x, self.controlsBackground.center.y + self.view.frame.size.height);
         } completion:^(BOOL finished) {
-            [self dismissViewControllerAnimated:YES completion:^{
+                        [self dismissViewControllerAnimated:YES completion:^{
                 if (self.delegate) {
                     [self.delegate audioNoteRecorderDidTapDone:self withRecordedURL:self.recorder.url];
                 }
                 if (self.finishedBlock) {
                     self.finishedBlock(YES, self.recorder.url);
+                    [self.navigationController popViewControllerAnimated:YES];
+
                 }
             }];
         }];
