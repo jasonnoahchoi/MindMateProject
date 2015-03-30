@@ -54,17 +54,19 @@ static NSString * const groupEntity = @"Group";
 - (void)save {
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
+
 - (void)addRecordingWithName:(NSString *)memoName {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     recording.memoName = memoName;
     [self save];
 }
+
 - (void)addRecordingWithFile:(NSData *)memo {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     recording.memo = memo;
     [self save];
-
 }
+
 - (void)addGroupWithName:(NSString *)groupName {
     Group *group = [NSEntityDescription insertNewObjectForEntityForName:groupEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     group.groupName = groupName;
@@ -80,7 +82,6 @@ static NSString * const groupEntity = @"Group";
 - (void)removeGroup:(Group *)group {
     [group.managedObjectContext deleteObject:group];
     [self save];
-
 }
 
 - (void)addRecordingToGroup:(Group *)group {

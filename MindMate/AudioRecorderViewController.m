@@ -115,9 +115,8 @@
 
 }
 
-- (void) viewDidAppear:(BOOL)animated
-{
-
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     // create the controls
     CGFloat height = 225.0f;
     //CGFloat height = self.view.bounds.size.height - 64;
@@ -287,9 +286,9 @@
 
     NSString *destinationString = [[self documentsPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4a", nowString]];
 
-    NSString *findString = destinationString;
-    findString = [self filePath];
-    NSLog(@"Self filePath: %@", [self filePath]);
+   // NSString *findString = destinationString;
+  //  findString = [self filePath];
+    //NSLog(@"Self filePath: %@", [self filePath]);
 
 
     NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
