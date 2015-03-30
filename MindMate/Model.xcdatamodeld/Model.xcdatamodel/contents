@@ -11,6 +11,7 @@
         <attribute name="memoName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="showAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="urlPath" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="fromUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="recordingsReceived" inverseEntity="User" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="recordings" inverseEntity="Group" syncable="YES"/>
         <relationship name="toUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="recordingsGiven" inverseEntity="User" syncable="YES"/>
@@ -24,7 +25,7 @@
     </entity>
     <elements>
         <element name="Group" positionX="-18" positionY="27" width="128" height="73"/>
-        <element name="Recording" positionX="36" positionY="81" width="128" height="178"/>
+        <element name="Recording" positionX="36" positionY="81" width="128" height="193"/>
         <element name="User" positionX="9" positionY="54" width="128" height="118"/>
     </elements>
 </model>

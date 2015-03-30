@@ -17,7 +17,7 @@
 + (RecordingController *)sharedInstance;
 
 - (void)save;
-- (void)addRecordingWithName:(NSString *)memoName;
+- (void)addRecordingWithURL:(NSString *)urlPath;
 - (void)addRecordingWithFile:(NSData *)memo;
 - (void)addGroupWithName:(NSString *)groupName;
 - (void)removeRecording:(Recording *)recording;

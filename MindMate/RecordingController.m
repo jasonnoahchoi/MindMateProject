@@ -55,9 +55,10 @@ static NSString * const groupEntity = @"Group";
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 
-- (void)addRecordingWithName:(NSString *)memoName {
+- (void)addRecordingWithURL:(NSString *)urlPath {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
-    recording.memoName = memoName;
+    //recording.memoName = memoName;
+    recording.urlPath = urlPath;
     [self save];
 }
 

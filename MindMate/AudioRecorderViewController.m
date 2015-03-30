@@ -9,6 +9,7 @@
 #import "AudioRecorderViewController.h"
 #import "UIImage+BlurredFrame.h"
 #import "RecordingController.h"
+#import "AudioController.h"
 //#import "GroupViewController.h"
 
 @interface AudioRecorderViewController ()
@@ -235,9 +236,12 @@
         [self.microphone stopFetchingAudio];
 
         NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
-        [data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
+        [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
+        //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
         NSLog(@"Data File: %@", data);
-        [[RecordingController sharedInstance] addRecordingWithFile:data];
+       // [[RecordingController sharedInstance] addRecordingWithFile:data];
+        [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]];
+        NSLog(@"ControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
         [[RecordingController sharedInstance] save];
 
         //[[NSFileManager defaultManager] createFileAtPath:[self filePath] contents:data attributes:nil];
@@ -245,27 +249,21 @@
     } else {
         // start
         self.play.enabled = NO;
-        //        NSURL *tmp = [NS]
 
-        //        NSDictionary* recorderSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-        //                                          [NSNumber numberWithInt:kAudioFormatMPEG4AAC],AVFormatIDKey,
-        //                                          [NSNumber numberWithInt:44100],AVSampleRateKey,
-        //                                          [NSNumber numberWithInt:2],AVNumberOfChannelsKey,
-        //                                          [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,
-        //                                          [NSNumber numberWithBool:NO],AVLinearPCMIsBigEndianKey,
-        //                                          [NSNumber numberWithBool:NO],AVLinearPCMIsFloatKey,
-        //                                          nil];
-        NSError *error = nil;
-        self.recorder = [[AVAudioRecorder alloc] initWithURL:[self urlPath] settings:[self getRecorderSettings] error:&error];
-        //self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL URLWithString:[NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.m4a"]] settings:[self getRecorderSettings] error:&error];
+        self.recorder = [[AudioController sharedInstance] recordAudioToDirectory];
 
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-        [[AVAudioSession sharedInstance] setActive:YES error:nil];
-        //  UInt32 doChangeDefault = 1;
-        // AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryDefaultToSpeaker, sizeof(doChangeDefault), &doChangeDefault);
+        //        NSError *error = nil;
+//        self.recorder = [[AVAudioRecorder alloc] initWithURL:[self urlPath] settings:[self getRecorderSettings] error:&error];
+//        //self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL URLWithString:[NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.m4a"]] settings:[self getRecorderSettings] error:&error];
+//
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+//        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+//        //  UInt32 doChangeDefault = 1;
+//        // AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryDefaultToSpeaker, sizeof(doChangeDefault), &doChangeDefault);
 
+
+//        [self.recorder record];
         self.recorder.delegate = self;
-        [self.recorder record];
         self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(recordingTimerUpdate:) userInfo:nil repeats:YES];
         [self.recordingTimer fire];
         [self.microphone startFetchingAudio];
@@ -277,56 +275,56 @@
     sender.selected = !sender.selected;
 }
 
-- (NSURL *)urlPath {
-    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMMdyyyy+HHMMss"];
-
-    NSString *nowString = [formatter stringFromDate:now];
-
-    NSString *destinationString = [[self documentsPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4a", nowString]];
-
-   // NSString *findString = destinationString;
-  //  findString = [self filePath];
-    //NSLog(@"Self filePath: %@", [self filePath]);
-
-
-    NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
-
-    return destinationURL;
-}
-- (NSString *)filePath {
-    NSString *string = [NSString string];
-    return string;
-}
-
-- (NSString *)documentsPath {
-    //NSFileManager *fileMgr = [NSFileManager defaultManager];
-    //NSString *documentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-   // NSArray *searchPaths = [fileMgr     //
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsPath = [searchPaths objectAtIndex:0];
-    NSError *error;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:documentsPath withIntermediateDirectories:NO attributes:nil error:&error]) {
-            NSLog(@"Create directory error: %@", error);
-        }
-    }
-
-    return documentsPath;
-}
-
--(NSDictionary *)getRecorderSettings {
-    NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
-    [recordSettings setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
-    [recordSettings setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
-    [recordSettings setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-    [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityHigh] forKey:AVEncoderAudioQualityKey];
-    [recordSettings setValue:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-    [recordSettings setValue:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
-
-    return recordSettings;
-}
+//- (NSURL *)urlPath {
+//    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"MMMdyyyy+HHMMss"];
+//
+//    NSString *nowString = [formatter stringFromDate:now];
+//
+//    NSString *destinationString = [[self documentsPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4a", nowString]];
+//
+//   // NSString *findString = destinationString;
+//  //  findString = [self filePath];
+//    //NSLog(@"Self filePath: %@", [self filePath]);
+//
+//
+//    NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
+//
+//    return destinationURL;
+//}
+//- (NSString *)filePath {
+//    NSString *string = [NSString string];
+//    return string;
+//}
+//
+//- (NSString *)documentsPath {
+//    //NSFileManager *fileMgr = [NSFileManager defaultManager];
+//    //NSString *documentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+//   // NSArray *searchPaths = [fileMgr     //
+//    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsPath = [searchPaths objectAtIndex:0];
+//    NSError *error;
+//    if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+//        if (![[NSFileManager defaultManager] createDirectoryAtPath:documentsPath withIntermediateDirectories:NO attributes:nil error:&error]) {
+//            NSLog(@"Create directory error: %@", error);
+//        }
+//    }
+//
+//    return documentsPath;
+//}
+//
+//-(NSDictionary *)getRecorderSettings {
+//    NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
+//    [recordSettings setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
+//    [recordSettings setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+//    [recordSettings setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+//    [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityHigh] forKey:AVEncoderAudioQualityKey];
+//    [recordSettings setValue:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
+//    [recordSettings setValue:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+//
+//    return recordSettings;
+//}
 
 - (void)playTap:(id)sender
 {

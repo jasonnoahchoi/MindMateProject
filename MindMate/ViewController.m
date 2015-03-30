@@ -40,7 +40,7 @@
                          self.button.alpha = 0;
                      }
                      completion:^(BOOL finished) {
-                         [self presentViewController:self.audioVC animated:YES completion:^{
+    [self presentViewController:self.audioVC animated:YES completion:^{
                              self.button.alpha = 1;
                              CGAffineTransform scaleTransform = CGAffineTransformMakeScale(1.5, 1.5);
                              self.button.transform = scaleTransform;
