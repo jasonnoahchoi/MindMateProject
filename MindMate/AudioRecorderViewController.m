@@ -8,6 +8,7 @@
 
 #import "AudioRecorderViewController.h"
 #import "UIImage+BlurredFrame.h"
+#import "RecordingController.h"
 //#import "GroupViewController.h"
 
 @interface AudioRecorderViewController ()
@@ -237,6 +238,9 @@
         NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
         [data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
         NSLog(@"Data File: %@", data);
+        [[RecordingController sharedInstance] addRecordingWithFile:data];
+        [[RecordingController sharedInstance] save];
+
         //[[NSFileManager defaultManager] createFileAtPath:[self filePath] contents:data attributes:nil];
 
     } else {
