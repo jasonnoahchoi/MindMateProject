@@ -7,6 +7,8 @@
 //
 
 #import "AudioController.h"
+#import "RecordingController.h"
+#import "Recording.h"
 
 @interface AudioController ()
 
@@ -49,9 +51,9 @@
 
     NSString *destinationString = [[self documentsPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4a", nowString]];
 
-    // NSString *findString = destinationString;
-    //  findString = [self filePath];
-    //NSLog(@"Self filePath: %@", [self filePath]);
+//     NSString *findString = destinationString;
+//      findString = [self filePath];
+//    NSLog(@"Self filePath: %@", [self filePath]);
 
 
     NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
@@ -92,6 +94,28 @@
     
     return recordSettings;
 }
+
+- (NSDate *)createdAtDate {
+    NSDate *now = [NSDate date];
+    return now;
+}
+
+- (NSDate *)fetchDate {
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+    NSUInteger count = [[RecordingController sharedInstance].memos count];
+    dayComponent.day = count;
+
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+
+    return nextDate;
+}
+
+- (NSString *)randomIDNumber {
+    NSString *uuid = [[NSUUID UUID] UUIDString];
+    return uuid;
+}
+
 
 
 @end

@@ -15,5 +15,8 @@
 - (AVAudioRecorder *)recordAudioToDirectory;
 - (NSString *)filePath;
 - (NSURL *)urlPath;
+- (NSDate *)createdAtDate;
+- (NSDate *)fetchDate;
+- (NSString *)randomIDNumber;
 
 @end
