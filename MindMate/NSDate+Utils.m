@@ -10,4 +10,10 @@
 
 @implementation NSDate (Utils)
 
++ (NSDate *)dateWithoutTime {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
+    return [calendar dateFromComponents:components];
+}
+
 @end

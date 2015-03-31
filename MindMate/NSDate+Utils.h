@@ -10,4 +10,6 @@
 
 @interface NSDate (Utils)
 
++ (NSDate *)dateWithoutTime;
+
 @end
