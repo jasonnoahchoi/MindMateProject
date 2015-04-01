@@ -18,5 +18,7 @@
 - (NSDate *)createdAtDate;
 - (NSDate *)fetchDate;
 - (NSString *)randomIDNumber;
+- (NSString *)simpleDateString;
+- (NSString *)groupName;
 
 @end

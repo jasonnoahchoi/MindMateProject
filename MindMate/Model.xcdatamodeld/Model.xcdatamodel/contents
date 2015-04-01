@@ -9,6 +9,7 @@
     </entity>
     <entity name="Recording" representedClassName="Recording" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="memo" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="memoName" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,8 +32,8 @@
     </entity>
     <elements>
         <element name="Group" positionX="-18" positionY="27" width="128" height="75"/>
-        <element name="Recording" positionX="36" positionY="81" width="128" height="238"/>
-        <element name="User" positionX="9" positionY="54" width="128" height="118"/>
         <element name="Queue" positionX="9" positionY="135" width="128" height="58"/>
+        <element name="Recording" positionX="36" positionY="81" width="128" height="255"/>
+        <element name="User" positionX="9" positionY="54" width="128" height="118"/>
     </elements>
 </model>

@@ -16,7 +16,7 @@
 
 + (QueueManager *)sharedInstance;
 //- (NSArray *)addRecording;
-- (NSArray *)queueArray;
+//- (NSArray *)queueArray;
 - (void)addRecording:(Recording *)recording;
 
 @end

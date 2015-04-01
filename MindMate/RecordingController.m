@@ -11,6 +11,7 @@
 #import "Recording.h"
 #import "Group.h"
 #import "User.h"
+#import "QueueManager.h"
 
 @interface RecordingController ()
 
@@ -18,9 +19,6 @@
 
 @end
 
-static NSString * const recordingEntity = @"Recording";
-static NSString * const userEntity = @"User";
-static NSString * const groupEntity = @"Group";
 
 @implementation RecordingController
 
@@ -41,12 +39,21 @@ static NSString * const groupEntity = @"Group";
 - (NSArray *)memoNames {
     NSMutableArray *mutableMemoNames = [[NSMutableArray alloc] init];
     for (Recording *recording in self.memos) {
-        NSString *memoName = recording.memoName;
-        [mutableMemoNames addObject:memoName];
-        NSData *memoFile = recording.memo;
-        [mutableMemoNames addObject:memoFile];
-        User *memoFromUser = recording.fromUser;
-        [mutableMemoNames addObject:memoFromUser];
+        NSDate *nowDate = recording.createdAt;
+        [mutableMemoNames addObject:nowDate];
+        NSDate *fetchDate = recording.showAt;
+        [mutableMemoNames addObject:fetchDate];
+        NSString *urlPath = recording.urlPath;
+        [mutableMemoNames addObject:urlPath];
+        NSString *idNumber = recording.idNumber;
+        [mutableMemoNames addObject:idNumber];
+        NSString *simpleDate = recording.simpleDate;
+        [mutableMemoNames addObject:simpleDate];
+
+//        NSData *memoFile = recording.memo;
+//        [mutableMemoNames addObject:memoFile];
+        //User *memoFromUser = recording.fromUser;
+       // [mutableMemoNames addObject:memoFromUser];
     }
     return mutableMemoNames;
 }
@@ -55,14 +62,17 @@ static NSString * const groupEntity = @"Group";
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 
-- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andGroupName:(Group *)groupName {
+- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     //recording.memoName = memoName;
     recording.urlPath = urlPath;
     recording.idNumber = idNumber;
     recording.createdAt = createdAt;
     recording.showAt = showAt;
-    recording.group.groupName = (NSString *)groupName;
+    recording.simpleDate = simpleDate;
+    recording.groupName = groupName;
+    
+    [[QueueManager sharedInstance] addRecording:recording];
 
     [self save];
 }

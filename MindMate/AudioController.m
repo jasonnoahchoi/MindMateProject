@@ -100,13 +100,22 @@
     return now;
 }
 
+- (NSString *)simpleDateString {
+    NSDate *now = [self createdAtDate];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *nowString = [formatter stringFromDate:now];
+    return nowString;
+}
+
 - (NSDate *)fetchDate {
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-    NSUInteger count = [[RecordingController sharedInstance].memos count];
+    //NSUInteger count = [[RecordingController sharedInstance].memos count];
+    NSUInteger count = 1;
     dayComponent.day = count;
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[self createdAtDate] options:0];
 
     return nextDate;
 }
@@ -114,6 +123,11 @@
 - (NSString *)randomIDNumber {
     NSString *uuid = [[NSUUID UUID] UUIDString];
     return uuid;
+}
+
+- (NSString *)groupName {
+    NSString *string = @"Test";
+    return string;
 }
 
 

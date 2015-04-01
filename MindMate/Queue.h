@@ -14,7 +14,6 @@
 @interface Queue : NSManagedObject
 
 @property (nonatomic, retain) NSOrderedSet *recordings;
-
 @end
 
 @interface Queue (CoreDataGeneratedAccessors)

@@ -31,25 +31,25 @@
 
 
 @implementation AudioRecorderViewController
-@synthesize audioPlot;
-@synthesize microphone;
-#pragma mark - Initialization
--(id)init {
-    self = [super init];
-    if(self){
-        [self initializeViewController];
-
-    }
-    return self;
-}
-
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if(self){
-        [self initializeViewController];
-    }
-    return self;
-}
+//@synthesize audioPlot;
+//@synthesize microphone;
+//#pragma mark - Initialization
+//-(id)init {
+//    self = [super init];
+//    if(self){
+//        [self initializeViewController];
+//
+//    }
+//    return self;
+//}
+//
+//-(id)initWithCoder:(NSCoder *)aDecoder {
+//    self = [super initWithCoder:aDecoder];
+//    if(self){
+//        [self initializeViewController];
+//    }
+//    return self;
+//}
 
 + (instancetype)showRecorderMasterViewController:(UIViewController *)masterViewController withFinishedBlock:(AudioNoteRecorderFinishBlock)finishedBlock {
     AudioRecorderViewController *avc = [[AudioRecorderViewController alloc] initWithMasterViewController:masterViewController];
@@ -83,36 +83,36 @@
     return self;
 }
 
-
-#pragma mark - Initialize View Controller Here
--(void)initializeViewController {
-    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
-    self.microphone = [EZMicrophone microphoneWithDelegate:self];
-}
+//
+//#pragma mark - Initialize View Controller Here
+//-(void)initializeViewController {
+//    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
+//    self.microphone = [EZMicrophone microphoneWithDelegate:self];
+//}
 
 #pragma mark - Customize the Audio Plot
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.audioPlot = [[EZAudioPlotGL alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/1.5)];
-    [self.view addSubview:self.audioPlot];
-    //self.view.backgroundColor = [UIColor blackColor];
-
-    /*
-     Customizing the audio plot's look
-     */
-    // Background color
-    self.audioPlot.backgroundColor = [UIColor blackColor];
-    // self.audioPlot.backgroundColor = [UIColor colorWithRed: 0.569 green: 0.82 blue: 0.478 alpha: 1];
-    // Waveform color
-    self.audioPlot.color           = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    // Plot type
-    self.audioPlot.plotType        = EZPlotTypeBuffer;
-
-    /*
-     Start the microphone
-     */
-    self.microphoneTextLabel.text = @"Microphone On";
+//    self.audioPlot = [[EZAudioPlotGL alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/1.5)];
+//    [self.view addSubview:self.audioPlot];
+//    //self.view.backgroundColor = [UIColor blackColor];
+//
+//    /*
+//     Customizing the audio plot's look
+//     */
+//    // Background color
+//    self.audioPlot.backgroundColor = [UIColor blackColor];
+//    // self.audioPlot.backgroundColor = [UIColor colorWithRed: 0.569 green: 0.82 blue: 0.478 alpha: 1];
+//    // Waveform color
+//    self.audioPlot.color           = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+//    // Plot type
+//    self.audioPlot.plotType        = EZPlotTypeBuffer;
+//
+//    /*
+//     Start the microphone
+//     */
+//    self.microphoneTextLabel.text = @"Microphone On";
 
 }
 
@@ -233,15 +233,22 @@
         [self.recordingTimer invalidate];
         self.recordingTimer = nil;
         NSLog(@"%@", self.recorder.url);
-        [self.microphone stopFetchingAudio];
+       // [self.microphone stopFetchingAudio];
 
         NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
         [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
         //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
         NSLog(@"Data File: %@", data);
        // [[RecordingController sharedInstance] addRecordingWithFile:data];
-        [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath] andIDNumber:[[AudioController sharedInstance] randomIDNumber] andDateCreated:[[AudioController sharedInstance] createdAtDate] andFetchDate:[[AudioController sharedInstance] fetchDate] andGroupName:(Group *)@"TestGroup"];
-        NSLog(@"ControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
+        [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
+                                                      andIDNumber:[[AudioController sharedInstance] randomIDNumber]
+                                                   andDateCreated:[[AudioController sharedInstance] createdAtDate]
+                                                     andFetchDate:[[AudioController sharedInstance] fetchDate]
+                                                    andSimpleDate:[[AudioController sharedInstance] simpleDateString]
+                                                     andGroupName:[[AudioController sharedInstance] groupName]];
+        //[RecordingController sharedInstance] addGroupWithName:
+        
+         NSLog(@"ControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
         [[RecordingController sharedInstance] save];
         NSLog(@"Date Created: %@, Fetch Date: %@, IDNUMBER: %@", [[AudioController sharedInstance] createdAtDate], [[AudioController sharedInstance] fetchDate], [[AudioController sharedInstance] randomIDNumber]);
 
@@ -256,10 +263,10 @@
         self.recorder.delegate = self;
         self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(recordingTimerUpdate:) userInfo:nil repeats:YES];
         [self.recordingTimer fire];
-        [self.microphone startFetchingAudio];
+       // [self.microphone startFetchingAudio];
 
         // [self initializeViewController];
-        [self drawBufferPlot];
+      //  [self drawBufferPlot];
 
     }
     sender.selected = !sender.selected;
@@ -276,10 +283,10 @@
     self.player.delegate = self;
     [self.player play];
     NSLog(@"duration: %f", self.player.duration);
-    [self.microphone startFetchingAudio];
-    if (!self.player) {
-        [self.microphone stopFetchingAudio];
-    }
+//    [self.microphone startFetchingAudio];
+//    if (!self.player) {
+//        [self.microphone stopFetchingAudio];
+//    }
 }
 - (void)recordingTimerUpdate:(id) sender
 {
@@ -293,46 +300,46 @@
     NSLog(@"did finish playing %d", flag);
 }
 
-#pragma mark - Action Extensions
-/*
- Give the visualization of the current buffer (this is almost exactly the openFrameworks audio input eample)
- */
--(void)drawBufferPlot {
-    // Change the plot type to the buffer plot
-    self.audioPlot.plotType = EZPlotTypeBuffer;
-    // Don't mirror over the x-axis
-    self.audioPlot.shouldMirror = NO;
-    // Don't fill
-    self.audioPlot.shouldFill = NO;
-}
-
-#pragma mark - EZMicrophoneDelegate
-#warning Thread Safety
-// Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
--(void)microphone:(EZMicrophone *)microphone
- hasAudioReceived:(float **)buffer
-   withBufferSize:(UInt32)bufferSize
-withNumberOfChannels:(UInt32)numberOfChannels {
-    // Getting audio data as an array of float buffer arrays. What does that mean? Because the audio is coming in as a stereo signal the data is split into a left and right channel. So buffer[0] corresponds to the float* data for the left channel while buffer[1] corresponds to the float* data for the right channel.
-
-    // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
-    dispatch_async(dispatch_get_main_queue(),^{
-        // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
-        [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
-    });
-}
-
--(void)microphone:(EZMicrophone *)microphone hasAudioStreamBasicDescription:(AudioStreamBasicDescription)audioStreamBasicDescription {
-    // The AudioStreamBasicDescription of the microphone stream. This is useful when configuring the EZRecorder or telling another component what audio format type to expect.
-    // Here's a print function to allow you to inspect it a little easier
-    [EZAudio printASBD:audioStreamBasicDescription];
-}
-
--(void)microphone:(EZMicrophone *)microphone
-    hasBufferList:(AudioBufferList *)bufferList
-   withBufferSize:(UInt32)bufferSize
-withNumberOfChannels:(UInt32)numberOfChannels {
-    // Getting audio data as a buffer list that can be directly fed into the EZRecorder or EZOutput. Say whattt...
-}
+//#pragma mark - Action Extensions
+///*
+// Give the visualization of the current buffer (this is almost exactly the openFrameworks audio input eample)
+// */
+//-(void)drawBufferPlot {
+//    // Change the plot type to the buffer plot
+//    self.audioPlot.plotType = EZPlotTypeBuffer;
+//    // Don't mirror over the x-axis
+//    self.audioPlot.shouldMirror = NO;
+//    // Don't fill
+//    self.audioPlot.shouldFill = NO;
+//}
+//
+//#pragma mark - EZMicrophoneDelegate
+//#warning Thread Safety
+//// Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
+//-(void)microphone:(EZMicrophone *)microphone
+// hasAudioReceived:(float **)buffer
+//   withBufferSize:(UInt32)bufferSize
+//withNumberOfChannels:(UInt32)numberOfChannels {
+//    // Getting audio data as an array of float buffer arrays. What does that mean? Because the audio is coming in as a stereo signal the data is split into a left and right channel. So buffer[0] corresponds to the float* data for the left channel while buffer[1] corresponds to the float* data for the right channel.
+//
+//    // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
+//    dispatch_async(dispatch_get_main_queue(),^{
+//        // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
+//        [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+//    });
+//}
+//
+//-(void)microphone:(EZMicrophone *)microphone hasAudioStreamBasicDescription:(AudioStreamBasicDescription)audioStreamBasicDescription {
+//    // The AudioStreamBasicDescription of the microphone stream. This is useful when configuring the EZRecorder or telling another component what audio format type to expect.
+//    // Here's a print function to allow you to inspect it a little easier
+//    [EZAudio printASBD:audioStreamBasicDescription];
+//}
+//
+//-(void)microphone:(EZMicrophone *)microphone
+//    hasBufferList:(AudioBufferList *)bufferList
+//   withBufferSize:(UInt32)bufferSize
+//withNumberOfChannels:(UInt32)numberOfChannels {
+//    // Getting audio data as a buffer list that can be directly fed into the EZRecorder or EZOutput. Say whattt...
+//}
 
 @end

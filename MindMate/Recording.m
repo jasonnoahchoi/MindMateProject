@@ -2,7 +2,7 @@
 //  Recording.m
 //  MindMate
 //
-//  Created by Jason Noah Choi on 3/31/15.
+//  Created by Jason Noah Choi on 4/1/15.
 //  Copyright (c) 2015 Jason Choi. All rights reserved.
 //
 
@@ -18,14 +18,15 @@
 @dynamic idNumber;
 @dynamic memo;
 @dynamic memoName;
+@dynamic returned;
 @dynamic showAt;
+@dynamic simpleDate;
 @dynamic updatedAt;
 @dynamic urlPath;
-@dynamic returned;
-@dynamic simpleDate;
+@dynamic groupName;
 @dynamic fromUser;
 @dynamic group;
-@dynamic toUser;
 @dynamic queue;
+@dynamic toUser;
 
 @end

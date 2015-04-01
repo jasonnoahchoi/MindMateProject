@@ -2,7 +2,7 @@
 //  Group.m
 //  MindMate
 //
-//  Created by Jason Noah Choi on 3/26/15.
+//  Created by Jason Noah Choi on 3/31/15.
 //  Copyright (c) 2015 Jason Choi. All rights reserved.
 //
 
