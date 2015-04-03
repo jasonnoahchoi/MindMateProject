@@ -75,6 +75,7 @@
     [[QueueManager sharedInstance] addRecording:recording];
 
     [self save];
+     NSLog(@"\n\n\n\n CORE DATA SAVED %@", recording);
 }
 
 - (void)addRecordingWithFile:(NSData *)memo {

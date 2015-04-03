@@ -1,14 +1,15 @@
 //
 //  ViewController.h
-//  MindMate
+//  ButtonStuff
 //
-//  Created by Jason Noah Choi on 3/26/15.
+//  Created by Jason Noah Choi on 4/1/15.
 //  Copyright (c) 2015 Jason Choi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
 
 @end

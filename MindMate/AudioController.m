@@ -57,13 +57,13 @@
 
 
     NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
-    NSLog(@"DESTINATION URL: %@", destinationURL);
+ //   NSLog(@"\n\n\n !!!!!DESTINATION URL: %@", destinationURL);
     return destinationURL;
 }
 
 - (NSString *)filePath {
     NSString *string = [[self urlPath] absoluteString];
-    NSLog(@"STRING: %@", string);
+  //  NSLog(@"\n\n\nSTRING: %@", string);
     return string;
 }
 
