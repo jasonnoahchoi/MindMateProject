@@ -8,6 +8,7 @@
 
 #import "ButtonView.h"
 #import "CategoryContainerView.h"
+#import "UIColor+Colors.h"
 
 @interface ButtonView ()
 
@@ -23,7 +24,7 @@
     if (self) {
 //        self.recordingComplete = NO;
         self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        self.recordButton.backgroundColor = [UIColor blueColor];
+        self.recordButton.backgroundColor = [UIColor customPurpleColor];
 //        [self.recordButton performSelector:@selector(longPress) withObject:nil];
         //[self.recordButton targetForAction:@selector(longPress:) withSender:self];
 
@@ -47,6 +48,11 @@
         [self addSubview:self.playButton];
         self.playButton.enabled = NO;
         self.playButton.hidden = YES;
+        self.playButton.backgroundColor = [UIColor customGreenColor];
+        self.playButton.layer.cornerRadius = frame.size.height/2;
+        self.playButton.layer.masksToBounds = YES;
+        self.playButton.layer.shouldRasterize = YES;
+
         
         self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
         //self.longPressGesture.delegate = self;
