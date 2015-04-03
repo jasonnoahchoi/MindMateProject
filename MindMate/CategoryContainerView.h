@@ -42,14 +42,6 @@ typedef enum {
 @property (nonatomic, strong) UIButton *funButton;
 @property (nonatomic, strong) UIButton *presenceButton;
 
-@property (nonatomic, assign) BOOL focusOn;
-@property (nonatomic, assign) BOOL courageOn;
-@property (nonatomic, assign) BOOL ambitionOn;
-@property (nonatomic, assign) BOOL imaginationOn;
-@property (nonatomic, assign) BOOL funOn;
-@property (nonatomic, assign) BOOL presenceOn;
-@property (nonatomic, assign) BOOL noneOn;
-
 - (void)setState:(ButtonState)state;
 
 @end
