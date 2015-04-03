@@ -17,7 +17,7 @@ typedef enum : NSUInteger {
     AudioStateStoppedPlaying,
 } AudioState;
 
-@interface AudioController : NSObject
+@interface AudioController : NSObject <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
 @property (nonatomic) AudioState audioState;
 

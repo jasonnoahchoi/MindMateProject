@@ -31,6 +31,7 @@
 - (AVAudioRecorder *)recordAudioToDirectory {
     NSError *error = nil;
     self.recorder = [[AVAudioRecorder alloc] initWithURL:[self urlPath] settings:[self getRecorderSettings] error:&error];
+    self.recorder.delegate = self;
     //self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL URLWithString:[NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.m4a"]] settings:[self getRecorderSettings] error:&error];
 
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
@@ -76,10 +77,11 @@
     NSError *error = nil;
 
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
-    self.player.volume = 1.0f;
+    self.player.delegate = self;
+    self.player.volume = 1.0;
     self.player.numberOfLoops = 0;
     [self.player play];
-    return  self.player;
+    return self.player;
 }
 
 - (NSURL *)urlPath {
