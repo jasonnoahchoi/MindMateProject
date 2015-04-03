@@ -20,15 +20,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self layoutButtons];
-        //self.state = ButtonStateLaunch;
-        //self.state = ButtonStateNone;
-        self.noneOn = NO;
-        self.focusOn = NO;
-        self.courageOn = NO;
-        self.ambitionOn = NO;
-        self.imaginationOn = NO;
-        self.funOn = NO;
-        self.presenceOn = NO;
     }
     return self;
 }
@@ -68,13 +59,6 @@
 //        return;
 //    }
     if (state == ButtonStateNone) {
-        self.noneOn = YES;
-        self.focusOn = NO;
-        self.courageOn = NO;
-        self.ambitionOn = NO;
-        self.imaginationOn = NO;
-        self.funOn = NO;
-        self.presenceOn = NO;
         [self.delegate focusState:ButtonStateNone];
         //self.buttonView.recordButton.backgroundColor = [UIColor blueColor];
         self.focusButton.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -94,46 +78,22 @@
 //        [view gestureRecognizer:view.longPressGesture shouldRequireFailureOfGestureRecognizer:view.longPressGesture];
     }
     if (state == ButtonStateFocus) {
-        self.noneOn = NO;
-        self.focusOn = YES;
-        self.courageOn = NO;
-        self.ambitionOn = NO;
-        self.imaginationOn = NO;
-        self.funOn = NO;
-        self.presenceOn = NO;
         self.focusButton.layer.borderColor = [UIColor greenColor].CGColor;
         [self.delegate focusState:ButtonStateFocus];
         [self.focusButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
       } else {
-        self.focusOn = NO;
         self.focusButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.focusButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     if (state == ButtonStateCourage) {
-        self.noneOn = NO;
-        self.focusOn = NO;
-        self.courageOn = YES;
-        self.ambitionOn = NO;
-        self.imaginationOn = NO;
-        self.funOn = NO;
-        self.presenceOn = NO;
         self.courageButton.layer.borderColor = [UIColor redColor].CGColor;
         [self.delegate courageState:ButtonStateCourage];
         [self.courageButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     } else {
-        //    if (state != ButtonStateCourage) {
-        self.courageOn = NO;
         self.courageButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.courageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     if (state == ButtonStateAmbition) {
-        self.noneOn = NO;
-        self.focusOn = NO;
-        self.courageOn = NO;
-        self.ambitionOn = YES;
-        self.imaginationOn = NO;
-        self.funOn = NO;
-        self.presenceOn = NO;
         self.ambitionButton.layer.borderColor = [UIColor orangeColor].CGColor;
         [self.delegate ambitionState:ButtonStateAmbition];
         [self.ambitionButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
@@ -143,53 +103,26 @@
         [self.ambitionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     if (state == ButtonStateImagination) {
-        self.noneOn = NO;
-        self.focusOn = NO;
-        self.courageOn = NO;
-        self.ambitionOn = NO;
-        self.imaginationOn = YES;
-        self.funOn = NO;
-        self.presenceOn = NO;
         self.imaginationButton.layer.borderColor = [UIColor purpleColor].CGColor;
         [self.delegate imaginationState:ButtonStateImagination];
         [self.imaginationButton setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
     } else {
-        //    if (state != ButtonStateImagination) {
         self.imaginationButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.imaginationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.imaginationOn = NO;
     }
     if (state == ButtonStateFun) {
-        self.noneOn = NO;
-        self.focusOn = NO;
-        self.courageOn = NO;
-        self.ambitionOn = NO;
-        self.imaginationOn = NO;
-        self.funOn = YES;
-        self.presenceOn = NO;
         self.funButton.layer.borderColor = [UIColor cyanColor].CGColor;
         [self.delegate funState:ButtonStateFun];
         [self.funButton setTitleColor:[UIColor cyanColor] forState:UIControlStateNormal];
     } else {
-        //    if (state != ButtonStateFun) {
-        self.funOn = NO;
         self.funButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.funButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     if (state == ButtonStatePresence) {
-        self.noneOn = NO;
-        self.focusOn = NO;
-        self.courageOn = NO;
-        self.ambitionOn = NO;
-        self.imaginationOn = NO;
-        self.funOn = NO;
-        self.presenceOn = YES;
         self.presenceButton.layer.borderColor = [UIColor yellowColor].CGColor;
         [self.delegate presenceState:ButtonStatePresence];
         [self.presenceButton setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
     } else {
-//    if (state != ButtonStatePresence) {
-        self.presenceOn = NO;
         self.presenceButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.presenceButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
