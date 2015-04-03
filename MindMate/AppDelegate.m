@@ -20,13 +20,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundgradient"]];
 
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     AudioViewController *viewController = [[AudioViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
 
     self.window.rootViewController = navVC;
-    self.window.backgroundColor = [UIColor whiteColor];
+    //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
