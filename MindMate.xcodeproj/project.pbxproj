@@ -30,6 +30,7 @@
 		0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 086914251AC891E80064B6AE /* UIImage+ImageEffects.m */; };
 		086914301AC891F40064B6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0869142F1AC891F40064B6AE /* Main.storyboard */; };
 		086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086914311AC893D70064B6AE /* AVFoundation.framework */; };
+		08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */; };
 		08CC1FCB1AC9E1B60083B861 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CC1FCA1AC9E1B60083B861 /* AudioController.m */; };
 		08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94EA1ACBB04F00B83395 /* Queue.m */; };
 		08CE94F11ACBB04F00B83395 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F01ACBB04F00B83395 /* User.m */; };
@@ -86,6 +87,8 @@
 		086914251AC891E80064B6AE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		0869142F1AC891F40064B6AE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		086914311AC893D70064B6AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Colors.h"; sourceTree = "<group>"; };
+		08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Colors.m"; sourceTree = "<group>"; };
 		08CC1FC91AC9E1B60083B861 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
 		08CC1FCA1AC9E1B60083B861 /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
 		08CE94E91ACBB04F00B83395 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
 				082640381ACDD253009B5AF8 /* AudioViewController.m */,
+				08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */,
+				08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */,
 				082640391ACDD253009B5AF8 /* ButtonView.h */,
 				0826403A1ACDD253009B5AF8 /* ButtonView.m */,
 				0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */,
@@ -388,6 +393,7 @@
 				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
+				08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */,
 				08CE94F41ACBB04F00B83395 /* Group.m in Sources */,
 				0825D8521ACB9CF70059B63D /* QueueManager.m in Sources */,
 				0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */,

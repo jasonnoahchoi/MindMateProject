@@ -12,6 +12,7 @@
 #import "RecordingController.h"
 #import "Recording.h"
 #import "AudioController.h"
+#import "UIColor+Colors.h"
 
 @interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate>
 
@@ -20,14 +21,27 @@
 
 @property (nonatomic, strong) UIButton *confirmButton;
 
+@property (nonatomic, strong) UIButton *recordCornerButton;
+@property (nonatomic, strong) UIButton *playCornerButton;
+
+@property (nonatomic, assign) CGPoint centerRecordButton;
+@property (nonatomic, assign) CGPoint centerPlayButton;
+
 @end
 
 @implementation AudioViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
     //self.buttonView = [[ButtonView alloc] initWithFrame:self.view.frame];
+
+    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height/10 * 9, self.view.frame.size.width - 20, self.view.frame.size.height/10-5)];
+    [self.view addSubview:self.confirmButton];
+    self.confirmButton.hidden = YES;
+    [self.confirmButton setTitle:@"Confirm" forState:UIControlStateNormal];
+    self.confirmButton.backgroundColor = [UIColor customPurpleColor];
 
     self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, self.view.frame.size.width, self.view.frame.size.height/5)];
     self.containerView.delegate = self;
@@ -35,15 +49,37 @@
     self.containerView.hidden = YES;
     [self.view addSubview:self.containerView];
 
-    self.buttonView = [[ButtonView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.bounds) - 150, CGRectGetMidY(self.view.bounds) - 200, 300, 300)];
+    CGSize size = self.view.superview.frame.size;
+    [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
+
+    //self.buttonView = [[ButtonView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds), self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    CGRect circle = CGRectMake(self.view.frame.size.width/(2*4), self.view.frame.size.height/5, self.view.frame.size.width/1.35, self.view.frame.size.width/1.35);
+    self.buttonView = [[ButtonView alloc] initWithFrame:circle];
+    //self.buttonView.center = self.view.center;
     self.buttonView.delegate = self;
     [self.view addSubview:self.buttonView];
+    self.buttonView.hidden = YES;
 
-    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height/10 * 9, self.view.frame.size.width - 20, self.view.frame.size.height/10 - 10)];
-    [self.view addSubview:self.confirmButton];
-    self.confirmButton.hidden = YES;
-    [self.confirmButton setTitle:@"Confirm" forState:UIControlStateNormal];
-    self.confirmButton.backgroundColor = [UIColor greenColor];
+
+    self.recordCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    [self.view addSubview:self.recordCornerButton];
+    self.recordCornerButton.backgroundColor = [UIColor customPurpleColor];
+    self.recordCornerButton.layer.cornerRadius = self.recordCornerButton.frame.size.height/2;
+    self.recordCornerButton.layer.masksToBounds = YES;
+    self.recordCornerButton.layer.shouldRasterize = YES;
+    self.centerRecordButton = self.recordCornerButton.center;
+    [self.recordCornerButton addTarget:self action:@selector(cornerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+    self.playCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    [self.view addSubview:self.playCornerButton];
+    self.playCornerButton.backgroundColor = [UIColor customGreenColor];
+    self.playCornerButton.layer.cornerRadius = self.playCornerButton.frame.size.height/2;
+    self.playCornerButton.layer.masksToBounds = YES;
+    self.playCornerButton.layer.shouldRasterize = YES;
+    self.centerPlayButton = self.playCornerButton.center;
+    [self.playCornerButton addTarget:self action:@selector(cornerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+
 
 //    if ((self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) && self.containerView.state != ButtonStateNone) {
 // //   //    [self buttonView:self.buttonView didTryToZoom:self.buttonView.recordButton];
@@ -131,7 +167,66 @@
 //        NSLog(@"Zoom");
 //    }
 
+- (void)cornerButtonPressed:(id)sender {
+    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        if (sender == self.recordCornerButton) {
+            self.buttonView.playButton.alpha = 0;
+        }
+        if (sender == self.playCornerButton) {
+            self.buttonView.recordButton.alpha = 0;
+        }
+    } completion:^(BOOL finished) {
+    [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
+        if (sender == self.recordCornerButton) {
+            self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
+            self.recordCornerButton.center = CGPointMake(self.buttonView.center.x, self.buttonView.center.y);
+            self.recordCornerButton.alpha = 1;
+        }
+        if (sender == self.playCornerButton) {
+            self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
+            self.playCornerButton.center = CGPointMake(self.buttonView.center.x, self.buttonView.center.y);
+            self.playCornerButton.alpha = 1;
+        }
+    } completion:^(BOOL finished) {
+        if (sender == self.recordCornerButton) {
+            self.recordCornerButton.hidden = YES;
+            self.playCornerButton.hidden = NO;
+            self.recordCornerButton.transform = CGAffineTransformIdentity;
 
+            self.buttonView.hidden = NO;
+            self.buttonView.recordButton.hidden = NO;
+            self.buttonView.playButton.alpha = 1;
+            self.buttonView.playButton.hidden = YES;
+            self.recordCornerButton.center = self.centerRecordButton;
+        }
+        if (sender == self.playCornerButton) {
+            self.playCornerButton.hidden = YES;
+            self.recordCornerButton.hidden = NO;
+            self.playCornerButton.transform = CGAffineTransformIdentity;
+
+            self.buttonView.hidden = NO;
+            self.buttonView.playButton.hidden = NO;
+            self.buttonView.recordButton.alpha = 1;
+            self.buttonView.recordButton.hidden = YES;
+            self.playCornerButton.center = self.centerPlayButton;
+        }
+    }];
+    }];
+}
+//// first, don't forget to stop ongoing animations for the view
+//[theView.layer removeAllAnimations];
+//
+//// if the view was hidden
+//theView.hidden = NO;
+//
+//// if you applied a transformation e.g. translate, scale, rotate..., reset to identity
+//theView.transform = CGAffineTransformIdentity;
+//
+//// if you changed the anchor point, this will reset it to the center of the view
+//theView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+//
+//// if you changed the alpha, this will reset it to visible
+//theView.alpha = 1.;
 - (void)didTryToShake:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     if (self.containerView.state == ButtonStateZero) {
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
@@ -157,7 +252,7 @@
                                   delay:0
                                 options:UIViewAnimationOptionCurveEaseIn
                              animations:^{
-                                 button.transform = CGAffineTransformScale(button.transform, 3, 3);
+                                 button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
                                  button.alpha = .7;
                              } completion:nil];
             // self.buttonView.playButton.enabled = NO;
@@ -198,9 +293,11 @@
 
                                 [self.containerView setState:ButtonStateNone];
                                 [self noneState:ButtonStateNone];
-                                button.backgroundColor = [UIColor blueColor];
+                                button.backgroundColor = [UIColor customPurpleColor];
                                 NSLog(@"Zoomed");
                                 self.confirmButton.hidden = NO;
+                                self.recordCornerButton.hidden = YES;
+                                self.playCornerButton.hidden = YES;
                             }];
                         }];
                     }];
@@ -271,13 +368,13 @@
 //    sender.selected = !sender.selected;
 //}
 
-- (void)playTap:(id)sender
-{
-    //    [SimpleAudioPlayer playFile:_recorder.url.description];
-    self.player.delegate = self;
-
-    NSLog(@"duration: %f", self.player.duration);
-}
+//- (void)playTap:(id)sender
+//{
+//    //    [SimpleAudioPlayer playFile:_recorder.url.description];
+//    self.player.delegate = self;
+//
+//    NSLog(@"duration: %f", self.player.duration);
+//}
 
 #pragma mark - States Typedef
 

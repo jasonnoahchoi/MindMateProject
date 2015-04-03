@@ -12,8 +12,5 @@
 
 @interface AudioViewController : UIViewController <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
-@property (nonatomic, strong) AVAudioRecorder *recorder;
-@property (nonatomic, strong) AVAudioPlayer *player;
-
 @end
 
