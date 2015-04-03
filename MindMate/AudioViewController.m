@@ -6,39 +6,42 @@
 //  Copyright (c) 2015 Jason Choi. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "AudioViewController.h"
 #import "ButtonView.h"
 #import "CategoryContainerView.h"
 #import "RecordingController.h"
 #import "Recording.h"
 #import "AudioController.h"
 
-@interface ViewController () <CategoryContainerViewDelegate, ButtonViewDelegate>
+@interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate>
 
 @property (nonatomic, strong) ButtonView *buttonView;
 @property (nonatomic, strong) CategoryContainerView *containerView;
 
-@property (nonatomic, strong) AVAudioRecorder *recorder;
-@property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, strong) UIButton *confirmButton;
 
 @end
 
-@implementation ViewController
+@implementation AudioViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor lightGrayColor];
     //self.buttonView = [[ButtonView alloc] initWithFrame:self.view.frame];
 
-
-    self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 * 3, self.view.frame.size.width, self.view.frame.size.height/4)];
+    self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, self.view.frame.size.width, self.view.frame.size.height/5)];
     self.containerView.delegate = self;
     //self.categoryContainerView.backgroundColor = [UIColor redColor];
+    //self.containerView.hidden = YES;
     [self.view addSubview:self.containerView];
 
     self.buttonView = [[ButtonView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.bounds) - 150, CGRectGetMidY(self.view.bounds) - 200, 300, 300)];
     self.buttonView.delegate = self;
     [self.view addSubview:self.buttonView];
+
+    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height/10 * 9, self.view.frame.size.width - 20, self.view.frame.size.height/10 - 10)];
+    [self.view addSubview:self.confirmButton];
+    self.confirmButton.backgroundColor = [UIColor greenColor];
 
 //    if ((self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) && self.containerView.state != ButtonStateNone) {
 // //   //    [self buttonView:self.buttonView didTryToZoom:self.buttonView.recordButton];
@@ -46,47 +49,26 @@
 // //  //     [self buttonView:self.buttonView didTryToShake:self.buttonView.recordButton];
 
 }
-- (void)recordButtonReleasedWithGesture:(UIGestureRecognizerState)state {
-//- (void)recordButtonReleased:(ButtonView *)view withButton:(UIButton *)sender {
+//- (void)recordButtonReleased:(UIButton *)button withGesture:(UIGestureRecognizerState)state {
+////- (void)recordButtonReleased:(ButtonView *)view withButton:(UIButton *)sender {
+////    if (state == UIGestureRecognizerStateEnded) {
+////        switch (self.containerView.state) {
+////            case ButtonStateNone:
+////                //[self buttonView:self.buttonView didTryToShake:self.buttonView.recordButton];
+////                break;
+////            case ButtonStateFocus:
+////            case ButtonStateCourage:
+////            case ButtonStateImagination:
+////            case ButtonStatePresence:
+////            case ButtonStateFun:
+////            case ButtonStateAmbition:
+////            {
+//                //[self.recorder stop];
+//    if (button) {
 //    if (state == UIGestureRecognizerStateEnded) {
-//        switch (self.containerView.state) {
-//            case ButtonStateNone:
-//                //[self buttonView:self.buttonView didTryToShake:self.buttonView.recordButton];
-//                break;
-//            case ButtonStateFocus:
-//            case ButtonStateCourage:
-//            case ButtonStateImagination:
-//            case ButtonStatePresence:
-//            case ButtonStateFun:
-//            case ButtonStateAmbition:
-//            {
-                //[self.recorder stop];
-    if (state == UIGestureRecognizerStateEnded) {
-        [self audioRecorderDidFinishRecording:self.recorder successfully:YES];
-        //self.buttonView.playButton.enabled = YES;
-        //[self.recordingTimer invalidate];
-        // self.recordingTimer = nil;
-        NSLog(@"\n\nURL:%@", self.recorder.url);
-        // [self.microphone stopFetchingAudio];
-
-        NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
-        [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
-        //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
-        //NSLog(@"\n\n\nData File: %@", data);
-        // [[RecordingController sharedInstance] addRecordingWithFile:data];
-        [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
-                                                      andIDNumber:[[AudioController sharedInstance] randomIDNumber]
-                                                   andDateCreated:[[AudioController sharedInstance] createdAtDate]
-                                                     andFetchDate:[[AudioController sharedInstance] fetchDate]
-                                                    andSimpleDate:[[AudioController sharedInstance] simpleDateString]
-                                                     andGroupName:[[AudioController sharedInstance] groupName]];
-        //[RecordingController sharedInstance] addGroupWithName:
-
-        //NSLog(@"\n \nControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
-        [[RecordingController sharedInstance] save];
-        NSLog(@"\n\n Date Created: %@, Fetch Date: %@, IDNUMBER: %@", [[AudioController sharedInstance] createdAtDate], [[AudioController sharedInstance] fetchDate], [[AudioController sharedInstance] randomIDNumber]);
-    }
-}
+//           }
+//    }
+//}
 //                return;
 //                break;
 //            }
@@ -115,25 +97,23 @@
 
             //[self buttonView:view didTryToShake:self.buttonView.recordButton];
 
-- (void)recordButtonPressedWithGesture:(UIGestureRecognizerState)state {
-//- (void)recordButtonPressed:(ButtonView *)view withButton:(UIButton *)sender {
-//    switch (self.containerView.state) {
-//        case ButtonStateNone:
-//            //[self buttonView:self.buttonView didTryToShake:self.buttonView.recordButton];
-//            break;
-//        case ButtonStateFocus:
-//        case ButtonStateCourage:
-//        case ButtonStateImagination:
-//        case ButtonStatePresence:
-//        case ButtonStateFun:
-//        case ButtonStateAmbition:
-    if (state == UIGestureRecognizerStateBegan) {
-        self.buttonView.playButton.enabled = NO;
-        self.recorder.delegate = self;
-        self.recorder = [[AudioController sharedInstance] recordAudioToDirectory];
-        NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
-    }
-}
+//- (void)recordButtonPressed:(UIButton *)button withGesture:(UIGestureRecognizerState)state {
+////- (void)recordButtonPressed:(ButtonView *)view withButton:(UIButton *)sender {
+////    switch (self.containerView.state) {
+////        case ButtonStateNone:
+////            //[self buttonView:self.buttonView didTryToShake:self.buttonView.recordButton];
+////            break;
+////        case ButtonStateFocus:
+////        case ButtonStateCourage:
+////        case ButtonStateImagination:
+////        case ButtonStatePresence:
+////        case ButtonStateFun:
+////        case ButtonStateAmbition:
+//    if (button) {
+//    if (state == UIGestureRecognizerStateBegan) {
+//    }
+//    }
+//}
 
 //    if (self.containerView.state == ButtonStateLaunch) {
 //        [self.containerView setState:ButtonStateNone];
@@ -149,7 +129,31 @@
 //        NSLog(@"Zoom");
 //    }
 
-- (void)buttonView:(ButtonView *)view didTryToShake:(UIButton *)button {
+- (void)setState:(AudioState)state {
+    if (_audioState == state) {
+        return;
+    }
+    _audioState = state;
+
+    switch (state) {
+        case AudioStateNone:
+            break;
+        case AudioStateRecording:
+            [self recordingWithButton:self.buttonView.recordButton];
+            break;
+        case AudioStateStoppedRecording:
+            [self stopRecordingWithButton:self.buttonView.recordButton];
+            break;
+        case AudioStatePlaying:
+        case AudioStateStoppedPlaying:
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (void)didTryToShake:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     if (self.containerView.state == ButtonStateNone) {
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
         [animation setDuration:0.1];
@@ -164,34 +168,37 @@
     }
 }
 
-- (void)buttonView:(ButtonView *)view didTryToZoom:(UIButton *)button {
-    if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) {
-        switch (view.longPressGesture.state) {
-            case UIGestureRecognizerStateBegan:
+- (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            self.audioState = AudioStateRecording;
+            [UIView animateWithDuration:.5f
+                                  delay:0
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 button.transform = CGAffineTransformScale(button.transform, 3, 3);
+                                 button.alpha = .7;
+                             } completion:nil];
+            // self.buttonView.playButton.enabled = NO;
+            //self.on = YES;
+
+        } break;
+        case UIGestureRecognizerStateEnded:
             {
-                [UIView animateWithDuration:.5f
-                                      delay:0
-                                    options:UIViewAnimationOptionCurveEaseIn
-                                 animations:^{
-                                     self.containerView.hidden = YES;
-                                     self.buttonView.recordButton.transform = CGAffineTransformScale(self.buttonView.recordButton.transform, 3, 3);
-                                     self.buttonView.recordButton.alpha = .7;
-                                 } completion:nil];
-                break;
-            }
-            case UIGestureRecognizerStateEnded:
-            {
+                self.audioState = AudioStateStoppedRecording;
                 [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
-                    self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
-                    self.buttonView.recordButton.alpha = 1;
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                    button.alpha = 1;
 
                 } completion:^(BOOL finished) {
+
                     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                        self.buttonView.recordButton.transform = CGAffineTransformScale(self.buttonView.recordButton.transform, .9, .9);
+                        button.transform = CGAffineTransformScale(button.transform, .9, .9);
 
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                            self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
 
                             //self.buttonView.recordingComplete = YES;
 
@@ -204,29 +211,73 @@
                                                                userInfo:nil
                                                                 repeats:NO];
 
-                                self.buttonView.recordButton.transform = CGAffineTransformIdentity;
+                                button.transform = CGAffineTransformIdentity;
 
                             } completion:^(BOOL finished) {
                                 self.containerView.hidden = NO;
 
                                 [self.containerView setState:ButtonStateNone];
                                 [self noneState:ButtonStateNone];
-                                self.buttonView.recordButton.backgroundColor = [UIColor blueColor];
+                                button.backgroundColor = [UIColor blueColor];
                                 NSLog(@"Zoomed");
                             }];
                         }];
                     }];
                 }];
-                break;
             }
-            default:
-                break;
-        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)recordingWithButton:(UIButton *)button {
+    if (button) {
+    if (self.recorder.isRecording == NO) {
+    self.recorder = [[AudioController sharedInstance] recordAudioToDirectory];
+    self.recorder.delegate = self;
+    NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
+    }
+    }
+}
+
+- (void)stopRecordingWithButton:(UIButton *)button {
+    if (button) {
+    if (self.recorder && self.recorder.isRecording == YES) {
+        //self.recorder = nil;
+
+        [self.recorder stop];
+            // [self audioRecorderDidFinishRecording:self.recorder successfully:YES];
+    //self.buttonView.playButton.enabled = YES;
+    //[self.recordingTimer invalidate];
+    // self.recordingTimer = nil;
+    NSLog(@"\n\nURL:%@", self.recorder.url);
+    // [self.microphone stopFetchingAudio];
+
+    NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
+    [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
+    //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
+    //NSLog(@"\n\n\nData File: %@", data);
+    // [[RecordingController sharedInstance] addRecordingWithFile:data];
+    [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
+                                                  andIDNumber:[[AudioController sharedInstance] randomIDNumber]
+                                               andDateCreated:[[AudioController sharedInstance] createdAtDate]
+                                                 andFetchDate:[[AudioController sharedInstance] fetchDate]
+                                                andSimpleDate:[[AudioController sharedInstance] simpleDateString]
+                                                 andGroupName:[[AudioController sharedInstance] groupName]];
+    //[RecordingController sharedInstance] addGroupWithName:
+
+    //NSLog(@"\n \nControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
+    [[RecordingController sharedInstance] save];
+    NSLog(@"\n\n Date Created: %@, Fetch Date: %@, IDNUMBER: %@", [[AudioController sharedInstance] createdAtDate], [[AudioController sharedInstance] fetchDate], [[AudioController sharedInstance] randomIDNumber]);
+    }
     }
 }
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
     [recorder stop];
+//    if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) {
+//    }
     NSLog(@"\n\n\n\n\n\n FinishedRecording %d", flag);
 }
 
@@ -282,18 +333,9 @@
 - (void)playTap:(id)sender
 {
     //    [SimpleAudioPlayer playFile:_recorder.url.description];
-    NSError *error = nil;
-
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
-    self.player.volume = 1.0f;
-    self.player.numberOfLoops = 0;
     self.player.delegate = self;
-    [self.player play];
+
     NSLog(@"duration: %f", self.player.duration);
-    //    [self.microphone startFetchingAudio];
-    //    if (!self.player) {
-    //        [self.microphone stopFetchingAudio];
-    //    }
 }
 
 #pragma mark - States Typedef

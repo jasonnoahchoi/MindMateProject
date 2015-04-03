@@ -13,6 +13,7 @@
 @interface AudioController ()
 
 @property (nonatomic, strong) AVAudioRecorder *recorder;
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 @end
 
@@ -40,6 +41,17 @@
 //    self.recorder.delegate = self;
     [self.recorder record];
     return self.recorder;
+}
+
+- (AVAudioPlayer *)playAudio {
+
+    NSError *error = nil;
+
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
+    self.player.volume = 1.0f;
+    self.player.numberOfLoops = 0;
+    [self.player play];
+    return  self.player;
 }
 
 - (NSURL *)urlPath {
@@ -129,7 +141,6 @@
     NSString *string = @"Test";
     return string;
 }
-
 
 
 @end

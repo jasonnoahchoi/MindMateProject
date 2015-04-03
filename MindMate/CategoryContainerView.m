@@ -12,7 +12,6 @@
 
 @interface CategoryContainerView ()
 
-@property (nonatomic, strong)ButtonView *buttonView;
 @end
 
 @implementation CategoryContainerView
@@ -30,8 +29,6 @@
         self.imaginationOn = NO;
         self.funOn = NO;
         self.presenceOn = NO;
-
-        self.buttonView = [[ButtonView alloc] init];
     }
     return self;
 }
@@ -79,7 +76,7 @@
         self.funOn = NO;
         self.presenceOn = NO;
         [self.delegate focusState:ButtonStateNone];
-        self.buttonView.recordButton.backgroundColor = [UIColor blueColor];
+        //self.buttonView.recordButton.backgroundColor = [UIColor blueColor];
         self.focusButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.focusButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.courageButton.layer.borderColor = [UIColor whiteColor].CGColor;

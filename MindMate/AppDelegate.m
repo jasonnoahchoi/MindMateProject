@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AudioRecorderViewController.h"
-#import "ViewController.h"
+#import "AudioViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
-    ViewController *viewController = [[ViewController alloc] init];
+    AudioViewController *viewController = [[AudioViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
 
     self.window.rootViewController = navVC;

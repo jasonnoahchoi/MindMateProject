@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0825D8521ACB9CF70059B63D /* QueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0825D8501ACB9CF70059B63D /* QueueManager.m */; };
-		0826403D1ACDD253009B5AF8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082640381ACDD253009B5AF8 /* ViewController.m */; };
+		0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082640381ACDD253009B5AF8 /* AudioViewController.m */; };
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
@@ -51,8 +51,8 @@
 /* Begin PBXFileReference section */
 		0825D84F1ACB9CF70059B63D /* QueueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueueManager.h; path = ../../mindmate/MindMate/QueueManager.h; sourceTree = "<group>"; };
 		0825D8501ACB9CF70059B63D /* QueueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueueManager.m; path = ../../mindmate/MindMate/QueueManager.m; sourceTree = "<group>"; };
-		082640371ACDD253009B5AF8 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		082640381ACDD253009B5AF8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		082640371ACDD253009B5AF8 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
+		082640381ACDD253009B5AF8 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
 		082640391ACDD253009B5AF8 /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
 		0826403A1ACDD253009B5AF8 /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryContainerView.h; sourceTree = "<group>"; };
@@ -146,8 +146,8 @@
 			children = (
 				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
-				082640371ACDD253009B5AF8 /* ViewController.h */,
-				082640381ACDD253009B5AF8 /* ViewController.m */,
+				082640371ACDD253009B5AF8 /* AudioViewController.h */,
+				082640381ACDD253009B5AF8 /* AudioViewController.m */,
 				082640391ACDD253009B5AF8 /* ButtonView.h */,
 				0826403A1ACDD253009B5AF8 /* ButtonView.m */,
 				0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */,
@@ -385,7 +385,7 @@
 				086914261AC891E80064B6AE /* AudioRecorderViewController.m in Sources */,
 				08CE94F11ACBB04F00B83395 /* User.m in Sources */,
 				0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */,
-				0826403D1ACDD253009B5AF8 /* ViewController.m in Sources */,
+				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
 				08CE94F41ACBB04F00B83395 /* Group.m in Sources */,

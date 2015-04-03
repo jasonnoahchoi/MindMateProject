@@ -23,13 +23,13 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.recordingComplete = NO;
+//        self.recordingComplete = NO;
         self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         self.recordButton.backgroundColor = [UIColor blueColor];
 //        [self.recordButton performSelector:@selector(longPress) withObject:nil];
         //[self.recordButton targetForAction:@selector(longPress:) withSender:self];
 
-        [self.recordButton addTarget:self action:@selector(longPress:) forControlEvents:(UIControlEventTouchDown)];
+        [self.recordButton addTarget:self action:@selector(longPress:) forControlEvents:(UIControlEventAllTouchEvents)];
         //[self.recordButton addTarget:self action:@selector(buttonMethod1:forEvent:controlEvent:) forControlEvents:UIControlEventTouchCancel];
 
 
@@ -43,7 +43,7 @@
         self.recordButton.layer.cornerRadius = frame.size.height/2;
         self.recordButton.layer.masksToBounds = YES;
         self.recordButton.layer.shouldRasterize = YES;
-        [self setNeedsLayout];
+       // [self setNeedsLayout];
 
         self.playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [self addSubview:self.playButton];
@@ -51,8 +51,8 @@
         self.playButton.hidden = YES;
         
         self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-        //self.delegate = self;
-        self.longPressGesture.allowableMovement = 100.0;
+        //self.longPressGesture.delegate = self;
+        self.longPressGesture.allowableMovement = 1000.0;
         self.longPressGesture.numberOfTouchesRequired = 1;
         [self.recordButton addGestureRecognizer:self.longPressGesture];
 
@@ -98,25 +98,29 @@
 //    }
 //}
 
-- (void)longPress {
-//    [self longPress:self.longPressGesture];
+- (void)buttonPressed:(id)sender {
+    NSLog(@"Button Pressed");
 }
 
-- (void)longPress:(UILongPressGestureRecognizer *)gr {
-
-    if ([self.delegate respondsToSelector:@selector(buttonView:didTryToZoom:)]) {
-        [self.delegate buttonView:self didTryToZoom:self.recordButton];
+- (void)longPress:(UILongPressGestureRecognizer *)gesture {
+    if ([self.delegate respondsToSelector:@selector(didTryToZoom:withGesture:)]) {
+        [self.delegate didTryToZoom:self.recordButton withGesture:gesture];
     }
-       if ([self.delegate respondsToSelector:@selector(buttonView:didTryToShake:)]) {
-        [self.delegate buttonView:self didTryToShake:self.recordButton];
+    if ([self.delegate respondsToSelector:@selector(didTryToShake:withGesture:)]) {
+        [self.delegate didTryToShake:self.recordButton withGesture:gesture];
     }
-    if ([self.delegate respondsToSelector:@selector(recordButtonPressedWithGesture:)]) {
-        [self.delegate recordButtonPressedWithGesture:(UIGestureRecognizerStateBegan)];
+    if ([self.delegate respondsToSelector:@selector(recordingWithButton:)]) {
+        [self.delegate recordingWithButton:self.recordButton];
     }
-
-    if ([self.delegate respondsToSelector:@selector(recordButtonReleasedWithGesture:)]) {
-        [self.delegate recordButtonReleasedWithGesture:(UIGestureRecognizerStateEnded)];
+    if ([self.delegate respondsToSelector:@selector(stopRecordingWithButton:)]) {
+        [self.delegate stopRecordingWithButton:self.recordButton];
     }
+// //   if ([self.delegate respondsToSelector:@selector(recordButtonReleased:withGesture:)]) {
+//        [self.delegate recordButtonReleased:self.recordButton withGesture:(UIGestureRecognizerStateEnded)];
+//    }
+//    if ([self.delegate respondsToSelector:@selector(recordButtonPressed:withGesture:)]) {
+//        [self.delegate recordButtonPressed:self.recordButton withGesture:(UIGestureRecognizerStateBegan)];
+//    }
 }
 //    if ([self.delegate respondsToSelector:@selector(recordButtonPressed:withButton:)]) {
 //    [self.delegate recordButtonPressed:self withButton:self.recordButton];

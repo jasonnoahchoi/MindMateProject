@@ -12,10 +12,14 @@
 
 @protocol ButtonViewDelegate <NSObject>
 
-- (void)buttonView:(ButtonView *)view didTryToZoom:(UIButton *)button;
-- (void)buttonView:(ButtonView *)view didTryToShake:(UIButton *)button;
-- (void)recordButtonPressedWithGesture:(UIGestureRecognizerState)state;
-- (void)recordButtonReleasedWithGesture:(UIGestureRecognizerState)state;
+- (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
+- (void)didTryToShake:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
+- (void)recordingWithButton:(UIButton *)button;
+- (void)stopRecordingWithButton:(UIButton *)button;
+
+@optional
+- (void)recordButtonPressed:(UIButton *)button withGesture:(UIGestureRecognizerState)state;
+- (void)recordButtonReleased:(UIButton *)button withGesture:(UIGestureRecognizerState)state;
 //- (void)recordButtonPressed:(ButtonView *)view withButton:(UIButton *)sender;
 //- (void)recordButtonReleased:(ButtonView *)view withButton:(UIButton *)sender;
 
