@@ -34,7 +34,6 @@
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UILabel *recordCompleteLabel;
 - (void)longPress:(UILongPressGestureRecognizer *)gr;
-- (void)recordPressed:(id)sender;
 //- (UIGestureRecognizer *)otherGestureRecognizer;
 
 @end

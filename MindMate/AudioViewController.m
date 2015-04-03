@@ -32,7 +32,7 @@
     self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, self.view.frame.size.width, self.view.frame.size.height/5)];
     self.containerView.delegate = self;
     //self.categoryContainerView.backgroundColor = [UIColor redColor];
-    //self.containerView.hidden = YES;
+    self.containerView.hidden = YES;
     [self.view addSubview:self.containerView];
 
     self.buttonView = [[ButtonView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.bounds) - 150, CGRectGetMidY(self.view.bounds) - 200, 300, 300)];
@@ -41,6 +41,8 @@
 
     self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height/10 * 9, self.view.frame.size.width - 20, self.view.frame.size.height/10 - 10)];
     [self.view addSubview:self.confirmButton];
+    self.confirmButton.hidden = YES;
+    [self.confirmButton setTitle:@"Confirm" forState:UIControlStateNormal];
     self.confirmButton.backgroundColor = [UIColor greenColor];
 
 //    if ((self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) && self.containerView.state != ButtonStateNone) {
@@ -182,12 +184,12 @@
 
                         } completion:^(BOOL finished) {
                             [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                                self.buttonView.recordCompleteLabel.hidden = NO;
-                                [NSTimer scheduledTimerWithTimeInterval:.65
-                                                                 target:self
-                                                               selector:@selector(hideLabel)
-                                                               userInfo:nil
-                                                                repeats:NO];
+//                                self.buttonView.recordCompleteLabel.hidden = NO;
+//                                [NSTimer scheduledTimerWithTimeInterval:.65
+//                                                                 target:self
+//                                                               selector:@selector(hideLabel)
+//                                                               userInfo:nil
+//                                                                repeats:NO];
 
                                 button.transform = CGAffineTransformIdentity;
 
@@ -198,6 +200,7 @@
                                 [self noneState:ButtonStateNone];
                                 button.backgroundColor = [UIColor blueColor];
                                 NSLog(@"Zoomed");
+                                self.confirmButton.hidden = NO;
                             }];
                         }];
                     }];
@@ -210,24 +213,14 @@
 }
 
 - (void)recording {
-//    if (self.recorder.isRecording == NO) {
     [[AudioController sharedInstance] recordAudioToDirectory];
     NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
 //    }
 }
 
 - (void)stopRecording {
-    //if (self.recorder && self.recorder.isRecording == YES) {
-        //self.recorder = nil;
     [[AudioController sharedInstance] stopRecording];
 }
-
-//- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
-//    [recorder stop];
-////    if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) {
-////    }
-//    NSLog(@"\n\n\n\n\n\n FinishedRecording %d", flag);
-//}
 
 #pragma mark - Audio Recorder & Player
 
@@ -331,10 +324,10 @@
     }];
 }
 
-- (void)hideLabel {
-    self.buttonView.recordCompleteLabel.hidden = YES;
-}
-
+//- (void)hideLabel {
+//    self.buttonView.recordCompleteLabel.hidden = YES;
+//}
+//
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
