@@ -14,8 +14,6 @@
 @property (nonatomic, strong) UIView *recordButtonContainerView;
 @property (nonatomic, assign) BOOL recordingComplete;
 
-@property (nonatomic, strong) CategoryContainerView *containerView;
-
 @end
 
 @implementation ButtonView
@@ -29,7 +27,7 @@
 //        [self.recordButton performSelector:@selector(longPress) withObject:nil];
         //[self.recordButton targetForAction:@selector(longPress:) withSender:self];
 
-        [self.recordButton addTarget:self action:@selector(longPress:) forControlEvents:(UIControlEventAllTouchEvents)];
+        //[self.recordButton addTarget:self action:@selector(longPress:) forControlEvents:(UIControlEventTouchDown)];
         //[self.recordButton addTarget:self action:@selector(buttonMethod1:forEvent:controlEvent:) forControlEvents:UIControlEventTouchCancel];
 
 
@@ -109,12 +107,12 @@
     if ([self.delegate respondsToSelector:@selector(didTryToShake:withGesture:)]) {
         [self.delegate didTryToShake:self.recordButton withGesture:gesture];
     }
-    if ([self.delegate respondsToSelector:@selector(recordingWithButton:)]) {
-        [self.delegate recordingWithButton:self.recordButton];
-    }
-    if ([self.delegate respondsToSelector:@selector(stopRecordingWithButton:)]) {
-        [self.delegate stopRecordingWithButton:self.recordButton];
-    }
+//    if ([self.delegate respondsToSelector:@selector(recording)]) {
+//        [self.delegate recording];
+//    }
+//    if ([self.delegate respondsToSelector:@selector(stopRecording)]) {
+//        [self.delegate stopRecording];
+//    }
 // //   if ([self.delegate respondsToSelector:@selector(recordButtonReleased:withGesture:)]) {
 //        [self.delegate recordButtonReleased:self.recordButton withGesture:(UIGestureRecognizerStateEnded)];
 //    }

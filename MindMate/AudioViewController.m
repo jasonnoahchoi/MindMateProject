@@ -129,32 +129,9 @@
 //        NSLog(@"Zoom");
 //    }
 
-- (void)setState:(AudioState)state {
-    if (_audioState == state) {
-        return;
-    }
-    _audioState = state;
-
-    switch (state) {
-        case AudioStateNone:
-            break;
-        case AudioStateRecording:
-            [self recordingWithButton:self.buttonView.recordButton];
-            break;
-        case AudioStateStoppedRecording:
-            [self stopRecordingWithButton:self.buttonView.recordButton];
-            break;
-        case AudioStatePlaying:
-        case AudioStateStoppedPlaying:
-            break;
-        default:
-            break;
-    }
-}
-
 
 - (void)didTryToShake:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
-    if (self.containerView.state == ButtonStateNone) {
+    if (self.containerView.state == ButtonStateZero) {
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
         [animation setDuration:0.1];
         [animation setRepeatCount:3];
@@ -166,13 +143,14 @@
         [[self.buttonView.recordButton layer] addAnimation:animation forKey:@"position"];
         NSLog(@"Shaking");
     }
+//    }
 }
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
-            self.audioState = AudioStateRecording;
+            [self recording];
             [UIView animateWithDuration:.5f
                                   delay:0
                                 options:UIViewAnimationOptionCurveEaseIn
@@ -186,7 +164,7 @@
         } break;
         case UIGestureRecognizerStateEnded:
             {
-                self.audioState = AudioStateStoppedRecording;
+                [self stopRecording];
                 [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
                     button.alpha = 1;
@@ -231,55 +209,25 @@
     }
 }
 
-- (void)recordingWithButton:(UIButton *)button {
-    if (button) {
-    if (self.recorder.isRecording == NO) {
-    self.recorder = [[AudioController sharedInstance] recordAudioToDirectory];
-    self.recorder.delegate = self;
+- (void)recording {
+//    if (self.recorder.isRecording == NO) {
+    [[AudioController sharedInstance] recordAudioToDirectory];
     NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
-    }
-    }
-}
-
-- (void)stopRecordingWithButton:(UIButton *)button {
-    if (button) {
-    if (self.recorder && self.recorder.isRecording == YES) {
-        //self.recorder = nil;
-
-        [self.recorder stop];
-            // [self audioRecorderDidFinishRecording:self.recorder successfully:YES];
-    //self.buttonView.playButton.enabled = YES;
-    //[self.recordingTimer invalidate];
-    // self.recordingTimer = nil;
-    NSLog(@"\n\nURL:%@", self.recorder.url);
-    // [self.microphone stopFetchingAudio];
-
-    NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
-    [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
-    //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
-    //NSLog(@"\n\n\nData File: %@", data);
-    // [[RecordingController sharedInstance] addRecordingWithFile:data];
-    [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
-                                                  andIDNumber:[[AudioController sharedInstance] randomIDNumber]
-                                               andDateCreated:[[AudioController sharedInstance] createdAtDate]
-                                                 andFetchDate:[[AudioController sharedInstance] fetchDate]
-                                                andSimpleDate:[[AudioController sharedInstance] simpleDateString]
-                                                 andGroupName:[[AudioController sharedInstance] groupName]];
-    //[RecordingController sharedInstance] addGroupWithName:
-
-    //NSLog(@"\n \nControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
-    [[RecordingController sharedInstance] save];
-    NSLog(@"\n\n Date Created: %@, Fetch Date: %@, IDNUMBER: %@", [[AudioController sharedInstance] createdAtDate], [[AudioController sharedInstance] fetchDate], [[AudioController sharedInstance] randomIDNumber]);
-    }
-    }
-}
-
-- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
-    [recorder stop];
-//    if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) {
 //    }
-    NSLog(@"\n\n\n\n\n\n FinishedRecording %d", flag);
 }
+
+- (void)stopRecording {
+    //if (self.recorder && self.recorder.isRecording == YES) {
+        //self.recorder = nil;
+    [[AudioController sharedInstance] stopRecording];
+}
+
+//- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
+//    [recorder stop];
+////    if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateAmbition) {
+////    }
+//    NSLog(@"\n\n\n\n\n\n FinishedRecording %d", flag);
+//}
 
 #pragma mark - Audio Recorder & Player
 

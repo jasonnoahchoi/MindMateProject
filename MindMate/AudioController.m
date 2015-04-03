@@ -43,6 +43,34 @@
     return self.recorder;
 }
 
+- (AVAudioRecorder *)stopRecording {
+    [self.recorder stop];
+    // [self audioRecorderDidFinishRecording:self.recorder successfully:YES];
+    //self.buttonView.playButton.enabled = YES;
+    //[self.recordingTimer invalidate];
+    // self.recordingTimer = nil;
+    NSLog(@"\n\nURL:%@", self.recorder.url);
+    // [self.microphone stopFetchingAudio];
+
+    NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
+    [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
+    //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
+    //NSLog(@"\n\n\nData File: %@", data);
+    // [[RecordingController sharedInstance] addRecordingWithFile:data];
+    [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
+                                                  andIDNumber:[[AudioController sharedInstance] randomIDNumber]
+                                               andDateCreated:[[AudioController sharedInstance] createdAtDate]
+                                                 andFetchDate:[[AudioController sharedInstance] fetchDate]
+                                                andSimpleDate:[[AudioController sharedInstance] simpleDateString]
+                                                 andGroupName:[[AudioController sharedInstance] groupName]];
+    //[RecordingController sharedInstance] addGroupWithName:
+
+    //NSLog(@"\n \nControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
+    [[RecordingController sharedInstance] save];
+    NSLog(@"\n\n Date Created: %@, Fetch Date: %@, IDNUMBER: %@", [[AudioController sharedInstance] createdAtDate], [[AudioController sharedInstance] fetchDate], [[AudioController sharedInstance] randomIDNumber]);
+    return self.recorder;
+}
+
 - (AVAudioPlayer *)playAudio {
 
     NSError *error = nil;
@@ -141,6 +169,28 @@
     NSString *string = @"Test";
     return string;
 }
+
+- (void)setState:(AudioState)state {
+    if (_audioState == state) {
+        return;
+    }
+    _audioState = state;
+
+    switch (state) {
+        case AudioStateNone:
+            break;
+        case AudioStateRecording:
+            break;
+        case AudioStateStoppedRecording:
+            break;
+        case AudioStatePlaying:
+        case AudioStateStoppedPlaying:
+            break;
+        default:
+            break;
+    }
+}
+
 
 
 @end

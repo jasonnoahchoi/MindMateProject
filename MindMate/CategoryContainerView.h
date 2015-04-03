@@ -16,6 +16,7 @@ typedef enum {
     ButtonStateImagination,
     ButtonStateFun,
     ButtonStatePresence,
+    ButtonStateZero,
 } ButtonState;
 
 @protocol CategoryContainerViewDelegate <NSObject>

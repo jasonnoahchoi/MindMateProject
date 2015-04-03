@@ -14,8 +14,8 @@
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
 - (void)didTryToShake:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
-- (void)recordingWithButton:(UIButton *)button;
-- (void)stopRecordingWithButton:(UIButton *)button;
+//- (void)recording;
+//- (void)stopRecording;
 
 @optional
 - (void)recordButtonPressed:(UIButton *)button withGesture:(UIGestureRecognizerState)state;

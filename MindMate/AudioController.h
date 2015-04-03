@@ -9,10 +9,21 @@
 #import <Foundation/Foundation.h>
 @import AVFoundation;
 
+typedef enum : NSUInteger {
+    AudioStateNone,
+    AudioStateRecording,
+    AudioStateStoppedRecording,
+    AudioStatePlaying,
+    AudioStateStoppedPlaying,
+} AudioState;
+
 @interface AudioController : NSObject
+
+@property (nonatomic) AudioState audioState;
 
 + (AudioController *)sharedInstance;
 - (AVAudioRecorder *)recordAudioToDirectory;
+- (AVAudioRecorder *)stopRecording;
 - (NSString *)filePath;
 - (NSURL *)urlPath;
 - (NSDate *)createdAtDate;
