@@ -13,7 +13,7 @@
 @protocol ButtonViewDelegate <NSObject>
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
-- (void)didTryToShake:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
+- (void)didTryToPlay:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
 //- (void)recording;
 //- (void)stopRecording;
 

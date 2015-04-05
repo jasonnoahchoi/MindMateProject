@@ -110,8 +110,8 @@
     if ([self.delegate respondsToSelector:@selector(didTryToZoom:withGesture:)]) {
         [self.delegate didTryToZoom:self.recordButton withGesture:gesture];
     }
-    if ([self.delegate respondsToSelector:@selector(didTryToShake:withGesture:)]) {
-        [self.delegate didTryToShake:self.recordButton withGesture:gesture];
+    if ([self.delegate respondsToSelector:@selector(didTryToPlay:withGesture:)]) {
+        [self.delegate didTryToPlay:self.recordButton withGesture:gesture];
     }
 //    if ([self.delegate respondsToSelector:@selector(recording)]) {
 //        [self.delegate recording];

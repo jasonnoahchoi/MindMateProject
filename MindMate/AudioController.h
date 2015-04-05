@@ -31,5 +31,6 @@ typedef enum : NSUInteger {
 - (NSString *)randomIDNumber;
 - (NSString *)simpleDateString;
 - (NSString *)groupName;
+- (AVAudioPlayer *)playAudio;
 
 @end

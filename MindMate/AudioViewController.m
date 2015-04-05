@@ -234,19 +234,58 @@
 
 #pragma mark - Delegates
 
-- (void)didTryToShake:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
+- (void)didTryToPlay:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateAmbition || self.containerView.state == ButtonStateZero) {
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-        [animation setDuration:0.07];
-        [animation setRepeatCount:2];
-        [animation setAutoreverses:YES];
-        [animation setFromValue:[NSValue valueWithCGPoint:
-                                 CGPointMake([self.buttonView.recordButton center].x + 20, [self.buttonView.recordButton center].y)]];
-        [animation setToValue:[NSValue valueWithCGPoint:
-                               CGPointMake([self.buttonView.recordButton center].x - 20, [self.buttonView.recordButton center].y)]];
-        [[self.buttonView.recordButton layer] addAnimation:animation forKey:@"position"];
-        NSLog(@"Shaking");
+        switch (sender.state) {
+            case UIGestureRecognizerStateBegan:
+            {
+                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    button.backgroundColor = [UIColor customGreenColor];
+                    button.transform = CGAffineTransformScale(button.transform, 0.6, 0.6);
+                } completion:^(BOOL finished) {
+                    [[AudioController sharedInstance] playAudio];
+                }];
+            }
+                break;
+            case UIGestureRecognizerStateEnded:
+                {
+                    //button.transform = CGAffineTransformIdentity;
+                [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
+                } completion:^(BOOL finished) {
+                    [[[AudioController sharedInstance] playAudio] stop];
+                    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8);
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            button.transform = CGAffineTransformIdentity;
+                            button.backgroundColor = [UIColor customPurpleColor];
+                        } completion:^(BOOL finished) {
+
+
+
+                        }];
+                    }];
+                }];
+                }
+                break;
+                
+            default:
+                break;
+        }
     }
+
+//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+//        [animation setDuration:0.07];
+//        [animation setRepeatCount:2];
+//        [animation setAutoreverses:YES];
+//        [animation setFromValue:[NSValue valueWithCGPoint:
+//                                 CGPointMake([self.buttonView.recordButton center].x + 20, [self.buttonView.recordButton center].y)]];
+//        [animation setToValue:[NSValue valueWithCGPoint:
+//                               CGPointMake([self.buttonView.recordButton center].x - 20, [self.buttonView.recordButton center].y)]];
+//        [[self.buttonView.recordButton layer] addAnimation:animation forKey:@"position"];
+//        NSLog(@"Shaking");
+//    }
 }
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
@@ -298,16 +337,24 @@
                                 button.transform = CGAffineTransformIdentity;
 
                             } completion:^(BOOL finished) {
+                                self.containerView.alpha = 0;
                                 self.containerView.hidden = NO;
                                 self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
                                 button.backgroundColor = [UIColor customPurpleColor];
                                 self.recordAgainButton.hidden = NO;
+                                self.recordAgainButton.alpha = 0;
                                 self.recordAgainLabel.hidden = NO;
+                                self.recordAgainLabel.alpha = 0;
                                 [self zeroState:ButtonStateZero];
                                 self.title = @"Choose a State";
                                 NSLog(@"Zoomed");
                                 self.recordCornerButton.hidden = YES;
                                 self.playCornerButton.hidden = YES;
+                                [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                                    self.containerView.alpha = 1;
+                                    self.recordAgainButton.alpha = 1;
+                                    self.recordAgainLabel.alpha = 1;
+                                } completion:nil];
                             }];
                         }];
                     }];
