@@ -20,6 +20,9 @@
 @property (nonatomic, strong) CategoryContainerView *containerView;
 
 @property (nonatomic, strong) UIButton *confirmButton;
+@property (nonatomic, strong) UIButton *recordAgainButton;
+@property (nonatomic, strong) UILabel *confirmLabel;
+@property (nonatomic, strong) UILabel *recordAgainLabel;
 
 @property (nonatomic, strong) UIButton *recordCornerButton;
 @property (nonatomic, strong) UIButton *playCornerButton;
@@ -58,12 +61,34 @@
 #pragma mark - Buttons on View Controller
 
 - (void)afterRecordButtons {
-    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height/10 * 9, self.view.frame.size.width - 20, self.view.frame.size.height/10-5)];
+   // self.confirmExitButtonsContainerView = [[UIView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height/10 * 9, self.view.frame.size.width - 20, self.view.frame.size.height/10-5)];
+//    [self.view addSubview:self.confirmExitButtonsContainerView];
+  //  self.confirmExitButtonsContainerView.hidden = YES;
+
+    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    self.recordAgainButton.backgroundColor = [UIColor redColor];
+    self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
+    self.recordAgainButton.layer.shouldRasterize = YES;
+    [self.view addSubview:self.recordAgainButton];
+    self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
+    //self.recordAgainLabel.backgroundColor = [UIColor greenColor];
+    self.recordAgainLabel.text = @"Do Over";
+    self.recordAgainLabel.textColor = [UIColor whiteColor];
+    self.recordAgainLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.recordAgainLabel];
+
+    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [self.view addSubview:self.confirmButton];
-    self.confirmButton.hidden = YES;
-    [self.confirmButton setTitle:@"Confirm" forState:UIControlStateNormal];
     self.confirmButton.backgroundColor = [UIColor customPurpleColor];
+    self.confirmButton.layer.cornerRadius = self.confirmButton.frame.size.width/2;
+    self.confirmButton.layer.shouldRasterize = YES;
     [self.confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchDown];
+    self.confirmLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/4 - 5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
+    self.confirmLabel.text = @"Confirm";
+    self.confirmLabel.textColor = [UIColor whiteColor];
+    self.confirmLabel.textAlignment = NSTextAlignmentCenter;
+    //self.confirmLabel.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.confirmLabel];
 
     self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, self.view.frame.size.width, self.view.frame.size.height/5)];
     self.containerView.delegate = self;
@@ -104,6 +129,7 @@
             self.confirmButton.alpha = 0;
             self.containerView.alpha = 0;
         } completion:^(BOOL finished) {
+
             self.confirmButton.hidden = YES;
             self.containerView.hidden = YES;
             self.containerView.alpha = 1;
