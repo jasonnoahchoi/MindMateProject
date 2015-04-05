@@ -28,6 +28,7 @@ typedef enum {
 - (void)imaginationState:(ButtonState)state;
 - (void)funState:(ButtonState)state;
 - (void)presenceState:(ButtonState)state;
+- (void)zeroState:(ButtonState)state;
 
 @end
 

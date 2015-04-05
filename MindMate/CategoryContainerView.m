@@ -58,9 +58,18 @@
 //        [self.delegate focusState:ButtonStateLaunch];
 //        return;
 //    }
-    if (state == ButtonStateNone) {
-        [self.delegate focusState:ButtonStateNone];
-        //self.buttonView.recordButton.backgroundColor = [UIColor blueColor];
+    if (state == ButtonStateNone || state == ButtonStateZero) {
+        switch (state) {
+            case ButtonStateNone:
+                [self.delegate focusState:ButtonStateNone];
+                break;
+            case ButtonStateZero:
+                [self.delegate zeroState:ButtonStateZero];
+                break;
+            default:
+                break;
+        }
+        
         self.focusButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.focusButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.courageButton.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -98,7 +107,7 @@
         [self.delegate ambitionState:ButtonStateAmbition];
         [self.ambitionButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         } else {
-        self.ambitionOn = NO;
+        
         self.ambitionButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.ambitionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
