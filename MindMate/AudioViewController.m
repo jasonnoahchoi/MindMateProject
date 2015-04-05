@@ -13,11 +13,13 @@
 #import "Recording.h"
 #import "AudioController.h"
 #import "UIColor+Colors.h"
+#import "PlayCollectionViewController.h"
 
 @interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate>
 
 @property (nonatomic, strong) ButtonView *buttonView;
 @property (nonatomic, strong) CategoryContainerView *containerView;
+@property (nonatomic, strong) PlayCollectionViewController *playVC;
 
 @property (nonatomic, strong) UIButton *confirmButton;
 @property (nonatomic, strong) UIButton *recordAgainButton;
@@ -52,6 +54,7 @@
 
     [self cornerButtons];
     [self afterRecordButtons];
+    self.playVC = [[PlayCollectionViewController alloc] init];
 
     CGSize size = self.view.superview.frame.size;
     [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
@@ -79,7 +82,7 @@
     [self layoutEndPoints];
 
     self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
-    self.recordAgainButton.backgroundColor = [UIColor redColor];
+    self.recordAgainButton.backgroundColor = [UIColor customGreenColor];
     self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
     self.recordAgainButton.layer.shouldRasterize = YES;
     self.recordAgainButton.hidden = YES;
@@ -286,39 +289,81 @@
 
 - (void)didTryToPlay:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateAmbition || self.containerView.state == ButtonStateZero) {
-        switch (sender.state) {
-            case UIGestureRecognizerStateBegan:
-            {
-                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    button.backgroundColor = [UIColor customGreenColor];
-                    button.transform = CGAffineTransformScale(button.transform, 0.6, 0.6);
-                } completion:^(BOOL finished) {
-                    [[AudioController sharedInstance] playAudio];
-                }];
-            }
-                break;
-            case UIGestureRecognizerStateEnded:
-                {
-                    //button.transform = CGAffineTransformIdentity;
-                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
-                } completion:^(BOOL finished) {
-                    [[[AudioController sharedInstance] playAudio] stop];
-                    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.75, 0.75);
-                    } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            button.transform = CGAffineTransformIdentity;
-                            button.backgroundColor = [UIColor customPurpleColor];
-                        } completion:nil];
-                    }];
-                }];
-                }
-                break;
-                
-            default:
-                break;
+
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+        [animation setDuration:0.07];
+        [animation setRepeatCount:2];
+        [animation setAutoreverses:YES];
+        [animation setFromValue:[NSValue valueWithCGPoint:
+                                 CGPointMake([button center].x + 20, [button center].y)]];
+        [animation setToValue:[NSValue valueWithCGPoint:
+                               CGPointMake([button center].x - 20, [button center].y)]];
+        [[button layer] addAnimation:animation forKey:@"position"];
+        NSLog(@"Shaking");
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordAgainButton.transform = CGAffineTransformIdentity;
+            } completion:nil];
+        }];
+
+//        switch (sender.state) {
+//            case UIGestureRecognizerStateBegan:
+//            {
+//                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                    button.backgroundColor = [UIColor customGreenColor];
+//                    button.transform = CGAffineTransformScale(button.transform, 0.6, 0.6);
+//                } completion:^(BOOL finished) {
+//                    [[AudioController sharedInstance] playAudio];
+//                }];
+//            }
+//                break;
+//            case UIGestureRecognizerStateEnded:
+//                {
+//                    //button.transform = CGAffineTransformIdentity;
+//                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
+//                } completion:^(BOOL finished) {
+//                    [[[AudioController sharedInstance] playAudio] stop];
+//                    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.75, 0.75);
+//                    } completion:^(BOOL finished) {
+//                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                            button.transform = CGAffineTransformIdentity;
+//                            button.backgroundColor = [UIColor customPurpleColor];
+//                        } completion:nil];
+//                    }];
+//                }];
+//                }
+//                break;
+//                
+//            default:
+//                break;
+//        }
+    }
+}
+
+- (void)didTryToPlayWithPlayButton:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
+            } completion:nil];
         }
+            break;
+        case UIGestureRecognizerStateEnded:
+        {
+            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:self.playVC];
+
+            [self.navigationController presentViewController:navigation animated:NO completion:^{
+                button.transform = CGAffineTransformIdentity;
+            }];
+        }
+            break;
+        default:
+            break;
     }
 }
 
