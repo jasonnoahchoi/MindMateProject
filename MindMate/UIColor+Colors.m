@@ -11,8 +11,13 @@
 @implementation UIColor (Colors)
 
 + (UIColor *)customPurpleColor {
+
     return [UIColor colorWithHue:246.0/360 saturation:.25 brightness:1.0 alpha:1.0];
 }
++ (UIColor *)customDarkPurpleColor {
+    return [UIColor colorWithHue:246.0/360 saturation:.9 brightness:1.0 alpha:1.0];
+}
+
 
 + (UIColor *)customOrangeColor {
     return [UIColor colorWithHue:15.0/360 saturation:.83 brightness:1.0 alpha:1];

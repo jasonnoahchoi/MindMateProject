@@ -69,16 +69,20 @@
     self.recordAgainButton.backgroundColor = [UIColor redColor];
     self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
     self.recordAgainButton.layer.shouldRasterize = YES;
+    self.recordAgainButton.hidden = YES;
     [self.view addSubview:self.recordAgainButton];
     self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
     //self.recordAgainLabel.backgroundColor = [UIColor greenColor];
     self.recordAgainLabel.text = @"Do Over";
     self.recordAgainLabel.textColor = [UIColor whiteColor];
     self.recordAgainLabel.textAlignment = NSTextAlignmentCenter;
+    self.recordAgainLabel.hidden = YES;
     [self.view addSubview:self.recordAgainLabel];
+    [self.recordAgainButton addTarget:self action:@selector(recordAgainPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [self.view addSubview:self.confirmButton];
+    self.confirmButton.hidden = YES;
     self.confirmButton.backgroundColor = [UIColor customPurpleColor];
     self.confirmButton.layer.cornerRadius = self.confirmButton.frame.size.width/2;
     self.confirmButton.layer.shouldRasterize = YES;
@@ -86,6 +90,7 @@
     self.confirmLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/4 - 5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
     self.confirmLabel.text = @"Confirm";
     self.confirmLabel.textColor = [UIColor whiteColor];
+    self.confirmLabel.hidden = YES;
     self.confirmLabel.textAlignment = NSTextAlignmentCenter;
     //self.confirmLabel.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.confirmLabel];
@@ -119,6 +124,25 @@
 
 #pragma mark - Getters
 
+- (void)recordAgainPressed:(id)sender {
+    Recording *recording = [RecordingController sharedInstance].memos.lastObject;
+    [[RecordingController sharedInstance] removeRecording:recording];
+    [[RecordingController sharedInstance] save];
+
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
+        self.confirmButton.alpha = 0;
+        self.recordAgainButton.alpha = 0;
+        self.containerView.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.containerView.state = ButtonStateNone;
+        [self noneState:ButtonStateNone];
+    }];
+    [self hideBottomButtons];
+    self.title = @"Record";
+
+}
+
 - (void)confirmPressed:(id)sender {
     if (self.containerView.state != ButtonStateZero || self.containerView.state != ButtonStateNone) {
         [[RecordingController sharedInstance] addGroupID:self.groupIDNumber];
@@ -129,15 +153,12 @@
             self.confirmButton.alpha = 0;
             self.containerView.alpha = 0;
         } completion:^(BOOL finished) {
-
-            self.confirmButton.hidden = YES;
-            self.containerView.hidden = YES;
-            self.containerView.alpha = 1;
-            self.confirmButton.alpha = 1;
             self.containerView.state = ButtonStateNone;
             [self noneState:ButtonStateNone];
         }];
     }
+      [self hideBottomButtons];
+    self.title = @"Record";
 }
 
 - (void)cornerButtonPressed:(id)sender {
@@ -170,7 +191,7 @@
                 [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     self.playCornerButton.hidden = NO;
                     self.playCornerButton.alpha = 1;
-                    self.recordCornerButton.transform = CGAffineTransformIdentity;
+                    self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
                 } completion:^(BOOL finished) {
                     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
@@ -191,7 +212,7 @@
                 [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     self.recordCornerButton.hidden = NO;
                     self.recordCornerButton.alpha = 1;
-                    self.playCornerButton.transform = CGAffineTransformIdentity;
+                    self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
                 } completion:^(BOOL finished) {
                     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
@@ -234,6 +255,7 @@
             case UIGestureRecognizerStateBegan:
             {
                 [self recording];
+                self.navigationController.navigationBar.backgroundColor = [UIColor customDarkPurpleColor];
                 [UIView animateWithDuration:.3
                                       delay:0
                                     options:UIViewAnimationOptionCurveEaseIn
@@ -277,8 +299,12 @@
 
                             } completion:^(BOOL finished) {
                                 self.containerView.hidden = NO;
+                                self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
                                 button.backgroundColor = [UIColor customPurpleColor];
+                                self.recordAgainButton.hidden = NO;
+                                self.recordAgainLabel.hidden = NO;
                                 [self zeroState:ButtonStateZero];
+                                self.title = @"Choose a State";
                                 NSLog(@"Zoomed");
                                 self.recordCornerButton.hidden = YES;
                                 self.playCornerButton.hidden = YES;
@@ -362,12 +388,37 @@
 //    NSLog(@"duration: %f", self.player.duration);
 //}
 
+- (void)hideBottomButtons {
+    self.recordAgainButton.hidden = YES;
+    self.confirmButton.hidden = YES;
+    self.recordAgainLabel.hidden = YES;
+    self.confirmLabel.hidden = YES;
+    self.containerView.alpha = 1;
+    self.confirmButton.alpha = 1;
+    self.containerView.hidden = YES;
+}
+
+- (void)showBottomButtons {
+    self.recordAgainButton.alpha = 0.7;
+    self.recordAgainButton.hidden = NO;
+    self.recordAgainLabel.hidden = NO;
+    self.confirmButton.alpha = 0.7;
+    self.confirmButton.hidden = NO;
+    self.confirmLabel.hidden = NO;
+}
+
+- (void)setAlphaOfBottomButtons {
+    self.confirmButton.alpha = 1;
+    self.recordAgainButton.alpha = 1;
+}
+
 #pragma mark - States Typedef
 
 - (void)noneState:(ButtonState)state {
     state = ButtonStateNone;
     [self.containerView setState:ButtonStateNone];
     self.playCornerButton.alpha = 0;
+    [self hideBottomButtons];
     self.groupIDNumber = @0;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
@@ -378,71 +429,65 @@
 
 - (void)focusState:(ButtonState)state {
     state = ButtonStateFocus;
-    self.confirmButton.alpha = 0.7;
-    self.confirmButton.hidden = NO;
+    [self showBottomButtons];
     self.groupIDNumber = @1;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
-        self.confirmButton.alpha = 1;
+        [self setAlphaOfBottomButtons];
     }];
 }
 
 - (void)courageState:(ButtonState)state {
     state = ButtonStateCourage;
-    self.confirmButton.alpha = 0.7;
-    self.confirmButton.hidden = NO;
+    [self showBottomButtons];
     self.groupIDNumber = @2;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor redColor].CGColor;
-        self.confirmButton.alpha = 1;
+        [self setAlphaOfBottomButtons];
     }];
 }
 
 - (void)ambitionState:(ButtonState)state {
     state = ButtonStateAmbition;
-    self.confirmButton.alpha = 0.7;
-    self.confirmButton.hidden = NO;
+    [self showBottomButtons];
     self.groupIDNumber = @3;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
-         self.confirmButton.alpha = 1;
+        [self setAlphaOfBottomButtons];
     }];
 }
 - (void)imaginationState:(ButtonState)state {
     state = ButtonStateImagination;
-    self.confirmButton.alpha = 0.7;
-    self.confirmButton.hidden = NO;
+    [self showBottomButtons];
     self.groupIDNumber = @4;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor purpleColor].CGColor;
-         self.confirmButton.alpha = 1;
+        [self setAlphaOfBottomButtons];
     }];
 }
 - (void)funState:(ButtonState)state {
     state = ButtonStateFun;
-    self.confirmButton.alpha = 0.7;
-    self.confirmButton.hidden = NO;
+    [self showBottomButtons];
     self.groupIDNumber = @5;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor cyanColor].CGColor;
-         self.confirmButton.alpha = 1;
+        [self setAlphaOfBottomButtons];
     }];
 }
 - (void)presenceState:(ButtonState)state {
     state = ButtonStatePresence;
-    self.confirmButton.alpha = 0.7;
-    self.confirmButton.hidden = NO;
+    [self showBottomButtons];
     self.groupIDNumber = @6;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor yellowColor].CGColor;
-        self.confirmButton.alpha = 1;
+        [self setAlphaOfBottomButtons];
     }];
 }
 
 - (void)zeroState:(ButtonState)state {
     state = ButtonStateZero;
     [self.containerView setState:ButtonStateZero];
-    self.confirmButton.hidden = NO;
+    //self.confirmButton.hidden = NO;
     self.groupIDNumber = @0;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
