@@ -20,6 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self layoutButtons];
+        [self animateLayoutButtons];
     }
     return self;
 }
@@ -87,28 +88,33 @@
 //        [view gestureRecognizer:view.longPressGesture shouldRequireFailureOfGestureRecognizer:view.longPressGesture];
     }
     if (state == ButtonStateFocus) {
-        self.focusButton.layer.borderColor = [UIColor greenColor].CGColor;
-        [self.delegate focusState:ButtonStateFocus];
-        [self.focusButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-      } else {
         self.focusButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.focusButton.backgroundColor = [UIColor greenColor];
+        [self.delegate focusState:ButtonStateFocus];
+        [self.focusButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    } else {
+        self.focusButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.focusButton.backgroundColor = [UIColor clearColor];
         [self.focusButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     if (state == ButtonStateCourage) {
-        self.courageButton.layer.borderColor = [UIColor redColor].CGColor;
+        self.courageButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.courageButton.backgroundColor = [UIColor redColor];
         [self.delegate courageState:ButtonStateCourage];
-        [self.courageButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.courageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     } else {
         self.courageButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.courageButton.backgroundColor = [UIColor clearColor];
         [self.courageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     if (state == ButtonStateAmbition) {
-        self.ambitionButton.layer.borderColor = [UIColor orangeColor].CGColor;
-        [self.delegate ambitionState:ButtonStateAmbition];
-        [self.ambitionButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        } else {
-        
         self.ambitionButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.ambitionButton.backgroundColor = [UIColor orangeColor];
+        [self.delegate ambitionState:ButtonStateAmbition];
+        [self.ambitionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    } else {
+        self.ambitionButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.ambitionButton.backgroundColor = [UIColor clearColor];
         [self.ambitionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     if (state == ButtonStateImagination) {
@@ -137,7 +143,31 @@
     }
 }
 
-
+- (void)animateLayoutButtons {
+    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.focusButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+        self.presenceButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.focusButton.transform = CGAffineTransformIdentity;
+            self.presenceButton.transform = CGAffineTransformIdentity;
+            self.courageButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+            self.funButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.funButton.transform = CGAffineTransformIdentity;
+                self.courageButton.transform = CGAffineTransformIdentity;
+                self.ambitionButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                self.imaginationButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.ambitionButton.transform = CGAffineTransformIdentity;
+                    self.imaginationButton.transform = CGAffineTransformIdentity;
+                } completion:nil];
+            }];
+        }];
+    }];
+}
 
 - (void)layoutButtons {
 

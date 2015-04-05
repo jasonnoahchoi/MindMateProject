@@ -150,7 +150,7 @@
 }
 
 - (void)addPlayButtonAnimation {
-    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:.25 delay:.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.playCornerButton.hidden = NO;
         self.playCornerButton.alpha = 1;
         self.playCornerButton.center = self.endPointPlayCornerButton;
@@ -167,6 +167,8 @@
 #pragma mark - Getters
 
 - (void)recordAgainPressed:(id)sender {
+    self.confirmLabel.alpha = 0;
+    self.recordAgainLabel.alpha = 0;
     Recording *recording = [RecordingController sharedInstance].memos.lastObject;
     [[RecordingController sharedInstance] removeRecording:recording];
     [[RecordingController sharedInstance] save];
@@ -186,14 +188,14 @@
 }
 
 - (void)confirmPressed:(id)sender {
+    self.confirmButton.alpha = 0;
+    self.containerView.alpha = 0;
     if (self.containerView.state != ButtonStateZero || self.containerView.state != ButtonStateNone) {
         [[RecordingController sharedInstance] addGroupID:self.groupIDNumber];
         [[RecordingController sharedInstance] save];
 
         [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
-            self.confirmButton.alpha = 0;
-            self.containerView.alpha = 0;
         } completion:^(BOOL finished) {
             [self hideBottomButtons];
             self.containerView.state = ButtonStateNone;
@@ -320,8 +322,6 @@
     }
 }
 
-
-
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     if (self.containerView.state == ButtonStateNone) {
         switch (sender.state) {
@@ -349,7 +349,6 @@
                     button.alpha = 1;
 
                 } completion:^(BOOL finished) {
-
                     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                         button.transform = CGAffineTransformScale(button.transform, .9, .9);
 
@@ -377,11 +376,13 @@
                                 NSLog(@"Zoomed");
                                 self.recordCornerButton.hidden = YES;
                                 self.playCornerButton.hidden = YES;
-                                [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                                [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                                     self.containerView.alpha = 1;
+                                    [self.containerView animateLayoutButtons];
+
                                     self.recordAgainButton.alpha = 1;
                                 } completion:^(BOOL finished) {
-                                    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    [UIView animateWithDuration:.4 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                         self.recordAgainButton.center = self.endPointRecordAgainButton;
                                         self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
                                         self.recordAgainLabel.alpha = 1;
@@ -419,18 +420,14 @@
     self.confirmLabel.hidden = YES;
     [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.recordAgainButton.center = self.centerRecordAgainButton;
-        self.recordAgainLabel.alpha = 0;
+        self.confirmButton.center = self.centerConfirmButton;
+        self.confirmLabel.alpha = 0;
     } completion:^(BOOL finished) {
         self.recordAgainButton.hidden = YES;
         self.recordAgainLabel.hidden = YES;
         self.recordAgainLabel.alpha = 1;
-    }];
-    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.confirmButton.center = self.centerConfirmButton;
-        self.recordAgainLabel.alpha = 0;
-    } completion:^(BOOL finished) {
+        self.confirmLabel.alpha = 1;
         self.confirmButton.hidden = YES;
-        self.recordAgainLabel.alpha = 1;
     }];
     self.containerView.alpha = 1;
     self.containerView.hidden = YES;
