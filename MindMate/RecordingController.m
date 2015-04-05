@@ -78,6 +78,15 @@
      NSLog(@"\n\n\n\n CORE DATA SAVED %@", recording);
 }
 
+- (void)addGroupID:(NSNumber *)groupID {
+    Recording *recording = [self memos].lastObject;
+
+    recording.groupID = groupID;
+    
+    [self save];
+    NSLog(@"\n\n\nGroup ID: %@", groupID);
+}
+
 - (void)addRecordingWithFile:(NSData *)memo {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     recording.memo = memo;

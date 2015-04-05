@@ -26,6 +26,7 @@
 
 @property (nonatomic, assign) CGPoint centerRecordButton;
 @property (nonatomic, assign) CGPoint centerPlayButton;
+@property (nonatomic, assign) NSNumber *groupIDNumber;
 
 @end
 
@@ -36,6 +37,7 @@
     self.view.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
     self.title = @"Record";
+    self.groupIDNumber = @0;
     //self.buttonView = [[ButtonView alloc] initWithFrame:self.view.frame];
 
     [self cornerButtons];
@@ -89,6 +91,9 @@
 }
 
 - (void)confirmPressed:(id)sender {
+    [[RecordingController sharedInstance] addGroupID:self.groupIDNumber];
+    [[RecordingController sharedInstance] save];
+
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
         self.confirmButton.alpha = 0;
@@ -329,6 +334,7 @@
 - (void)noneState:(ButtonState)state {
     state = ButtonStateNone;
     self.playCornerButton.alpha = 0;
+    self.groupIDNumber = @0;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
         self.playCornerButton.hidden = NO;
@@ -338,6 +344,7 @@
 
 - (void)focusState:(ButtonState)state {
     state = ButtonStateFocus;
+    self.groupIDNumber = @1;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
     }];
@@ -345,6 +352,7 @@
 
 - (void)courageState:(ButtonState)state {
     state = ButtonStateCourage;
+    self.groupIDNumber = @2;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor redColor].CGColor;
     }];
@@ -352,24 +360,28 @@
 
 - (void)ambitionState:(ButtonState)state {
     state = ButtonStateAmbition;
+    self.groupIDNumber = @3;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
     }];
 }
 - (void)imaginationState:(ButtonState)state {
     state = ButtonStateImagination;
+    self.groupIDNumber = @4;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor purpleColor].CGColor;
     }];
 }
 - (void)funState:(ButtonState)state {
     state = ButtonStateFun;
+    self.groupIDNumber = @5;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor cyanColor].CGColor;
     }];
 }
 - (void)presenceState:(ButtonState)state {
     state = ButtonStatePresence;
+    self.groupIDNumber = @6;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor yellowColor].CGColor;
     }];
@@ -377,6 +389,7 @@
 
 - (void)zeroState:(ButtonState)state {
     state = ButtonStateZero;
+    self.groupIDNumber = @0;
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
     }];
