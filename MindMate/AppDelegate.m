@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "AudioRecorderViewController.h"
+#import "AudioViewController.h"
 
 @interface AppDelegate ()
 
@@ -15,8 +17,18 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)x {
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundgradient"]];
+
+    //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
+    AudioViewController *viewController = [[AudioViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+
+    self.window.rootViewController = navVC;
+    //self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
@@ -40,6 +52,12 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+}
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
 }
 
 @end

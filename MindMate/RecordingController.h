@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 @class Recording, Group, User;
 
+static NSString * const recordingEntity = @"Recording";
+static NSString * const userEntity = @"User";
+static NSString * const groupEntity = @"Group";
+static NSString * const queueEntity = @"Queue";
+
 @interface RecordingController : NSObject
 
 @property (nonatomic, strong, readonly) NSArray *memos;
@@ -17,7 +22,7 @@
 + (RecordingController *)sharedInstance;
 
 - (void)save;
-- (void)addRecordingWithName:(NSString *)memoName;
+- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName;
 - (void)addRecordingWithFile:(NSData *)memo;
 - (void)addGroupWithName:(NSString *)groupName;
 - (void)removeRecording:(Recording *)recording;
