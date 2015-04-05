@@ -23,9 +23,16 @@
 @property (nonatomic, strong) UIButton *recordAgainButton;
 @property (nonatomic, strong) UILabel *confirmLabel;
 @property (nonatomic, strong) UILabel *recordAgainLabel;
+@property (nonatomic, strong) UIButton *invisibleConfirmButton;
+@property (nonatomic, strong) UIButton *invisibleRecordAgainButton;
+@property (nonatomic, assign) CGPoint centerRecordAgainButton;
+@property (nonatomic, assign) CGPoint centerConfirmButton;
+@property (nonatomic, assign) CGPoint endPointRecordAgainButton;
+@property (nonatomic, assign) CGPoint endPointConfirmButton;
 
 @property (nonatomic, strong) UIButton *recordCornerButton;
 @property (nonatomic, strong) UIButton *playCornerButton;
+
 
 @property (nonatomic, assign) CGPoint centerRecordButton;
 @property (nonatomic, assign) CGPoint centerPlayButton;
@@ -41,7 +48,6 @@
     self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
     self.title = @"Record";
     self.groupIDNumber = @0;
-    //self.buttonView = [[ButtonView alloc] initWithFrame:self.view.frame];
 
     [self cornerButtons];
     [self afterRecordButtons];
@@ -49,7 +55,6 @@
     CGSize size = self.view.superview.frame.size;
     [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
 
-    //self.buttonView = [[ButtonView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds), self.view.frame.size.width/2, self.view.frame.size.width/2)];
     CGRect circle = CGRectMake(self.view.frame.size.width/(2*4), self.view.frame.size.height/5, self.view.frame.size.width/1.35, self.view.frame.size.width/1.35);
     self.buttonView = [[ButtonView alloc] initWithFrame:circle];
     //self.buttonView.center = self.view.center;
@@ -61,16 +66,20 @@
 #pragma mark - Buttons on View Controller
 
 - (void)afterRecordButtons {
-   // self.confirmExitButtonsContainerView = [[UIView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height/10 * 9, self.view.frame.size.width - 20, self.view.frame.size.height/10-5)];
-//    [self.view addSubview:self.confirmExitButtonsContainerView];
-  //  self.confirmExitButtonsContainerView.hidden = YES;
+    CGRect endPointRecordAgainButton = CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    self.endPointRecordAgainButton = CGPointMake(endPointRecordAgainButton.origin.x + (endPointRecordAgainButton.size.width/2), endPointRecordAgainButton.origin.y + (endPointRecordAgainButton.size.height/2));
 
-    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    CGRect endPointConfirmButton = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
+
+    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     self.recordAgainButton.backgroundColor = [UIColor redColor];
     self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
     self.recordAgainButton.layer.shouldRasterize = YES;
     self.recordAgainButton.hidden = YES;
     [self.view addSubview:self.recordAgainButton];
+    self.centerRecordAgainButton = self.recordAgainButton.center;
+
     self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
     //self.recordAgainLabel.backgroundColor = [UIColor greenColor];
     self.recordAgainLabel.text = @"Do Over";
@@ -80,13 +89,15 @@
     [self.view addSubview:self.recordAgainLabel];
     [self.recordAgainButton addTarget:self action:@selector(recordAgainPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [self.view addSubview:self.confirmButton];
     self.confirmButton.hidden = YES;
     self.confirmButton.backgroundColor = [UIColor customPurpleColor];
     self.confirmButton.layer.cornerRadius = self.confirmButton.frame.size.width/2;
     self.confirmButton.layer.shouldRasterize = YES;
     [self.confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchDown];
+    self.centerConfirmButton = self.confirmButton.center;
+
     self.confirmLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/4 - 5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
     self.confirmLabel.text = @"Confirm";
     self.confirmLabel.textColor = [UIColor whiteColor];
@@ -131,14 +142,14 @@
 
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
-        self.confirmButton.alpha = 0;
-        self.recordAgainButton.alpha = 0;
+        //self.confirmButton.alpha = 0;
+        //self.recordAgainButton.alpha = 0;
         self.containerView.alpha = 0;
     } completion:^(BOOL finished) {
+        [self hideBottomButtons];
         self.containerView.state = ButtonStateNone;
         [self noneState:ButtonStateNone];
     }];
-    [self hideBottomButtons];
     self.title = @"Record";
 
 }
@@ -153,11 +164,11 @@
             self.confirmButton.alpha = 0;
             self.containerView.alpha = 0;
         } completion:^(BOOL finished) {
+            [self hideBottomButtons];
             self.containerView.state = ButtonStateNone;
             [self noneState:ButtonStateNone];
         }];
     }
-      [self hideBottomButtons];
     self.title = @"Record";
 }
 
@@ -251,11 +262,11 @@
                 {
                     //button.transform = CGAffineTransformIdentity;
                 [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
                 } completion:^(BOOL finished) {
                     [[[AudioController sharedInstance] playAudio] stop];
                     [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.75, 0.75);
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformIdentity;
@@ -274,19 +285,9 @@
                 break;
         }
     }
-
-//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-//        [animation setDuration:0.07];
-//        [animation setRepeatCount:2];
-//        [animation setAutoreverses:YES];
-//        [animation setFromValue:[NSValue valueWithCGPoint:
-//                                 CGPointMake([self.buttonView.recordButton center].x + 20, [self.buttonView.recordButton center].y)]];
-//        [animation setToValue:[NSValue valueWithCGPoint:
-//                               CGPointMake([self.buttonView.recordButton center].x - 20, [self.buttonView.recordButton center].y)]];
-//        [[self.buttonView.recordButton layer] addAnimation:animation forKey:@"position"];
-//        NSLog(@"Shaking");
-//    }
 }
+
+
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     if (self.containerView.state == ButtonStateNone) {
@@ -327,13 +328,6 @@
 
                         } completion:^(BOOL finished) {
                             [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                                //                                self.buttonView.recordCompleteLabel.hidden = NO;
-                                //                                [NSTimer scheduledTimerWithTimeInterval:.65
-                                //                                                                 target:self
-                                //                                                               selector:@selector(hideLabel)
-                                //                                                               userInfo:nil
-                                //                                                                repeats:NO];
-
                                 button.transform = CGAffineTransformIdentity;
 
                             } completion:^(BOOL finished) {
@@ -353,8 +347,17 @@
                                 [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                                     self.containerView.alpha = 1;
                                     self.recordAgainButton.alpha = 1;
-                                    self.recordAgainLabel.alpha = 1;
-                                } completion:nil];
+                                } completion:^(BOOL finished) {
+                                    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                        self.recordAgainButton.center = self.endPointRecordAgainButton;
+                                        self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+                                        self.recordAgainLabel.alpha = 1;
+                                    } completion:^(BOOL finished) {
+                                        [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                            self.recordAgainButton.transform = CGAffineTransformIdentity;
+                                        } completion:nil];
+                                    }];
+                                }];
                             }];
                         }];
                     }];
@@ -436,12 +439,23 @@
 //}
 
 - (void)hideBottomButtons {
-    self.recordAgainButton.hidden = YES;
-    self.confirmButton.hidden = YES;
-    self.recordAgainLabel.hidden = YES;
     self.confirmLabel.hidden = YES;
+    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.recordAgainButton.center = self.centerRecordAgainButton;
+        self.recordAgainLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.recordAgainButton.hidden = YES;
+        self.recordAgainLabel.hidden = YES;
+        self.recordAgainLabel.alpha = 1;
+    }];
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.confirmButton.center = self.centerConfirmButton;
+        self.recordAgainLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.confirmButton.hidden = YES;
+        self.recordAgainLabel.alpha = 1;
+    }];
     self.containerView.alpha = 1;
-    self.confirmButton.alpha = 1;
     self.containerView.hidden = YES;
 }
 
@@ -452,6 +466,15 @@
     self.confirmButton.alpha = 0.7;
     self.confirmButton.hidden = NO;
     self.confirmLabel.hidden = NO;
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.confirmButton.center = self.endPointConfirmButton;
+        self.confirmButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.confirmButton.transform = CGAffineTransformIdentity;
+        } completion:nil];
+
+    }];
 }
 
 - (void)setAlphaOfBottomButtons {
@@ -467,7 +490,7 @@
     self.playCornerButton.alpha = 0;
     [self hideBottomButtons];
     self.groupIDNumber = @0;
-    [UIView animateWithDuration:.3 animations:^{
+    [UIView animateWithDuration:.5 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
         self.playCornerButton.hidden = NO;
         self.playCornerButton.alpha = 1;
