@@ -250,12 +250,12 @@
             case UIGestureRecognizerStateEnded:
                 {
                     //button.transform = CGAffineTransformIdentity;
-                [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
                 } completion:^(BOOL finished) {
                     [[[AudioController sharedInstance] playAudio] stop];
-                    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8);
+                    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformIdentity;
