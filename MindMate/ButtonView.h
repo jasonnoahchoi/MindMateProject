@@ -14,6 +14,7 @@
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
 - (void)didTryToPlay:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
+- (void)didTryToPlayWithPlayButton:(UIButton *)button withGesture:(UIGestureRecognizer *)sender;
 //- (void)recording;
 //- (void)stopRecording;
 
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) id <ButtonViewDelegate> delegate;
 
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureForPlayButton;
 @property (nonatomic, strong) UIButton *recordButton;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UILabel *recordCompleteLabel;
