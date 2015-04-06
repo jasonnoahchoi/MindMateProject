@@ -9,11 +9,14 @@
 #import "AudioController.h"
 #import "RecordingController.h"
 #import "Recording.h"
+#import "PlayCollectionViewCell.h"
 
 @interface AudioController ()
 
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 @property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, strong) Recording *recording;
+
 
 @end
 
@@ -24,18 +27,21 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[AudioController alloc] init];
+        
     });
     return sharedInstance;
 }
 
 - (AVAudioRecorder *)recordAudioToDirectory {
     NSError *error = nil;
-    self.recorder = [[AVAudioRecorder alloc] initWithURL:[self urlPath] settings:[self getRecorderSettings] error:&error];
+    self.url = [self urlPath];
+    self.recorder = [[AVAudioRecorder alloc] initWithURL:self.url settings:[self getRecorderSettings] error:&error];
     self.recorder.delegate = self;
     //self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL URLWithString:[NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.m4a"]] settings:[self getRecorderSettings] error:&error];
 
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES error:&error];
     //  UInt32 doChangeDefault = 1;
     // AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryDefaultToSpeaker, sizeof(doChangeDefault), &doChangeDefault);
 
@@ -50,10 +56,10 @@
     //self.buttonView.playButton.enabled = YES;
     //[self.recordingTimer invalidate];
     // self.recordingTimer = nil;
-    NSLog(@"\n\nURL:%@", self.recorder.url);
+    NSLog(@"\n\nURL:%@", self.url);
     // [self.microphone stopFetchingAudio];
 
-    NSData *data = [NSData dataWithContentsOfURL:self.recorder.url];
+    NSData *data = [NSData dataWithContentsOfURL:self.url];
     [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
     //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
     //NSLog(@"\n\n\nData File: %@", data);
@@ -63,7 +69,7 @@
                                                andDateCreated:[[AudioController sharedInstance] createdAtDate]
                                                  andFetchDate:[[AudioController sharedInstance] fetchDate]
                                                 andSimpleDate:[[AudioController sharedInstance] simpleDateString]
-                                                 andGroupName:[[AudioController sharedInstance] groupName]];
+                                                 andGroupName:[[AudioController sharedInstance] groupName] andData:[[AudioController sharedInstance] data]];
     //[RecordingController sharedInstance] addGroupWithName:
 
     //NSLog(@"\n \nControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
@@ -72,17 +78,52 @@
     return self.recorder;
 }
 
-- (AVAudioPlayer *)playAudio {
+//- (AVAudioPlayer *)playAudio {
+//
+//    NSError *error = nil;
+//    //self.recording = [RecordingController sharedInstance].memos.lastObject;
+//
+//    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
+//    //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:self.recording.urlPath] error:&error];
+//    self.player.delegate = self;
+//    self.player.volume = 1.0;
+//    self.player.numberOfLoops = 0;
+//    [self.player play];
+//    return self.player;
+//}
 
+- (AVAudioPlayer *)playAudioWithURLPath:(NSData *)data {
     NSError *error = nil;
+    //NSURL *urlPath = [NSURL URLWithString:[[AudioController sharedInstance] filePath]];
+   // url = urlPath;
+    //PlayCollectionViewCell *cell = [[PlayCollectionViewCell alloc] init];
 
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
+    //NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:cell.index];
+    //Recording *recording = [RecordingController sharedInstance].memos[indexPath.item];
+    //url = [NSURL URLWithString:recording.urlPath];
+    //self.recording = [RecordingController sharedInstance].memos.lastObject;
+   // self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    // self.player = [[AVAudioPlayer alloc] initWithURL:url];
+    //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url fileTypeHint:@".m4a" error:&error];
+   self.player = [[AVAudioPlayer alloc] initWithData:data fileTypeHint:@".m4a" error:&error];
     self.player.delegate = self;
     self.player.volume = 1.0;
     self.player.numberOfLoops = 0;
     [self.player play];
+
     return self.player;
 }
+
+- (NSData *)data {
+    NSData *data = [NSData dataWithContentsOfURL:self.url];
+    NSString *string = [NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]];
+    [data writeToFile:[NSHomeDirectory() stringByAppendingString:string] atomically:YES];
+    NSLog(@"\n\n\n DATA: %@", data);
+
+    NSLog(@"\n\n\n STRING: %@", string);
+    return data;
+}
+
 
 - (NSURL *)urlPath {
     NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
@@ -98,15 +139,16 @@
 //    NSLog(@"Self filePath: %@", [self filePath]);
 
 
-    NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
+   // NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
+    NSURL *destinationURL = [NSURL URLWithString:destinationString];
  //   NSLog(@"\n\n\n !!!!!DESTINATION URL: %@", destinationURL);
     return destinationURL;
 }
 
 - (NSString *)filePath {
-    NSString *string = [[self urlPath] absoluteString];
+
   //  NSLog(@"\n\n\nSTRING: %@", string);
-    return string;
+    return [self.url absoluteString];
 }
 
 - (NSString *)documentsPath {

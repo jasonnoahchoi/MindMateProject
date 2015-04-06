@@ -240,12 +240,12 @@
         //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
         NSLog(@"Data File: %@", data);
        // [[RecordingController sharedInstance] addRecordingWithFile:data];
-        [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
-                                                      andIDNumber:[[AudioController sharedInstance] randomIDNumber]
-                                                   andDateCreated:[[AudioController sharedInstance] createdAtDate]
-                                                     andFetchDate:[[AudioController sharedInstance] fetchDate]
-                                                    andSimpleDate:[[AudioController sharedInstance] simpleDateString]
-                                                     andGroupName:[[AudioController sharedInstance] groupName]];
+//        [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
+//                                                      andIDNumber:[[AudioController sharedInstance] randomIDNumber]
+//                                                   andDateCreated:[[AudioController sharedInstance] createdAtDate]
+//                                                     andFetchDate:[[AudioController sharedInstance] fetchDate]
+//                                                    andSimpleDate:[[AudioController sharedInstance] simpleDateString]
+//                                                     andGroupName:[[AudioController sharedInstance] groupName]];
         //[RecordingController sharedInstance] addGroupWithName:
         
          NSLog(@"ControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);

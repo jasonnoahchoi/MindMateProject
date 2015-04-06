@@ -19,10 +19,12 @@ typedef enum : NSUInteger {
 
 @interface AudioController : NSObject <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
+@property (nonatomic, strong) NSURL *url;
 @property (nonatomic) AudioState audioState;
 
 + (AudioController *)sharedInstance;
 - (AVAudioRecorder *)recordAudioToDirectory;
+- (AVAudioPlayer *)playAudioWithURLPath:(NSData *)data;
 - (AVAudioRecorder *)stopRecording;
 - (NSString *)filePath;
 - (NSURL *)urlPath;

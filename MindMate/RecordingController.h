@@ -22,7 +22,7 @@ static NSString * const queueEntity = @"Queue";
 + (RecordingController *)sharedInstance;
 
 - (void)save;
-- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName;
+- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName andData:(NSData *)data;
 - (void)addGroupID:(NSNumber *)groupID;
 - (void)addRecordingWithFile:(NSData *)memo;
 - (void)addGroupWithName:(NSString *)groupName;

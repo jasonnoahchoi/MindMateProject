@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
+@class Recording;
+@class PlayCollectionViewController;
 
-@interface PlayCollectionViewDataSource : NSObject
+@interface PlayCollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
+@property (nonatomic, strong) Recording *recording;
+
+- (void)registerCollectionView:(UICollectionView *)collectionView;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 @end

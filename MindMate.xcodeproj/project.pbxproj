@@ -11,6 +11,9 @@
 		0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082640381ACDD253009B5AF8 /* AudioViewController.m */; };
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
+		082E76131AD1E8F600658BFC /* PlayCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76121AD1E8F600658BFC /* PlayCollectionViewDataSource.m */; };
+		082E76161AD1EA8B00658BFC /* PlayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */; };
+		082E76191AD1F16C00658BFC /* PlayCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
 		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
 		083D6E851AC4C5770005E67C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E841AC4C5770005E67C /* Images.xcassets */; };
@@ -59,6 +62,12 @@
 		0826403A1ACDD253009B5AF8 /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryContainerView.h; sourceTree = "<group>"; };
 		0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryContainerView.m; sourceTree = "<group>"; };
+		082E76111AD1E8F600658BFC /* PlayCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewDataSource.h; sourceTree = "<group>"; };
+		082E76121AD1E8F600658BFC /* PlayCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewDataSource.m; sourceTree = "<group>"; };
+		082E76141AD1EA8B00658BFC /* PlayCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewCell.h; sourceTree = "<group>"; };
+		082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewCell.m; sourceTree = "<group>"; };
+		082E76171AD1F16C00658BFC /* PlayCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewLayout.h; sourceTree = "<group>"; };
+		082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewLayout.m; sourceTree = "<group>"; };
 		083D6E741AC4C5770005E67C /* MindMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		083D6E781AC4C5770005E67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		083D6E791AC4C5770005E67C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -158,6 +167,12 @@
 				082640381ACDD253009B5AF8 /* AudioViewController.m */,
 				08D3C7D11AD1C9A5008A7CAD /* PlayCollectionViewController.h */,
 				08D3C7D21AD1C9A5008A7CAD /* PlayCollectionViewController.m */,
+				082E76111AD1E8F600658BFC /* PlayCollectionViewDataSource.h */,
+				082E76121AD1E8F600658BFC /* PlayCollectionViewDataSource.m */,
+				082E76141AD1EA8B00658BFC /* PlayCollectionViewCell.h */,
+				082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */,
+				082E76171AD1F16C00658BFC /* PlayCollectionViewLayout.h */,
+				082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */,
 				08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */,
 				08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */,
 				082640391ACDD253009B5AF8 /* ButtonView.h */,
@@ -389,14 +404,17 @@
 				0869142D1AC891E80064B6AE /* UIImage+BlurredFrame.m in Sources */,
 				083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */,
 				0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */,
+				082E76161AD1EA8B00658BFC /* PlayCollectionViewCell.m in Sources */,
 				08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				08E2921C1AD0CFDE00ABDE4E /* Recording.m in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
 				086914261AC891E80064B6AE /* AudioRecorderViewController.m in Sources */,
+				082E76131AD1E8F600658BFC /* PlayCollectionViewDataSource.m in Sources */,
 				08CE94F11ACBB04F00B83395 /* User.m in Sources */,
 				0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */,
 				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
+				082E76191AD1F16C00658BFC /* PlayCollectionViewLayout.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
 				08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */,

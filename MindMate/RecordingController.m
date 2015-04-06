@@ -49,6 +49,7 @@
         [mutableMemoNames addObject:idNumber];
         NSString *simpleDate = recording.simpleDate;
         [mutableMemoNames addObject:simpleDate];
+        
 
 //        NSData *memoFile = recording.memo;
 //        [mutableMemoNames addObject:memoFile];
@@ -62,7 +63,7 @@
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 
-- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName {
+- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName andData:(NSData *)data {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     //recording.memoName = memoName;
     recording.urlPath = urlPath;
@@ -71,6 +72,7 @@
     recording.showAt = showAt;
     recording.simpleDate = simpleDate;
     recording.groupName = groupName;
+    recording.memo = data;
     
     [[QueueManager sharedInstance] addRecording:recording];
 
