@@ -22,7 +22,7 @@
 @property (nonatomic, strong) CategoryContainerView *containerView;
 @property (nonatomic, strong) PlayCollectionViewController *playVC;
 @property (nonatomic, strong) TimeAndDateView *tdView;
-@property (nonatomic, strong) Recording *recording;
+@property (nonatomic, strong) Recording *record;
 
 @property (nonatomic, strong) NSMutableArray *mutableRecordings;
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -81,7 +81,7 @@
     //[self.view addSubview:self.timeLabel];
 //    self.timeLabel.text = @"Time";
 //    self.timeLabel.textAlignment = NSTextAlignmentRight;
-    self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 70, self.view.frame.size.width/2-10, 100)];
+    self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
     //self.tdView.timeLabel.text = @"TIMEISOFTHEESSECNCE";
     //self.tdView.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.tdView];
@@ -371,6 +371,7 @@
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
+            self.tdView.hidden = NO;
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
             } completion:^(BOOL finished) {
@@ -380,7 +381,7 @@
                 //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
                 for (int i = 0; i < [array count]; i++) {
                     Recording *recording = [RecordingController sharedInstance].memos[i];
-                    self.recording = recording;
+                    self.record = recording;
 
                     //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
                     //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
@@ -464,6 +465,7 @@
 
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
+    self.tdView.hidden = YES;
     if (self.containerView.state == ButtonStateNone) {
         switch (sender.state) {
             case UIGestureRecognizerStateBegan:

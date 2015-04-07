@@ -13,19 +13,21 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blueColor];
+        //self.backgroundColor = [UIColor blueColor];
         self.timeLabel = [[UILabel alloc] initWithFrame:self.frame];
         self.dateLabel = [[UILabel alloc] initWithFrame:self.frame];
-        self.dateLabel.text = @"ASDDFDS";
-        self.timeLabel.text = @"TEST TIME";
+        self.dateLabel.text = @"";
+        self.timeLabel.text = @"";
+        self.dateLabel.textColor = [UIColor whiteColor];
+        self.timeLabel.textColor = [UIColor whiteColor];
         self.dateLabel.numberOfLines = 0;
         self.timeLabel.numberOfLines = 0;
         self.dateLabel.textAlignment = NSTextAlignmentRight;
         self.timeLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.timeLabel];
         [self addSubview:self.dateLabel];
-        self.timeLabel.backgroundColor = [UIColor greenColor];
-        self.dateLabel.backgroundColor = [UIColor cyanColor];
+        //self.timeLabel.backgroundColor = [UIColor greenColor];
+        //self.dateLabel.backgroundColor = [UIColor cyanColor];
 
         
         [self.timeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
