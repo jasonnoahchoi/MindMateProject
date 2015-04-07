@@ -26,6 +26,8 @@
         self.timeLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.timeLabel];
         [self addSubview:self.dateLabel];
+        [self.dateLabel setNeedsLayout];
+        [self.timeLabel setNeedsLayout];
         //self.timeLabel.backgroundColor = [UIColor greenColor];
         //self.dateLabel.backgroundColor = [UIColor cyanColor];
 

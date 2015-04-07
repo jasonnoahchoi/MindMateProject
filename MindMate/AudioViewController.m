@@ -46,6 +46,7 @@
 @property (nonatomic, assign) CGPoint endPointPlayCornerButton;
 
 @property (nonatomic, assign) NSNumber *groupIDNumber;
+@property (nonatomic, assign) NSInteger indexForRecording;
 
 @end
 
@@ -365,6 +366,46 @@
     }
 }
 
+//- (void)playerItemDidReachEnd:(NSNotification *)notification {
+//    NSLog(@"Notification received");
+//    Recording *recording = [RecordingController sharedInstance].memos.lastObject;
+//    [[RecordingController sharedInstance] removeRecording:recording];
+//}
+
+- (void)labelDidChange:(NSNotification *)notification {
+    //self.indexForRecording = self.mutableRecordings.count - 1;
+
+//    if ([[notification name] isEqualToString:kLabelDidChange]){
+//    NSLog(@"Label");
+//    for (int i = 0; i < self.mutableRecordings.count; i++) {
+    //NSLog(@"Notification Label Called: %d", i++);
+
+
+
+    //int i = [AudioController sharedInstance].index;
+    //for (int i = [AudioController sharedInstance].index; i < self.mutableRecordings.count; i++) {
+    if (self.indexForRecording <= (self.mutableRecordings.count)) {
+    self.tdView.timeLabel.text =  self.mutableRecordings[self.indexForRecording];
+
+    self.tdView.dateLabel.text = self.record.simpleDate;
+    } else {
+        return;
+    }
+     self.indexForRecording--;
+    NSLog(@"Called Label did change");
+
+
+//    }
+}
+
+- (void) dealloc
+{
+    // If you don't remove yourself as an observer, the Notification Center
+    // will continue to try and send notification objects to the deallocated
+    // object.
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 
 - (void)didTryToPlayWithPlayButton:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
@@ -377,29 +418,41 @@
             } completion:^(BOOL finished) {
                 NSArray *array = [RecordingController sharedInstance].memos;
                 NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
-                self.mutableRecordings = [NSMutableArray arrayWithArray:array];
+                self.mutableRecordings = [[NSMutableArray alloc] init];
                 //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
                 for (int i = 0; i < [array count]; i++) {
                     Recording *recording = [RecordingController sharedInstance].memos[i];
-                    self.record = recording;
+                    [self.mutableRecordings addObject:recording.timeCreated];
+                    self.tdView.timeLabel.text = recording.timeCreated;
+                    self.tdView.dateLabel.text = recording.simpleDate;
 
                     //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
                     //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
                     //[mutableArray addObject:item];
                     [mutableArray addObject:recording.memo];
+
+                    self.record = recording;
 ////                    for (int i = 0; i < [mutableArray count]; i++) {
 //                        [[AudioController sharedInstance] playAudioWithData:recording.memo];
 //                    }
-                    [AudioController sharedInstance].audioFileQueue = mutableArray;
-                    for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
-                        [AudioController sharedInstance].index = i;
-                        [[AudioController sharedInstance] playAudioWithInt:i];
-                        self.tdView.timeLabel.text = recording.timeCreated;
-                        self.tdView.dateLabel.text = recording.simpleDate;
-                    }
 
-                    //[[AudioController sharedInstance] stopPlayingAudio];
+                                        //self.tdView.timeLabel.text = recording.timeCreated;
+                        //self.tdView.dateLabel.text = recording.simpleDate;
+                       //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:self];
+
+                    }
+                 self.indexForRecording = self.mutableRecordings.count - 2;
+                [AudioController sharedInstance].audioFileQueue = mutableArray;
+                for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
+                    [AudioController sharedInstance].index = i;
+
+                    [[AudioController sharedInstance] playAudioWithInt:i];
                 }
+
+                                   //[[AudioController sharedInstance] stopPlayingAudio];
+
+
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
 
 
 //                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
@@ -430,9 +483,10 @@
         {
             [[AudioController sharedInstance] stopPlayingAudio];
 
+
             //[[RecordingController sharedInstance] removeRecording:self.mutableRecordings.lastObject];
             for (int i = 0; i < self.mutableRecordings.count ; i++) {
-
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
             }
 
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
