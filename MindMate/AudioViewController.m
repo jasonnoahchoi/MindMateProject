@@ -366,11 +366,11 @@
     }
 }
 
-//- (void)playerItemDidReachEnd:(NSNotification *)notification {
-//    NSLog(@"Notification received");
-//    Recording *recording = [RecordingController sharedInstance].memos.lastObject;
-//    [[RecordingController sharedInstance] removeRecording:recording];
-//}
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    NSLog(@"Notification received");
+    Recording *recording = [RecordingController sharedInstance].memos.lastObject;
+    [[RecordingController sharedInstance] removeRecording:recording];
+}
 
 - (void)labelDidChange:(NSNotification *)notification {
     //self.indexForRecording = self.mutableRecordings.count - 1;
@@ -453,6 +453,7 @@
 
 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:[AudioController sharedInstance]];
 
 
 //                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
@@ -482,12 +483,12 @@
         case UIGestureRecognizerStateEnded:
         {
             [[AudioController sharedInstance] stopPlayingAudio];
+            
 
 
-            //[[RecordingController sharedInstance] removeRecording:self.mutableRecordings.lastObject];
-            for (int i = 0; i < self.mutableRecordings.count ; i++) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
-            }
+//            for (int i = 0; i < self.mutableRecordings.count ; i++) {
+//               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
+//            }
 
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);

@@ -205,7 +205,9 @@
         
     } else {
       //  [[RecordingController sharedInstance] removeRecording:self.recording];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self];
     NSLog(@"did finish playing %d", flag);
+
     }
 }
 
