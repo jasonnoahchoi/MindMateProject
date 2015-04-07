@@ -86,20 +86,6 @@
     return self;
 }
 
-- (void)buttonMethod1:(UIButton *)sender forEvent:(UIEvent *)event controlEvent:(UIControlEvents)controlEvent {
-//        if ([self.delegate respondsToSelector:@selector(recordButtonReleased:withButton:)]) {
-//            [self.delegate recordButtonReleased:self withButton:sender];
-
-//        }
-}
-
-- (void)buttonMethod:(UIButton *)sender forEvent:(UIEvent *)event controlEvent:(UIControlEvents)controlEvent {
-//        if ([self.delegate respondsToSelector:@selector(recordButtonPressed:withButton:)]) {
-//            [self.delegate recordButtonPressed:self withButton:sender];
-//        }
-}
-
-
 //- (void)recordPressed:(id)sender {
 //    if (
 //    if ([self.delegate respondsToSelector:@selector(recordButtonPressed:withButton:)]) {
