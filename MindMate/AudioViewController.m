@@ -14,12 +14,18 @@
 #import "AudioController.h"
 #import "UIColor+Colors.h"
 #import "PlayCollectionViewController.h"
+#import "TimeAndDateView.h"
 
 @interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate>
 
 @property (nonatomic, strong) ButtonView *buttonView;
 @property (nonatomic, strong) CategoryContainerView *containerView;
 @property (nonatomic, strong) PlayCollectionViewController *playVC;
+@property (nonatomic, strong) TimeAndDateView *tdView;
+@property (nonatomic, strong) Recording *recording;
+
+@property (nonatomic, strong) NSMutableArray *mutableRecordings;
+@property (nonatomic, strong) UILabel *timeLabel;
 
 @property (nonatomic, strong) UIButton *confirmButton;
 @property (nonatomic, strong) UIButton *recordAgainButton;
@@ -55,16 +61,31 @@
     [self cornerButtons];
     [self afterRecordButtons];
     self.playVC = [[PlayCollectionViewController alloc] init];
-
     CGSize size = self.view.superview.frame.size;
     [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
 
     CGRect circle = CGRectMake(self.view.frame.size.width/(2*4), self.view.frame.size.height/5, self.view.frame.size.width/1.35, self.view.frame.size.width/1.35);
     self.buttonView = [[ButtonView alloc] initWithFrame:circle];
+    [UIView animateWithDuration:.3 delay:1.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.buttonView.recordButton.transform = CGAffineTransformIdentity;
+        } completion:nil];
+    }];
     //self.buttonView.center = self.view.center;
     self.buttonView.delegate = self;
     [self.view addSubview:self.buttonView];
 //    self.buttonView.hidden = YES;
+    //self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 70, self.view.frame.size.width/2-10, 50)];
+    //[self.view addSubview:self.timeLabel];
+//    self.timeLabel.text = @"Time";
+//    self.timeLabel.textAlignment = NSTextAlignmentRight;
+    self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 70, self.view.frame.size.width/2-10, 100)];
+    //self.tdView.timeLabel.text = @"TIMEISOFTHEESSECNCE";
+    //self.tdView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.tdView];
+
 }
 
 #pragma mark - Buttons on View Controller
@@ -344,28 +365,103 @@
     }
 }
 
+
+
 - (void)didTryToPlayWithPlayButton:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
-            } completion:nil];
+            } completion:^(BOOL finished) {
+                NSArray *array = [RecordingController sharedInstance].memos;
+                NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+                self.mutableRecordings = [NSMutableArray arrayWithArray:array];
+                //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
+                for (int i = 0; i < [array count]; i++) {
+                    Recording *recording = [RecordingController sharedInstance].memos[i];
+                    self.recording = recording;
+
+                    //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
+                    //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
+                    //[mutableArray addObject:item];
+                    [mutableArray addObject:recording.memo];
+////                    for (int i = 0; i < [mutableArray count]; i++) {
+//                        [[AudioController sharedInstance] playAudioWithData:recording.memo];
+//                    }
+                    [AudioController sharedInstance].audioFileQueue = mutableArray;
+                    for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
+                        [AudioController sharedInstance].index = i;
+                        [[AudioController sharedInstance] playAudioWithInt:i];
+                        self.tdView.timeLabel.text = recording.timeCreated;
+                        self.tdView.dateLabel.text = recording.simpleDate;
+                    }
+
+                    //[[AudioController sharedInstance] stopPlayingAudio];
+                }
+
+
+//                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
+
+//              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
+                //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [[AudioController sharedInstance] playQueueAudio:mutableArray];
+//                });
+
+//                    NSData *data = recording.memo;
+//                    [[AudioController sharedInstance] playAudioWithData:data];
+               // [[AudioController sharedInstance] playQueueAudio:mutableArray];
+
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
+
+                 
+                //AVQueuePlayer *play = [[AVQueuePlayer alloc] initWithItems:mutableArray];
+
+                               //NSData *data = recording.memo;
+
+
+            }];
         }
             break;
+
         case UIGestureRecognizerStateEnded:
         {
-            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:self.playVC];
+            [[AudioController sharedInstance] stopPlayingAudio];
 
-            [self.navigationController presentViewController:navigation animated:NO completion:^{
-                button.transform = CGAffineTransformIdentity;
+            //[[RecordingController sharedInstance] removeRecording:self.mutableRecordings.lastObject];
+            for (int i = 0; i < self.mutableRecordings.count ; i++) {
+
+            }
+
+            [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+            }completion:^(BOOL finished) {
+                [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
+
+                        } completion:nil];
+                    }];
+                }];
             }];
+
+//            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:self.playVC];
+//
+//            [self.navigationController presentViewController:navigation animated:NO completion:^{
+
         }
             break;
         default:
             break;
     }
 }
+
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     if (self.containerView.state == ButtonStateNone) {
@@ -388,7 +484,6 @@
             } break;
             case UIGestureRecognizerStateEnded:
             {
-                [self stopRecording];
                 [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
                     button.alpha = 1;
@@ -406,7 +501,7 @@
                         } completion:^(BOOL finished) {
                             [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                                 button.transform = CGAffineTransformIdentity;
-
+                                [self stopRecording];
                             } completion:^(BOOL finished) {
                                 self.containerView.alpha = 0;
                                 self.containerView.hidden = NO;
