@@ -28,24 +28,24 @@
         //PlayCollectionViewDataSource *dataSource = [[PlayCollectionViewDataSource alloc] init];
         //self.backgroundColor = [UIColor blueColor];
         Recording *recording = [RecordingController sharedInstance].memos[self.index];
-        if ([recording.groupID isEqual:@1]) {
-            self.backgroundColor = [UIColor blueColor];
-        }
-        if ([recording.groupID isEqual:@2]) {
-            self.backgroundColor = [UIColor greenColor];
-        }
-        if ([recording.groupID isEqual:@3]) {
-            self.backgroundColor = [UIColor redColor];
-        }
-        if ([recording.groupID isEqual:@4]) {
-            self.backgroundColor = [UIColor cyanColor];
-        }
-        if ([recording.groupID isEqual:@5]) {
-            self.backgroundColor = [UIColor orangeColor];
-        }
-        if ([recording.groupID isEqual:@6]) {
-            self.backgroundColor = [UIColor yellowColor];
-        }
+//        if ([recording.groupID isEqual:@1]) {
+//            self.backgroundColor = [UIColor blueColor];
+//        }
+//        if ([recording.groupID isEqual:@2]) {
+//            self.backgroundColor = [UIColor greenColor];
+//        }
+//        if ([recording.groupID isEqual:@3]) {
+//            self.backgroundColor = [UIColor redColor];
+//        }
+//        if ([recording.groupID isEqual:@4]) {
+//            self.backgroundColor = [UIColor cyanColor];
+//        }
+//        if ([recording.groupID isEqual:@5]) {
+//            self.backgroundColor = [UIColor orangeColor];
+//        }
+//        if ([recording.groupID isEqual:@6]) {
+//            self.backgroundColor = [UIColor yellowColor];
+//        }
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 100, self.frame.size.height - 140, 90, 50)];
         [self addSubview:self.timeLabel];
         self.timeLabel.backgroundColor = [UIColor redColor];
@@ -59,9 +59,26 @@
 
 - (void)playButtonPressed:(id)sender {
     self.recording = [RecordingController sharedInstance].memos[self.index];
-    NSURL *url = [NSURL URLWithString:self.recording.urlPath];
-    //[AudioController sharedInstance].url
-    [[AudioController sharedInstance] playAudioWithURLPath:[AudioController sharedInstance].url];
+    NSData *data = self.recording.memo;
+
+
+//    NSURL *url = [NSURL fileURLWithPath:self.recording.simpleDate];
+//    NSURL *stringURL = [NSURL URLWithString:self.recording.urlPath];
+//    NSData *songFile = [[NSData alloc] initWithContentsOfURL:stringURL options:NSDataReadingMappedIfSafe error:nil];
+//        AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:songFile error:nil];
+//        [player play];
+    //AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    // [player play];
+    //AVPlayer *player = [[AVPlayer alloc] initWithURL:url];
+    //[player play];
+    //[[AudioController sharedInstance] playAudioWithURLPath:url];
+
+    [[AudioController sharedInstance] playAudioWithData:data];
+
+
+//    NSURL *url = [NSURL URLWithString:self.recording.urlPath];
+//    //[AudioController sharedInstance].url
+//    [[AudioController sharedInstance] playAudioWithURLPath:[AudioController sharedInstance].url];
 }
 
 @end

@@ -28,22 +28,22 @@
     Recording *recording = [RecordingController sharedInstance].memos[indexPath.item];
 
     if ([recording.groupID isEqual:@1]) {
-        cell.backgroundColor = [UIColor blueColor];
+        cell.playButton.backgroundColor = [UIColor blueColor];
     }
     if ([recording.groupID isEqual:@2]) {
-        cell.backgroundColor = [UIColor greenColor];
+        cell.playButton.backgroundColor = [UIColor greenColor];
     }
     if ([recording.groupID isEqual:@3]) {
-        cell.backgroundColor = [UIColor redColor];
+        cell.playButton.backgroundColor = [UIColor redColor];
     }
     if ([recording.groupID isEqual:@4]) {
-        cell.backgroundColor = [UIColor cyanColor];
+        cell.playButton.backgroundColor = [UIColor cyanColor];
     }
     if ([recording.groupID isEqual:@5]) {
-        cell.backgroundColor = [UIColor orangeColor];
+        cell.playButton.backgroundColor = [UIColor orangeColor];
     }
     if ([recording.groupID isEqual:@6]) {
-        cell.backgroundColor = [UIColor yellowColor];
+        cell.playButton.backgroundColor = [UIColor yellowColor];
     }
 
     //cell.timeLabel.text = @"Test Time";

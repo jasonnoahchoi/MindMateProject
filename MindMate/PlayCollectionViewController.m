@@ -45,6 +45,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self.collectionView reloadData];
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(self.collectionView.frame.size.width, self.collectionView.frame.size.height);
 }
@@ -54,18 +58,18 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    Recording *recording = [RecordingController sharedInstance].memos[indexPath.item];
-//    NSURL *url = [NSURL URLWithString:recording.urlPath];
-    NSData *data = recording.memo;
-//    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:data error:nil];
-//    [player play];
-    //AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-   // [player play];
-    //AVPlayer *player = [[AVPlayer alloc] initWithURL:url];
-    //[player play];
-
-
-    [[AudioController sharedInstance] playAudioWithURLPath:data];
+//    Recording *recording = [RecordingController sharedInstance].memos[indexPath.item];
+////    NSURL *url = [NSURL URLWithString:recording.urlPath];
+//    NSData *data = recording.memo;
+////    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:data error:nil];
+////    [player play];
+//    //AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+//   // [player play];
+//    //AVPlayer *player = [[AVPlayer alloc] initWithURL:url];
+//    //[player play];
+//
+//
+//    [[AudioController sharedInstance] playAudioWithURLPath:data];
 }
 
 - (void)didReceiveMemoryWarning {
