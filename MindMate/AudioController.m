@@ -16,6 +16,8 @@
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 @property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, strong) Recording *recording;
+@property (nonatomic, strong) AVQueuePlayer *queuePlayer;
+
 
 
 @end
@@ -58,75 +60,182 @@
     // self.recordingTimer = nil;
     NSLog(@"\n\nURL:%@", self.url);
     // [self.microphone stopFetchingAudio];
+    [self data];
 
-    NSData *data = [NSData dataWithContentsOfURL:self.url];
-    [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
+//    NSData *data = [NSData dataWithContentsOfURL:self.url];
+//    [data writeToFile:[NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]]] atomically:YES];
     //[data writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [self filePath]]] atomically:YES];
     //NSLog(@"\n\n\nData File: %@", data);
     // [[RecordingController sharedInstance] addRecordingWithFile:data];
-    [[RecordingController sharedInstance] addRecordingWithURL:[[AudioController sharedInstance] filePath]
-                                                  andIDNumber:[[AudioController sharedInstance] randomIDNumber]
-                                               andDateCreated:[[AudioController sharedInstance] createdAtDate]
-                                                 andFetchDate:[[AudioController sharedInstance] fetchDate]
-                                                andSimpleDate:[[AudioController sharedInstance] simpleDateString]
-                                                 andGroupName:[[AudioController sharedInstance] groupName] andData:[[AudioController sharedInstance] data]];
+    [[RecordingController sharedInstance] addRecordingWithURL:[[self fileURL] absoluteString]
+                                                  andIDNumber:[self randomIDNumber]
+                                               andDateCreated:[self createdAtDateString]
+                                                 andFetchDate:[self fetchDate]
+                                                andSimpleDate:[self simpleDateString]
+                                                 andGroupName:[self groupName]
+                                               andTimeCreated:[self currentTime]
+                                                      andData:[self data]];
     //[RecordingController sharedInstance] addGroupWithName:
+    NSLog(@"\n\n CURRENT TIME: %@ \n\n\n SIMPLE DATE: %@ \n\n\n DATE CREATED: %@ \n\n\n RECORDINGURL: %@", [self currentTime], [self simpleDateString], [self createdAtDateString], [[self fileURL] absoluteString]);
 
     //NSLog(@"\n \nControllerRecordingPath: %@", [[AudioController sharedInstance] filePath]);
     [[RecordingController sharedInstance] save];
-    NSLog(@"\n\n Date Created: %@, Fetch Date: %@, IDNUMBER: %@", [[AudioController sharedInstance] createdAtDate], [[AudioController sharedInstance] fetchDate], [[AudioController sharedInstance] randomIDNumber]);
+//    NSLog(@"\n\n Date Created: %@, Fetch Date: %@, IDNUMBER: %@", [[AudioController sharedInstance] createdAtDate], [[AudioController sharedInstance] fetchDate], [[AudioController sharedInstance] randomIDNumber]);
     return self.recorder;
 }
 
-//- (AVAudioPlayer *)playAudio {
+
+////- (AVAudioPlayer *)playAudio {
+////
+////    NSError *error = nil;
+////    //self.recording = [RecordingController sharedInstance].memos.lastObject;
+////
+////    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
+////    //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:self.recording.urlPath] error:&error];
+////    self.player.delegate = self;
+////    self.player.volume = 1.0;
+////    self.player.numberOfLoops = 0;
+////    [self.player play];
+////    return self.player;
+////}
 //
+//- (AVQueuePlayer *)playQueueAudio:(NSArray *)items {
+//
+//    self.queuePlayer = [[AVQueuePlayer alloc] initWithItems:items];
+//
+//
+////
+////    if (!self.player) {
+////        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
+////    } else {
+////        [self.player play];
+////    }
+//
+//    return self.queuePlayer;
+//}
+//
+//
+//+ (AVQueuePlayer *)queuePlayerWithItems:(NSArray *)items {
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:items.lastObject];
+//    return [AVQueuePlayer queuePlayerWithItems:items];
+//}
+//
+//
+//- (void)playerItemDidReachEnd:(NSNotification *)notification {
+//    NSLog(@"It reached the end");
+//}
+//
+//
+//
+//- (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url {
+//    NSError *error;
+//    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+//    self.player.delegate = self;
+//    self.player.volume = 1.0;
+//
+//    
+//    if (!self.player) {
+//        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
+//    } else {
+//        [self.player play];
+//    }
+//    return self.player;
+//}
+//
+//- (AVAudioPlayer *)playAudioWithData:(NSData *)data {
 //    NSError *error = nil;
-//    //self.recording = [RecordingController sharedInstance].memos.lastObject;
 //
-//    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
-//    //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:self.recording.urlPath] error:&error];
+//    self.player = [[AVAudioPlayer alloc] initWithData:data fileTypeHint:@".m4a" error:&error];
 //    self.player.delegate = self;
 //    self.player.volume = 1.0;
 //    self.player.numberOfLoops = 0;
-//    [self.player play];
+//
+//    if (!self.player) {
+//        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
+//    } else {
+//        [self.player play];
+//    }
+//
 //    return self.player;
 //}
 
-- (AVAudioPlayer *)playAudioWithURLPath:(NSData *)data {
-    NSError *error = nil;
-    //NSURL *urlPath = [NSURL URLWithString:[[AudioController sharedInstance] filePath]];
-   // url = urlPath;
-    //PlayCollectionViewCell *cell = [[PlayCollectionViewCell alloc] init];
-
-    //NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:cell.index];
-    //Recording *recording = [RecordingController sharedInstance].memos[indexPath.item];
-    //url = [NSURL URLWithString:recording.urlPath];
-    //self.recording = [RecordingController sharedInstance].memos.lastObject;
-   // self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    // self.player = [[AVAudioPlayer alloc] initWithURL:url];
-    //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url fileTypeHint:@".m4a" error:&error];
-   self.player = [[AVAudioPlayer alloc] initWithData:data fileTypeHint:@".m4a" error:&error];
+- (AVAudioPlayer *)stopPlayingAudio {
+    [self.player stop];
     self.player.delegate = self;
-    self.player.volume = 1.0;
-    self.player.numberOfLoops = 0;
-    [self.player play];
-
     return self.player;
 }
 
-- (NSData *)data {
-    NSData *data = [NSData dataWithContentsOfURL:self.url];
-    NSString *string = [NSString stringWithFormat:@"%@", [[AudioController sharedInstance] filePath]];
-    [data writeToFile:[NSHomeDirectory() stringByAppendingString:string] atomically:YES];
-    NSLog(@"\n\n\n DATA: %@", data);
+//- (id)initWithFileNameQueue:(NSArray *)queue {
+//    if ((self = [super init])) {
+//        self.audioFileQueue = queue;
+//        self.index = 0;
+//        [self playAudioWithInt:self.index];
+//    }
+//    return self;
+//}
+//
 
-    NSLog(@"\n\n\n STRING: %@", string);
-    return data;
+
+- (void)playAudioWithInt:(int)i {
+    NSError *error = nil;
+    self.player = [[AVAudioPlayer alloc] initWithData:self.audioFileQueue[i] error:nil];
+    self.player.delegate = self;
+    self.player.volume = 1.0;
+    self.player.numberOfLoops = 0;
+
+    [self.player prepareToPlay];
+
+    if (!self.player) {
+        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
+    } else {
+        [self.player play];
+    }
+    self.index--;
 }
 
 
-- (NSURL *)urlPath {
-    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    if (self.index <= self.audioFileQueue.count) {
+        [self playAudioWithInt:self.index];
+
+    } else {
+      //  [[RecordingController sharedInstance] removeRecording:self.recording];
+    NSLog(@"did finish playing %d", flag);
+    }
+}
+
+
+- (NSData *)data {
+    NSData *dataFile = [NSData dataWithContentsOfURL:self.url];
+//    NSString *docDirPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *filePath = [NSString stringWithFormat:@"%@%@.m4a", docDirPath, [[AudioController sharedInstance] filePath]];
+    [self documentsPath];
+    [self filePathFromDocDir];
+
+    [dataFile writeToFile:[self filePathFromDocDir] atomically:YES];
+    NSLog(@"\n\n\nDOC DIR PATH: %@", [self documentsPath]);
+    //[dataFile writeToFile:[NSHomeDirectory() stringByAppendingString:string] atomically:YES];
+    NSLog(@"\n\n\n DATA: %@", dataFile);
+
+    NSLog(@"\n\n\n STRING: %@", [self filePathFromDocDir]);
+    return dataFile;
+}
+
+- (NSURL *)fileURL {
+    return [NSURL fileURLWithPath:[self filePathFromDocDir]];
+}
+
+//- (NSString *)docDirPath {
+//    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
+//}
+
+- (NSString *)filePathFromDocDir {
+    return [NSString stringWithFormat:@"%@", [self nowString]];
+}
+
+- (NSString *)nowString {
+    NSDate *now = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMMdyyyy+HHMMss"];
 
@@ -134,13 +243,19 @@
 
     NSString *destinationString = [[self documentsPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4a", nowString]];
 
+    return destinationString;
+}
+
+
+- (NSURL *)urlPath {
+
+
 //     NSString *findString = destinationString;
 //      findString = [self filePath];
 //    NSLog(@"Self filePath: %@", [self filePath]);
 
-
-   // NSURL *destinationURL = [NSURL fileURLWithPath:destinationString];
-    NSURL *destinationURL = [NSURL URLWithString:destinationString];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[self nowString]];
+    //NSURL *destinationURL = [NSURL URLWithString:destinationString];
  //   NSLog(@"\n\n\n !!!!!DESTINATION URL: %@", destinationURL);
     return destinationURL;
 }
@@ -160,7 +275,7 @@
     NSError *error;
     if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
         if (![[NSFileManager defaultManager] createDirectoryAtPath:documentsPath withIntermediateDirectories:NO attributes:nil error:&error]) {
-            NSLog(@"Create directory error: %@", error);
+            NSLog(@"Create directory error: %@", [error description]);
         }
     }
 
@@ -191,6 +306,20 @@
     NSString *nowString = [formatter stringFromDate:now];
     return nowString;
 }
+
+- (NSString *)createdAtDateString {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeStyle:NSDateFormatterFullStyle];
+    NSString *nowString = [formatter stringFromDate:[self createdAtDate]];
+    return nowString;
+}
+
+- (NSString *)currentTime {
+    NSDateFormatter *myDateFormatter = [[NSDateFormatter alloc] init];
+    [myDateFormatter setDateFormat:@"hh:mm aaa Z"];
+    return [myDateFormatter stringFromDate:[NSDate date]];
+}
+
 
 - (NSDate *)fetchDate {
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
