@@ -22,7 +22,7 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundgradient"]];
-    self.window.backgroundColor = [UIColor lightGrayColor];
+    self.window.backgroundColor = [UIColor whiteColor];
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     AudioViewController *viewController = [[AudioViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
