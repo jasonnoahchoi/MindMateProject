@@ -39,8 +39,8 @@
 - (NSArray *)memoNames {
     NSMutableArray *mutableMemoNames = [[NSMutableArray alloc] init];
     for (Recording *recording in self.memos) {
-        NSDate *nowDate = recording.createdAt;
-        [mutableMemoNames addObject:nowDate];
+       // NSString *string = recording.createdAt;
+       // [mutableMemoNames addObject:nowDate];
         NSDate *fetchDate = recording.showAt;
         [mutableMemoNames addObject:fetchDate];
         NSString *urlPath = recording.urlPath;
@@ -63,15 +63,16 @@
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 
-- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSDate *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName andData:(NSData *)data {
+- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSString *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName andTimeCreated:(NSString *)timeCreated andData:(NSData *)data {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
-    //recording.memoName = memoName;
+
     recording.urlPath = urlPath;
     recording.idNumber = idNumber;
     recording.createdAt = createdAt;
     recording.showAt = showAt;
     recording.simpleDate = simpleDate;
     recording.groupName = groupName;
+    recording.timeCreated = timeCreated;
     recording.memo = data;
     
     [[QueueManager sharedInstance] addRecording:recording];
