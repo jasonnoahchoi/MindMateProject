@@ -17,12 +17,21 @@ typedef enum : NSUInteger {
     AudioStateStoppedPlaying,
 } AudioState;
 
+static NSString * const kAudioFileFinished = @"AudioFileFinished";
+
 @interface AudioController : NSObject <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
+@property (nonatomic, strong) NSURL *url;
 @property (nonatomic) AudioState audioState;
+@property (nonatomic, strong) NSArray *audioFileQueue;
+@property (nonatomic, assign) int index;
 
 + (AudioController *)sharedInstance;
+//+ (AVQueuePlayer *)queuePlayerWithItems:(NSArray *)items;
 - (AVAudioRecorder *)recordAudioToDirectory;
+- (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url;
+- (AVAudioPlayer *)playAudioWithData:(NSData *)data;
+- (AVAudioPlayer *)stopPlayingAudio;
 - (AVAudioRecorder *)stopRecording;
 - (NSString *)filePath;
 - (NSURL *)urlPath;
@@ -31,5 +40,11 @@ typedef enum : NSUInteger {
 - (NSString *)randomIDNumber;
 - (NSString *)simpleDateString;
 - (NSString *)groupName;
+- (AVAudioPlayer *)playAudio;
+- (NSData *)data;
+//- (AVQueuePlayer *)playQueueAudio:(NSArray *)items;
+//
+//- (id)initWithFileNameQueue:(NSArray *)queue;
+- (void)playAudioWithInt:(int)i;
 
 @end

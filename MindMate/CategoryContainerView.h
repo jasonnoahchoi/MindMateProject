@@ -44,5 +44,6 @@ typedef enum {
 @property (nonatomic, strong) UIButton *presenceButton;
 
 - (void)setState:(ButtonState)state;
+- (void)animateLayoutButtons;
 
 @end

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AudioRecorderViewController.h"
 #import "AudioViewController.h"
+#import "UIColor+Colors.h"
 
 @interface AppDelegate ()
 
@@ -20,8 +21,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)x {
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundgradient"]];
-
+    //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundgradient"]];
+    self.window.backgroundColor = [UIColor whiteColor];
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     AudioViewController *viewController = [[AudioViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];

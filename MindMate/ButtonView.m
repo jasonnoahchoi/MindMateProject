@@ -46,12 +46,16 @@
 
         self.playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [self addSubview:self.playButton];
-        self.playButton.enabled = NO;
+        //self.playButton.enabled = NO;
         self.playButton.hidden = YES;
         self.playButton.backgroundColor = [UIColor customGreenColor];
         self.playButton.layer.cornerRadius = frame.size.height/2;
         self.playButton.layer.masksToBounds = YES;
         self.playButton.layer.shouldRasterize = YES;
+
+        self.longPressGestureForPlayButton = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressForPlay:)];
+        self.longPressGestureForPlayButton.minimumPressDuration = .2;
+
 
         
         self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
@@ -59,6 +63,7 @@
         self.longPressGesture.allowableMovement = 1000.0;
         self.longPressGesture.numberOfTouchesRequired = 1;
         [self.recordButton addGestureRecognizer:self.longPressGesture];
+        [self.playButton addGestureRecognizer:self.longPressGestureForPlayButton];
 
         self.recordCompleteLabel = [[UILabel alloc] init];
         self.recordCompleteLabel.text = @"Recording Complete";
@@ -81,20 +86,6 @@
     return self;
 }
 
-- (void)buttonMethod1:(UIButton *)sender forEvent:(UIEvent *)event controlEvent:(UIControlEvents)controlEvent {
-//        if ([self.delegate respondsToSelector:@selector(recordButtonReleased:withButton:)]) {
-//            [self.delegate recordButtonReleased:self withButton:sender];
-
-//        }
-}
-
-- (void)buttonMethod:(UIButton *)sender forEvent:(UIEvent *)event controlEvent:(UIControlEvents)controlEvent {
-//        if ([self.delegate respondsToSelector:@selector(recordButtonPressed:withButton:)]) {
-//            [self.delegate recordButtonPressed:self withButton:sender];
-//        }
-}
-
-
 //- (void)recordPressed:(id)sender {
 //    if (
 //    if ([self.delegate respondsToSelector:@selector(recordButtonPressed:withButton:)]) {
@@ -106,13 +97,20 @@
     NSLog(@"Button Pressed");
 }
 
+- (void)longPressForPlay:(UIGestureRecognizer *)gesture {
+    if ([self.delegate respondsToSelector:@selector(didTryToPlayWithPlayButton:withGesture:)]) {
+        [self.delegate didTryToPlayWithPlayButton:self.playButton withGesture:gesture];
+    }
+}
+
 - (void)longPress:(UILongPressGestureRecognizer *)gesture {
     if ([self.delegate respondsToSelector:@selector(didTryToZoom:withGesture:)]) {
         [self.delegate didTryToZoom:self.recordButton withGesture:gesture];
     }
-    if ([self.delegate respondsToSelector:@selector(didTryToShake:withGesture:)]) {
-        [self.delegate didTryToShake:self.recordButton withGesture:gesture];
+    if ([self.delegate respondsToSelector:@selector(didTryToPlay:withGesture:)]) {
+        [self.delegate didTryToPlay:self.recordButton withGesture:gesture];
     }
+
 //    if ([self.delegate respondsToSelector:@selector(recording)]) {
 //        [self.delegate recording];
 //    }

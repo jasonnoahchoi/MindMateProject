@@ -8,7 +8,8 @@
         <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Recording" inverseName="queue" inverseEntity="Recording" syncable="YES"/>
     </entity>
     <entity name="Recording" representedClassName="Recording" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="memo" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -16,6 +17,7 @@
         <attribute name="returned" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="showAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="simpleDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeCreated" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="urlPath" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="fromUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="recordingsReceived" inverseEntity="User" syncable="YES"/>
@@ -33,7 +35,7 @@
     <elements>
         <element name="Group" positionX="-18" positionY="27" width="128" height="75"/>
         <element name="Queue" positionX="9" positionY="135" width="128" height="58"/>
-        <element name="Recording" positionX="36" positionY="81" width="128" height="255"/>
+        <element name="Recording" positionX="36" positionY="81" width="128" height="283"/>
         <element name="User" positionX="9" positionY="54" width="128" height="118"/>
     </elements>
 </model>
