@@ -96,17 +96,8 @@
 - (NSArray *)memos {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
-    //[fetchRequest setPredicate:[self predicate]];
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString = %@", [[AudioController sharedInstance] simpleDateString]];
-//   // NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"simpleDateString" ascending:YES];
-//   // NSArray *sortDescriptors = @[dateSort];
-//    //NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
-//   // [fetchRequest setSortDescriptors:sortDescriptors];
-//    //[fetchDate setEntity:recordingEntity]; 
-//    [fetchRequest setPredicate:predicate];
-//    NSLog(@"FETCH: %@", fetchRequest);
-        fetchRequest.predicate = [self predicate];
-   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"((simpleDate > %@)]
+   //       fetchRequest.predicate = [self predicate];
+
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
 
@@ -156,7 +147,7 @@
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 
-- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSString *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName andTimeCreated:(NSString *)timeCreated andData:(NSData *)data {
+- (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSString *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName andTimeCreated:(NSString *)timeCreated {
     Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
 
     recording.urlPath = urlPath;
@@ -166,7 +157,7 @@
     recording.simpleDate = simpleDate;
     recording.groupName = groupName;
     recording.timeCreated = timeCreated;
-    recording.memo = data;
+    
     
    // [[QueueManager sharedInstance] addRecording:recording];
 

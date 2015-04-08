@@ -34,6 +34,7 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 - (AVAudioPlayer *)playAudioWithData:(NSData *)data;
 - (AVAudioPlayer *)stopPlayingAudio;
 - (AVAudioRecorder *)stopRecording;
+- (NSArray *)documentsPath;
 - (NSString *)filePath;
 - (NSURL *)urlPath;
 - (NSDate *)createdAtDate;

@@ -25,7 +25,6 @@
 @property (nonatomic, strong) Recording *record;
 
 @property (nonatomic, strong) NSMutableArray *mutableRecordings;
-@property (nonatomic, strong) UILabel *timeLabel;
 
 @property (nonatomic, strong) UIButton *confirmButton;
 @property (nonatomic, strong) UIButton *recordAgainButton;
@@ -75,17 +74,12 @@
             self.buttonView.recordButton.transform = CGAffineTransformIdentity;
         } completion:nil];
     }];
-    //self.buttonView.center = self.view.center;
+
     self.buttonView.delegate = self;
     [self.view addSubview:self.buttonView];
-//    self.buttonView.hidden = YES;
-    //self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 70, self.view.frame.size.width/2-10, 50)];
-    //[self.view addSubview:self.timeLabel];
-//    self.timeLabel.text = @"Time";
-//    self.timeLabel.textAlignment = NSTextAlignmentRight;
+
     self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
-    //self.tdView.timeLabel.text = @"TIMEISOFTHEESSECNCE";
-    //self.tdView.backgroundColor = [UIColor greenColor];
+
     [self.view addSubview:self.tdView];
 
 }
@@ -370,8 +364,8 @@
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     NSLog(@"Notification received");
-    self.record = [RecordingController sharedInstance].memos.lastObject;
-    [[RecordingController sharedInstance] removeRecording:self.record];
+//    self.record = [RecordingController sharedInstance].memos.lastObject;
+//    [[RecordingController sharedInstance] removeRecording:self.record];
     self.counter--;
 }
 
@@ -469,17 +463,12 @@
                             //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
                             //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
                             //[mutableArray addObject:item];
-                            [mutableArray addObject:recording.memo];
+                            NSArray *documentsPath = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], recording.urlPath, nil];
+                            NSURL *urlPath = [NSURL fileURLWithPathComponents:documentsPath];
+
+                            [mutableArray addObject:urlPath];
 
                             self.record = recording;
-                            ////                    for (int i = 0; i < [mutableArray count]; i++) {
-                            //                        [[AudioController sharedInstance] playAudioWithData:recording.memo];
-                            //                    }
-
-                            //self.tdView.timeLabel.text = recording.timeCreated;
-                            //self.tdView.dateLabel.text = recording.simpleDate;
-                            //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:self];
-
                         }
                         self.indexForRecording = self.mutableRecordings.count - 2;
                         [AudioController sharedInstance].audioFileQueue = mutableArray;
@@ -489,14 +478,8 @@
                             [[AudioController sharedInstance] playAudioWithInt:i];
                         }
 
-                        //[[AudioController sharedInstance] stopPlayingAudio];
-
-
                         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
                         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
-
-
-                        //                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
 
                         //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
                         //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
@@ -504,32 +487,13 @@
                         //                    [[AudioController sharedInstance] playQueueAudio:mutableArray];
                         //                });
 
-                        //                    NSData *data = recording.memo;
-                        //                    [[AudioController sharedInstance] playAudioWithData:data];
-                        // [[AudioController sharedInstance] playQueueAudio:mutableArray];
-
-                        //                [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
-
-
-                        //AVQueuePlayer *play = [[AVQueuePlayer alloc] initWithItems:mutableArray];
-
-                        //NSData *data = recording.memo;
-
-
-                    }];
+                           }];
                 }
-
-//            }
                 break;
             case UIGestureRecognizerStateEnded:
             {
                 [[AudioController sharedInstance] stopPlayingAudio];
                 self.tdView.hidden = YES;
-
-
-                //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
-                //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
-                //            }
 
                 [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
@@ -542,25 +506,18 @@
                         } completion:^(BOOL finished) {
                             [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
-                                
+
                             } completion:nil];
                         }];
                     }];
                 }];
-                
-                //            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:self.playVC];
-                //
-                //            [self.navigationController presentViewController:navigation animated:NO completion:^{
-                
             }
-
                 break;
             default:
                 break;
         }
 
 }
-
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     self.tdView.hidden = YES;
@@ -815,11 +772,6 @@
     }];
     
 }
-
-//- (void)hideLabel {
-//    self.buttonView.recordCompleteLabel.hidden = YES;
-//}
-//
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
