@@ -31,9 +31,22 @@
     return sharedInstance;
 }
 
+- (NSDate *)fetchDate {
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+
+    NSUInteger count = -1;
+    dayComponent.day = count;
+
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+    
+    return nextDate;
+}
+
 - (NSDate *)beginningOfDay {
-    NSDate *date = [NSDate date];
+    NSDate *date = [self fetchDate];
     NSCalendar *cal = [NSCalendar currentCalendar];
+    
     NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
 
     [components setHour:6];
@@ -41,11 +54,12 @@
     [components setMinute:0];
 
     [components setSecond:0];
+
     return [cal dateFromComponents:components];
 }
 
 - (NSDate *)endOfDay {
-    NSDate *date = [NSDate date];
+    NSDate *date = [self fetchDate];
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
 //    [components setYear:0];
@@ -75,7 +89,7 @@
 //    NSPredicate *secondPredicate = [NSPredicate predicateWithFormat:@"createdAt < %@", [self endOfDay]];
 //
 //    return [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:firstPredicate, secondPredicate, nil]];
-    return [NSPredicate predicateWithFormat:@"!((showAt > %@) && (showAt <= %@))",[self beginningOfDay], [self endOfDay]];
+    return [NSPredicate predicateWithFormat:@"(showAt > %@) AND (showAt <= %@)",[self beginningOfDay], [self endOfDay]];
 }
 
 
