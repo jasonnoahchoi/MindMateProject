@@ -36,7 +36,7 @@
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
 
-    [components setHour:0];
+    [components setHour:6];
 
     [components setMinute:0];
 
@@ -47,13 +47,23 @@
 - (NSDate *)endOfDay {
     NSDate *date = [NSDate date];
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:( NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
-    [components setHour:0];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
+//    [components setYear:0];
+//    [components setMonth:0];
+//    [components setDay:1];
 
-    [components setMinute:50];
 
-    [components setSecond:0];
-    return [cal dateFromComponents:components];
+    [components setHour:23];
+
+    [components setMinute:59];
+
+    [components setSecond:59];
+
+//    NSUInteger count = 1;
+//    components.day = count;
+
+
+    return [cal dateByAddingComponents:components toDate:[self beginningOfDay] options:0];
 }
 
 - (NSPredicate *)predicate {
@@ -65,11 +75,12 @@
 //    NSPredicate *secondPredicate = [NSPredicate predicateWithFormat:@"createdAt < %@", [self endOfDay]];
 //
 //    return [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:firstPredicate, secondPredicate, nil]];
-    return [NSPredicate predicateWithFormat:@"(createdAt > %@) && (createdAt <= %@)",[self beginningOfDay], [self endOfDay]];
+    return [NSPredicate predicateWithFormat:@"!((showAt > %@) && (showAt <= %@))",[self beginningOfDay], [self endOfDay]];
 }
 
 
 - (NSArray *)memos {
+    NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
     //[fetchRequest setPredicate:[self predicate]];
 //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString = %@", [[AudioController sharedInstance] simpleDateString]];
@@ -77,12 +88,12 @@
 //   // NSArray *sortDescriptors = @[dateSort];
 //    //NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
 //   // [fetchRequest setSortDescriptors:sortDescriptors];
-//    //[fetchDate setEntity:recordingEntity];
+//    //[fetchDate setEntity:recordingEntity]; 
 //    [fetchRequest setPredicate:predicate];
 //    NSLog(@"FETCH: %@", fetchRequest);
-    //fetchRequest.predicate = [self predicate];
+        fetchRequest.predicate = [self predicate];
    // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"((simpleDate > %@)]
-    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
+    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
 
 - (NSArray *)fetchMemos {
@@ -91,18 +102,18 @@
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
 }
 
-- (NSArray *)callByDate {
-    [self memos];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString > %@", [[AudioController sharedInstance] simpleDateString]];
-    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"simpleDateString" ascending:YES];
-    NSArray *sortDescriptors = @[dateSort];
-    NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
-    [fetchDate setSortDescriptors:sortDescriptors];
-    [fetchDate setEntity:recordingEntity];
-    [fetchDate setPredicate:predicate];
-    NSLog(@"FETCH: %@", fetchDate);
-    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchDate error:NULL];
-}
+//- (NSArray *)callByDate {
+//    [self memos];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString > %@", [[AudioController sharedInstance] simpleDateString]];
+//    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"simpleDateString" ascending:YES];
+//    NSArray *sortDescriptors = @[dateSort];
+//    NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
+//    [fetchDate setSortDescriptors:sortDescriptors];
+//    [fetchDate setEntity:recordingEntity];
+//    [fetchDate setPredicate:predicate];
+//    NSLog(@"FETCH: %@", fetchDate);
+//    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchDate error:NULL];
+//}
 
 - (NSArray *)memoNames {
     NSMutableArray *mutableMemoNames = [[NSMutableArray alloc] init];

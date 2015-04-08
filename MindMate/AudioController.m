@@ -70,7 +70,7 @@
     [[RecordingController sharedInstance] addRecordingWithURL:[[self fileURL] absoluteString]
                                                   andIDNumber:[self randomIDNumber]
                                                andDateCreated:[self createdAtDateString]
-                                                 andFetchDate:[self fetchDate]
+                                                 andFetchDate:[self createdAtDate]
                                                 andSimpleDate:[self simpleDateString]
                                                  andGroupName:[self groupName]
                                                andTimeCreated:[self currentTime]
