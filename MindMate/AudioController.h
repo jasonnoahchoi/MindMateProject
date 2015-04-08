@@ -18,6 +18,7 @@ typedef enum : NSUInteger {
 } AudioState;
 
 static NSString * const kAudioFileFinished = @"AudioFileFinished";
+static NSString *const kLabelDidChange = @"LabelDidChange";
 
 @interface AudioController : NSObject <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 

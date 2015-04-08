@@ -178,7 +178,7 @@
 
 - (void)playAudioWithInt:(int)i {
     NSError *error = nil;
-    self.player = [[AVAudioPlayer alloc] initWithData:self.audioFileQueue[i] error:nil];
+    self.player = [[AVAudioPlayer alloc] initWithData:self.audioFileQueue[i] error:&error];
     self.player.delegate = self;
     self.player.volume = 1.0;
     self.player.numberOfLoops = 0;
@@ -188,22 +188,32 @@
     if (!self.player) {
         NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
     } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLabelDidChange object:nil];
         [self.player play];
     }
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChangePerSong:) name:kLabelDidChange object:nil];
+
     self.index--;
 }
-
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
     if (self.index <= self.audioFileQueue.count) {
         [self playAudioWithInt:self.index];
+       // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self];
 
+        
     } else {
       //  [[RecordingController sharedInstance] removeRecording:self.recording];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:nil];
     NSLog(@"did finish playing %d", flag);
+
     }
 }
+
+//- (void)playerItemDidReachEnd:(NSNotification *)notification {
+//    [[RecordingController sharedInstance] removeRecording:self.recording];
+//}
 
 
 - (NSData *)data {

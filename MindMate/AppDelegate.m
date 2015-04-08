@@ -25,9 +25,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     AudioViewController *viewController = [[AudioViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+    //UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
 
-    self.window.rootViewController = navVC;
+    self.window.rootViewController = viewController;
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

@@ -22,7 +22,7 @@
 @property (nonatomic, strong) CategoryContainerView *containerView;
 @property (nonatomic, strong) PlayCollectionViewController *playVC;
 @property (nonatomic, strong) TimeAndDateView *tdView;
-@property (nonatomic, strong) Recording *recording;
+@property (nonatomic, strong) Recording *record;
 
 @property (nonatomic, strong) NSMutableArray *mutableRecordings;
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -46,6 +46,8 @@
 @property (nonatomic, assign) CGPoint endPointPlayCornerButton;
 
 @property (nonatomic, assign) NSNumber *groupIDNumber;
+@property (nonatomic, assign) NSInteger indexForRecording;
+@property (nonatomic, assign) NSInteger counter;
 
 @end
 
@@ -81,7 +83,7 @@
     //[self.view addSubview:self.timeLabel];
 //    self.timeLabel.text = @"Time";
 //    self.timeLabel.textAlignment = NSTextAlignmentRight;
-    self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 70, self.view.frame.size.width/2-10, 100)];
+    self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
     //self.tdView.timeLabel.text = @"TIMEISOFTHEESSECNCE";
     //self.tdView.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.tdView];
@@ -224,6 +226,7 @@
             [self hideBottomButtons];
             self.containerView.state = ButtonStateNone;
             [self noneState:ButtonStateNone];
+            self.counter++;
         }];
     }
     self.title = @"Record";
@@ -365,40 +368,127 @@
     }
 }
 
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    NSLog(@"Notification received");
+    Recording *recording = [RecordingController sharedInstance].memos.lastObject;
+    [[RecordingController sharedInstance] removeRecording:recording];
+    self.counter--;
+}
+
+- (void)labelDidChange:(NSNotification *)notification {
+    //self.indexForRecording = self.mutableRecordings.count - 1;
+
+//    if ([[notification name] isEqualToString:kLabelDidChange]){
+//    NSLog(@"Label");
+//    for (int i = 0; i < self.mutableRecordings.count; i++) {
+    //NSLog(@"Notification Label Called: %d", i++);
+
+
+
+    //int i = [AudioController sharedInstance].index;
+    //for (int i = [AudioController sharedInstance].index; i < self.mutableRecordings.count; i++) {
+    if (self.indexForRecording <= (self.mutableRecordings.count)) {
+    self.tdView.timeLabel.text =  self.mutableRecordings[self.indexForRecording];
+
+    self.tdView.dateLabel.text = self.record.simpleDate;
+    } else {
+        return;
+    }
+     self.indexForRecording--;
+
+    NSLog(@"Called Label did change");
+
+
+//    }
+}
+
+- (void) dealloc
+{
+    // If you don't remove yourself as an observer, the Notification Center
+    // will continue to try and send notification objects to the deallocated
+    // object.
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 
 - (void)didTryToPlayWithPlayButton:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
+            if (self.counter < 1) {
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+            [animation setDuration:0.07];
+            [animation setRepeatCount:2];
+            [animation setAutoreverses:YES];
+            [animation setFromValue:[NSValue valueWithCGPoint:
+                                     CGPointMake([button center].x + 20, [button center].y)]];
+            [animation setToValue:[NSValue valueWithCGPoint:
+                                   CGPointMake([button center].x - 20, [button center].y)]];
+            [[button layer] addAnimation:animation forKey:@"position"];
+            NSLog(@"Shaking");
+
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.recordCornerButton.transform = CGAffineTransformIdentity;
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            self.recordCornerButton.transform = CGAffineTransformIdentity;
+                        } completion:nil];
+                    }];
+
+                }];
+            }];
+            }
+            if (self.counter > 0) {
+
+            self.tdView.hidden = NO;
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
             } completion:^(BOOL finished) {
                 NSArray *array = [RecordingController sharedInstance].memos;
                 NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
-                self.mutableRecordings = [NSMutableArray arrayWithArray:array];
+                self.mutableRecordings = [[NSMutableArray alloc] init];
                 //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
                 for (int i = 0; i < [array count]; i++) {
                     Recording *recording = [RecordingController sharedInstance].memos[i];
-                    self.recording = recording;
+                    [self.mutableRecordings addObject:recording.timeCreated];
+                    self.tdView.timeLabel.text = recording.timeCreated;
+                    self.tdView.dateLabel.text = recording.simpleDate;
 
                     //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
                     //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
                     //[mutableArray addObject:item];
                     [mutableArray addObject:recording.memo];
+
+                    self.record = recording;
 ////                    for (int i = 0; i < [mutableArray count]; i++) {
 //                        [[AudioController sharedInstance] playAudioWithData:recording.memo];
 //                    }
-                    [AudioController sharedInstance].audioFileQueue = mutableArray;
-                    for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
-                        [AudioController sharedInstance].index = i;
-                        [[AudioController sharedInstance] playAudioWithInt:i];
-                        self.tdView.timeLabel.text = recording.timeCreated;
-                        self.tdView.dateLabel.text = recording.simpleDate;
-                    }
 
-                    //[[AudioController sharedInstance] stopPlayingAudio];
+                                        //self.tdView.timeLabel.text = recording.timeCreated;
+                        //self.tdView.dateLabel.text = recording.simpleDate;
+                       //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:self];
+
+                    }
+                 self.indexForRecording = self.mutableRecordings.count - 2;
+                [AudioController sharedInstance].audioFileQueue = mutableArray;
+                for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
+                    [AudioController sharedInstance].index = i;
+
+                    [[AudioController sharedInstance] playAudioWithInt:i];
                 }
+
+                                   //[[AudioController sharedInstance] stopPlayingAudio];
+
+
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
 
 
 //                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
@@ -422,26 +512,28 @@
 
 
             }];
+            }
         }
             break;
 
         case UIGestureRecognizerStateEnded:
         {
             [[AudioController sharedInstance] stopPlayingAudio];
+            
 
-            //[[RecordingController sharedInstance] removeRecording:self.mutableRecordings.lastObject];
-            for (int i = 0; i < self.mutableRecordings.count ; i++) {
 
-            }
+//            for (int i = 0; i < self.mutableRecordings.count ; i++) {
+//               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
+//            }
 
-            [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
             }completion:^(BOOL finished) {
-                [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.1 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                 } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+                    [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
@@ -464,6 +556,7 @@
 
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
+    self.tdView.hidden = YES;
     if (self.containerView.state == ButtonStateNone) {
         switch (sender.state) {
             case UIGestureRecognizerStateBegan:
