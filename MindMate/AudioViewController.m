@@ -429,14 +429,23 @@
             NSLog(@"Shaking");
 
             [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    self.recordAgainButton.transform = CGAffineTransformIdentity;
-                } completion:nil];
+                    self.recordCornerButton.transform = CGAffineTransformIdentity;
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            self.recordCornerButton.transform = CGAffineTransformIdentity;
+                        } completion:nil];
+                    }];
+
+                }];
             }];
             }
-            if (self.counter) {
+            if (self.counter > 0) {
 
             self.tdView.hidden = NO;
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -517,14 +526,14 @@
 //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
 //            }
 
-            [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
             }completion:^(BOOL finished) {
-                [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.1 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                 } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+                    [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
