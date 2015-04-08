@@ -370,8 +370,8 @@
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     NSLog(@"Notification received");
-    Recording *recording = [RecordingController sharedInstance].memos.lastObject;
-    [[RecordingController sharedInstance] removeRecording:recording];
+    self.record = [RecordingController sharedInstance].memos.lastObject;
+    [[RecordingController sharedInstance] removeRecording:self.record];
     self.counter--;
 }
 
@@ -413,145 +413,152 @@
 
 
 - (void)didTryToPlayWithPlayButton:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
-    switch (sender.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            if (self.counter < 1) {
-                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-            [animation setDuration:0.07];
-            [animation setRepeatCount:2];
-            [animation setAutoreverses:YES];
-            [animation setFromValue:[NSValue valueWithCGPoint:
-                                     CGPointMake([button center].x + 20, [button center].y)]];
-            [animation setToValue:[NSValue valueWithCGPoint:
-                                   CGPointMake([button center].x - 20, [button center].y)]];
-            [[button layer] addAnimation:animation forKey:@"position"];
-            NSLog(@"Shaking");
+//    if ([RecordingController sharedInstance].memos) {
+//        [self predicate];
+        switch (sender.state) {
+            case UIGestureRecognizerStateBegan:
+            {
+                //if (self.counter < 1) {
+                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+                    [animation setDuration:0.07];
+                    [animation setRepeatCount:2];
+                    [animation setAutoreverses:YES];
+                    [animation setFromValue:[NSValue valueWithCGPoint:
+                                             CGPointMake([button center].x + 20, [button center].y)]];
+                    [animation setToValue:[NSValue valueWithCGPoint:
+                                           CGPointMake([button center].x - 20, [button center].y)]];
+                    [[button layer] addAnimation:animation forKey:@"position"];
+                    NSLog(@"Shaking");
 
-            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    self.recordCornerButton.transform = CGAffineTransformIdentity;
-                } completion:^(BOOL finished) {
                     [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             self.recordCornerButton.transform = CGAffineTransformIdentity;
-                        } completion:nil];
+                        } completion:^(BOOL finished) {
+                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                            } completion:^(BOOL finished) {
+                                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    self.recordCornerButton.transform = CGAffineTransformIdentity;
+                                } completion:nil];
+                            }];
+
+                        }];
                     }];
+//                }
+//                if (self.counter > 0) {
+                if ([RecordingController sharedInstance].memos.count > 0) {
+                    self.tdView.hidden = NO;
+                }
+                    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
+                    } completion:^(BOOL finished) {
+                        NSArray *array = [RecordingController sharedInstance].memos;
+                        //NSArray *array = [RecordingController sharedInstance].fetchMemos;
+                        NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+                        self.mutableRecordings = [[NSMutableArray alloc] init];
+                        //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
+                        for (int i = 0; i < [array count]; i++) {
+                            Recording *recording = [RecordingController sharedInstance].memos[i];
+                           // Recording *recording = [RecordingController sharedInstance].fetchMemos[i];
+                            [self.mutableRecordings addObject:recording.timeCreated];
+                            self.tdView.timeLabel.text = recording.timeCreated;
+                            self.tdView.dateLabel.text = recording.simpleDate;
 
-                }];
-            }];
-            }
-            if (self.counter > 0) {
+                            //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
+                            //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
+                            //[mutableArray addObject:item];
+                            [mutableArray addObject:recording.memo];
 
-            self.tdView.hidden = NO;
-            [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
-            } completion:^(BOOL finished) {
-                NSArray *array = [RecordingController sharedInstance].memos;
-                NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
-                self.mutableRecordings = [[NSMutableArray alloc] init];
-                //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
-                for (int i = 0; i < [array count]; i++) {
-                    Recording *recording = [RecordingController sharedInstance].memos[i];
-                    [self.mutableRecordings addObject:recording.timeCreated];
-                    self.tdView.timeLabel.text = recording.timeCreated;
-                    self.tdView.dateLabel.text = recording.simpleDate;
+                            self.record = recording;
+                            ////                    for (int i = 0; i < [mutableArray count]; i++) {
+                            //                        [[AudioController sharedInstance] playAudioWithData:recording.memo];
+                            //                    }
 
-                    //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
-                    //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
-                    //[mutableArray addObject:item];
-                    [mutableArray addObject:recording.memo];
+                            //self.tdView.timeLabel.text = recording.timeCreated;
+                            //self.tdView.dateLabel.text = recording.simpleDate;
+                            //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:self];
 
-                    self.record = recording;
-////                    for (int i = 0; i < [mutableArray count]; i++) {
-//                        [[AudioController sharedInstance] playAudioWithData:recording.memo];
-//                    }
+                        }
+                        self.indexForRecording = self.mutableRecordings.count - 2;
+                        [AudioController sharedInstance].audioFileQueue = mutableArray;
+                        for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
+                            [AudioController sharedInstance].index = i;
 
-                                        //self.tdView.timeLabel.text = recording.timeCreated;
-                        //self.tdView.dateLabel.text = recording.simpleDate;
-                       //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:self];
+                            [[AudioController sharedInstance] playAudioWithInt:i];
+                        }
 
-                    }
-                 self.indexForRecording = self.mutableRecordings.count - 2;
-                [AudioController sharedInstance].audioFileQueue = mutableArray;
-                for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
-                    [AudioController sharedInstance].index = i;
+                        //[[AudioController sharedInstance] stopPlayingAudio];
 
-                    [[AudioController sharedInstance] playAudioWithInt:i];
+
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
+
+
+                        //                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
+
+                        //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
+                        //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
+                        //                dispatch_async(dispatch_get_main_queue(), ^{
+                        //                    [[AudioController sharedInstance] playQueueAudio:mutableArray];
+                        //                });
+
+                        //                    NSData *data = recording.memo;
+                        //                    [[AudioController sharedInstance] playAudioWithData:data];
+                        // [[AudioController sharedInstance] playQueueAudio:mutableArray];
+
+                        //                [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
+
+
+                        //AVQueuePlayer *play = [[AVQueuePlayer alloc] initWithItems:mutableArray];
+
+                        //NSData *data = recording.memo;
+
+
+                    }];
                 }
 
-                                   //[[AudioController sharedInstance] stopPlayingAudio];
-
-
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
-
-
-//                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
-
-//              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
-                //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [[AudioController sharedInstance] playQueueAudio:mutableArray];
-//                });
-
-//                    NSData *data = recording.memo;
-//                    [[AudioController sharedInstance] playAudioWithData:data];
-               // [[AudioController sharedInstance] playQueueAudio:mutableArray];
-
-//                [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
-
-                 
-                //AVQueuePlayer *play = [[AVQueuePlayer alloc] initWithItems:mutableArray];
-
-                               //NSData *data = recording.memo;
-
-
-            }];
-            }
-        }
-            break;
-
-        case UIGestureRecognizerStateEnded:
-        {
-            [[AudioController sharedInstance] stopPlayingAudio];
-            
-
-
-//            for (int i = 0; i < self.mutableRecordings.count ; i++) {
-//               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
 //            }
+                break;
+            case UIGestureRecognizerStateEnded:
+            {
+                [[AudioController sharedInstance] stopPlayingAudio];
+                self.tdView.hidden = YES;
 
-            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
-            }completion:^(BOOL finished) {
-                [UIView animateWithDuration:.1 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-                } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
+
+                //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
+                //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
+                //            }
+
+                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+                }completion:^(BOOL finished) {
+                    [UIView animateWithDuration:.1 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                     } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
-
-                        } completion:nil];
+                        [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
+                        } completion:^(BOOL finished) {
+                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
+                                
+                            } completion:nil];
+                        }];
                     }];
                 }];
-            }];
+                
+                //            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:self.playVC];
+                //
+                //            [self.navigationController presentViewController:navigation animated:NO completion:^{
+                
+            }
 
-//            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:self.playVC];
-//
-//            [self.navigationController presentViewController:navigation animated:NO completion:^{
-
+                break;
+            default:
+                break;
         }
-            break;
-        default:
-            break;
-    }
+
 }
 
 
@@ -594,7 +601,7 @@
                         } completion:^(BOOL finished) {
                             [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                                 button.transform = CGAffineTransformIdentity;
-                                [self stopRecording];
+
                             } completion:^(BOOL finished) {
                                 self.containerView.alpha = 0;
                                 self.containerView.hidden = NO;
@@ -615,6 +622,7 @@
 
                                     self.recordAgainButton.alpha = 1;
                                 } completion:^(BOOL finished) {
+                                    [self stopRecording];
                                     [UIView animateWithDuration:.4 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                         self.recordAgainButton.center = self.endPointRecordAgainButton;
                                         self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);

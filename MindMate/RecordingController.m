@@ -11,7 +11,7 @@
 #import "Recording.h"
 #import "Group.h"
 #import "User.h"
-#import "QueueManager.h"
+#import "AudioController.h"
 
 @interface RecordingController ()
 
@@ -31,9 +31,77 @@
     return sharedInstance;
 }
 
+- (NSDate *)beginningOfDay {
+    NSDate *date = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
+
+    [components setHour:0];
+
+    [components setMinute:0];
+
+    [components setSecond:0];
+    return [cal dateFromComponents:components];
+}
+
+- (NSDate *)endOfDay {
+    NSDate *date = [NSDate date];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:( NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
+    [components setHour:0];
+
+    [components setMinute:50];
+
+    [components setSecond:0];
+    return [cal dateFromComponents:components];
+}
+
+- (NSPredicate *)predicate {
+
+    //    NSCalendar *calendar = [NSCalendar currentCalendar]; // gets default calendar
+    //    NSCalendarComponents *components = [calendar components:(NSYearCalendarUnit |NSMonthCalendarUnit |  NSDayCalendarUnit) fromDate:[NSDate date]]; // gets the year, month, and day for today's date
+    //    NSDate *firstDate = [calendar dateFromComponents:components]; // makes a new NSDate keeping only the year, month, and day
+//    NSPredicate *firstPredicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [self beginningOfDay]];
+//    NSPredicate *secondPredicate = [NSPredicate predicateWithFormat:@"createdAt < %@", [self endOfDay]];
+//
+//    return [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:firstPredicate, secondPredicate, nil]];
+    return [NSPredicate predicateWithFormat:@"(createdAt > %@) && (createdAt <= %@)",[self beginningOfDay], [self endOfDay]];
+}
+
+
 - (NSArray *)memos {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
+    //[fetchRequest setPredicate:[self predicate]];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString = %@", [[AudioController sharedInstance] simpleDateString]];
+//   // NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"simpleDateString" ascending:YES];
+//   // NSArray *sortDescriptors = @[dateSort];
+//    //NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
+//   // [fetchRequest setSortDescriptors:sortDescriptors];
+//    //[fetchDate setEntity:recordingEntity];
+//    [fetchRequest setPredicate:predicate];
+//    NSLog(@"FETCH: %@", fetchRequest);
+    //fetchRequest.predicate = [self predicate];
+   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"((simpleDate > %@)]
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
+}
+
+- (NSArray *)fetchMemos {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
+    fetchRequest.predicate = [self predicate];
+    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
+}
+
+- (NSArray *)callByDate {
+    [self memos];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString > %@", [[AudioController sharedInstance] simpleDateString]];
+    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"simpleDateString" ascending:YES];
+    NSArray *sortDescriptors = @[dateSort];
+    NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
+    [fetchDate setSortDescriptors:sortDescriptors];
+    [fetchDate setEntity:recordingEntity];
+    [fetchDate setPredicate:predicate];
+    NSLog(@"FETCH: %@", fetchDate);
+    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchDate error:NULL];
 }
 
 - (NSArray *)memoNames {
@@ -75,7 +143,7 @@
     recording.timeCreated = timeCreated;
     recording.memo = data;
     
-    [[QueueManager sharedInstance] addRecording:recording];
+   // [[QueueManager sharedInstance] addRecording:recording];
 
     [self save];
      NSLog(@"\n\n\n\n CORE DATA SAVED %@", recording);

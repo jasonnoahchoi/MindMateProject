@@ -15,6 +15,7 @@
 		082E76131AD1E8F600658BFC /* PlayCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76121AD1E8F600658BFC /* PlayCollectionViewDataSource.m */; };
 		082E76161AD1EA8B00658BFC /* PlayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */; };
 		082E76191AD1F16C00658BFC /* PlayCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */; };
+		0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0833C5861AD4FD7E000C945D /* NSDate+Utils.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
 		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
 		083D6E851AC4C5770005E67C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 083D6E841AC4C5770005E67C /* Images.xcassets */; };
@@ -71,6 +72,8 @@
 		082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewCell.m; sourceTree = "<group>"; };
 		082E76171AD1F16C00658BFC /* PlayCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewLayout.h; sourceTree = "<group>"; };
 		082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewLayout.m; sourceTree = "<group>"; };
+		0833C5851AD4FD7E000C945D /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
+		0833C5861AD4FD7E000C945D /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		083D6E741AC4C5770005E67C /* MindMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		083D6E781AC4C5770005E67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		083D6E791AC4C5770005E67C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */,
 				082E76171AD1F16C00658BFC /* PlayCollectionViewLayout.h */,
 				082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */,
+				0833C5851AD4FD7E000C945D /* NSDate+Utils.h */,
+				0833C5861AD4FD7E000C945D /* NSDate+Utils.m */,
 				08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */,
 				08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */,
 				082640391ACDD253009B5AF8 /* ButtonView.h */,
@@ -409,6 +414,7 @@
 				0869142D1AC891E80064B6AE /* UIImage+BlurredFrame.m in Sources */,
 				083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */,
 				0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */,
+				0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */,
 				082E76161AD1EA8B00658BFC /* PlayCollectionViewCell.m in Sources */,
 				08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,

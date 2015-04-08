@@ -332,6 +332,22 @@
 
 
 - (NSDate *)fetchDate {
+//    NSDate *dat = [self createdAtDate;
+//
+//    NSCalendar *cal = [NSCalendar currentCalendar];
+//
+//    NSDateComponents *components = [cal components:( NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit ) fromDate:dat];
+//
+//    [components setHour:23];
+//
+//    [components setMinute:59];
+//
+//    [components setSecond:59];
+//
+//
+//    
+//    return [cal dateFromComponents:components];
+
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
     //NSUInteger count = [[RecordingController sharedInstance].memos count];
     NSUInteger count = 1;
@@ -339,6 +355,9 @@
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[self createdAtDate] options:0];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateStyle:NSDateFormatterShortStyle];
+
 
     return nextDate;
 }

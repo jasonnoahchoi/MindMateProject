@@ -18,6 +18,7 @@ static NSString * const queueEntity = @"Queue";
 
 @property (nonatomic, strong, readonly) NSArray *memos;
 @property (nonatomic, strong, readonly) NSArray *memoNames;
+@property (nonatomic, strong, readonly) NSArray *fetchMemos;
 
 + (RecordingController *)sharedInstance;
 
