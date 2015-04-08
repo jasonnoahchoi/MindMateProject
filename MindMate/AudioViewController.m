@@ -47,6 +47,7 @@
 
 @property (nonatomic, assign) NSNumber *groupIDNumber;
 @property (nonatomic, assign) NSInteger indexForRecording;
+@property (nonatomic, assign) NSInteger counter;
 
 @end
 
@@ -225,6 +226,7 @@
             [self hideBottomButtons];
             self.containerView.state = ButtonStateNone;
             [self noneState:ButtonStateNone];
+            self.counter++;
         }];
     }
     self.title = @"Record";
@@ -370,6 +372,7 @@
     NSLog(@"Notification received");
     Recording *recording = [RecordingController sharedInstance].memos.lastObject;
     [[RecordingController sharedInstance] removeRecording:recording];
+    self.counter--;
 }
 
 - (void)labelDidChange:(NSNotification *)notification {
@@ -392,6 +395,7 @@
         return;
     }
      self.indexForRecording--;
+
     NSLog(@"Called Label did change");
 
 
@@ -412,6 +416,28 @@
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
+            if (self.counter < 1) {
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+            [animation setDuration:0.07];
+            [animation setRepeatCount:2];
+            [animation setAutoreverses:YES];
+            [animation setFromValue:[NSValue valueWithCGPoint:
+                                     CGPointMake([button center].x + 20, [button center].y)]];
+            [animation setToValue:[NSValue valueWithCGPoint:
+                                   CGPointMake([button center].x - 20, [button center].y)]];
+            [[button layer] addAnimation:animation forKey:@"position"];
+            NSLog(@"Shaking");
+
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.recordAgainButton.transform = CGAffineTransformIdentity;
+                } completion:nil];
+            }];
+            }
+            if (self.counter) {
+
             self.tdView.hidden = NO;
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
@@ -453,7 +479,7 @@
 
 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:[AudioController sharedInstance]];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
 
 
 //                Looper *looper = [[Looper alloc] initWithFileNameQueue:mutableArray];
@@ -477,6 +503,7 @@
 
 
             }];
+            }
         }
             break;
 
