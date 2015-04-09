@@ -10,10 +10,6 @@
 
 @implementation UIColor (Colors)
 
-+ (UIColor *)customPurpleColor {
-
-    return [UIColor colorWithHue:246.0/360 saturation:.25 brightness:1.0 alpha:1.0];
-}
 + (UIColor *)customDarkPurpleColor {
     return [UIColor colorWithHue:246.0/360 saturation:.9 brightness:1.0 alpha:1.0];
 }
@@ -26,10 +22,6 @@
     return [UIColor colorWithHue:15.0/360 saturation:.83 brightness:1.0 alpha:1];
 }
 
-+ (UIColor *)customGreenColor {
-    return [UIColor colorWithHue:167.0/360 saturation:.65 brightness:.89 alpha:1];
-}
-
 + (UIColor *)customGrayColor {
     return [UIColor colorWithRed:110.0/255 green:110.0/255 blue:110.0/255 alpha:1];
 }
@@ -40,6 +32,14 @@
 
 + (UIColor *)customBlueColor {
     return [UIColor colorWithHue:199.0/365 saturation:.7 brightness:.94 alpha:1];
+}
+
++ (UIColor *)customGreenColor {
+    return [UIColor colorWithHue:167.0/360 saturation:.65 brightness:.89 alpha:1];
+}
+
++ (UIColor *)customPurpleColor {
+    return [UIColor colorWithHue:246.0/360 saturation:.25 brightness:1.0 alpha:1.0];
 }
 
 @end
