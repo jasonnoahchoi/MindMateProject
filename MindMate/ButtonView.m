@@ -56,8 +56,6 @@
         self.longPressGestureForPlayButton = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressForPlay:)];
         self.longPressGestureForPlayButton.minimumPressDuration = .2;
 
-
-        
         self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
         //self.longPressGesture.delegate = self;
         self.longPressGesture.allowableMovement = 1000.0;

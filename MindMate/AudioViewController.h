@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
 
 
-@interface AudioViewController : UIViewController <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
+typedef enum {
+    CircleStateNone,
+    CircleStateRecord,
+    CircleStatePlay,
+} CircleState;
+
+@interface AudioViewController : UIViewController
 
 @end
 
