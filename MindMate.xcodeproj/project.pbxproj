@@ -12,9 +12,6 @@
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
 		082A37CD1AD3B0AC00B7B187 /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = 082A37CC1AD3B0AC00B7B187 /* Recording.m */; };
-		082E76131AD1E8F600658BFC /* PlayCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76121AD1E8F600658BFC /* PlayCollectionViewDataSource.m */; };
-		082E76161AD1EA8B00658BFC /* PlayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */; };
-		082E76191AD1F16C00658BFC /* PlayCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */; };
 		0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0833C5861AD4FD7E000C945D /* NSDate+Utils.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
 		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
@@ -24,25 +21,16 @@
 		083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E9E1AC4C6E70005E67C /* Stack.m */; };
 		083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */; };
 		083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EAD1AC4C8550005E67C /* RecordingController.m */; };
-		086914261AC891E80064B6AE /* AudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0869141B1AC891E80064B6AE /* AudioRecorderViewController.m */; };
-		086914271AC891E80064B6AE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141C1AC891E80064B6AE /* pause.png */; };
-		086914281AC891E80064B6AE /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141D1AC891E80064B6AE /* pause@2x.png */; };
-		086914291AC891E80064B6AE /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141E1AC891E80064B6AE /* play.png */; };
-		0869142A1AC891E80064B6AE /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0869141F1AC891E80064B6AE /* play@2x.png */; };
-		0869142B1AC891E80064B6AE /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 086914201AC891E80064B6AE /* record.png */; };
-		0869142C1AC891E80064B6AE /* record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 086914211AC891E80064B6AE /* record@2x.png */; };
-		0869142D1AC891E80064B6AE /* UIImage+BlurredFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 086914231AC891E80064B6AE /* UIImage+BlurredFrame.m */; };
-		0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 086914251AC891E80064B6AE /* UIImage+ImageEffects.m */; };
 		086914301AC891F40064B6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0869142F1AC891F40064B6AE /* Main.storyboard */; };
 		086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086914311AC893D70064B6AE /* AVFoundation.framework */; };
 		089F37181AD359DF00F069DF /* TimeAndDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089F37171AD359DF00F069DF /* TimeAndDateView.m */; };
+		08C6FD641AD65B7500FFD983 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C6FD631AD65B7500FFD983 /* IntroViewController.m */; };
 		08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */; };
 		08CC1FCB1AC9E1B60083B861 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CC1FCA1AC9E1B60083B861 /* AudioController.m */; };
 		08CC7E581AD616D500D8BA3C /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CC7E571AD616D500D8BA3C /* MenuViewController.m */; };
 		08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94EA1ACBB04F00B83395 /* Queue.m */; };
 		08CE94F11ACBB04F00B83395 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F01ACBB04F00B83395 /* User.m */; };
 		08CE94F41ACBB04F00B83395 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F31ACBB04F00B83395 /* Group.m */; };
-		08D3C7D31AD1C9A5008A7CAD /* PlayCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D3C7D21AD1C9A5008A7CAD /* PlayCollectionViewController.m */; };
 		8A489E03571846AD9609F824 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3C9177DE0048FEF6A37531 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,12 +55,6 @@
 		0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryContainerView.m; sourceTree = "<group>"; };
 		082A37CB1AD3B0AC00B7B187 /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
 		082A37CC1AD3B0AC00B7B187 /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
-		082E76111AD1E8F600658BFC /* PlayCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewDataSource.h; sourceTree = "<group>"; };
-		082E76121AD1E8F600658BFC /* PlayCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewDataSource.m; sourceTree = "<group>"; };
-		082E76141AD1EA8B00658BFC /* PlayCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewCell.h; sourceTree = "<group>"; };
-		082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewCell.m; sourceTree = "<group>"; };
-		082E76171AD1F16C00658BFC /* PlayCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewLayout.h; sourceTree = "<group>"; };
-		082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewLayout.m; sourceTree = "<group>"; };
 		0833C5851AD4FD7E000C945D /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
 		0833C5861AD4FD7E000C945D /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		083D6E741AC4C5770005E67C /* MindMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,22 +72,12 @@
 		083D6EA11AC4C7070005E67C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		083D6EAC1AC4C8550005E67C /* RecordingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingController.h; sourceTree = "<group>"; };
 		083D6EAD1AC4C8550005E67C /* RecordingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingController.m; sourceTree = "<group>"; };
-		0869141A1AC891E80064B6AE /* AudioRecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorderViewController.h; sourceTree = "<group>"; };
-		0869141B1AC891E80064B6AE /* AudioRecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderViewController.m; sourceTree = "<group>"; };
-		0869141C1AC891E80064B6AE /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
-		0869141D1AC891E80064B6AE /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
-		0869141E1AC891E80064B6AE /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
-		0869141F1AC891E80064B6AE /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
-		086914201AC891E80064B6AE /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record.png; sourceTree = "<group>"; };
-		086914211AC891E80064B6AE /* record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record@2x.png"; sourceTree = "<group>"; };
-		086914221AC891E80064B6AE /* UIImage+BlurredFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BlurredFrame.h"; sourceTree = "<group>"; };
-		086914231AC891E80064B6AE /* UIImage+BlurredFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BlurredFrame.m"; sourceTree = "<group>"; };
-		086914241AC891E80064B6AE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
-		086914251AC891E80064B6AE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		0869142F1AC891F40064B6AE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		086914311AC893D70064B6AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		089F37161AD359DF00F069DF /* TimeAndDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAndDateView.h; sourceTree = "<group>"; };
 		089F37171AD359DF00F069DF /* TimeAndDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAndDateView.m; sourceTree = "<group>"; };
+		08C6FD621AD65B7500FFD983 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		08C6FD631AD65B7500FFD983 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Colors.h"; sourceTree = "<group>"; };
 		08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Colors.m"; sourceTree = "<group>"; };
 		08CC1FC91AC9E1B60083B861 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
@@ -118,8 +90,6 @@
 		08CE94F01ACBB04F00B83395 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		08CE94F21ACBB04F00B83395 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		08CE94F31ACBB04F00B83395 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
-		08D3C7D11AD1C9A5008A7CAD /* PlayCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCollectionViewController.h; sourceTree = "<group>"; };
-		08D3C7D21AD1C9A5008A7CAD /* PlayCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCollectionViewController.m; sourceTree = "<group>"; };
 		4F47C3241880CF0F720F6C19 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9A3C9177DE0048FEF6A37531 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDDD9BD0EB2DF803753FA4DD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -176,16 +146,10 @@
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
 				082640381ACDD253009B5AF8 /* AudioViewController.m */,
+				08C6FD621AD65B7500FFD983 /* IntroViewController.h */,
+				08C6FD631AD65B7500FFD983 /* IntroViewController.m */,
 				089F37161AD359DF00F069DF /* TimeAndDateView.h */,
 				089F37171AD359DF00F069DF /* TimeAndDateView.m */,
-				08D3C7D11AD1C9A5008A7CAD /* PlayCollectionViewController.h */,
-				08D3C7D21AD1C9A5008A7CAD /* PlayCollectionViewController.m */,
-				082E76111AD1E8F600658BFC /* PlayCollectionViewDataSource.h */,
-				082E76121AD1E8F600658BFC /* PlayCollectionViewDataSource.m */,
-				082E76141AD1EA8B00658BFC /* PlayCollectionViewCell.h */,
-				082E76151AD1EA8B00658BFC /* PlayCollectionViewCell.m */,
-				082E76171AD1F16C00658BFC /* PlayCollectionViewLayout.h */,
-				082E76181AD1F16C00658BFC /* PlayCollectionViewLayout.m */,
 				0833C5851AD4FD7E000C945D /* NSDate+Utils.h */,
 				0833C5861AD4FD7E000C945D /* NSDate+Utils.m */,
 				08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */,
@@ -209,18 +173,6 @@
 				083D6EAD1AC4C8550005E67C /* RecordingController.m */,
 				08CC1FC91AC9E1B60083B861 /* AudioController.h */,
 				08CC1FCA1AC9E1B60083B861 /* AudioController.m */,
-				0869141A1AC891E80064B6AE /* AudioRecorderViewController.h */,
-				0869141B1AC891E80064B6AE /* AudioRecorderViewController.m */,
-				0869141C1AC891E80064B6AE /* pause.png */,
-				0869141D1AC891E80064B6AE /* pause@2x.png */,
-				0869141E1AC891E80064B6AE /* play.png */,
-				0869141F1AC891E80064B6AE /* play@2x.png */,
-				086914201AC891E80064B6AE /* record.png */,
-				086914211AC891E80064B6AE /* record@2x.png */,
-				086914221AC891E80064B6AE /* UIImage+BlurredFrame.h */,
-				086914231AC891E80064B6AE /* UIImage+BlurredFrame.m */,
-				086914241AC891E80064B6AE /* UIImage+ImageEffects.h */,
-				086914251AC891E80064B6AE /* UIImage+ImageEffects.m */,
 				0869142F1AC891F40064B6AE /* Main.storyboard */,
 				083D6E841AC4C5770005E67C /* Images.xcassets */,
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
@@ -357,14 +309,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */,
-				0869142C1AC891E80064B6AE /* record@2x.png in Resources */,
-				086914291AC891E80064B6AE /* play.png in Resources */,
-				0869142B1AC891E80064B6AE /* record.png in Resources */,
-				0869142A1AC891E80064B6AE /* play@2x.png in Resources */,
 				083D6E851AC4C5770005E67C /* Images.xcassets in Resources */,
 				086914301AC891F40064B6AE /* Main.storyboard in Resources */,
-				086914271AC891E80064B6AE /* pause.png in Resources */,
-				086914281AC891E80064B6AE /* pause@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,23 +361,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08D3C7D31AD1C9A5008A7CAD /* PlayCollectionViewController.m in Sources */,
-				0869142D1AC891E80064B6AE /* UIImage+BlurredFrame.m in Sources */,
 				083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */,
 				0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */,
 				0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */,
-				082E76161AD1EA8B00658BFC /* PlayCollectionViewCell.m in Sources */,
 				08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
+				08C6FD641AD65B7500FFD983 /* IntroViewController.m in Sources */,
 				08CC7E581AD616D500D8BA3C /* MenuViewController.m in Sources */,
-				086914261AC891E80064B6AE /* AudioRecorderViewController.m in Sources */,
-				082E76131AD1E8F600658BFC /* PlayCollectionViewDataSource.m in Sources */,
 				082A37CD1AD3B0AC00B7B187 /* Recording.m in Sources */,
 				08CE94F11ACBB04F00B83395 /* User.m in Sources */,
-				0869142E1AC891E80064B6AE /* UIImage+ImageEffects.m in Sources */,
 				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
-				082E76191AD1F16C00658BFC /* PlayCollectionViewLayout.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
 				08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */,

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    IntroCircleStateRecord,
+    IntroCircleStatePlay,
+} IntroCircleState;
+
+
 @interface IntroViewController : UIViewController
 
 @end
