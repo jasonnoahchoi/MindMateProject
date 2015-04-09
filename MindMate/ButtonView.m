@@ -24,7 +24,7 @@
     if (self) {
 //        self.recordingComplete = NO;
         self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        self.recordButton.backgroundColor = [UIColor customPurpleColor];
+        self.recordButton.backgroundColor = [UIColor customGreenColor];
 //        [self.recordButton performSelector:@selector(longPress) withObject:nil];
         //[self.recordButton targetForAction:@selector(longPress:) withSender:self];
 
@@ -48,7 +48,7 @@
         [self addSubview:self.playButton];
         //self.playButton.enabled = NO;
         self.playButton.hidden = YES;
-        self.playButton.backgroundColor = [UIColor customGreenColor];
+        self.playButton.backgroundColor = [UIColor customBlueColor];
         self.playButton.layer.cornerRadius = frame.size.height/2;
         self.playButton.layer.masksToBounds = YES;
         self.playButton.layer.shouldRasterize = YES;

@@ -37,4 +37,9 @@
 + (UIColor *)backgroundGrayColor {
     return [UIColor colorWithHue:0.0 saturation:0.0 brightness:.91 alpha:1];
 }
+
++ (UIColor *)customBlueColor {
+    return [UIColor colorWithHue:199.0/365 saturation:.7 brightness:.94 alpha:1];
+}
+
 @end

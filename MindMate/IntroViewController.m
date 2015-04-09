@@ -125,9 +125,13 @@
 - (void)showRecordLabel {
     self.recordLabel.alpha = 0;
     self.recordLabel.hidden = NO;
-    [UIView animateWithDuration:.5 delay:1.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:1 delay:1.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.recordLabel.alpha = 1;
-    } completion:nil];
+    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:3 delay:10 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//            self.recordLabel.text = @"You got this";
+//        } completion:nil];
+    }];
 }
 
 - (void)setCircleState:(IntroCircleState)circleState {
@@ -151,7 +155,7 @@
     [self.view addSubview:self.comeDownCircle];
 
     self.comeDownCircle.layer.cornerRadius = self.comeDownCircle.frame.size.width/2;
-    self.comeDownCircle.backgroundColor = [UIColor customPurpleColor];
+    self.comeDownCircle.backgroundColor = [UIColor customGreenColor];
     self.comeDownCircle.layer.masksToBounds = YES;
     self.comeDownCircle.layer.shouldRasterize = YES;
     [UIView animateWithDuration:3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -185,8 +189,8 @@
 
     self.centerPlayButtonClone.layer.cornerRadius = self.centerPlayButtonClone.frame.size.width/2;
     self.centerRecordButtonClone.layer.cornerRadius = self.centerRecordButtonClone.frame.size.width/2;
-    self.centerRecordButtonClone.backgroundColor = [UIColor customPurpleColor];
-    self.centerPlayButtonClone.backgroundColor = [UIColor customGreenColor];
+    self.centerRecordButtonClone.backgroundColor = [UIColor customGreenColor];
+    self.centerPlayButtonClone.backgroundColor = [UIColor customBlueColor];
     [self.view addSubview:self.centerRecordButtonClone];
     [self.view addSubview:self.centerPlayButtonClone];
     self.centerRecordButtonClone.hidden = YES;
@@ -206,7 +210,7 @@
 
 - (void)layoutMenuButton {
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
-    self.menuButton.backgroundColor = [UIColor customMenuColor];
+    self.menuButton.backgroundColor = [UIColor customPurpleColor];
     self.menuButton.layer.masksToBounds = YES;
     self.menuButton.layer.cornerRadius = 5;
     [self.view addSubview:self.menuButton];
@@ -219,7 +223,7 @@
     [self layoutEndPoints];
 
     self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
-    self.recordAgainButton.backgroundColor = [UIColor customGreenColor];
+    self.recordAgainButton.backgroundColor = [UIColor customBlueColor];
     self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
     self.recordAgainButton.layer.shouldRasterize = YES;
     self.recordAgainButton.hidden = YES;
@@ -237,7 +241,7 @@
     self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [self.view addSubview:self.confirmButton];
     self.confirmButton.hidden = YES;
-    self.confirmButton.backgroundColor = [UIColor customPurpleColor];
+    self.confirmButton.backgroundColor = [UIColor customGreenColor];
     self.confirmButton.layer.cornerRadius = self.confirmButton.frame.size.width/2;
     self.confirmButton.layer.shouldRasterize = YES;
     [self.confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchDown];
@@ -282,7 +286,7 @@
 
     self.recordCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/3, self.view.frame.size.height + self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [self.view addSubview:self.recordCornerButton];
-    self.recordCornerButton.backgroundColor = [UIColor customPurpleColor];
+    self.recordCornerButton.backgroundColor = [UIColor customGreenColor];
     self.recordCornerButton.hidden = YES;
     self.recordCornerButton.layer.cornerRadius = self.recordCornerButton.frame.size.height/2;
     self.recordCornerButton.layer.masksToBounds = YES;
@@ -292,7 +296,7 @@
 
     self.playCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width + self.view.frame.size.width/3, self.view.frame.size.height + self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [self.view addSubview:self.playCornerButton];
-    self.playCornerButton.backgroundColor = [UIColor customGreenColor];
+    self.playCornerButton.backgroundColor = [UIColor customBlueColor];
     self.playCornerButton.layer.cornerRadius = self.playCornerButton.frame.size.height/2;
     self.playCornerButton.layer.masksToBounds = YES;
     self.playCornerButton.layer.shouldRasterize = YES;
@@ -325,7 +329,7 @@
     [[RecordingController sharedInstance] save];
 
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
+        self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
         //self.confirmButton.alpha = 0;
         //self.recordAgainButton.alpha = 0;
         self.containerView.alpha = 0;
@@ -344,7 +348,7 @@
         [[RecordingController sharedInstance] save];
 
         [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
+            self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
         } completion:^(BOOL finished) {
             [self hideBottomButtons];
             self.containerView.state = ButtonStateNone;
@@ -866,22 +870,19 @@
 
                             } completion:^(BOOL finished) {
                                 self.containerView.alpha = 0;
-                                self.containerView.hidden = NO;
+                                self.containerView.hidden = YES;
                                 self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
-                                button.backgroundColor = [UIColor customPurpleColor];
+                                button.backgroundColor = [UIColor customGreenColor];
                                 self.recordAgainButton.hidden = NO;
                                 self.recordAgainButton.alpha = 0;
                                 self.recordAgainLabel.hidden = NO;
                                 self.recordAgainLabel.alpha = 0;
-                                [self zeroState:ButtonStateZero];
-                                self.title = @"Choose a State";
-                                NSLog(@"Zoomed");
+                               [self zeroState:ButtonStateZero];
                                 self.recordCornerButton.hidden = YES;
                                 self.playCornerButton.hidden = YES;
                                 [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                                     self.containerView.alpha = 1;
                                     [self.containerView animateLayoutButtons];
-
                                     self.recordAgainButton.alpha = 1;
                                 } completion:^(BOOL finished) {
                                     [self stopRecording];
@@ -892,6 +893,7 @@
                                     } completion:^(BOOL finished) {
                                         [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                             self.recordAgainButton.transform = CGAffineTransformIdentity;
+                                            [self showBottomButtons];
                                         } completion:nil];
                                     }];
                                 }];
@@ -969,7 +971,7 @@
     self.groupIDNumber = @0;
     self.playCornerButton.center = self.centerPlayButton;
     [UIView animateWithDuration:.5 animations:^{
-        self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
+        self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
         self.playCornerButton.hidden = NO;
         self.playCornerButton.alpha = 1;
         [self addPlayButtonAnimation];
@@ -1073,7 +1075,7 @@
     //self.confirmButton.hidden = NO;
     self.groupIDNumber = @0;
     [UIView animateWithDuration:.3 animations:^{
-        self.buttonView.recordButton.layer.backgroundColor = [UIColor customPurpleColor].CGColor;
+        self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
     }];
     
 }
