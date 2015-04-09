@@ -96,17 +96,7 @@
 - (NSArray *)memos {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
-    //[fetchRequest setPredicate:[self predicate]];
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString = %@", [[AudioController sharedInstance] simpleDateString]];
-//   // NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"simpleDateString" ascending:YES];
-//   // NSArray *sortDescriptors = @[dateSort];
-//    //NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
-//   // [fetchRequest setSortDescriptors:sortDescriptors];
-//    //[fetchDate setEntity:recordingEntity]; 
-//    [fetchRequest setPredicate:predicate];
-//    NSLog(@"FETCH: %@", fetchRequest);
-        fetchRequest.predicate = [self predicate];
-   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"((simpleDate > %@)]
+    //fetchRequest.predicate = [self predicate];
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
 

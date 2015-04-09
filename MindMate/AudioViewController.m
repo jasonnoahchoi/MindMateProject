@@ -384,8 +384,6 @@
             break;
         case (CircleStateRecord):
         {
-
-
             self.centerRecordButtonClone.center = self.endPointRecordCornerButton;
             [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
 
@@ -683,7 +681,7 @@
         switch (sender.state) {
             case UIGestureRecognizerStateBegan:
             {
-                //if (self.counter < 1) {
+                if ([RecordingController sharedInstance].memos.count < 1) {
                     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
                     [animation setDuration:0.07];
                     [animation setRepeatCount:2];
@@ -711,14 +709,15 @@
 
                         }];
                     }];
-//                }
-//                if (self.counter > 0) {
+               }
                 if ([RecordingController sharedInstance].memos.count > 0) {
                     self.tdView.hidden = NO;
-                }
+
                     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        self.menuButton.alpha = 0;
                         button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                     } completion:^(BOOL finished) {
+                        self.menuButton.hidden = YES;
                         NSArray *array = [RecordingController sharedInstance].memos;
                         //NSArray *array = [RecordingController sharedInstance].fetchMemos;
                         NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
@@ -783,6 +782,7 @@
 
                     }];
                 }
+            }
 
 //            }
                 break;
@@ -790,6 +790,8 @@
             {
                 [[AudioController sharedInstance] stopPlayingAudio];
                 self.tdView.hidden = YES;
+                self.menuButton.hidden = NO;
+
 
 
                 //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
@@ -798,9 +800,11 @@
 
                 [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+                    self.menuButton.alpha = .5;
                 }completion:^(BOOL finished) {
                     [UIView animateWithDuration:.1 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                        self.menuButton.alpha = 1;
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
@@ -839,6 +843,7 @@
                                       delay:0
                                     options:UIViewAnimationOptionCurveEaseIn
                                  animations:^{
+                                     self.menuButton.alpha = 0;
                                      button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
                                      button.alpha = .7;
                                      self.playCornerButton.hidden = YES;
@@ -852,6 +857,7 @@
                 [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
                     button.alpha = 1;
+                    self.menuButton.alpha = 1;
 
                 } completion:^(BOOL finished) {
                     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
