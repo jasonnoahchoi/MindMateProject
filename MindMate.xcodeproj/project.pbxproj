@@ -38,6 +38,7 @@
 		089F37181AD359DF00F069DF /* TimeAndDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089F37171AD359DF00F069DF /* TimeAndDateView.m */; };
 		08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */; };
 		08CC1FCB1AC9E1B60083B861 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CC1FCA1AC9E1B60083B861 /* AudioController.m */; };
+		08CC7E581AD616D500D8BA3C /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CC7E571AD616D500D8BA3C /* MenuViewController.m */; };
 		08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94EA1ACBB04F00B83395 /* Queue.m */; };
 		08CE94F11ACBB04F00B83395 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F01ACBB04F00B83395 /* User.m */; };
 		08CE94F41ACBB04F00B83395 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F31ACBB04F00B83395 /* Group.m */; };
@@ -109,6 +110,8 @@
 		08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Colors.m"; sourceTree = "<group>"; };
 		08CC1FC91AC9E1B60083B861 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
 		08CC1FCA1AC9E1B60083B861 /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
+		08CC7E561AD616D500D8BA3C /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		08CC7E571AD616D500D8BA3C /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		08CE94E91ACBB04F00B83395 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		08CE94EA1ACBB04F00B83395 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		08CE94EF1ACBB04F00B83395 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -165,6 +168,8 @@
 		083D6E761AC4C5770005E67C /* MindMate */ = {
 			isa = PBXGroup;
 			children = (
+				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
+				08CC7E571AD616D500D8BA3C /* MenuViewController.m */,
 				082A37CB1AD3B0AC00B7B187 /* Recording.h */,
 				082A37CC1AD3B0AC00B7B187 /* Recording.m */,
 				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
@@ -419,6 +424,7 @@
 				08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
+				08CC7E581AD616D500D8BA3C /* MenuViewController.m in Sources */,
 				086914261AC891E80064B6AE /* AudioRecorderViewController.m in Sources */,
 				082E76131AD1E8F600658BFC /* PlayCollectionViewDataSource.m in Sources */,
 				082A37CD1AD3B0AC00B7B187 /* Recording.m in Sources */,

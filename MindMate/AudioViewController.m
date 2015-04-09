@@ -49,6 +49,8 @@
 @property (nonatomic, assign) NSInteger indexForRecording;
 @property (nonatomic, assign) NSInteger counter;
 
+@property (nonatomic, strong) UIButton *menuButton;
+
 @end
 
 @implementation AudioViewController
@@ -56,8 +58,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
-    self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
-    self.title = @"Record";
+    //self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
+    //self.title = @"Record";
     self.groupIDNumber = @0;
 
     [self cornerButtons];
@@ -87,6 +89,7 @@
     //self.tdView.timeLabel.text = @"TIMEISOFTHEESSECNCE";
     //self.tdView.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.tdView];
+    [self layoutMenuButton];
 
 }
 
@@ -99,6 +102,15 @@
     CGRect endPointConfirmButton = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
     self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
 
+}
+
+- (void)layoutMenuButton {
+    self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
+    self.menuButton.backgroundColor = [UIColor blueColor];
+    self.menuButton.layer.masksToBounds = YES;
+    self.menuButton.layer.cornerRadius = 5;
+    [self.view addSubview:self.menuButton];
+    [self.menuButton addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)afterRecordButtons {
@@ -209,8 +221,6 @@
         self.containerView.state = ButtonStateNone;
         [self noneState:ButtonStateNone];
     }];
-    self.title = @"Record";
-
 }
 
 - (void)confirmPressed:(id)sender {
@@ -229,7 +239,10 @@
             self.counter++;
         }];
     }
-    self.title = @"Record";
+}
+
+- (void)menuPressed:(id)sender {
+    [self presentViewController:(id) animated:YES completion:nil];
 }
 
 - (void)cornerButtonPressed:(id)sender {
