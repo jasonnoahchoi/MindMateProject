@@ -49,7 +49,7 @@
     
     NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
 
-    [components setHour:6];
+    [components setHour:0];
 
     [components setMinute:0];
 
@@ -96,7 +96,7 @@
 - (NSArray *)memos {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
-   //       fetchRequest.predicate = [self predicate];
+          fetchRequest.predicate = [self predicate];
 
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }

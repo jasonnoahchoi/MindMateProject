@@ -7,9 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "AudioRecorderViewController.h"
 #import "AudioViewController.h"
 #import "UIColor+Colors.h"
+#import "IntroViewController.h"
 
 @interface AppDelegate ()
 
@@ -25,9 +25,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     AudioViewController *viewController = [[AudioViewController alloc] init];
+    IntroViewController *introVC = [[IntroViewController alloc] init];
     //UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
 
-    self.window.rootViewController = viewController;
+    self.window.rootViewController = introVC;
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

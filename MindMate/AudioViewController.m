@@ -13,7 +13,6 @@
 #import "Recording.h"
 #import "AudioController.h"
 #import "UIColor+Colors.h"
-#import "PlayCollectionViewController.h"
 #import "TimeAndDateView.h"
 #import "MenuViewController.h"
 
@@ -23,7 +22,6 @@
 
 @property (nonatomic, strong) ButtonView *buttonView;
 @property (nonatomic, strong) CategoryContainerView *containerView;
-@property (nonatomic, strong) PlayCollectionViewController *playVC;
 @property (nonatomic, strong) TimeAndDateView *tdView;
 @property (nonatomic, strong) Recording *record;
 @property (nonatomic, strong) MenuViewController *menuVC;
@@ -81,7 +79,6 @@
 
     [self cornerButtons];
     [self afterRecordButtons];
-    self.playVC = [[PlayCollectionViewController alloc] init];
     CGSize size = self.view.superview.frame.size;
     [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
 
@@ -100,14 +97,14 @@
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear: animated];
-    if (self.showedMenuVC) {
-        self.showedMenuVC = NO;
-        [self reanimateCircles];
-    }
-}
+//
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear: animated];
+//    if (self.showedMenuVC) {
+//        self.showedMenuVC = NO;
+//        [self reanimateCircles];
+//    }
+//}
 
 - (void)initialAnimation {
     [UIView animateWithDuration:.3 delay:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
