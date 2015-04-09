@@ -198,7 +198,7 @@
 
     [dataFile writeToFile:string atomically:YES];
    // NSLog(@"\n\n\nDOC DIR PATH: %@", [self documentsPath]);
-    NSLog(@"\n\n\n URL PATH %@", [self urlPath]);
+   // NSLog(@"\n\n\n URL PATH %@", [self urlPath]);
     NSLog(@"\n\n\n URL PATH ABSOLUTE STRING: %@", string);
 
     NSLog(@"\n\n\n DATA: %@", dataFile);

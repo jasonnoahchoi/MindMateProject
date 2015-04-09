@@ -16,5 +16,6 @@
 + (UIColor *)customGrayColor;
 + (UIColor *)backgroundGrayColor;
 + (UIColor *)customDarkPurpleColor;
++ (UIColor *)customMenuColor;
 
 @end

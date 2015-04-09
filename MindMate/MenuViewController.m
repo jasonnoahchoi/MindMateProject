@@ -40,7 +40,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
-    self.menuButton.backgroundColor = [UIColor blueColor];
+    self.menuButton.backgroundColor = [UIColor customMenuColor];
     self.menuButton.layer.masksToBounds = YES;
     self.menuButton.layer.cornerRadius = 5;
     [self.view addSubview:self.menuButton];
