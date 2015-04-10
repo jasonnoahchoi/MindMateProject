@@ -37,8 +37,10 @@
 @property (nonatomic, assign) CGPoint endPointRecordAgainButton;
 @property (nonatomic, assign) CGPoint endPointConfirmButton;
 
+
 @property (nonatomic, strong) UIButton *recordCornerButton;
 @property (nonatomic, strong) UIButton *playCornerButton;
+@property (nonatomic, strong) UIButton *recordCornerButtonClone;
 
 @property (nonatomic, assign) CGPoint centerRecordButton;
 @property (nonatomic, assign) CGPoint centerPlayButton;
@@ -50,6 +52,7 @@
 @property (nonatomic, assign) NSInteger counter;
 
 @property (nonatomic, strong) UIButton *menuButton;
+@property (nonatomic, strong) UIButton *nextScreenButton;
 
 @property (nonatomic, strong) UIButton *centerRecordButtonClone;
 @property (nonatomic, strong) UIButton *centerPlayButtonClone;
@@ -61,6 +64,7 @@
 @property (nonatomic, assign) CGPoint halfwayPointRecorderCornerPoint;
 @property (nonatomic, assign) CGPoint halfwayPointPlayCornerPoint;
 @property (nonatomic, assign) CGRect circleRect;
+@property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) BOOL showedMenuVC;
 
 @property (nonatomic, strong) UIView *comeDownCircle;
@@ -68,6 +72,12 @@
 @property (nonatomic, strong) UILabel *introLabel;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *sloganLabel;
+
+@property (nonatomic, assign) CGPoint offScreenLeftTitlePoint;
+@property (nonatomic, assign) CGPoint offScreenLeftSloganPoint;
+@property (nonatomic, assign) CGPoint offScreenRightTitlePoint;
+@property (nonatomic, assign) CGPoint offScreenRightSloganPoint;
+@property (nonatomic, assign) CGPoint centerTitleLabel;
 
 @end
 
@@ -81,14 +91,15 @@
     //self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
     //self.title = @"Record";
     self.groupIDNumber = @0;
+    self.frame = self.view.frame;
 
     [self cornerButtons];
     [self afterRecordButtons];
 
-    CGSize size = self.view.superview.frame.size;
-    [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
+    //CGSize size = self.view.superview.frame.size;
+    //[self.view setCenter:CGPointMake(size.width/2, size.height/2)];
 
-    self.circleRect = CGRectMake(self.view.frame.size.width/8, self.view.frame.size.height/5, self.view.frame.size.width/1.35, self.view.frame.size.width/1.35);
+    self.circleRect = CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, CGRectGetWidth(self.frame)/1.35);
     self.buttonView = [[ButtonView alloc] initWithFrame:self.circleRect];
     //self.buttonView.center = self.view.center;
     self.buttonView.delegate = self;
@@ -97,13 +108,13 @@
 
     [self buttonClones];
 
-    self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
+    self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, CGRectGetWidth(self.frame)/2-10, 100)];
 
     [self.view addSubview:self.tdView];
     [self layoutMenuButton];
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
-    self.recordLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 6, self.view.frame.size.width, self.view.frame.size.height/5)];
+    self.recordLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 6, CGRectGetWidth(self.frame), self.view.frame.size.height/5)];
     [self.view addSubview:self.recordLabel];
     self.recordLabel.hidden = YES;
     self.recordLabel.text = @"Hold down on the circle to record your voice";
@@ -112,6 +123,15 @@
     self.recordLabel.textColor = [UIColor customGrayColor];
     self.recordLabel.textAlignment = NSTextAlignmentCenter;
 
+    self.nextScreenButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/3 - 30, CGRectGetHeight(self.frame)/2 + 70, CGRectGetWidth(self.frame)/3 + 60, 44)];
+    [self.view addSubview:self.nextScreenButton];
+    [self.nextScreenButton setTitle:@"Get Started" forState:UIControlStateNormal];
+    [self.nextScreenButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    self.nextScreenButton.layer.borderWidth = 2;
+    self.nextScreenButton.layer.cornerRadius = 10;
+    self.nextScreenButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    [self.nextScreenButton addTarget:self action:@selector(nextPressed:) forControlEvents:UIControlEventTouchUpInside];
+
     self.introLabel = [[UILabel alloc] initWithFrame:self.buttonView.frame];
     self.introLabel.text = @"Hey! \n\nUse your mic to record. \n\nTap the Square to enable it.";
     self.introLabel.numberOfLines = 0;
@@ -119,19 +139,38 @@
     self.introLabel.alpha = 0;
     [self.view addSubview:self.introLabel];
 
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/8, self.view.frame.size.height/9, self.view.frame.size.width/1.35, 50)];
+    CGRect titleLabelFrame = CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/3, CGRectGetWidth(self.frame)/1.35, 44);
+    self.centerTitleLabel = CGPointMake(CGRectGetMidX(titleLabelFrame), CGRectGetMidY(titleLabelFrame));
+
+
+
+    CGRect offScreenLeftTitleLabelFrame = CGRectMake(0 - CGRectGetWidth(self.frame)/1.35, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, 44);
+    CGRect offScreenLeftSloganLabelFrame = CGRectMake(0 - CGRectGetWidth(self.frame)/1.35, self.view.frame.size.height/3, CGRectGetWidth(self.frame)/1.35, 50);
+
+    self.offScreenLeftTitlePoint = CGPointMake(CGRectGetMidX(offScreenLeftTitleLabelFrame), CGRectGetMidY(offScreenLeftTitleLabelFrame));
+    self.offScreenLeftSloganPoint = CGPointMake(CGRectGetMidX(offScreenLeftSloganLabelFrame), CGRectGetMidY(offScreenLeftSloganLabelFrame));
+
+    CGRect offScreenRightTitleLabelFrame = CGRectMake(CGRectGetMaxX(self.frame) + CGRectGetWidth(self.frame)/1.35, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, 44);
+    CGRect offScreenRightSloganLabelFrame = CGRectMake(CGRectGetMaxX(self.frame) + CGRectGetWidth(self.frame)/1.35, self.view.frame.size.height/3, CGRectGetWidth(self.frame)/1.35, 50);
+
+    self.offScreenRightTitlePoint = CGPointMake(CGRectGetMidX(offScreenRightTitleLabelFrame), CGRectGetMidY(offScreenRightTitleLabelFrame));
+    self.offScreenRightSloganPoint = CGPointMake(CGRectGetMidX(offScreenRightSloganLabelFrame), CGRectGetMidY(offScreenRightSloganLabelFrame));
+
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, 44)];
     self.titleLabel.text = @"Tomorrow";
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:30];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:34];
     self.titleLabel.alpha = 0;
     [self.view addSubview:self.titleLabel];
 
-    self.sloganLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/8, self.view.frame.size.height/4, self.view.frame.size.width/1.35, 50)];
+    self.sloganLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/3, CGRectGetWidth(self.frame)/1.35, 50)];
     self.sloganLabel.text = @"Inspire your future self";
     self.sloganLabel.textAlignment = NSTextAlignmentCenter;
     self.sloganLabel.font = [UIFont systemFontOfSize:24];
     self.sloganLabel.alpha = 0;
+    self.sloganLabel.numberOfLines = 0;
     [self.view addSubview:self.sloganLabel];
+
 
     [UIView animateWithDuration:.3 delay:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.introLabel.alpha = 1;
@@ -144,6 +183,32 @@
             } completion:nil];
         }];
     }];
+}
+
+- (void)nextPressed:(id)sender {
+    if (self.circleState == IntroCircleStateNone) {
+    [UIView animateWithDuration:.3 delay:.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.nextScreenButton.alpha = 0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.3 delay:.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.sloganLabel.center = self.offScreenLeftSloganPoint;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.3 delay:.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.titleLabel.center = self.offScreenLeftTitlePoint;
+            } completion:^(BOOL finished) {
+                self.introLabel.center = self.offScreenRightSloganPoint;
+                self.introLabel.text = @"This app records your voice today and sends you your message tomorrow. \n\nLeave your future self inspiring notes, affirmations, whatever you please";
+                [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.introLabel.center = self.centerTitleLabel;
+                    self.introLabel.alpha = 1;
+                } completion:^(BOOL finished) {
+                    self.circleState = IntroCircleStateReady;
+                }];
+            }];
+        }];
+
+    }];
+    }
 }
 
 - (void)showRecordLabel {
@@ -175,7 +240,7 @@
 }
 
 - (void)initialAnimation {
-//    self.comeDownCircle = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/(2*4), 0 -self.view.frame.size.height/2, self.view.frame.size.width/1.35, self.view.frame.size.width/1.35)];
+//    self.comeDownCircle = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/(2*4), 0 -self.view.frame.size.height/2, CGRectGetWidth(self.frame)/1.35, CGRectGetWidth(self.frame)/1.35)];
 //    [self.view addSubview:self.comeDownCircle];
 //
 //    self.comeDownCircle.layer.cornerRadius = self.comeDownCircle.frame.size.width/2;
@@ -223,16 +288,16 @@
 #pragma mark - Buttons on View Controller
 
 - (void)layoutEndPoints {
-    CGRect endPointRecordAgainButton = CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect endPointRecordAgainButton = CGRectMake(0 - CGRectGetWidth(self.frame)/6, self.view.frame.size.height - self.view.frame.size.height/9.5, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.endPointRecordAgainButton = CGPointMake(endPointRecordAgainButton.origin.x + (endPointRecordAgainButton.size.width/2), endPointRecordAgainButton.origin.y + (endPointRecordAgainButton.size.height/2));
 
-    CGRect endPointConfirmButton = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect endPointConfirmButton = CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/3, self.view.frame.size.height - self.view.frame.size.height/9.5, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
 
 }
 
 - (void)layoutMenuButton {
-    self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
+    self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - (CGRectGetWidth(self.frame)/6), self.view.frame.size.height/18, CGRectGetWidth(self.frame)/8, CGRectGetWidth(self.frame)/7.8)];
     self.menuButton.backgroundColor = [UIColor customPurpleColor];
     self.menuButton.layer.masksToBounds = YES;
     self.menuButton.layer.cornerRadius = 5;
@@ -245,7 +310,7 @@
 - (void)afterRecordButtons {
     [self layoutEndPoints];
 
-    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - CGRectGetWidth(self.frame)/6, self.view.frame.size.height, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2)];
     self.recordAgainButton.backgroundColor = [UIColor customBlueColor];
     self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
     self.recordAgainButton.layer.shouldRasterize = YES;
@@ -253,7 +318,7 @@
     [self.view addSubview:self.recordAgainButton];
     self.centerRecordAgainButton = self.recordAgainButton.center;
 
-    self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
+    self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, CGRectGetWidth(self.frame)/4, self.view.frame.size.height/11)];
     self.recordAgainLabel.text = @"Do Over";
     self.recordAgainLabel.textColor = [UIColor whiteColor];
     self.recordAgainLabel.textAlignment = NSTextAlignmentCenter;
@@ -261,7 +326,7 @@
     [self.view addSubview:self.recordAgainLabel];
     [self.recordAgainButton addTarget:self action:@selector(recordAgainPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/3, self.view.frame.size.height, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2)];
     [self.view addSubview:self.confirmButton];
     self.confirmButton.hidden = YES;
     self.confirmButton.backgroundColor = [UIColor customGreenColor];
@@ -270,7 +335,7 @@
     [self.confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchDown];
     self.centerConfirmButton = self.confirmButton.center;
 
-    self.confirmLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/4 - 5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
+    self.confirmLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/4 - 5, self.view.frame.size.height - self.view.frame.size.height/11, CGRectGetWidth(self.frame)/4, self.view.frame.size.height/11)];
     self.confirmLabel.text = @"Confirm";
     self.confirmLabel.textColor = [UIColor whiteColor];
     self.confirmLabel.hidden = YES;
@@ -278,36 +343,45 @@
     //self.confirmLabel.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.confirmLabel];
 
-    self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, self.view.frame.size.width, self.view.frame.size.height/5)];
+    self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, CGRectGetWidth(self.frame), self.view.frame.size.height/5)];
     self.containerView.delegate = self;
     self.containerView.hidden = YES;
     [self.view addSubview:self.containerView];
 }
 
 - (void)layoutCornerEndPoints {
-    CGRect endPointRecordCornerButton = CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect endPointRecordCornerButton = CGRectMake(0 - CGRectGetWidth(self.frame)/6, self.view.frame.size.height - self.view.frame.size.height/6, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.endPointRecordCornerButton = CGPointMake(endPointRecordCornerButton.origin.x + (endPointRecordCornerButton.size.width/2), endPointRecordCornerButton.origin.y + (endPointRecordCornerButton.size.height/2));
 
-    CGRect endPointPlayCornerButton = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect endPointPlayCornerButton = CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/3, self.view.frame.size.height - self.view.frame.size.height/6, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.endPointPlayCornerButton = CGPointMake(endPointPlayCornerButton.origin.x + (endPointPlayCornerButton.size.width/2), endPointPlayCornerButton.origin.y + (endPointPlayCornerButton.size.height/2));
 
-    CGRect middlePointRecordAgain = CGRectMake(0 - self.view.frame.size.width/5, self.view.frame.size.height - self.view.frame.size.height/3, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect middlePointRecordAgain = CGRectMake(0 - CGRectGetWidth(self.frame)/5, self.view.frame.size.height - self.view.frame.size.height/3, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.middlePointRecordCornerButton = CGPointMake(middlePointRecordAgain.origin.x + (middlePointRecordAgain.size.width/2), middlePointRecordAgain.origin.y + (middlePointRecordAgain.size.height/2));
 
-    CGRect middlePointPlayAgain = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/3, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect middlePointPlayAgain = CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/3, self.view.frame.size.height - self.view.frame.size.height/3, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.middlePointPlayCornerButton = CGPointMake(middlePointPlayAgain.origin.x + (middlePointPlayAgain.size.width/2), middlePointPlayAgain.origin.y + (middlePointPlayAgain.size.height/2));
 
-    CGRect halfwayRecordPoint = CGRectMake(0, self.view.frame.size.height - self.view.frame.size.height/1.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect halfwayRecordPoint = CGRectMake(0, self.view.frame.size.height - self.view.frame.size.height/1.5, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.halfwayPointRecorderCornerPoint = CGPointMake(halfwayRecordPoint.origin.x + (halfwayRecordPoint.size.width/2), halfwayRecordPoint.origin.y + (halfwayRecordPoint.size.height/2));
 
-    CGRect halfwayPlayPoint = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/2, self.view.frame.size.height - self.view.frame.size.height/1.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+    CGRect halfwayPlayPoint = CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/2, self.view.frame.size.height - self.view.frame.size.height/1.5, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2);
     self.halfwayPointPlayCornerPoint = CGPointMake(halfwayPlayPoint.origin.x + (halfwayPlayPoint.size.width/2), halfwayPlayPoint.origin.y + (halfwayPlayPoint.size.height/2));
 }
 
 - (void)cornerButtons {
     [self layoutCornerEndPoints];
+    self.recordCornerButtonClone = [[UIButton alloc] initWithFrame:CGRectMake(0 - CGRectGetWidth(self.frame)/3, self.view.frame.size.height + self.view.frame.size.height/6, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2)];
+    [self.view addSubview:self.recordCornerButtonClone];
+    self.recordCornerButtonClone.backgroundColor = [UIColor customGreenColor];
+    self.recordCornerButtonClone.layer.cornerRadius = self.recordCornerButtonClone.frame.size.height/2;
+    self.recordCornerButtonClone.layer.masksToBounds = YES;
+    self.recordCornerButtonClone.layer.shouldRasterize = YES;
+    self.recordCornerButtonClone.center = self.endPointRecordCornerButton;
+    self.recordCornerButtonClone.hidden = YES;
+    [self.recordCornerButtonClone addTarget:self action:@selector(recordCornerPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.recordCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/3, self.view.frame.size.height + self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    self.recordCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - CGRectGetWidth(self.frame)/3, self.view.frame.size.height + self.view.frame.size.height/6, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2)];
     [self.view addSubview:self.recordCornerButton];
     self.recordCornerButton.backgroundColor = [UIColor customGreenColor];
     //self.recordCornerButton.hidden = YES;
@@ -317,7 +391,7 @@
     self.centerRecordButton = self.recordCornerButton.center;
     [self.recordCornerButton addTarget:self action:@selector(cornerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.playCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width + self.view.frame.size.width/3, self.view.frame.size.height + self.view.frame.size.height/6, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    self.playCornerButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) + CGRectGetWidth(self.frame)/3, self.view.frame.size.height + self.view.frame.size.height/6, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2)];
     [self.view addSubview:self.playCornerButton];
     self.playCornerButton.backgroundColor = [UIColor customBlueColor];
     self.playCornerButton.layer.cornerRadius = self.playCornerButton.frame.size.height/2;
@@ -327,20 +401,20 @@
     [self.playCornerButton addTarget:self action:@selector(cornerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-//- (void)addPlayButtonAnimation {
-//    [UIView animateWithDuration:.25 delay:.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        self.playCornerButton.hidden = NO;
-//        self.playCornerButton.alpha = 1;
-//        self.playCornerButton.center = self.endPointPlayCornerButton;
-//        self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-//        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//            self.playCornerButton.transform = CGAffineTransformIdentity;
-//            self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
-//        } completion:nil];
-//    }];
-//}
+- (void)addPlayButtonAnimation {
+    [UIView animateWithDuration:.25 delay:.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.playCornerButton.hidden = NO;
+        self.playCornerButton.alpha = 1;
+        self.playCornerButton.center = self.endPointPlayCornerButton;
+        self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.playCornerButton.transform = CGAffineTransformIdentity;
+            self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
+        } completion:nil];
+    }];
+}
 
 - (void)addCornerButtonsAnimation {
     [UIView animateWithDuration:.25 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -361,8 +435,11 @@
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.playCornerButton.transform = CGAffineTransformIdentity;
                 self.recordCornerButton.transform = CGAffineTransformIdentity;
+
                 // self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
             } completion:^(BOOL finished) {
+                self.recordCornerButtonClone.hidden = NO;
+                self.recordCornerButton.hidden = YES;
                 [UIView animateWithDuration:.5 delay:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                     self.titleLabel.alpha = 1;
                 } completion:^(BOOL finished) {
@@ -445,7 +522,9 @@
     switch (self.circleState) {
         case IntroCircleStateNone:
         {
-            self.introLabel.hidden = YES;
+            [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.introLabel.alpha = 0;
+            } completion:^(BOOL finished) {
             [self requestforpermisssion];
                 [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
                 if (granted) {
@@ -458,6 +537,7 @@
                         NSLog(@"No Mic");
                     }]];
                 }
+            }];
             }];
             [self addCornerButtonsAnimation];
         }
@@ -654,8 +734,77 @@
             }];
         }
     }
+}
 
-
+- (void)recordCornerPressed:(id)sender {
+    if (self.circleState == IntroCircleStateNone) {
+        self.centerPlayButtonClone.hidden = YES;
+        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.recordCornerButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+            self.recordCornerButtonClone.center = self.middlePointRecordCornerButton;
+            //
+            //                    //self.centerPlayButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
+            //                   // self.centerPlayButtonClone.center = self.halfwayPointPlayCornerPoint;
+            //                    self.recordCornerButton.alpha = 1;
+            //                }
+        } completion:^(BOOL finished) {
+            // if (sender == self.recordCornerButton) {
+            //self.playCornerButton.alpha = 0;
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordCornerButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                self.recordCornerButtonClone.center = self.halfwayPointRecorderCornerPoint;
+                //  self.centerPlayButtonClone.center = self.middlePointPlayCornerButton;
+                // self.centerPlayButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.recordCornerButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
+                    self.recordCornerButtonClone.center = self.buttonView.center;
+                    //  self.centerPlayButtonClone.center = self.endPointPlayCornerButton;
+                    //   self.centerPlayButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, .667, .667);
+                } completion:^(BOOL finished) {
+                    //     self.playCornerButton.center = self.endPointPlayCornerButton;
+                    //    self.playCornerButton.alpha = 1;
+                    //    self.centerPlayButtonClone.hidden = YES;
+                    //   self.playCornerButton.hidden = NO;
+                    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        // self.playCornerButton.transform = CGAffineTransformIdentity;
+                        //    self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                        self.recordCornerButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
+                        //   self.centerPlayButtonClone.transform = CGAffineTransformIdentity;
+                        //  self.centerPlayButtonClone.center = self.buttonView.center;
+                    } completion:^(BOOL finished) {
+                        self.recordCornerButtonClone.hidden = YES;
+                        self.recordCornerButtonClone.transform = CGAffineTransformIdentity;
+                        //  self.buttonView.playButton.alpha = 1;
+                        //  self.buttonView.playButton.hidden = YES;
+                        self.buttonView.hidden = NO;
+                        //self.buttonView.recordButton.center = self.buttonView.center;
+                        self.buttonView.recordButton.alpha = 1;
+                        self.buttonView.recordButton.hidden = NO;
+                        self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, .667, .667);
+                        //self.recordCornerButtonClone.center = self.centerRecordButton;
+                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            //       self.playCornerButton.transform = CGAffineTransformIdentity;
+                        } completion:^(BOOL finished) {
+                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                                //      //                                    self.buttonView.recordButton.transform = CGAffineTransformIdentity;
+                            } completion:^(BOOL finished) {
+                                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                                    self.playCornerButton.transform = CGAffineTransformIdentity;
+                                } completion:^(BOOL finished) {
+                                    [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                        self.buttonView.recordButton.transform = CGAffineTransformIdentity;
+                                    } completion:nil];
+                                }];
+                            }];
+                        }];
+                    }];
+                }];
+            }];
+        }];
+    }
 }
 
 - (void)cornerButtonPressed:(id)sender {
@@ -1144,7 +1293,7 @@
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
         self.playCornerButton.hidden = NO;
         self.playCornerButton.alpha = 1;
-       // [self addPlayButtonAnimation];
+        [self addPlayButtonAnimation];
     }];
 }
 
