@@ -28,7 +28,7 @@
     IntroViewController *introVC = [[IntroViewController alloc] init];
     //UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
 
-    self.window.rootViewController = introVC;
+    self.window.rootViewController = viewController;
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
