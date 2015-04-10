@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
+    IntroCircleStateNone,
     IntroCircleStateRecord,
     IntroCircleStatePlay,
 } IntroCircleState;
