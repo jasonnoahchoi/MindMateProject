@@ -10,8 +10,10 @@
 #import "AudioViewController.h"
 #import "UIColor+Colors.h"
 #import "IntroViewController.h"
+#import "RecordingController.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
+static NSString * const hasRecordingsKey = @"hasRecordings";
 
 @interface AppDelegate ()
 
@@ -47,9 +49,38 @@ static NSString * const finishedIntroKey = @"finishedIntro";
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+       // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
+
+- (NSDate *)fetchDate {
+    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+
+    NSUInteger count = 1;
+    dayComponent.day = count;
+
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+
+    return nextDate;
+}
+
+
+- (NSDate *)notificationTime {
+    NSDate *date = [self fetchDate];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+
+    NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
+
+    [components setHour:12];
+
+    [components setMinute:0];
+
+    [components setSecond:0];
+
+    return [cal dateFromComponents:components];
+}
+
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
@@ -61,6 +92,14 @@ static NSString * const finishedIntroKey = @"finishedIntro";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    BOOL hasRecordings = [[NSUserDefaults standardUserDefaults] boolForKey:hasRecordingsKey];
+    if (hasRecordings) {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
+        notification.fireDate = [self notificationTime];
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
