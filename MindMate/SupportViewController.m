@@ -1,19 +1,21 @@
 //
 //  SupportViewController.m
-//  cardalot
+//  Tomorrow
 //
-//  Created by Ross McIlwaine on 3/15/15.
+//  Created by Jason Noah Choi on 4/12/15.
 //  Copyright (c) 2015 Jason Choi. All rights reserved.
 //
 
 #import "SupportViewController.h"
-#import <MMDrawerController.h>
-#import "CardViewController.h"
 #import "UIColor+Colors.h"
-#import <MessageUI/MessageUI.h>
 @import MessageUI;
+@import QuartzCore;
+
 
 @interface SupportViewController () <MFMailComposeViewControllerDelegate>
+
+@property (nonatomic, strong) UIButton *menuButton;
+@property (nonatomic, assign) CGRect frame;
 
 @end
 
@@ -22,28 +24,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"Support";
-    
     self.view.backgroundColor = [UIColor whiteColor];
+    self.frame = self.view.frame;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done)];
-    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCard)];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
-    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done)];
+//    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCard)];
+//    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+
+    self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
+    self.menuButton.backgroundColor = [UIColor customGrayColor];
+    self.menuButton.layer.masksToBounds = YES;
+    self.menuButton.layer.cornerRadius = 5;
+    [self.view addSubview:self.menuButton];
+    [self.menuButton addTarget:self action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
+
     UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 70, 300, 80)];
     tempLabel.numberOfLines = 0;
+    tempLabel.font = [UIFont systemFontOfSize:24];
     tempLabel.text = @"Let us know if you have any questions or suggestions.";
+    tempLabel.textAlignment = NSTextAlignmentCenter;
     
     
     // Sets email compose
-    UIButton *composeEmailButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 350, 180, 80)];
+    UIButton *composeEmailButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/3 - 30, CGRectGetHeight(self.frame)/2 + 70, CGRectGetWidth(self.frame)/3 + 60, 44)];
+    [self.view addSubview:composeEmailButton];
+    [composeEmailButton setTitle:@"Send Feedback" forState:UIControlStateNormal];
+    [composeEmailButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    composeEmailButton.layer.borderWidth = 2;
+    composeEmailButton.layer.cornerRadius = 10;
+     composeEmailButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
     composeEmailButton.tintColor = [UIColor lightGrayColor];
-    composeEmailButton.layer.borderWidth = 1.0;
-    composeEmailButton.layer.cornerRadius = 3;
-    composeEmailButton.layer.borderColor = [UIColor customBlueColor].CGColor;
-    [composeEmailButton setTitle:@"Send feedback" forState:UIControlStateNormal];
-    [composeEmailButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
+//    composeEmailButton.layer.borderWidth = 1.0;
+//    composeEmailButton.layer.cornerRadius = 3;
+//    composeEmailButton.layer.borderColor = [UIColor customBlueColor].CGColor;
+   // [composeEmailButton setTitle:@"Send feedback" forState:UIControlStateNormal];
+   // [composeEmailButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
     [composeEmailButton addTarget:self action:@selector(sendFeedbackEmail:) forControlEvents:UIControlEventTouchUpInside];
     [composeEmailButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     
@@ -63,7 +79,7 @@
     MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
     mailComposeViewController.mailComposeDelegate = self;
     
-    [mailComposeViewController setToRecipients:@[@"weekendconcept@gmail.com"]];
+    [mailComposeViewController setToRecipients:@[@"jasonnoahchoi@gmail.com"]];
     [mailComposeViewController setSubject:@""];
     [mailComposeViewController.navigationBar setTintColor:[UIColor whiteColor]];
     
@@ -81,11 +97,6 @@
 - (void)done {
 //    [self.drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)addCard {
-    CardViewController *cardVC = [[CardViewController alloc] init];
-    [self.navigationController pushViewController:cardVC animated:YES];
 }
 
 @end

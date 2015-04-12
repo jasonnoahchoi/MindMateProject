@@ -9,6 +9,10 @@
 #import "MenuViewController.h"
 #import "UIColor+Colors.h"
 @import QuartzCore;
+#import "RemindersViewController.h"
+#import "AboutViewController.h"
+#import "SupportViewController.h"
+#import "TermsViewController.h"
 
 @interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -17,9 +21,12 @@
 
 @property (nonatomic, strong) UITableViewCell *aboutCell;
 @property (nonatomic, strong) UITableViewCell *remindersCell;
-@property (nonatomic, strong) UITableViewCell *preferencesCell;
+@property (nonatomic, strong) UITableViewCell *rateCell;
 @property (nonatomic, strong) UITableViewCell *tsCell;
-@property (nonatomic, strong) UITableViewCell *purchasesCell;
+@property (nonatomic, strong) UITableViewCell *feedbackCell;
+
+@property (nonatomic, strong) RemindersViewController *remindersVC;
+@property (nonatomic, strong) AboutViewController *aboutVC;
 
 @end
 
@@ -41,7 +48,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
-    self.menuButton.backgroundColor = [UIColor customMenuColor];
+    self.menuButton.backgroundColor = [UIColor customGrayColor];
     self.menuButton.layer.masksToBounds = YES;
     self.menuButton.layer.cornerRadius = 5;
     [self.view addSubview:self.menuButton];
@@ -52,49 +59,66 @@
     self.aboutCell = [[UITableViewCell alloc] init];
     self.aboutCell.textLabel.text = @"About";
     self.aboutCell.textLabel.textColor = [UIColor whiteColor];
-    self.aboutCell.textLabel.font = [UIFont boldSystemFontOfSize:28];
+    self.aboutCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
     self.aboutCell.backgroundColor = [UIColor customPurpleColor];
 
     self.remindersCell = [[UITableViewCell alloc] init];
     self.remindersCell.textLabel.textColor = [UIColor whiteColor];
-    self.remindersCell.textLabel.font = [UIFont boldSystemFontOfSize:28];
+    self.remindersCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
     self.remindersCell.textLabel.text = @"Reminders";
     self.remindersCell.backgroundColor = [UIColor customPurpleColor];
 
-    self.preferencesCell = [[UITableViewCell alloc] init];
-    self.preferencesCell.textLabel.text = @"Preferences";
-    self.preferencesCell.backgroundColor = [UIColor customPurpleColor];
-    self.preferencesCell.textLabel.textColor = [UIColor whiteColor];
-    self.preferencesCell.textLabel.font = [UIFont boldSystemFontOfSize:28];
+    self.rateCell = [[UITableViewCell alloc] init];
+    self.rateCell.textLabel.text = @"Rate Us";
+    self.rateCell.backgroundColor = [UIColor customPurpleColor];
+    self.rateCell.textLabel.textColor = [UIColor whiteColor];
+    self.rateCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
 
     self.tsCell = [[UITableViewCell alloc] init];
     self.tsCell.textLabel.text = @"Terms of Service";
     self.tsCell.backgroundColor = [UIColor customPurpleColor];
     self.tsCell.textLabel.textColor = [UIColor whiteColor];
-    self.tsCell.textLabel.font = [UIFont boldSystemFontOfSize:28];
+    self.tsCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
 
-    self.purchasesCell = [[UITableViewCell alloc] init];
-    self.purchasesCell.textLabel.text = @"Purchases";
-    self.purchasesCell.backgroundColor = [UIColor customPurpleColor];
-    self.purchasesCell.textLabel.textColor = [UIColor whiteColor];
-    self.purchasesCell.textLabel.font = [UIFont boldSystemFontOfSize:28];
+    self.feedbackCell = [[UITableViewCell alloc] init];
+    self.feedbackCell.textLabel.text = @"Send Us Feedback";
+    self.feedbackCell.backgroundColor = [UIColor customPurpleColor];
+    self.feedbackCell.textLabel.textColor = [UIColor whiteColor];
+    self.feedbackCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
-        case 0:
+        case 0: {
+            AboutViewController *aboutVC = [[AboutViewController alloc] init];
+            [self presentViewController:aboutVC animated:YES completion:nil];
+        }
            // [[StorePurchaseController sharedInstance] purchaseOptionSelectedObjectIndex:0];
             break;
-        case 1:
+        case 1: {
+            RemindersViewController *reminderVC = [[RemindersViewController alloc] init];
+            // UINavigationController *reminderNavController = [[UINavigationController alloc] initWithRootViewController:reminderVC];
+            [self presentViewController:reminderVC animated:YES completion:nil];
+        }
           //  [[StorePurchaseController sharedInstance] restorePurchases];
             break;
-        case 2:
+        case 2: {
+            NSString *appID = @"984969197";
+            NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
+            [[UIApplication sharedApplication] openURL:appStoreURL];
+        }
          //   [[StorePurchaseController sharedInstance] restorePurchases];
             break;
-        case 3:
+        case 3: {
+            SupportViewController *supportVC = [[SupportViewController alloc] init];
+            [self presentViewController:supportVC animated:YES completion:nil];
+        }
         //    [[StorePurchaseController sharedInstance] restorePurchases];
             break;
-        case 4:
+        case 4: {
+            TermsViewController *termsVC = [[TermsViewController alloc] init];
+            [self presentViewController:termsVC animated:YES completion:nil];
+        }
          //   [[StorePurchaseController sharedInstance] restorePurchases];
             break;
         default:
@@ -111,10 +135,10 @@
             return self.remindersCell;
             break;
         case 2:
-            return self.preferencesCell;
+            return self.rateCell;
             break;
         case 3:
-            return self.purchasesCell;
+            return self.feedbackCell;
             break;
         case 4:
             return self.tsCell;
