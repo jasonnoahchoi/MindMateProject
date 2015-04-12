@@ -140,8 +140,6 @@
 			children = (
 				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
 				08CC7E571AD616D500D8BA3C /* MenuViewController.m */,
-				082A37CB1AD3B0AC00B7B187 /* Recording.h */,
-				082A37CC1AD3B0AC00B7B187 /* Recording.m */,
 				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
@@ -158,6 +156,8 @@
 				0826403A1ACDD253009B5AF8 /* ButtonView.m */,
 				0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */,
 				0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */,
+				082A37CB1AD3B0AC00B7B187 /* Recording.h */,
+				082A37CC1AD3B0AC00B7B187 /* Recording.m */,
 				083D6E9D1AC4C6E70005E67C /* Stack.h */,
 				083D6E9E1AC4C6E70005E67C /* Stack.m */,
 				083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */,

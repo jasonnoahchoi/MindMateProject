@@ -11,6 +11,8 @@
 #import "UIColor+Colors.h"
 #import "IntroViewController.h"
 
+static NSString * const finishedIntroKey = @"finishedIntro";
+
 @interface AppDelegate ()
 
 @end
@@ -27,8 +29,13 @@
     AudioViewController *viewController = [[AudioViewController alloc] init];
     IntroViewController *introVC = [[IntroViewController alloc] init];
     //UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
-
-    self.window.rootViewController = introVC;
+    BOOL finishedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:finishedIntroKey];
+    if (!finishedIntro) {
+        self.window.rootViewController = introVC;
+    }
+    if (finishedIntro) {
+        self.window.rootViewController = viewController;
+    }
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
