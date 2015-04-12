@@ -34,6 +34,7 @@
 @property (nonatomic, strong) UILabel *confirmLabel;
 @property (nonatomic, strong) UILabel *recordAgainLabel;
 
+@property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) CGPoint centerRecordAgainButton;
 @property (nonatomic, assign) CGPoint centerConfirmButton;
 @property (nonatomic, assign) CGPoint endPointRecordAgainButton;
@@ -76,7 +77,7 @@
     //self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
     //self.title = @"Record";
     self.groupIDNumber = @0;
-
+    self.frame = self.view.frame;
     [self cornerButtons];
     [self afterRecordButtons];
     CGSize size = self.view.superview.frame.size;
@@ -136,18 +137,18 @@
 
 #pragma mark - Buttons on View Controller
 
-- (void)layoutEndPoints {
-    CGRect endPointRecordAgainButton = CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
-    self.endPointRecordAgainButton = CGPointMake(endPointRecordAgainButton.origin.x + (endPointRecordAgainButton.size.width/2), endPointRecordAgainButton.origin.y + (endPointRecordAgainButton.size.height/2));
-
-    CGRect endPointConfirmButton = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
-    self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
-
-}
+//- (void)layoutEndPoints {
+//    CGRect endPointRecordAgainButton = CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+//    self.endPointRecordAgainButton = CGPointMake(endPointRecordAgainButton.origin.x + (endPointRecordAgainButton.size.width/2), endPointRecordAgainButton.origin.y + (endPointRecordAgainButton.size.height/2));
+//
+//    CGRect endPointConfirmButton = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
+//    self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
+//
+//}
 
 - (void)layoutMenuButton {
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
-    self.menuButton.backgroundColor = [UIColor customPurpleColor];
+    self.menuButton.backgroundColor = [UIColor customGrayColor];
     self.menuButton.layer.masksToBounds = YES;
     self.menuButton.layer.cornerRadius = 5;
     [self.view addSubview:self.menuButton];
@@ -155,40 +156,41 @@
 }
 
 - (void)afterRecordButtons {
-    [self layoutEndPoints];
+  //  [self layoutEndPoints];
 
-    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
-    self.recordAgainButton.backgroundColor = [UIColor customBlueColor];
-    self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
+    UIImage *redX = [UIImage imageNamed:@"redx"];
+    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), redX.size.width, redX.size.height)];
+    [self.recordAgainButton setImage:[UIImage imageNamed:@"redx"] forState:UIControlStateNormal];
+    // self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
     self.recordAgainButton.layer.shouldRasterize = YES;
     self.recordAgainButton.hidden = YES;
     [self.view addSubview:self.recordAgainButton];
     self.centerRecordAgainButton = self.recordAgainButton.center;
 
-    self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
-    self.recordAgainLabel.text = @"Do Over";
-    self.recordAgainLabel.textColor = [UIColor whiteColor];
-    self.recordAgainLabel.textAlignment = NSTextAlignmentCenter;
-    self.recordAgainLabel.hidden = YES;
-    [self.view addSubview:self.recordAgainLabel];
+    //    self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, CGRectGetWidth(self.frame)/4, self.view.frame.size.height/11)];
+    //    self.recordAgainLabel.text = @"Do Over";
+    //    self.recordAgainLabel.textColor = [UIColor whiteColor];
+    //    self.recordAgainLabel.textAlignment = NSTextAlignmentCenter;
+    //    self.recordAgainLabel.hidden = YES;
+    //    [self.view addSubview:self.recordAgainLabel];
     [self.recordAgainButton addTarget:self action:@selector(recordAgainPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    UIImage *greenCheck = [UIImage imageNamed:@"greencheck"];
+    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - greenCheck.size.width, CGRectGetHeight(self.frame), greenCheck.size.width, greenCheck.size.height)];
     [self.view addSubview:self.confirmButton];
     self.confirmButton.hidden = YES;
-    self.confirmButton.backgroundColor = [UIColor customGreenColor];
-    self.confirmButton.layer.cornerRadius = self.confirmButton.frame.size.width/2;
+    //self.confirmButton.backgroundColor = [UIColor customGreenColor];
+    // self.confirmButton.layer.cornerRadius = self.confirmButton.frame.size.width/2;
+    [self.confirmButton setImage:[UIImage imageNamed:@"greencheck"] forState:UIControlStateNormal];
     self.confirmButton.layer.shouldRasterize = YES;
     [self.confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchDown];
     self.centerConfirmButton = self.confirmButton.center;
 
-    self.confirmLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - self.view.frame.size.width/4 - 5, self.view.frame.size.height - self.view.frame.size.height/11, self.view.frame.size.width/4, self.view.frame.size.height/11)];
-    self.confirmLabel.text = @"Confirm";
-    self.confirmLabel.textColor = [UIColor whiteColor];
-    self.confirmLabel.hidden = YES;
-    self.confirmLabel.textAlignment = NSTextAlignmentCenter;
-    //self.confirmLabel.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:self.confirmLabel];
+    CGRect endPointRecordAgainButton = CGRectMake(0, CGRectGetMaxY(self.frame) - redX.size.height, redX.size.width, redX.size.height);
+    self.endPointRecordAgainButton = CGPointMake(endPointRecordAgainButton.origin.x + (endPointRecordAgainButton.size.width/2), endPointRecordAgainButton.origin.y + (endPointRecordAgainButton.size.height/2));
+
+    CGRect endPointConfirmButton = CGRectMake(CGRectGetWidth(self.frame) - greenCheck.size.width, self.view.frame.size.height - greenCheck.size.height, greenCheck.size.width, greenCheck.size.height);
+    self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
 
     self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, self.view.frame.size.width, self.view.frame.size.height/5)];
     self.containerView.delegate = self;
@@ -911,23 +913,21 @@
                                 button.transform = CGAffineTransformIdentity;
 
                             } completion:^(BOOL finished) {
-                                self.containerView.alpha = 0;
-                                self.containerView.hidden = NO;
-                                self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
+//                                self.containerView.alpha = 0;
+//                                self.containerView.hidden = NO;
+//                                self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
                                 button.backgroundColor = [UIColor customGreenColor];
                                 self.recordAgainButton.hidden = NO;
                                 self.recordAgainButton.alpha = 0;
                                 self.recordAgainLabel.hidden = NO;
                                 self.recordAgainLabel.alpha = 0;
                                 [self zeroState:ButtonStateZero];
-                                self.title = @"Choose a State";
-                                NSLog(@"Zoomed");
+                                //self.title = @"Choose a State";
                                 self.recordCornerButton.hidden = YES;
                                 self.playCornerButton.hidden = YES;
                                 [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                                    self.containerView.alpha = 1;
-                                    [self.containerView animateLayoutButtons];
-
+                                  //  self.containerView.alpha = 1;
+                                   // [self.containerView animateLayoutButtons];
                                     self.recordAgainButton.alpha = 1;
                                 } completion:^(BOOL finished) {
                                     [self stopRecording];
@@ -938,6 +938,7 @@
                                     } completion:^(BOOL finished) {
                                         [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                             self.recordAgainButton.transform = CGAffineTransformIdentity;
+                                            [self showBottomButtons];
                                         } completion:nil];
                                     }];
                                 }];
@@ -983,10 +984,10 @@
 }
 
 - (void)showBottomButtons {
-    self.recordAgainButton.alpha = 0.7;
+    self.recordAgainButton.alpha = 1;
     self.recordAgainButton.hidden = NO;
     self.recordAgainLabel.hidden = NO;
-    self.confirmButton.alpha = 0.7;
+    self.confirmButton.alpha = 1;
     self.confirmButton.hidden = NO;
     self.confirmLabel.hidden = NO;
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{

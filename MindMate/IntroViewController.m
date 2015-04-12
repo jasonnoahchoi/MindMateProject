@@ -250,7 +250,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                 self.titleLabel.center = self.offScreenLeftTitlePoint;
             } completion:^(BOOL finished) {
                 self.topLabel.center = self.rightTopLabel;
-                self.topLabel.text = @"This app records your voice today and sends you your message tomorrow.";
+                self.topLabel.text = @"Tomorrow records your voice today and sends you your message tomorrow.";
                 self.bottomLabel.text = @"Leave your future self inspiring notes, goals, or affirmations. \nHave fun with it!";
                 //self.bottomLabel.font = [UIFont systemFontOfSize:16];
                 self.bottomLabel.center = self.rightBottomLabel;
@@ -771,7 +771,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
             self.recordLabel.hidden = NO;
             self.recordLabel.text = @"Hooray! You're ready to talk to your future self! Press the square again to start using the app.";
             self.recordLabel.center = self.rightOfRecordLabel;
-            [UIView animateWithDuration:.2 delay:.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [UIView animateWithDuration:.3 delay:3 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.recordLabel.center = self.middleOfRecordLabel;
                 self.recordLabel.alpha = 1;
             } completion:^(BOOL finished) {
@@ -782,6 +782,17 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                         self.menuButton.transform = CGAffineTransformIdentity;
                     } completion:^(BOOL finished) {
                         self.circleState = IntroCircleStateFinished;
+                        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+                        [animation setDuration:0.07];
+                        [animation setRepeatCount:2];
+                        [animation setAutoreverses:YES];
+                        [animation setFromValue:[NSValue valueWithCGPoint:
+                                                 CGPointMake([self.buttonView.playButton center].x + 20, [self.buttonView.playButton center].y)]];
+                        [animation setToValue:[NSValue valueWithCGPoint:
+                                               CGPointMake([self.buttonView.playButton center].x - 20, [self.buttonView.playButton center].y)]];
+                        [[self.buttonView.playButton layer] addAnimation:animation forKey:@"position"];
+
+
                     }];
                 }];
             }];
@@ -1240,19 +1251,28 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                                CGPointMake([button center].x - 20, [button center].y)]];
         [[button layer] addAnimation:animation forKey:@"position"];
         NSLog(@"Shaking");
-        self.recordLabel.text = @"To remove this recording and record again, press the red X button.";
+        if (self.circleState == IntroCircleStateRecord) {
+            self.recordLabel.text = @"To remove this recording and record again, press the red X button. To save, press the green check button.";
 
-        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
-            self.recordLabel.center = self.middleOfRecordLabel;
-            self.recordLabel.hidden = NO;
-            self.recordLabel.alpha = 1;
-        } completion:^(BOOL finished) {
             [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                self.recordAgainButton.transform = CGAffineTransformIdentity;
-            } completion:nil];
-        }];
-
+                self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.recordAgainButton.transform = CGAffineTransformIdentity;
+                } completion:^(BOOL finished) {
+                    self.recordLabel.center = self.middleOfRecordLabel;
+                    self.recordLabel.alpha = 0;
+                    self.recordLabel.hidden = NO;
+                    //self.recordLabel.hidden = NO;
+                    //self.recordLabel.alpha = 1;
+                    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        //self.recordLabel.hidden = NO:
+                        self.recordLabel.alpha = 1;
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+            }];
+        }
     }
 }
 
@@ -1303,6 +1323,28 @@ static NSString * const finishedIntroKey = @"finishedIntro";
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
+            if (self.circleState == IntroCircleStateRecord) {
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+                [animation setDuration:0.07];
+                [animation setRepeatCount:2];
+                [animation setAutoreverses:YES];
+                [animation setFromValue:[NSValue valueWithCGPoint:
+                                         CGPointMake([button center].x + 20, [button center].y)]];
+                [animation setToValue:[NSValue valueWithCGPoint:
+                                       CGPointMake([button center].x - 20, [button center].y)]];
+                [[button layer] addAnimation:animation forKey:@"position"];
+                [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.recordLabel.alpha = 0;
+                } completion:^(BOOL finished) {
+                    self.recordLabel.text = @"Choose a button below to proceed.";
+                    [UIView animateWithDuration:0.4 delay:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        self.recordLabel.alpha = 1;
+                    } completion:^(BOOL finished) {
+                    }];
+                }];
+//                return;
+            }
+
             if ([RecordingController sharedInstance].memos.count < 1) {
                 CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
                 [animation setDuration:0.07];
@@ -1332,7 +1374,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                     }];
                 }];
             }
-            if ([RecordingController sharedInstance].memos.count > 0) {
+            if ([RecordingController sharedInstance].memos.count > 0 && self.circleState != IntroCircleStateFinished) {
                 self.tdView.hidden = NO;
                 self.recordLabel.alpha = 0;
                 [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -1473,9 +1515,9 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                                 button.transform = CGAffineTransformIdentity;
 
                             } completion:^(BOOL finished) {
-                                self.containerView.alpha = 0;
-                                self.containerView.hidden = YES;
-                                self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
+//                                self.containerView.alpha = 0;
+//                                self.containerView.hidden = YES;
+//                                self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
                                 button.backgroundColor = [UIColor customGreenColor];
                                 self.recordAgainButton.hidden = NO;
                                 self.recordAgainButton.alpha = 0;
@@ -1553,10 +1595,10 @@ static NSString * const finishedIntroKey = @"finishedIntro";
 }
 
 - (void)showBottomButtons {
-    self.recordAgainButton.alpha = 0.7;
+    self.recordAgainButton.alpha = 1;
     self.recordAgainButton.hidden = NO;
     self.recordAgainLabel.hidden = NO;
-    self.confirmButton.alpha = 0.7;
+    self.confirmButton.alpha = 1;
     self.confirmButton.hidden = NO;
     self.confirmLabel.hidden = NO;
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "083D6E731AC4C5770005E67C"
-               BuildableName = "MindMate.app"
-               BlueprintName = "MindMate"
-               ReferencedContainer = "container:MindMate.xcodeproj">
+               BuildableName = "Tomorrow.app"
+               BlueprintName = "Tomorrow"
+               ReferencedContainer = "container:Tomorrow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "083D6E8C1AC4C5770005E67C"
-               BuildableName = "MindMateTests.xctest"
-               BlueprintName = "MindMateTests"
-               ReferencedContainer = "container:MindMate.xcodeproj">
+               BuildableName = "TomorrowTests.xctest"
+               BlueprintName = "TomorrowTests"
+               ReferencedContainer = "container:Tomorrow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "083D6E8C1AC4C5770005E67C"
-               BuildableName = "MindMateTests.xctest"
-               BlueprintName = "MindMateTests"
-               ReferencedContainer = "container:MindMate.xcodeproj">
+               BuildableName = "TomorrowTests.xctest"
+               BlueprintName = "TomorrowTests"
+               ReferencedContainer = "container:Tomorrow.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "083D6E731AC4C5770005E67C"
-            BuildableName = "MindMate.app"
-            BlueprintName = "MindMate"
-            ReferencedContainer = "container:MindMate.xcodeproj">
+            BuildableName = "Tomorrow.app"
+            BlueprintName = "Tomorrow"
+            ReferencedContainer = "container:Tomorrow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "083D6E731AC4C5770005E67C"
-            BuildableName = "MindMate.app"
-            BlueprintName = "MindMate"
-            ReferencedContainer = "container:MindMate.xcodeproj">
+            BuildableName = "Tomorrow.app"
+            BlueprintName = "Tomorrow"
+            ReferencedContainer = "container:Tomorrow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "083D6E731AC4C5770005E67C"
-            BuildableName = "MindMate.app"
-            BlueprintName = "MindMate"
-            ReferencedContainer = "container:MindMate.xcodeproj">
+            BuildableName = "Tomorrow.app"
+            BlueprintName = "Tomorrow"
+            ReferencedContainer = "container:Tomorrow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

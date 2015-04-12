@@ -57,14 +57,14 @@
 		082A37CC1AD3B0AC00B7B187 /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
 		0833C5851AD4FD7E000C945D /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
 		0833C5861AD4FD7E000C945D /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
-		083D6E741AC4C5770005E67C /* MindMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		083D6E741AC4C5770005E67C /* Tomorrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomorrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		083D6E781AC4C5770005E67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		083D6E791AC4C5770005E67C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		083D6E7B1AC4C5770005E67C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		083D6E7C1AC4C5770005E67C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		083D6E841AC4C5770005E67C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		083D6E871AC4C5770005E67C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		083D6E8D1AC4C5770005E67C /* TomorrowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TomorrowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		083D6E921AC4C5770005E67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		083D6E931AC4C5780005E67C /* MindMateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MindMateTests.m; sourceTree = "<group>"; };
 		083D6E9D1AC4C6E70005E67C /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stack.h; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		083D6E6B1AC4C5770005E67C = {
 			isa = PBXGroup;
 			children = (
-				083D6E761AC4C5770005E67C /* MindMate */,
+				083D6E761AC4C5770005E67C /* Tomorrow */,
 				083D6E901AC4C5770005E67C /* MindMateTests */,
 				083D6E751AC4C5770005E67C /* Products */,
 				4E62A4014AF5226767D546DF /* Pods */,
@@ -129,13 +129,13 @@
 		083D6E751AC4C5770005E67C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				083D6E741AC4C5770005E67C /* MindMate.app */,
-				083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */,
+				083D6E741AC4C5770005E67C /* Tomorrow.app */,
+				083D6E8D1AC4C5770005E67C /* TomorrowTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		083D6E761AC4C5770005E67C /* MindMate */ = {
+		083D6E761AC4C5770005E67C /* Tomorrow */ = {
 			isa = PBXGroup;
 			children = (
 				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
@@ -178,6 +178,7 @@
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
 				083D6E771AC4C5770005E67C /* Supporting Files */,
 			);
+			name = Tomorrow;
 			path = MindMate;
 			sourceTree = "<group>";
 		};
@@ -228,9 +229,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		083D6E731AC4C5770005E67C /* MindMate */ = {
+		083D6E731AC4C5770005E67C /* Tomorrow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 083D6E971AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMate" */;
+			buildConfigurationList = 083D6E971AC4C5780005E67C /* Build configuration list for PBXNativeTarget "Tomorrow" */;
 			buildPhases = (
 				87CCCABD72612E04EB124009 /* Check Pods Manifest.lock */,
 				083D6E701AC4C5770005E67C /* Sources */,
@@ -242,14 +243,14 @@
 			);
 			dependencies = (
 			);
-			name = MindMate;
+			name = Tomorrow;
 			productName = MindMate;
-			productReference = 083D6E741AC4C5770005E67C /* MindMate.app */;
+			productReference = 083D6E741AC4C5770005E67C /* Tomorrow.app */;
 			productType = "com.apple.product-type.application";
 		};
-		083D6E8C1AC4C5770005E67C /* MindMateTests */ = {
+		083D6E8C1AC4C5770005E67C /* TomorrowTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 083D6E9A1AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMateTests" */;
+			buildConfigurationList = 083D6E9A1AC4C5780005E67C /* Build configuration list for PBXNativeTarget "TomorrowTests" */;
 			buildPhases = (
 				083D6E891AC4C5770005E67C /* Sources */,
 				083D6E8A1AC4C5770005E67C /* Frameworks */,
@@ -260,9 +261,9 @@
 			dependencies = (
 				083D6E8F1AC4C5770005E67C /* PBXTargetDependency */,
 			);
-			name = MindMateTests;
+			name = TomorrowTests;
 			productName = MindMateTests;
-			productReference = 083D6E8D1AC4C5770005E67C /* MindMateTests.xctest */;
+			productReference = 083D6E8D1AC4C5770005E67C /* TomorrowTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -284,7 +285,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 083D6E6F1AC4C5770005E67C /* Build configuration list for PBXProject "MindMate" */;
+			buildConfigurationList = 083D6E6F1AC4C5770005E67C /* Build configuration list for PBXProject "Tomorrow" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -297,8 +298,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				083D6E731AC4C5770005E67C /* MindMate */,
-				083D6E8C1AC4C5770005E67C /* MindMateTests */,
+				083D6E731AC4C5770005E67C /* Tomorrow */,
+				083D6E8C1AC4C5770005E67C /* TomorrowTests */,
 			);
 		};
 /* End PBXProject section */
@@ -396,7 +397,7 @@
 /* Begin PBXTargetDependency section */
 		083D6E8F1AC4C5770005E67C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 083D6E731AC4C5770005E67C /* MindMate */;
+			target = 083D6E731AC4C5770005E67C /* Tomorrow */;
 			targetProxy = 083D6E8E1AC4C5770005E67C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -497,7 +498,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MindMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tomorrow;
 			};
 			name = Debug;
 		};
@@ -509,7 +510,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MindMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tomorrow;
 			};
 			name = Release;
 		};
@@ -527,7 +528,7 @@
 				);
 				INFOPLIST_FILE = MindMateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TomorrowTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MindMate.app/MindMate";
 			};
 			name = Debug;
@@ -542,7 +543,7 @@
 				);
 				INFOPLIST_FILE = MindMateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TomorrowTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MindMate.app/MindMate";
 			};
 			name = Release;
@@ -550,7 +551,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		083D6E6F1AC4C5770005E67C /* Build configuration list for PBXProject "MindMate" */ = {
+		083D6E6F1AC4C5770005E67C /* Build configuration list for PBXProject "Tomorrow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				083D6E951AC4C5780005E67C /* Debug */,
@@ -559,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		083D6E971AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMate" */ = {
+		083D6E971AC4C5780005E67C /* Build configuration list for PBXNativeTarget "Tomorrow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				083D6E981AC4C5780005E67C /* Debug */,
@@ -568,7 +569,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		083D6E9A1AC4C5780005E67C /* Build configuration list for PBXNativeTarget "MindMateTests" */ = {
+		083D6E9A1AC4C5780005E67C /* Build configuration list for PBXNativeTarget "TomorrowTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				083D6E9B1AC4C5780005E67C /* Debug */,
