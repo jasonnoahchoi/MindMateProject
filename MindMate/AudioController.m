@@ -109,6 +109,20 @@
 //}
 //
 
+- (void)playAudioFileAtURL:(NSURL *)url {
+    NSError *error = nil;
+
+    self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
+    self.player.numberOfLoops = 1;
+    [self.player prepareToPlay];
+    //[self.player play];
+    if (!self.player) {
+        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
+    } else {
+        [self.player play];
+    }
+}
+
 - (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url {
     NSError *error;
     [self data];

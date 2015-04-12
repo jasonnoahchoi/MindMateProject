@@ -128,7 +128,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
     [self layoutMenuButton];
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
-    self.recordLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetMaxY(self.frame) - CGRectGetHeight(self.frame)/2.8, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/6, self.view.frame.size.height/5)];
+    self.recordLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetMaxY(self.frame) - CGRectGetHeight(self.frame)/2.9, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/6, self.view.frame.size.height/5)];
     [self.view addSubview:self.recordLabel];
     self.recordLabel.hidden = YES;
     self.recordLabel.text = @"Press and hold down on the circle to record. Release to stop.";
@@ -290,7 +290,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                 } completion:^(BOOL finished) {
                     self.bottomLabel.center = self.rightBottomLabel;
                     self.bottomLabel.font = [UIFont systemFontOfSize:24];
-                    self.bottomLabel.text = @"Let's start recording...\n\nTap the green button!";
+                    self.bottomLabel.text = @"Let's start recording...\nTap the green button!";
                     [UIView animateWithDuration:.3 delay:.4 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                         self.bottomLabel.center = self.middleBottomLabel;
                     } completion:^(BOOL finished) {
@@ -810,8 +810,14 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                     [UIView animateWithDuration:.5 delay:.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         self.buttonView.alpha = 0;
                     } completion:^(BOOL finished) {
-                        self.topLabel.text = @"Tomorrow \n\nbegins\nin";
-                        self.topLabel.font = [UIFont boldSystemFontOfSize:36];
+                        //self.topLabel.numberOfLines = 0;
+                        if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
+                            self.topLabel.text = @"Tomorrow \nbegins in";
+                            self.topLabel.font = [UIFont boldSystemFontOfSize:24];
+                        } else {
+                            self.topLabel.text = @"Tomorrow \n\nbegins\nin";
+                            self.topLabel.font = [UIFont boldSystemFontOfSize:36];
+                        }
                         self.topLabel.center = self.rightTopLabel;
                         self.topLabel.hidden = NO;
                         [UIView animateWithDuration:.2 delay:.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -1359,7 +1365,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
 //                return;
             }
 
-            if ([RecordingController sharedInstance].memos.count < 1) {
+            if ([RecordingController sharedInstance].memos.count < 1 && self.circleState != IntroCircleStatePlay) {
                 CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
                 [animation setDuration:0.07];
                 [animation setRepeatCount:2];
@@ -1388,7 +1394,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                     }];
                 }];
             }
-            if ([RecordingController sharedInstance].memos.count > 0 && self.circleState != IntroCircleStateFinished) {
+            if (self.circleState == IntroCircleStatePlay) {
                 self.tdView.hidden = NO;
                 self.recordLabel.alpha = 0;
                 [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -1396,38 +1402,43 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
                     self.menuButton.hidden = YES;
-                    NSArray *array = [RecordingController sharedInstance].memos;
-                    //NSArray *array = [RecordingController sharedInstance].fetchMemos;
-                    NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
-                    self.mutableRecordings = [[NSMutableArray alloc] init];
-                    //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
-                    for (int i = 0; i < [array count]; i++) {
-                        Recording *recording = [RecordingController sharedInstance].memos[i];
-                        // Recording *recording = [RecordingController sharedInstance].fetchMemos[i];
-                        [self.mutableRecordings addObject:recording.timeCreated];
-                        self.tdView.timeLabel.text = recording.timeCreated;
-                        self.tdView.dateLabel.text = recording.simpleDate;
+                    NSError *error = nil;
+                    NSURL *welcomeURL = [[NSBundle mainBundle] URLForResource:@"mmwelcome" withExtension:@"m4a"];
+                   // NSData *songFile = [[NSData alloc] initWithContentsOfURL:welcomeURL options:NSDataReadingMappedIfSafe error:&error];
 
-                        //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
-                        //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
-                        //[mutableArray addObject:item];
-                        NSArray *documentsPath = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], recording.urlPath, nil];
-                        NSURL *urlPath = [NSURL fileURLWithPathComponents:documentsPath];
-
-                        [mutableArray addObject:urlPath];
-
-                        self.record = recording;
-                    }
-                    self.indexForRecording = self.mutableRecordings.count - 2;
-                    [AudioController sharedInstance].audioFileQueue = mutableArray;
-                    for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
-                        [AudioController sharedInstance].index = i;
-
-                        [[AudioController sharedInstance] playAudioWithInt:i];
-                    }
-
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
+                    [[AudioController sharedInstance] playAudioFileAtURL:welcomeURL];
+//                    NSArray *array = [RecordingController sharedInstance].memos;
+//                    //NSArray *array = [RecordingController sharedInstance].fetchMemos;
+//                    NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+//                    self.mutableRecordings = [[NSMutableArray alloc] init];
+//                    //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
+//                    for (int i = 0; i < [array count]; i++) {
+//                        Recording *recording = [RecordingController sharedInstance].memos[i];
+//                        // Recording *recording = [RecordingController sharedInstance].fetchMemos[i];
+//                        [self.mutableRecordings addObject:recording.timeCreated];
+//                        self.tdView.timeLabel.text = recording.timeCreated;
+//                        self.tdView.dateLabel.text = recording.simpleDate;
+//
+//                        //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
+//                        //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
+//                        //[mutableArray addObject:item];
+//                        NSArray *documentsPath = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], recording.urlPath, nil];
+//                        NSURL *urlPath = [NSURL fileURLWithPathComponents:documentsPath];
+//
+//                        [mutableArray addObject:urlPath];
+//
+//                        self.record = recording;
+//                    }
+//                    self.indexForRecording = self.mutableRecordings.count - 2;
+//                    [AudioController sharedInstance].audioFileQueue = mutableArray;
+//                    for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
+//                        [AudioController sharedInstance].index = i;
+//
+//                        [[AudioController sharedInstance] playAudioWithInt:i];
+//                    }
+//
+//                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
+//                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
 
                     //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
                     //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
@@ -1465,7 +1476,12 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                             button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
                         } completion:^(BOOL finished) {
                             if (self.circleState != IntroCircleStateFinished) {
+                                if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
+                                    self.recordLabel.font = [UIFont systemFontOfSize:15];
+                                    self.recordLabel.text = @"As a reminder, you will receive your recording tomorrow.\nTo get your messages, tap the square to enable notifications.";
+                                } else {
                             self.recordLabel.text = @"As a reminder, you will receive your recording tomorrow.\n\nTo get your messages, tap the square to enable notifications.";
+                                }
                             self.recordLabel.center = self.rightOfRecordLabel;
                             }
                             [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{

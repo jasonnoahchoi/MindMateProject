@@ -16,6 +16,7 @@
 		081291291ADA453000CD49DF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291281ADA453000CD49DF /* AboutViewController.m */; };
 		0812912C1ADA5C0F00CD49DF /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812912B1ADA5C0F00CD49DF /* SupportViewController.m */; };
 		0812912F1ADA5DFD00CD49DF /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812912E1ADA5DFD00CD49DF /* TermsViewController.m */; };
+		081291321ADA763100CD49DF /* mmwelcome.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 081291311ADA746D00CD49DF /* mmwelcome.m4a */; };
 		0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082640381ACDD253009B5AF8 /* AudioViewController.m */; };
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
@@ -69,6 +70,7 @@
 		0812912B1ADA5C0F00CD49DF /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
 		0812912D1ADA5DFD00CD49DF /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		0812912E1ADA5DFD00CD49DF /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
+		081291311ADA746D00CD49DF /* mmwelcome.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = mmwelcome.m4a; sourceTree = "<group>"; };
 		082640371ACDD253009B5AF8 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
 		082640381ACDD253009B5AF8 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
 		082640391ACDD253009B5AF8 /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				081291281ADA453000CD49DF /* AboutViewController.m */,
 				0812912D1ADA5DFD00CD49DF /* TermsViewController.h */,
 				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
+				081291311ADA746D00CD49DF /* mmwelcome.m4a */,
 				081291201ADA40B500CD49DF /* Reminders */,
 				083D6E9D1AC4C6E70005E67C /* Stack.h */,
 				083D6E9E1AC4C6E70005E67C /* Stack.m */,
@@ -350,6 +353,7 @@
 				083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */,
 				083D6E851AC4C5770005E67C /* Images.xcassets in Resources */,
 				086914301AC891F40064B6AE /* Main.storyboard in Resources */,
+				081291321ADA763100CD49DF /* mmwelcome.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +547,7 @@
 				INFOPLIST_FILE = MindMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Tomorrow;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -555,6 +560,7 @@
 				INFOPLIST_FILE = MindMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Tomorrow;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
