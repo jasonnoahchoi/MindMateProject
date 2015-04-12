@@ -16,7 +16,7 @@
 #import "TimeAndDateView.h"
 #import "MenuViewController.h"
 
-
+static NSString * const hasRecordingsKey = @"hasRecordings";
 
 @interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate, MenuViewControllerDelegate>
 
@@ -65,6 +65,8 @@
 @property (nonatomic, assign) CGPoint halfwayPointPlayCornerPoint;
 @property (nonatomic, assign) CGRect circleRect;
 @property (nonatomic, assign) BOOL showedMenuVC;
+@property (nonatomic, assign) BOOL hasRecordings;
+@property (nonatomic, assign) BOOL hasPlayed;
 
 @end
 
@@ -106,6 +108,23 @@
 //        [self reanimateCircles];
 //    }
 //}
+
+- (void)loadFromDefaults {
+
+    self.hasRecordings = [[NSUserDefaults standardUserDefaults] boolForKey:hasRecordingsKey];
+
+    if (!self.hasRecordings) {
+        self.hasRecordings = NO;
+    }
+}
+
+- (void)setHasRecordings:(BOOL)hasRecordings {
+    _hasRecordings = hasRecordings;
+
+    [[NSUserDefaults standardUserDefaults] setBool:hasRecordings forKey:hasRecordingsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 - (void)initialAnimation {
     [UIView animateWithDuration:.3 delay:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -292,6 +311,15 @@
             self.containerView.state = ButtonStateNone;
             [self noneState:ButtonStateNone];
             self.counter++;
+//            if (self.counter > 0) {
+                self.hasRecordings = YES;
+                [[NSUserDefaults standardUserDefaults] setBool:self.hasRecordings forKey:hasRecordingsKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+//            } else {
+//                self.hasRecordings = NO;
+//                [[NSUserDefaults standardUserDefaults] setBool:self.hasRecordings forKey:hasRecordingsKey];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+//            }
         }];
     }
 }
@@ -705,7 +733,7 @@
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     NSLog(@"Notification received");
-//    self.record = [RecordingController sharedInstance].memos.lastObject;
+    //self.record = [RecordingController sharedInstance].memoNames.lastObject;
 //    [[RecordingController sharedInstance] removeRecording:self.record];
     //self.counter--;
 }
@@ -822,6 +850,21 @@
 
                         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
                         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
+                        if (self.hasRecordings == YES && self.hasPlayed == YES) {
+                            self.hasRecordings = NO;
+                        }
+                        if (self.hasRecordings == YES && self.hasPlayed == NO) {
+                            self.hasPlayed = NO;
+                            self.hasRecordings = YES;
+                        }
+                        if (self.hasRecordings == NO && self.hasPlayed == YES) {
+
+                        }
+                        if (self.hasRecordings == NO && self.hasPlayed == NO) {
+                            self.hasRecordings = NO;
+                        }
+
+
 
                         //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
                         //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
@@ -838,6 +881,7 @@
                 [[AudioController sharedInstance] stopPlayingAudio];
                 self.tdView.hidden = YES;
                 self.menuButton.hidden = NO;
+                self.hasPlayed = YES;
 
                 //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
                 //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
@@ -858,7 +902,8 @@
                             [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
 
-                            } completion:nil];
+                            } completion:^(BOOL finished) {
+                            }];
                         }];
                     }];
                 }];

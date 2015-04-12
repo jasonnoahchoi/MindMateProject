@@ -1,13 +1,12 @@
 //
 //  Recording.m
-//  MindMate
+//  Tomorrow
 //
-//  Created by Jason Noah Choi on 4/7/15.
+//  Created by Jason Noah Choi on 4/12/15.
 //  Copyright (c) 2015 Jason Choi. All rights reserved.
 //
 
 #import "Recording.h"
-#import "Group.h"
 #import "Queue.h"
 #import "User.h"
 
@@ -23,11 +22,15 @@
 @dynamic returned;
 @dynamic showAt;
 @dynamic simpleDate;
+@dynamic timeCreated;
 @dynamic updatedAt;
 @dynamic urlPath;
-@dynamic timeCreated;
+@dynamic lattitude;
+@dynamic longitude;
+@dynamic location;
+@dynamic lattitudeString;
+@dynamic longitudeString;
 @dynamic fromUser;
-@dynamic group;
 @dynamic queue;
 @dynamic toUser;
 
