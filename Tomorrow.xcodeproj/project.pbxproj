@@ -7,11 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0825D8521ACB9CF70059B63D /* QueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0825D8501ACB9CF70059B63D /* QueueManager.m */; };
+		0812911B1ADA3D1600CD49DF /* RemindersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291121ADA3D1600CD49DF /* RemindersController.m */; };
+		0812911C1ADA3D1600CD49DF /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291141ADA3D1600CD49DF /* Reminder.m */; };
+		0812911D1ADA3D1600CD49DF /* CustomDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291161ADA3D1600CD49DF /* CustomDatePickerView.m */; };
+		0812911E1ADA3D1600CD49DF /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291181ADA3D1600CD49DF /* RemindersViewController.m */; };
+		0812911F1ADA3D1600CD49DF /* RemindersTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812911A1ADA3D1600CD49DF /* RemindersTableViewDataSource.m */; };
+		081291261ADA41F400CD49DF /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291251ADA41F400CD49DF /* Recording.m */; };
+		081291291ADA453000CD49DF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291281ADA453000CD49DF /* AboutViewController.m */; };
+		0812912C1ADA5C0F00CD49DF /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812912B1ADA5C0F00CD49DF /* SupportViewController.m */; };
+		0812912F1ADA5DFD00CD49DF /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812912E1ADA5DFD00CD49DF /* TermsViewController.m */; };
 		0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082640381ACDD253009B5AF8 /* AudioViewController.m */; };
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
-		082A37CD1AD3B0AC00B7B187 /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = 082A37CC1AD3B0AC00B7B187 /* Recording.m */; };
 		0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0833C5861AD4FD7E000C945D /* NSDate+Utils.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
 		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
@@ -30,7 +37,6 @@
 		08CC7E581AD616D500D8BA3C /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CC7E571AD616D500D8BA3C /* MenuViewController.m */; };
 		08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94EA1ACBB04F00B83395 /* Queue.m */; };
 		08CE94F11ACBB04F00B83395 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F01ACBB04F00B83395 /* User.m */; };
-		08CE94F41ACBB04F00B83395 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F31ACBB04F00B83395 /* Group.m */; };
 		8A489E03571846AD9609F824 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3C9177DE0048FEF6A37531 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -45,16 +51,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0825D84F1ACB9CF70059B63D /* QueueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueueManager.h; path = ../../mindmate/MindMate/QueueManager.h; sourceTree = "<group>"; };
-		0825D8501ACB9CF70059B63D /* QueueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueueManager.m; path = ../../mindmate/MindMate/QueueManager.m; sourceTree = "<group>"; };
+		081291111ADA3D1600CD49DF /* RemindersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindersController.h; sourceTree = "<group>"; };
+		081291121ADA3D1600CD49DF /* RemindersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindersController.m; sourceTree = "<group>"; };
+		081291131ADA3D1600CD49DF /* Reminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
+		081291141ADA3D1600CD49DF /* Reminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
+		081291151ADA3D1600CD49DF /* CustomDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDatePickerView.h; sourceTree = "<group>"; };
+		081291161ADA3D1600CD49DF /* CustomDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDatePickerView.m; sourceTree = "<group>"; };
+		081291171ADA3D1600CD49DF /* RemindersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindersViewController.h; sourceTree = "<group>"; };
+		081291181ADA3D1600CD49DF /* RemindersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindersViewController.m; sourceTree = "<group>"; };
+		081291191ADA3D1600CD49DF /* RemindersTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindersTableViewDataSource.h; sourceTree = "<group>"; };
+		0812911A1ADA3D1600CD49DF /* RemindersTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindersTableViewDataSource.m; sourceTree = "<group>"; };
+		081291241ADA41F400CD49DF /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
+		081291251ADA41F400CD49DF /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
+		081291271ADA453000CD49DF /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		081291281ADA453000CD49DF /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		0812912A1ADA5C0F00CD49DF /* SupportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportViewController.h; sourceTree = "<group>"; };
+		0812912B1ADA5C0F00CD49DF /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
+		0812912D1ADA5DFD00CD49DF /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
+		0812912E1ADA5DFD00CD49DF /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
 		082640371ACDD253009B5AF8 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
 		082640381ACDD253009B5AF8 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
 		082640391ACDD253009B5AF8 /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
 		0826403A1ACDD253009B5AF8 /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryContainerView.h; sourceTree = "<group>"; };
 		0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryContainerView.m; sourceTree = "<group>"; };
-		082A37CB1AD3B0AC00B7B187 /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
-		082A37CC1AD3B0AC00B7B187 /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
 		0833C5851AD4FD7E000C945D /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
 		0833C5861AD4FD7E000C945D /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		083D6E741AC4C5770005E67C /* Tomorrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomorrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,8 +108,6 @@
 		08CE94EA1ACBB04F00B83395 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		08CE94EF1ACBB04F00B83395 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		08CE94F01ACBB04F00B83395 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		08CE94F21ACBB04F00B83395 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
-		08CE94F31ACBB04F00B83395 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		4F47C3241880CF0F720F6C19 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9A3C9177DE0048FEF6A37531 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDDD9BD0EB2DF803753FA4DD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +133,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		081291201ADA40B500CD49DF /* Reminders */ = {
+			isa = PBXGroup;
+			children = (
+				081291111ADA3D1600CD49DF /* RemindersController.h */,
+				081291121ADA3D1600CD49DF /* RemindersController.m */,
+				081291131ADA3D1600CD49DF /* Reminder.h */,
+				081291141ADA3D1600CD49DF /* Reminder.m */,
+				081291151ADA3D1600CD49DF /* CustomDatePickerView.h */,
+				081291161ADA3D1600CD49DF /* CustomDatePickerView.m */,
+				081291171ADA3D1600CD49DF /* RemindersViewController.h */,
+				081291181ADA3D1600CD49DF /* RemindersViewController.m */,
+				081291191ADA3D1600CD49DF /* RemindersTableViewDataSource.h */,
+				0812911A1ADA3D1600CD49DF /* RemindersTableViewDataSource.m */,
+			);
+			name = Reminders;
+			sourceTree = "<group>";
+		};
 		083D6E6B1AC4C5770005E67C = {
 			isa = PBXGroup;
 			children = (
@@ -138,8 +173,6 @@
 		083D6E761AC4C5770005E67C /* Tomorrow */ = {
 			isa = PBXGroup;
 			children = (
-				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
-				08CC7E571AD616D500D8BA3C /* MenuViewController.m */,
 				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
@@ -156,19 +189,24 @@
 				0826403A1ACDD253009B5AF8 /* ButtonView.m */,
 				0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */,
 				0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */,
-				082A37CB1AD3B0AC00B7B187 /* Recording.h */,
-				082A37CC1AD3B0AC00B7B187 /* Recording.m */,
+				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
+				08CC7E571AD616D500D8BA3C /* MenuViewController.m */,
+				0812912A1ADA5C0F00CD49DF /* SupportViewController.h */,
+				0812912B1ADA5C0F00CD49DF /* SupportViewController.m */,
+				081291271ADA453000CD49DF /* AboutViewController.h */,
+				081291281ADA453000CD49DF /* AboutViewController.m */,
+				0812912D1ADA5DFD00CD49DF /* TermsViewController.h */,
+				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
+				081291201ADA40B500CD49DF /* Reminders */,
 				083D6E9D1AC4C6E70005E67C /* Stack.h */,
 				083D6E9E1AC4C6E70005E67C /* Stack.m */,
 				083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */,
-				08CE94F21ACBB04F00B83395 /* Group.h */,
-				08CE94F31ACBB04F00B83395 /* Group.m */,
+				081291241ADA41F400CD49DF /* Recording.h */,
+				081291251ADA41F400CD49DF /* Recording.m */,
 				08CE94EF1ACBB04F00B83395 /* User.h */,
 				08CE94F01ACBB04F00B83395 /* User.m */,
 				08CE94E91ACBB04F00B83395 /* Queue.h */,
 				08CE94EA1ACBB04F00B83395 /* Queue.m */,
-				0825D84F1ACB9CF70059B63D /* QueueManager.h */,
-				0825D8501ACB9CF70059B63D /* QueueManager.m */,
 				083D6EAC1AC4C8550005E67C /* RecordingController.h */,
 				083D6EAD1AC4C8550005E67C /* RecordingController.m */,
 				08CC1FC91AC9E1B60083B861 /* AudioController.h */,
@@ -362,25 +400,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0812911B1ADA3D1600CD49DF /* RemindersController.m in Sources */,
 				083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */,
 				0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */,
+				0812911D1ADA3D1600CD49DF /* CustomDatePickerView.m in Sources */,
+				0812911C1ADA3D1600CD49DF /* Reminder.m in Sources */,
+				0812912F1ADA5DFD00CD49DF /* TermsViewController.m in Sources */,
+				081291261ADA41F400CD49DF /* Recording.m in Sources */,
 				0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */,
+				0812911F1ADA3D1600CD49DF /* RemindersTableViewDataSource.m in Sources */,
 				08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
 				08C6FD641AD65B7500FFD983 /* IntroViewController.m in Sources */,
 				08CC7E581AD616D500D8BA3C /* MenuViewController.m in Sources */,
-				082A37CD1AD3B0AC00B7B187 /* Recording.m in Sources */,
 				08CE94F11ACBB04F00B83395 /* User.m in Sources */,
 				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
+				0812911E1ADA3D1600CD49DF /* RemindersViewController.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
 				08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */,
-				08CE94F41ACBB04F00B83395 /* Group.m in Sources */,
-				0825D8521ACB9CF70059B63D /* QueueManager.m in Sources */,
 				0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */,
 				08CC1FCB1AC9E1B60083B861 /* AudioController.m in Sources */,
 				089F37181AD359DF00F069DF /* TimeAndDateView.m in Sources */,
+				0812912C1ADA5C0F00CD49DF /* SupportViewController.m in Sources */,
+				081291291ADA453000CD49DF /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

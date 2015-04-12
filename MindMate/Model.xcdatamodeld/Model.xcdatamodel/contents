@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Group" representedClassName="Group" syncable="YES">
-        <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recording" inverseName="group" inverseEntity="Recording" syncable="YES"/>
-    </entity>
     <entity name="Queue" representedClassName="Queue" syncable="YES">
         <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Recording" inverseName="queue" inverseEntity="Recording" syncable="YES"/>
     </entity>
@@ -12,6 +8,11 @@
         <attribute name="groupID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lattitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lattitudeString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitudeString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="memo" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="memoName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="returned" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -21,7 +22,6 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="urlPath" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="fromUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="recordingsReceived" inverseEntity="User" syncable="YES"/>
-        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="recordings" inverseEntity="Group" syncable="YES"/>
         <relationship name="queue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Queue" inverseName="recordings" inverseEntity="Queue" syncable="YES"/>
         <relationship name="toUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="recordingsGiven" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -33,9 +33,8 @@
         <relationship name="recordingsReceived" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recording" inverseName="fromUser" inverseEntity="Recording" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Group" positionX="-18" positionY="27" width="128" height="75"/>
         <element name="Queue" positionX="9" positionY="135" width="128" height="58"/>
-        <element name="Recording" positionX="36" positionY="81" width="128" height="283"/>
+        <element name="Recording" positionX="36" positionY="81" width="128" height="343"/>
         <element name="User" positionX="9" positionY="54" width="128" height="118"/>
     </elements>
 </model>
