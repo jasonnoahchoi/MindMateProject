@@ -627,7 +627,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                 self.recordLabel.center = self.middleOfRecordLabel;
                 self.recordLabel.alpha = 1;
             } completion:^(BOOL finished) {
-
+                
             }];
 
         }];
@@ -782,15 +782,15 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                         self.menuButton.transform = CGAffineTransformIdentity;
                     } completion:^(BOOL finished) {
                         self.circleState = IntroCircleStateFinished;
-                        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-                        [animation setDuration:0.07];
-                        [animation setRepeatCount:2];
-                        [animation setAutoreverses:YES];
-                        [animation setFromValue:[NSValue valueWithCGPoint:
-                                                 CGPointMake([self.buttonView.playButton center].x + 20, [self.buttonView.playButton center].y)]];
-                        [animation setToValue:[NSValue valueWithCGPoint:
-                                               CGPointMake([self.buttonView.playButton center].x - 20, [self.buttonView.playButton center].y)]];
-                        [[self.buttonView.playButton layer] addAnimation:animation forKey:@"position"];
+//                        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+//                        [animation setDuration:0.07];
+//                        [animation setRepeatCount:2];
+//                        [animation setAutoreverses:YES];
+//                        [animation setFromValue:[NSValue valueWithCGPoint:
+//                                                 CGPointMake([self.buttonView.playButton center].x + 20, [self.buttonView.playButton center].y)]];
+//                        [animation setToValue:[NSValue valueWithCGPoint:
+//                                               CGPointMake([self.buttonView.playButton center].x - 20, [self.buttonView.playButton center].y)]];
+//                        [[self.buttonView.playButton layer] addAnimation:animation forKey:@"position"];
 
 
                     }];
@@ -810,7 +810,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                     [UIView animateWithDuration:.5 delay:.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         self.buttonView.alpha = 0;
                     } completion:^(BOOL finished) {
-                        self.topLabel.text = @"Tomorrow \nbegins in";
+                        self.topLabel.text = @"Tomorrow \n\nbegins\nin";
                         self.topLabel.font = [UIFont boldSystemFontOfSize:36];
                         self.topLabel.center = self.rightTopLabel;
                         self.topLabel.hidden = NO;
@@ -1323,6 +1323,19 @@ static NSString * const finishedIntroKey = @"finishedIntro";
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
+            if (self.circleState == IntroCircleStateFinished) {
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+                [animation setDuration:0.07];
+                [animation setRepeatCount:2];
+                [animation setAutoreverses:YES];
+                [animation setFromValue:[NSValue valueWithCGPoint:
+                                         CGPointMake([self.buttonView.playButton center].x + 20, [self.buttonView.playButton center].y)]];
+                [animation setToValue:[NSValue valueWithCGPoint:
+                                       CGPointMake([self.buttonView.playButton center].x - 20, [self.buttonView.playButton center].y)]];
+                [[self.buttonView.playButton layer] addAnimation:animation forKey:@"position"];
+                return;
+            }
+
             if (self.circleState == IntroCircleStateRecord) {
                 CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
                 [animation setDuration:0.07];
@@ -1339,6 +1352,7 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                     self.recordLabel.text = @"Choose a button below to proceed.";
                     [UIView animateWithDuration:0.4 delay:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         self.recordLabel.alpha = 1;
+                        self.recordLabel.center = self.middleOfRecordLabel;
                     } completion:^(BOOL finished) {
                     }];
                 }];
@@ -1450,13 +1464,17 @@ static NSString * const finishedIntroKey = @"finishedIntro";
                         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
                         } completion:^(BOOL finished) {
+                            if (self.circleState != IntroCircleStateFinished) {
                             self.recordLabel.text = @"As a reminder, you will receive your recording tomorrow.\n\nTo get your messages, tap the square to enable notifications.";
                             self.recordLabel.center = self.rightOfRecordLabel;
+                            }
                             [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 self.recordLabel.center = self.middleOfRecordLabel;
                                 self.recordLabel.alpha = 1;
                             } completion:^(BOOL finished) {
-                                self.circleState = IntroCircleStateNotifications;
+                                if (self.circleState != IntroCircleStateFinished) {
+                                    self.circleState = IntroCircleStateNotifications;
+                                }
                             }];
                         }];
                     }];
