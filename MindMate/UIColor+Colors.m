@@ -23,7 +23,7 @@
 }
 
 + (UIColor *)customGrayColor {
-    return [UIColor colorWithRed:110.0/255 green:110.0/255 blue:110.0/255 alpha:1];
+    return [UIColor colorWithHue:1.0 saturation:0 brightness:.93 alpha:1];
 }
 
 + (UIColor *)backgroundGrayColor {
