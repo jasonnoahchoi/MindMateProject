@@ -28,8 +28,6 @@ static NSString * const queueEntity = @"Queue";
 - (void)addRecordingWithFile:(NSData *)memo;
 - (void)addGroupWithName:(NSString *)groupName;
 - (void)removeRecording:(Recording *)recording;
-- (void)removeGroup:(Group *)group;
-- (void)addRecordingToGroup:(Group *)group;
 - (void)receiveRecordingFromUser:(User *)user;
 
 @end

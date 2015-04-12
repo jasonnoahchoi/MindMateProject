@@ -9,7 +9,6 @@
 #import "RecordingController.h"
 #import "Stack.h"
 #import "Recording.h"
-#import "Group.h"
 #import "User.h"
 #import "AudioController.h"
 
@@ -96,7 +95,7 @@
 - (NSArray *)memos {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
-        //  fetchRequest.predicate = [self predicate];
+    fetchRequest.predicate = [self predicate];
 
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
@@ -180,26 +179,8 @@
     [self save];
 }
 
-- (void)addGroupWithName:(NSString *)groupName {
-    Group *group = [NSEntityDescription insertNewObjectForEntityForName:groupEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
-    group.groupName = groupName;
-    [self save];
-
-}
-
 - (void)removeRecording:(Recording *)recording {
     [recording.managedObjectContext deleteObject:recording];
-    [self save];
-}
-
-- (void)removeGroup:(Group *)group {
-    [group.managedObjectContext deleteObject:group];
-    [self save];
-}
-
-- (void)addRecordingToGroup:(Group *)group {
-    Recording *recording = [NSEntityDescription insertNewObjectForEntityForName:recordingEntity inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
-    [recording setGroup:group];
     [self save];
 }
 
