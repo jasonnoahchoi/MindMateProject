@@ -1,8 +1,8 @@
 //
 //  CustomDatePickerView.m
-//  CustomDatePicker
+//  Tomorrow
 //
-//  Created by sombra on 2015-03-13.
+//  Created by Jason Noah Choi on 4/12/15.
 //  Copyright (c) 2015 sombra. All rights reserved.
 //
 
@@ -268,7 +268,7 @@ typedef enum : NSInteger {
     [self.tableView reloadData];
     
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.alertBody = @"Time to study!";
+    localNotification.alertBody = @"Record something inspiring today!";
     localNotification.fireDate = selectedDate;
     localNotification.applicationIconBadgeNumber = 1;
     

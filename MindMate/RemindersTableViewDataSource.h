@@ -1,8 +1,8 @@
 //
 //  RemindersTableViewDataSource.h
-//  cardalot
+//  Tomorrow
 //
-//  Created by sombra on 2015-03-14.
+//  Created by Jason Noah Choi on 4/12/15.
 //  Copyright (c) 2015 Jason Choi. All rights reserved.
 //
 
