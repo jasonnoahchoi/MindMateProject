@@ -10,10 +10,13 @@
 
 typedef NS_ENUM(NSInteger, IntroCircleState) {
     IntroCircleStateNone,
+    IntroCircleStateGetStarted,
     IntroCircleStateReady,
     IntroCircleStateStarted,
     IntroCircleStateRecord,
     IntroCircleStatePlay,
+    IntroCircleStateNotifications,
+    IntroCircleStateFinished
 };
 
 
