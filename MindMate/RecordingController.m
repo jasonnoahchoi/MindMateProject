@@ -11,6 +11,7 @@
 #import "Recording.h"
 #import "User.h"
 #import "AudioController.h"
+#import "NSDate+Utils.h"
 
 @interface RecordingController ()
 
@@ -30,72 +31,14 @@
     return sharedInstance;
 }
 
-- (NSDate *)fetchDate {
-    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-
-    NSUInteger count = -1;
-    dayComponent.day = count;
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
-    
-    return nextDate;
-}
-
-- (NSDate *)beginningOfDay {
-    NSDate *date = [self fetchDate];
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    
-    NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
-
-    [components setHour:0];
-
-    [components setMinute:0];
-
-    [components setSecond:0];
-
-    return [cal dateFromComponents:components];
-}
-
-- (NSDate *)endOfDay {
-    NSDate *date = [self fetchDate];
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
-//    [components setYear:0];
-//    [components setMonth:0];
-//    [components setDay:1];
-
-
-    [components setHour:23];
-
-    [components setMinute:59];
-
-    [components setSecond:59];
-
-//    NSUInteger count = 1;
-//    components.day = count;
-
-
-    return [cal dateByAddingComponents:components toDate:[self beginningOfDay] options:0];
-}
-
 - (NSPredicate *)predicate {
-
-    //    NSCalendar *calendar = [NSCalendar currentCalendar]; // gets default calendar
-    //    NSCalendarComponents *components = [calendar components:(NSYearCalendarUnit |NSMonthCalendarUnit |  NSDayCalendarUnit) fromDate:[NSDate date]]; // gets the year, month, and day for today's date
-    //    NSDate *firstDate = [calendar dateFromComponents:components]; // makes a new NSDate keeping only the year, month, and day
-//    NSPredicate *firstPredicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [self beginningOfDay]];
-//    NSPredicate *secondPredicate = [NSPredicate predicateWithFormat:@"createdAt < %@", [self endOfDay]];
-//
-//    return [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:firstPredicate, secondPredicate, nil]];
-    return [NSPredicate predicateWithFormat:@"(showAt > %@) AND (showAt <= %@)",[self beginningOfDay], [self endOfDay]];
+    return [NSPredicate predicateWithFormat:@"(showAt > %@) AND (showAt <= %@)",[NSDate beginningOfDay], [NSDate endOfDay]];
 }
-
 
 - (NSArray *)memos {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
-    fetchRequest.predicate = [self predicate];
+    //fetchRequest.predicate = [self predicate];
 
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
@@ -105,19 +48,6 @@
     fetchRequest.predicate = [self predicate];
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
 }
-
-//- (NSArray *)callByDate {
-//    [self memos];
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"simpleDateString > %@", [[AudioController sharedInstance] simpleDateString]];
-//    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"simpleDateString" ascending:YES];
-//    NSArray *sortDescriptors = @[dateSort];
-//    NSFetchRequest *fetchDate = [[NSFetchRequest alloc] init];
-//    [fetchDate setSortDescriptors:sortDescriptors];
-//    [fetchDate setEntity:recordingEntity];
-//    [fetchDate setPredicate:predicate];
-//    NSLog(@"FETCH: %@", fetchDate);
-//    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchDate error:NULL];
-//}
 
 - (NSArray *)memoNames {
     NSMutableArray *mutableMemoNames = [[NSMutableArray alloc] init];
