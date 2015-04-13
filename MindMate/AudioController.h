@@ -45,6 +45,7 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 - (AVAudioPlayer *)playAudio;
 - (NSData *)data;
 - (void)playAudioFileAtURL:(NSURL *)url;
+- (void)playAudioFileSoftlyAtURL:(NSURL *)url;
 //- (AVQueuePlayer *)playQueueAudio:(NSArray *)items;
 //
 //- (id)initWithFileNameQueue:(NSArray *)queue;

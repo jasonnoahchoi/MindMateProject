@@ -9,6 +9,7 @@
 #import "AudioController.h"
 #import "RecordingController.h"
 #import "Recording.h"
+#import "NSDate+Utils.h"
 
 @interface AudioController ()
 
@@ -60,7 +61,7 @@
     [[RecordingController sharedInstance] addRecordingWithURL:[self nowString]
                                                   andIDNumber:[self randomIDNumber]
                                                andDateCreated:[self createdAtDateString]
-                                                 andFetchDate:[self createdAtDate]
+                                                 andFetchDate:[NSDate createdAtDate]
                                                 andSimpleDate:[self simpleDateString]
                                                  andGroupName:[self groupName]
                                                andTimeCreated:[self currentTime]];
@@ -108,14 +109,40 @@
 //    return [AVQueuePlayer queuePlayerWithItems:items];
 //}
 //
+- (void)playAudioFileSoftlyAtURL:(NSURL *)url {
+    NSError *error = nil;
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
+
+    self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
+    self.player.numberOfLoops = 0;
+    [self.player prepareToPlay];
+
+    self.player.volume = .5;
+    //[self.player play];
+    if (!self.player) {
+        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
+    } else {
+        [self.player play];
+    }
+}
+
 
 - (void)playAudioFileAtURL:(NSURL *)url {
     NSError *error = nil;
-
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
     self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
-    self.player.numberOfLoops = 1;
+    self.player.numberOfLoops = 0;
     [self.player prepareToPlay];
-    //[self.player play];
+    self.player.volume = 1.0;
+        //[self.player play];
     if (!self.player) {
         NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
     } else {
@@ -126,13 +153,15 @@
 - (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url {
     NSError *error;
     [self data];
-    //NSData *soundData = [NSData dataWithContentsOfURL:url];
-    //[soundData writeToFile:[url absoluteString] atomically:YES];
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
     self.player.delegate = self;
     self.player.volume = 1.0;
 
-    
     if (!self.player) {
         NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
     } else {
@@ -166,7 +195,8 @@
 
 - (void)playAudioWithInt:(int)i {
     NSError *error = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&error];
    // [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:&error];
     //self.player = [[AVAudioPlayer alloc] initWithData:self.audioFileQueue[i] error:&error];
@@ -214,8 +244,6 @@
    // NSLog(@"\n\n\n URL PATH %@", [self urlPath]);
     NSLog(@"\n\n\n URL PATH ABSOLUTE STRING: %@", string);
 
-    NSLog(@"\n\n\n DATA: %@", dataFile);
-
     return dataFile;
 }
 
@@ -257,13 +285,13 @@
     return recordSettings;
 }
 
-- (NSDate *)createdAtDate {
-    NSDate *now = [NSDate date];
-    return now;
-}
+//- (NSDate *)createdAtDate {
+//    NSDate *now = [NSDate date];
+//    return now;
+//}
 
 - (NSString *)simpleDateString {
-    NSDate *now = [self createdAtDate];
+    NSDate *now = [NSDate createdAtDate];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *nowString = [formatter stringFromDate:now];
@@ -273,28 +301,28 @@
 - (NSString *)createdAtDateString {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeStyle:NSDateFormatterFullStyle];
-    NSString *nowString = [formatter stringFromDate:[self createdAtDate]];
+    NSString *nowString = [formatter stringFromDate:[NSDate createdAtDate]];
     return nowString;
 }
 
 - (NSString *)currentTime {
     NSDateFormatter *myDateFormatter = [[NSDateFormatter alloc] init];
-    [myDateFormatter setDateFormat:@"hh:mm aaa Z"];
+    [myDateFormatter setDateFormat:@"hh:mm aaa"];
     return [myDateFormatter stringFromDate:[NSDate date]];
 }
 
 
-- (NSDate *)fetchDate {
-    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-    //NSUInteger count = [[RecordingController sharedInstance].memos count];
-    NSUInteger count = 1;
-    dayComponent.day = count;
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[self createdAtDate] options:0];
-
-    return nextDate;
-}
+//- (NSDate *)fetchDate {
+//    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+//    //NSUInteger count = [[RecordingController sharedInstance].memos count];
+//    NSUInteger count = 1;
+//    dayComponent.day = count;
+//
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[self createdAtDate] options:0];
+//
+//    return nextDate;
+//}
 
 - (NSString *)randomIDNumber {
     NSString *uuid = [[NSUUID UUID] UUIDString];
