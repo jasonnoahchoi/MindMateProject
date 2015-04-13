@@ -15,8 +15,11 @@
 #import "UIColor+Colors.h"
 #import "TimeAndDateView.h"
 #import "MenuViewController.h"
+#import "NSDate+Utils.h"
 
 static NSString * const hasRecordingsKey = @"hasRecordings";
+static NSString * const numberOfRecordingsKey = @"numberOfRecordings";
+static NSString * const soundEffectsOnKey = @"soundEffects";
 
 @interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate, MenuViewControllerDelegate>
 
@@ -67,6 +70,9 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
 @property (nonatomic, assign) BOOL showedMenuVC;
 @property (nonatomic, assign) BOOL hasRecordings;
 @property (nonatomic, assign) BOOL hasPlayed;
+@property (nonatomic, assign) BOOL micOn;
+@property (nonatomic, assign) BOOL soundEffectsOn;
+@property (nonatomic, strong) UILabel *recordLabel;
 
 @end
 
@@ -82,6 +88,7 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
     self.frame = self.view.frame;
     [self cornerButtons];
     [self afterRecordButtons];
+    [self micCheck];
     CGSize size = self.view.superview.frame.size;
     [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
 
@@ -99,31 +106,67 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
     [self layoutMenuButton];
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
+
+    self.recordLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetMaxY(self.frame) - CGRectGetHeight(self.frame)/2.9, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/6, self.view.frame.size.height/5)];
+    [self.view addSubview:self.recordLabel];
+    self.recordLabel.hidden = YES;
+    //self.recordLabel.text = @"Saved";
+    self.recordLabel.numberOfLines = 0;
+    self.recordLabel.font = [UIFont systemFontOfSize:16];
+    self.recordLabel.textColor = [UIColor darkGrayColor];
+    self.recordLabel.textAlignment = NSTextAlignmentCenter;
+
+   // self.counter = [[NSUserDefaults standardUserDefaults] integerForKey:numberOfRecordingsKey];
 }
-//
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear: animated];
-//    if (self.showedMenuVC) {
-//        self.showedMenuVC = NO;
-//        [self reanimateCircles];
-//    }
-//}
 
-- (void)loadFromDefaults {
+-(BOOL)requestForPermisssion {
 
-    self.hasRecordings = [[NSUserDefaults standardUserDefaults] boolForKey:hasRecordingsKey];
+    __block BOOL result=NO;
 
-    if (!self.hasRecordings) {
-        self.hasRecordings = NO;
+    PermissionBlock permissionBlock = ^(BOOL granted) {
+        if (granted) {
+            //[self setupRecording];
+            result = YES;
+        }
+        else {
+            // Warn no access to microphone
+            result = NO;
+        }
+    };
+
+    if([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)])
+    {
+        [[AVAudioSession sharedInstance] performSelector:@selector(requestRecordPermission:)
+                                              withObject:permissionBlock];
     }
+
+
+
+    return result;
 }
 
-- (void)setHasRecordings:(BOOL)hasRecordings {
-    _hasRecordings = hasRecordings;
+- (void)micCheck {
+    [self requestForPermisssion];
+    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        if (granted) {
+            NSLog(@"granted");
+            self.micOn = YES;
+        } else {
+            NSLog(@"denied");
+            self.micOn = NO;
 
-    [[NSUserDefaults standardUserDefaults] setBool:hasRecordings forKey:hasRecordingsKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your microphone isn't set up"
+                                                                           message:@"You must allow microphone access in Settings > Privacy > Microphone"
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                NSLog(@"No Mic");
+            }]];
+
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
+
 
 
 - (void)initialAnimation {
@@ -136,8 +179,6 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
     }];
   
 }
-
-
 
 - (void)buttonClones {
     self.centerRecordButtonClone = [[UIButton alloc] initWithFrame:self.circleRect];
@@ -178,7 +219,7 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
   //  [self layoutEndPoints];
 
     UIImage *redX = [UIImage imageNamed:@"redx"];
-    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), redX.size.width, redX.size.height)];
+    self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.frame), redX.size.width, redX.size.height)];
     [self.recordAgainButton setImage:[UIImage imageNamed:@"redx"] forState:UIControlStateNormal];
     // self.recordAgainButton.layer.cornerRadius = self.recordAgainButton.frame.size.width/2;
     self.recordAgainButton.layer.shouldRasterize = YES;
@@ -195,21 +236,21 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
     [self.recordAgainButton addTarget:self action:@selector(recordAgainPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     UIImage *greenCheck = [UIImage imageNamed:@"greencheck"];
-    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - greenCheck.size.width, CGRectGetHeight(self.frame), greenCheck.size.width, greenCheck.size.height)];
+    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - greenCheck.size.width, CGRectGetMaxY(self.frame), greenCheck.size.width, greenCheck.size.height)];
     [self.view addSubview:self.confirmButton];
     self.confirmButton.hidden = YES;
     //self.confirmButton.backgroundColor = [UIColor customGreenColor];
     // self.confirmButton.layer.cornerRadius = self.confirmButton.frame.size.width/2;
     [self.confirmButton setImage:[UIImage imageNamed:@"greencheck"] forState:UIControlStateNormal];
-    self.confirmButton.layer.shouldRasterize = YES;
+    //self.confirmButton.layer.shouldRasterize = YES;
     [self.confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchDown];
     self.centerConfirmButton = self.confirmButton.center;
 
     CGRect endPointRecordAgainButton = CGRectMake(0, CGRectGetMaxY(self.frame) - redX.size.height, redX.size.width, redX.size.height);
-    self.endPointRecordAgainButton = CGPointMake(endPointRecordAgainButton.origin.x + (endPointRecordAgainButton.size.width/2), endPointRecordAgainButton.origin.y + (endPointRecordAgainButton.size.height/2));
+    self.endPointRecordAgainButton = CGPointMake(CGRectGetMidX(endPointRecordAgainButton), CGRectGetMidY(endPointRecordAgainButton));
 
-    CGRect endPointConfirmButton = CGRectMake(CGRectGetWidth(self.frame) - greenCheck.size.width, self.view.frame.size.height - greenCheck.size.height, greenCheck.size.width, greenCheck.size.height);
-    self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
+    CGRect endPointConfirmButton = CGRectMake(CGRectGetWidth(self.frame) - greenCheck.size.width, CGRectGetMaxY(self.frame) - greenCheck.size.height, greenCheck.size.width, greenCheck.size.height);
+    self.endPointConfirmButton = CGPointMake(CGRectGetMidX(endPointConfirmButton), CGRectGetMidY(endPointConfirmButton));
 
     self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, self.view.frame.size.width, self.view.frame.size.height/5)];
     self.containerView.delegate = self;
@@ -292,8 +333,21 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
         self.containerView.alpha = 0;
     } completion:^(BOOL finished) {
         [self hideBottomButtons];
+        self.recordLabel.text = @"Not saved";
+        self.recordLabel.alpha = 0;
+        self.recordLabel.hidden = NO;
+        [UIView animateWithDuration:.3 delay:.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.recordLabel.alpha = 1;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.3 delay:.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.recordLabel.alpha = 0;
+            } completion:^(BOOL finished) {
+                self.recordLabel.hidden = YES;
+                [self noneState:ButtonStateNone];
+            }];
+        }];
         self.containerView.state = ButtonStateNone;
-        [self noneState:ButtonStateNone];
+
     }];
 }
 
@@ -308,23 +362,43 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
             self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
         } completion:^(BOOL finished) {
             [self hideBottomButtons];
+            self.recordLabel.text = @"Saved";
+            self.recordLabel.alpha = 0;
+            self.recordLabel.hidden = NO;
+            [UIView animateWithDuration:.3 delay:.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.recordLabel.alpha = 1;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.3 delay:.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                    self.recordLabel.alpha = 0;
+                } completion:^(BOOL finished) {
+                    self.recordLabel.hidden = YES;
+                    [self noneState:ButtonStateNone];
+                }];
+            }];
             self.containerView.state = ButtonStateNone;
-            [self noneState:ButtonStateNone];
+
             self.counter++;
-//            if (self.counter > 0) {
-                self.hasRecordings = YES;
-                [[NSUserDefaults standardUserDefaults] setBool:self.hasRecordings forKey:hasRecordingsKey];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-//            } else {
-//                self.hasRecordings = NO;
-//                [[NSUserDefaults standardUserDefaults] setBool:self.hasRecordings forKey:hasRecordingsKey];
-//                [[NSUserDefaults standardUserDefaults] synchronize];
-//            }
+            self.hasRecordings = YES;
+            self.notification = [[UILocalNotification alloc] init];
+            self.notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
+            self.notification.fireDate = [NSDate notificationTime];
+            [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];
+
+            if (self.hasRecordings) {
+                return;
+            } else {
+                [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
+            }
         }];
     }
 }
 
 - (void)menuPressed:(id)sender {
+    self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+    if (self.soundEffectsOn) {
+    NSURL *menuURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"wav"];
+    [[AudioController sharedInstance] playAudioFileSoftlyAtURL:menuURL];
+    }
     switch (self.circleState) {
         case (CircleStateRecord):
         {
@@ -520,18 +594,18 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
             }];
         }
     }
-    
-
 }
 
 - (void)cornerButtonPressed:(id)sender {
     [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         if (sender == self.recordCornerButton) {
+            self.recordLabel.hidden = YES;
             self.buttonView.playButton.alpha = 0;
             self.circleState = CircleStateRecord;
             self.centerPlayButtonClone.hidden = NO;
         }
         if (sender == self.playCornerButton) {
+            self.recordLabel.hidden = YES;
             self.buttonView.recordButton.alpha = 0;
             self.circleState = CircleStatePlay;
             self.centerRecordButtonClone.hidden = NO;
@@ -670,7 +744,6 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
         }];
     }];
 }
-
 
 #pragma mark - Delegates
 
@@ -850,20 +923,6 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
 
                         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
                         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
-                        if (self.hasRecordings == YES && self.hasPlayed == YES) {
-                            self.hasRecordings = NO;
-                        }
-                        if (self.hasRecordings == YES && self.hasPlayed == NO) {
-                            self.hasPlayed = NO;
-                            self.hasRecordings = YES;
-                        }
-                        if (self.hasRecordings == NO && self.hasPlayed == YES) {
-
-                        }
-                        if (self.hasRecordings == NO && self.hasPlayed == NO) {
-                            self.hasRecordings = NO;
-                        }
-
 
 
                         //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
@@ -899,6 +958,11 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
                         [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
                         } completion:^(BOOL finished) {
+                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                            if (self.soundEffectsOn) {
+                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                            }
                             [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
 
@@ -917,84 +981,125 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
     self.tdView.hidden = YES;
-    if (self.containerView.state == ButtonStateNone) {
-        switch (sender.state) {
-            case UIGestureRecognizerStateBegan:
-            {
-                [self recording];
-                self.navigationController.navigationBar.backgroundColor = [UIColor customDarkPurpleColor];
-                [UIView animateWithDuration:.3
-                                      delay:0
-                                    options:UIViewAnimationOptionCurveEaseIn
-                                 animations:^{
-                                     self.menuButton.alpha = 0;
-                                     button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
-                                     button.alpha = .7;
-                                     self.playCornerButton.hidden = YES;
-                                 } completion:nil];
-                // self.buttonView.playButton.enabled = NO;
-                //self.on = YES;
+    if (!self.micOn) {
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+        [animation setDuration:0.07];
+        [animation setRepeatCount:2];
+        [animation setAutoreverses:YES];
+        [animation setFromValue:[NSValue valueWithCGPoint:
+                                 CGPointMake([button center].x + 20, [button center].y)]];
+        [animation setToValue:[NSValue valueWithCGPoint:
+                               CGPointMake([button center].x - 20, [button center].y)]];
+        [[button layer] addAnimation:animation forKey:@"position"];
+        NSLog(@"Shaking");
+        self.recordLabel.alpha = 0;
+        self.recordLabel.text = @"To record, you must enable your microphone in Settings > Privacy > Microphone";
+        self.recordLabel.hidden = NO;
+        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.recordLabel.alpha = 1;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.3 delay:.8 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordLabel.alpha = 0;
+            } completion:^(BOOL finished) {
+              //  self.recordLabel.hidden = YES;
+            }];
+        }];
+    } else {
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.recordAgainButton.transform = CGAffineTransformIdentity;
+        } completion:nil];
+    }];
 
-            } break;
-            case UIGestureRecognizerStateEnded:
-            {
-                [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
-                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
-                    button.alpha = 1;
-                    self.menuButton.alpha = 1;
+        if (self.containerView.state == ButtonStateNone) {
+            switch (sender.state) {
+                case UIGestureRecognizerStateBegan:
+                {
+                    [self recording];
+                    self.navigationController.navigationBar.backgroundColor = [UIColor customDarkPurpleColor];
+                    [UIView animateWithDuration:.3
+                                          delay:0
+                                        options:UIViewAnimationOptionCurveEaseIn
+                                     animations:^{
+                                         self.menuButton.alpha = 0;
+                                         button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
+                                         button.alpha = .7;
+                                         self.playCornerButton.hidden = YES;
+                                     } completion:nil];
+                    // self.buttonView.playButton.enabled = NO;
+                    //self.on = YES;
 
-                } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                        button.transform = CGAffineTransformScale(button.transform, .9, .9);
+                } break;
+                case UIGestureRecognizerStateEnded:
+                {
+                    self.menuButton.enabled = NO;
+                    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                        button.alpha = 1;
+                        self.menuButton.alpha = 1;
 
                     } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-
-                            //self.buttonView.recordingComplete = YES;
+                        [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                            button.transform = CGAffineTransformScale(button.transform, .9, .9);
 
                         } completion:^(BOOL finished) {
-                            [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                                button.transform = CGAffineTransformIdentity;
+                            [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+
+                                //self.buttonView.recordingComplete = YES;
 
                             } completion:^(BOOL finished) {
-//                                self.containerView.alpha = 0;
-//                                self.containerView.hidden = NO;
-//                                self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
-                                button.backgroundColor = [UIColor customGreenColor];
-                                self.recordAgainButton.hidden = NO;
-                                self.recordAgainButton.alpha = 0;
-                                self.recordAgainLabel.hidden = NO;
-                                self.recordAgainLabel.alpha = 0;
-                                [self zeroState:ButtonStateZero];
-                                //self.title = @"Choose a State";
-                                self.recordCornerButton.hidden = YES;
-                                self.playCornerButton.hidden = YES;
-                                [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                                  //  self.containerView.alpha = 1;
-                                   // [self.containerView animateLayoutButtons];
-                                    self.recordAgainButton.alpha = 1;
+                                [self stopRecording];
+                                self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                                if (self.soundEffectsOn) {
+                                NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"aiff"];
+                                [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                                }
+                                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                                    button.transform = CGAffineTransformIdentity;
+
                                 } completion:^(BOOL finished) {
-                                    [self stopRecording];
-                                    [UIView animateWithDuration:.4 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                        self.recordAgainButton.center = self.endPointRecordAgainButton;
-                                        self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
-                                        self.recordAgainLabel.alpha = 1;
+                                    //                                self.containerView.alpha = 0;
+                                    //                                self.containerView.hidden = NO;
+                                    //                                self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
+                                    button.backgroundColor = [UIColor customGreenColor];
+                                    self.recordAgainButton.hidden = NO;
+                                    self.recordAgainButton.alpha = 0;
+                                    self.recordAgainLabel.hidden = NO;
+                                    self.recordAgainLabel.alpha = 0;
+                                    [self zeroState:ButtonStateZero];
+                                    //self.title = @"Choose a State";
+                                    self.recordCornerButton.hidden = YES;
+                                    self.playCornerButton.hidden = YES;
+                                    [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                                        //  self.containerView.alpha = 1;
+                                        // [self.containerView animateLayoutButtons];
+                                        self.recordAgainButton.alpha = 1;
                                     } completion:^(BOOL finished) {
-                                        [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                            self.recordAgainButton.transform = CGAffineTransformIdentity;
-                                            [self showBottomButtons];
-                                        } completion:nil];
+                                        [UIView animateWithDuration:.4 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                            self.recordAgainButton.center = self.endPointRecordAgainButton;
+                                            self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+                                            self.recordAgainLabel.alpha = 1;
+                                        } completion:^(BOOL finished) {
+                                            [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                                self.recordAgainButton.transform = CGAffineTransformIdentity;
+                                                [self showBottomButtons];
+                                            } completion:^(BOOL finished) {
+                                                self.menuButton.enabled = YES;
+                                            }];
+                                        }];
                                     }];
                                 }];
                             }];
                         }];
                     }];
-                }];
+                }
+                    break;
+                default:
+                    break;
             }
-                break;
-            default:
-                break;
         }
     }
 }
@@ -1012,11 +1117,11 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
 }
 
 - (void)hideBottomButtons {
-    self.confirmLabel.hidden = YES;
-    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    //self.confirmLabel.hidden = YES;
+    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.recordAgainButton.center = self.centerRecordAgainButton;
         self.confirmButton.center = self.centerConfirmButton;
-        self.confirmLabel.alpha = 0;
+      //  self.confirmLabel.alpha = 0;
     } completion:^(BOOL finished) {
         self.recordAgainButton.hidden = YES;
         self.recordAgainLabel.hidden = YES;

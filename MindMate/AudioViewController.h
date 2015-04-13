@@ -17,5 +17,7 @@ typedef enum {
 
 @interface AudioViewController : UIViewController
 
+@property (nonatomic, strong) UILocalNotification *notification;
+
 @end
 
