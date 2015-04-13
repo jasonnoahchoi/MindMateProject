@@ -13,6 +13,10 @@
 #import "AboutViewController.h"
 #import "SupportViewController.h"
 #import "TermsViewController.h"
+#import "AudioController.h"
+#import "IntroViewController.h"
+
+static NSString * const soundEffectsOnKey = @"soundEffects";
 
 @interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -24,9 +28,11 @@
 @property (nonatomic, strong) UITableViewCell *rateCell;
 @property (nonatomic, strong) UITableViewCell *tsCell;
 @property (nonatomic, strong) UITableViewCell *feedbackCell;
+@property (nonatomic, strong) UITableViewCell *preferencesCell;
+@property (nonatomic, strong) UITableViewCell *introCell;
 
-@property (nonatomic, strong) RemindersViewController *remindersVC;
-@property (nonatomic, strong) AboutViewController *aboutVC;
+@property (nonatomic, strong) UISwitch *soundToggle;
+@property (nonatomic, assign) BOOL soundEffectsOn;
 
 @end
 
@@ -35,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //self.view.backgroundColor = [UIColor whiteColor];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/8, self.view.frame.size.height/6, self.view.frame.size.width - self.view.frame.size.width/4, self.view.frame.size.height/9*5)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/8, self.view.frame.size.height/6, self.view.frame.size.width - self.view.frame.size.width/4, self.view.frame.size.height/9*6)];
     //self.tableView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.tableView];
     self.tableView.layer.cornerRadius = 5;
@@ -59,33 +65,61 @@
     self.aboutCell = [[UITableViewCell alloc] init];
     self.aboutCell.textLabel.text = @"About";
     self.aboutCell.textLabel.textColor = [UIColor whiteColor];
-    self.aboutCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.aboutCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
     self.aboutCell.backgroundColor = [UIColor customPurpleColor];
 
     self.remindersCell = [[UITableViewCell alloc] init];
     self.remindersCell.textLabel.textColor = [UIColor whiteColor];
-    self.remindersCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.remindersCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
     self.remindersCell.textLabel.text = @"Reminders";
     self.remindersCell.backgroundColor = [UIColor customPurpleColor];
 
     self.rateCell = [[UITableViewCell alloc] init];
-    self.rateCell.textLabel.text = @"Rate Us";
+    self.rateCell.textLabel.text = @"Please Rate Tomorrow";
     self.rateCell.backgroundColor = [UIColor customPurpleColor];
     self.rateCell.textLabel.textColor = [UIColor whiteColor];
-    self.rateCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.rateCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
 
     self.tsCell = [[UITableViewCell alloc] init];
     self.tsCell.textLabel.text = @"Terms of Service";
     self.tsCell.backgroundColor = [UIColor customPurpleColor];
     self.tsCell.textLabel.textColor = [UIColor whiteColor];
-    self.tsCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.tsCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
 
     self.feedbackCell = [[UITableViewCell alloc] init];
-    self.feedbackCell.textLabel.text = @"Send Us Feedback";
+    self.feedbackCell.textLabel.text = @"Send Feedback";
     self.feedbackCell.backgroundColor = [UIColor customPurpleColor];
     self.feedbackCell.textLabel.textColor = [UIColor whiteColor];
-    self.feedbackCell.textLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.feedbackCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
+
+    self.introCell = [[UITableViewCell alloc] init];
+    self.introCell.textLabel.text = @"View Intro Walkthrough";
+    self.introCell.textLabel.textColor = [UIColor whiteColor];
+    self.introCell.backgroundColor = [UIColor customPurpleColor];
+    self.introCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
+
+    self.preferencesCell = [[UITableViewCell alloc] init];
+    self.preferencesCell.textLabel.text = @"Sound Effects";
+    self.preferencesCell.backgroundColor = [UIColor customPurpleColor];
+    self.preferencesCell.textLabel.textColor = [UIColor whiteColor];
+    self.soundToggle = [[UISwitch alloc] init];
+    self.soundToggle.on = YES;
+    [self.soundToggle addTarget:self action:@selector(soundToggleState) forControlEvents:UIControlEventValueChanged];
+    self.preferencesCell.accessoryView = self.soundToggle;
+    self.preferencesCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
+    self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
 }
+
+- (void)soundToggleState {
+    if (!self.soundToggle.on) {
+        self.soundEffectsOn = NO;
+    } else {
+        self.soundEffectsOn = YES;
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:self.soundEffectsOn forKey:soundEffectsOnKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
@@ -121,6 +155,19 @@
         }
          //   [[StorePurchaseController sharedInstance] restorePurchases];
             break;
+        case 5: {
+            IntroViewController *introVC = [[IntroViewController alloc] init];
+            [self presentViewController:introVC animated:YES completion:nil];
+        }
+            //   [[StorePurchaseController sharedInstance] restorePurchases];
+            break;
+        case 6: {
+            
+//            TermsViewController *termsVC = [[TermsViewController alloc] init];
+//            [self presentViewController:termsVC animated:YES completion:nil];
+        }
+            //   [[StorePurchaseController sharedInstance] restorePurchases];
+            break;
         default:
             break;
     }
@@ -143,6 +190,12 @@
         case 4:
             return self.tsCell;
             break;
+        case 5:
+            return self.introCell;
+            break;
+        case 6:
+            return self.preferencesCell;
+            break;
         default:
             break;
     }
@@ -150,15 +203,19 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.view.frame.size.height/9;
+    return self.view.frame.size.height/10.5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 7;
 }
 
 
 - (void)menuPressed {
+    if (self.soundEffectsOn) {
+        NSURL *menuURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"wav"];
+        [[AudioController sharedInstance] playAudioFileSoftlyAtURL:menuURL];
+    }
     [self dismissViewControllerAnimated:YES completion:^{
 
         if ([self.delegate respondsToSelector:@selector(reanimateCircles)]) {
