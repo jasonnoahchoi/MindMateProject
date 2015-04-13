@@ -106,7 +106,7 @@ static NSString * const micOnKey = @"micOnKey";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.circleState = IntroCircleStateNone;
     self.groupIDNumber = @0;
     self.frame = self.view.frame;
@@ -451,13 +451,6 @@ static NSString * const micOnKey = @"micOnKey";
 
     CGRect endPointConfirmButton = CGRectMake(CGRectGetWidth(self.frame) - greenCheck.size.width, self.view.frame.size.height - greenCheck.size.height, greenCheck.size.width, greenCheck.size.height);
     self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
-//    self.confirmLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/4 - 5, self.view.frame.size.height - self.view.frame.size.height/11, CGRectGetWidth(self.frame)/4, self.view.frame.size.height/11)];
-//    self.confirmLabel.text = @"Confirm";
-//    self.confirmLabel.textColor = [UIColor whiteColor];
-//    self.confirmLabel.hidden = YES;
-//    self.confirmLabel.textAlignment = NSTextAlignmentCenter;
-//    //self.confirmLabel.backgroundColor = [UIColor greenColor];
-//    [self.view addSubview:self.confirmLabel];
 
     self.containerView = [[CategoryContainerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/10 * 7, CGRectGetWidth(self.frame), self.view.frame.size.height/5)];
     self.containerView.delegate = self;
@@ -822,8 +815,8 @@ static NSString * const micOnKey = @"micOnKey";
                             self.topLabel.text = @"Tomorrow \nbegins in";
                             self.topLabel.font = [UIFont boldSystemFontOfSize:24];
                         } else {
-                            self.topLabel.text = @"Tomorrow \n\nbegins\nin";
-                            self.topLabel.font = [UIFont boldSystemFontOfSize:36];
+                            self.topLabel.text = @"Tomorrow \nbegins\nin";
+                            self.topLabel.font = [UIFont boldSystemFontOfSize:24];
                         }
                         self.topLabel.center = self.rightTopLabel;
                         self.topLabel.hidden = NO;
@@ -1749,7 +1742,6 @@ static NSString * const micOnKey = @"micOnKey";
     [UIView animateWithDuration:.3 animations:^{
         self.buttonView.recordButton.layer.backgroundColor = [UIColor customGreenColor].CGColor;
     }];
-    
 }
 /*
 #pragma mark - Navigation

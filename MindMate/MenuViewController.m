@@ -104,10 +104,12 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.preferencesCell.textLabel.textColor = [UIColor whiteColor];
     self.soundToggle = [[UISwitch alloc] init];
     self.soundToggle.on = YES;
+//    [[NSUserDefaults standardUserDefaults] setBool:self.soundEffectsOn forKey:soundEffectsOnKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
     [self.soundToggle addTarget:self action:@selector(soundToggleState) forControlEvents:UIControlEventValueChanged];
     self.preferencesCell.accessoryView = self.soundToggle;
     self.preferencesCell.textLabel.font = [UIFont boldSystemFontOfSize:18];
-    self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+    //self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
 }
 
 - (void)soundToggleState {
@@ -212,6 +214,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
 
 - (void)menuPressed {
+    self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
     if (self.soundEffectsOn) {
         NSURL *menuURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"wav"];
         [[AudioController sharedInstance] playAudioFileSoftlyAtURL:menuURL];
