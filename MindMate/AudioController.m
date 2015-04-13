@@ -54,7 +54,7 @@
 
 - (AVAudioRecorder *)stopRecording {
     [self.recorder stop];
-    NSLog(@"\n\nURL:%@", self.url);
+ //   NSLog(@"\n\nURL:%@", self.url);
 
     [self data];
 
@@ -66,7 +66,7 @@
                                                  andGroupName:[self groupName]
                                                andTimeCreated:[self currentTime]];
 
-    NSLog(@"\n\n CURRENT TIME: %@ \n\n\n SIMPLE DATE: %@ \n\n\n DATE CREATED: %@ \n\n\n RECORDINGURLFILENAME: %@", [self currentTime], [self simpleDateString], [self createdAtDateString], [self nowString]);
+  //  NSLog(@"\n\n CURRENT TIME: %@ \n\n\n SIMPLE DATE: %@ \n\n\n DATE CREATED: %@ \n\n\n RECORDINGURLFILENAME: %@", [self currentTime], [self simpleDateString], [self createdAtDateString], [self nowString]);
 
       [[RecordingController sharedInstance] save];
 
@@ -242,7 +242,7 @@
     [dataFile writeToFile:string atomically:YES];
    // NSLog(@"\n\n\nDOC DIR PATH: %@", [self documentsPath]);
    // NSLog(@"\n\n\n URL PATH %@", [self urlPath]);
-    NSLog(@"\n\n\n URL PATH ABSOLUTE STRING: %@", string);
+  //  NSLog(@"\n\n\n URL PATH ABSOLUTE STRING: %@", string);
 
     return dataFile;
 }

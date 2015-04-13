@@ -169,7 +169,7 @@ static NSString * const micOnKey = @"micOnKey";
     self.introLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/6, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/5, CGRectGetHeight(self.frame)/2)];
     self.introLabel.text = @"Hey! \n\nUse your mic to record. \n\nTap the Square to enable it.";
     self.introLabel.numberOfLines = 0;
-    self.introLabel.font = [UIFont systemFontOfSize:24];
+    self.introLabel.font = [UIFont fontWithName:@"Roboto" size:24];
     self.introLabel.textAlignment = NSTextAlignmentCenter;
     self.introLabel.alpha = 0;
     [self.view addSubview:self.introLabel];
@@ -185,7 +185,7 @@ static NSString * const micOnKey = @"micOnKey";
     self.sloganLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, self.view.frame.size.height/4, CGRectGetWidth(self.frame)/1.2, 120)];
     self.sloganLabel.text = @"Inspire your future self";
     self.sloganLabel.textAlignment = NSTextAlignmentCenter;
-    self.sloganLabel.font = [UIFont systemFontOfSize:24];
+    self.sloganLabel.font = [UIFont fontWithName:@"Roboto" size:24];
     self.sloganLabel.alpha = 0;
     self.sloganLabel.numberOfLines = 1;
     self.sloganLabel.minimumScaleFactor = .8/self.sloganLabel.font.pointSize;
@@ -195,7 +195,7 @@ static NSString * const micOnKey = @"micOnKey";
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, 44)];
     self.titleLabel.text = @"Tomorrow";
     self.titleLabel.numberOfLines = 1;
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:36];
+    self.titleLabel.font = [UIFont fontWithName:@"Roboto" size:36];
     self.titleLabel.minimumScaleFactor = .8/self.titleLabel.font.pointSize;
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -675,7 +675,7 @@ static NSString * const micOnKey = @"micOnKey";
                                                                                        message:@"You must allow microphone access in Settings > Privacy > Microphone"
                                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
                         [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                            NSLog(@"No Mic");
+//                            z(@"No Mic");
                         }]];
 
                         [self presentViewController:alert animated:YES completion:nil];
@@ -1256,7 +1256,7 @@ static NSString * const micOnKey = @"micOnKey";
         [animation setToValue:[NSValue valueWithCGPoint:
                                CGPointMake([button center].x - 20, [button center].y)]];
         [[button layer] addAnimation:animation forKey:@"position"];
-        NSLog(@"Shaking");
+     //   NSLog(@"Shaking");
         if (self.circleState == IntroCircleStateRecord) {
             self.recordLabel.text = @"To remove this recording and record again, press the red X button. To save, press the green check button.";
 
@@ -1472,7 +1472,7 @@ static NSString * const micOnKey = @"micOnKey";
         [animation setToValue:[NSValue valueWithCGPoint:
                                CGPointMake([button center].x - 20, [button center].y)]];
         [[button layer] addAnimation:animation forKey:@"position"];
-        NSLog(@"Shaking");
+      //  NSLog(@"Shaking");
         return;
     }
     if (self.micOn) {
@@ -1481,9 +1481,8 @@ static NSString * const micOnKey = @"micOnKey";
                 case UIGestureRecognizerStateBegan:
                 {
                     [self recording];
-                    // self.navigationController.navigationBar.backgroundColor = [UIColor customDarkPurpleColor];
                     [UIView animateWithDuration:.3
-                                          delay:0
+                                          delay:.1
                                         options:UIViewAnimationOptionCurveEaseIn
                                      animations:^{
                                          self.menuButton.alpha = 0;
@@ -1492,9 +1491,6 @@ static NSString * const micOnKey = @"micOnKey";
                                          button.alpha = .7;
                                          self.playCornerButton.hidden = YES;
                                      } completion:nil];
-                    // self.buttonView.playButton.enabled = NO;
-                    //self.on = YES;
-
                 } break;
                 case UIGestureRecognizerStateEnded:
                 {
@@ -1510,8 +1506,6 @@ static NSString * const micOnKey = @"micOnKey";
                         } completion:^(BOOL finished) {
                             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-
-                                //self.buttonView.recordingComplete = YES;
 
                             } completion:^(BOOL finished) {
                                 [self stopRecording];
@@ -1578,7 +1572,7 @@ static NSString * const micOnKey = @"micOnKey";
 
 - (void)recording {
     [[AudioController sharedInstance] recordAudioToDirectory];
-    NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
+   // NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
     //    }
 }
 

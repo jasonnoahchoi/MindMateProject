@@ -1018,9 +1018,9 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                 case UIGestureRecognizerStateBegan:
                 {
                     [self recording];
-                    self.navigationController.navigationBar.backgroundColor = [UIColor customDarkPurpleColor];
+                    
                     [UIView animateWithDuration:.3
-                                          delay:0
+                                          delay:.1
                                         options:UIViewAnimationOptionCurveEaseIn
                                      animations:^{
                                          self.menuButton.alpha = 0;

@@ -60,6 +60,7 @@
         //self.longPressGesture.delegate = self;
         self.longPressGesture.allowableMovement = 1000.0;
         self.longPressGesture.numberOfTouchesRequired = 1;
+        self.longPressGesture.minimumPressDuration = .001;
         [self.recordButton addGestureRecognizer:self.longPressGesture];
         [self.playButton addGestureRecognizer:self.longPressGestureForPlayButton];
 
