@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.menuButton.backgroundColor = [UIColor customGrayColor];
     self.menuButton.layer.masksToBounds = YES;
     self.frame = self.view.frame;

@@ -11,12 +11,13 @@
 #import "UIColor+Colors.h"
 #import "IntroViewController.h"
 #import "RecordingController.h"
+#import "NSDate+Utils.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
-static NSString * const hasRecordingsKey = @"hasRecordings";
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) AudioViewController *audioVC;
 @end
 
 @implementation AppDelegate
@@ -28,7 +29,7 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
     //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundgradient"]];
     self.window.backgroundColor = [UIColor whiteColor];
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
-    AudioViewController *viewController = [[AudioViewController alloc] init];
+    self.audioVC = [[AudioViewController alloc] init];
     IntroViewController *introVC = [[IntroViewController alloc] init];
     //UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     BOOL finishedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:finishedIntroKey];
@@ -36,10 +37,11 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
         self.window.rootViewController = introVC;
     }
     if (finishedIntro) {
-        self.window.rootViewController = viewController;
+        self.window.rootViewController = self.audioVC;
     }
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 
@@ -51,35 +53,16 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
 - (void)applicationDidEnterBackground:(UIApplication *)application {
        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//    NSInteger numberOfRecordings = [[NSUserDefaults standardUserDefaults] integerForKey:numberOfRecordingsKey];
+//    if (numberOfRecordings > [RecordingController sharedInstance].memos.count) {
+//
+//        UILocalNotification *notification = [[UILocalNotification alloc] init];
+//        notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
+//        notification.fireDate = [NSDate notificationTime];
+//        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+//    }
 }
 
-- (NSDate *)fetchDate {
-    NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
-
-    NSUInteger count = 1;
-    dayComponent.day = count;
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
-
-    return nextDate;
-}
-
-
-- (NSDate *)notificationTime {
-    NSDate *date = [self fetchDate];
-    NSCalendar *cal = [NSCalendar currentCalendar];
-
-    NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
-
-    [components setHour:12];
-
-    [components setMinute:0];
-
-    [components setSecond:0];
-
-    return [cal dateFromComponents:components];
-}
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -92,13 +75,15 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    BOOL hasRecordings = [[NSUserDefaults standardUserDefaults] boolForKey:hasRecordingsKey];
-    if (hasRecordings) {
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
-        notification.fireDate = [self notificationTime];
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }
+    //BOOL hasRecordings = [[NSUserDefaults standardUserDefaults] boolForKey:hasRecordingsKey];
+//    NSInteger numberOfRecordings = [[NSUserDefaults standardUserDefaults] integerForKey:numberOfRecordingsKey];
+//    if (numberOfRecordings > [RecordingController sharedInstance].memos.count) {
+//
+//        UILocalNotification *notification = [[UILocalNotification alloc] init];
+//        notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
+//        notification.fireDate = [NSDate notificationTime];
+//        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+//    }
 
 }
 
@@ -106,6 +91,12 @@ static NSString * const hasRecordingsKey = @"hasRecordings";
     
 }
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    if (notification == self.audioVC.notification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
+    // Handle the notificaton when the app is running
+    NSLog(@"Recieved Notification %@", notification);
+
 }
 
 @end
