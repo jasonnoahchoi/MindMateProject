@@ -14,6 +14,7 @@
 #import "NSDate+Utils.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
+static NSString * const soundEffectsOnKey = @"soundEffects";
 
 @interface AppDelegate ()
 
@@ -31,6 +32,12 @@ static NSString * const finishedIntroKey = @"finishedIntro";
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     self.audioVC = [[AudioViewController alloc] init];
     IntroViewController *introVC = [[IntroViewController alloc] init];
+
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:soundEffectsOnKey]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:soundEffectsOnKey];
+    }
+
+   // BOOL soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
     //UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     BOOL finishedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:finishedIntroKey];
     if (!finishedIntro) {
