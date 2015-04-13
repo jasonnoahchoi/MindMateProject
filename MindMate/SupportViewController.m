@@ -55,11 +55,6 @@
     composeEmailButton.layer.cornerRadius = 10;
      composeEmailButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
     composeEmailButton.tintColor = [UIColor lightGrayColor];
-//    composeEmailButton.layer.borderWidth = 1.0;
-//    composeEmailButton.layer.cornerRadius = 3;
-//    composeEmailButton.layer.borderColor = [UIColor customBlueColor].CGColor;
-   // [composeEmailButton setTitle:@"Send feedback" forState:UIControlStateNormal];
-   // [composeEmailButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
     [composeEmailButton addTarget:self action:@selector(sendFeedbackEmail:) forControlEvents:UIControlEventTouchUpInside];
     [composeEmailButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     
@@ -80,7 +75,7 @@
     mailComposeViewController.mailComposeDelegate = self;
     
     [mailComposeViewController setToRecipients:@[@"jasonnoahchoi@gmail.com"]];
-    [mailComposeViewController setSubject:@""];
+    [mailComposeViewController setSubject:@"Feedback for Tomorrow"];
     [mailComposeViewController.navigationBar setTintColor:[UIColor whiteColor]];
     
     if ([MFMailComposeViewController canSendMail]) {
