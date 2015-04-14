@@ -207,7 +207,7 @@ static NSString * const micOnKey = @"micOnKey";
     self.titleLabel.text = @"Tomorrow";
     self.titleLabel.numberOfLines = 1;
     self.titleLabel.textColor = [UIColor customTextColor];
-    self.titleLabel.font = [UIFont fontWithName:@"Noto Sans" size:36];
+    self.titleLabel.font = [UIFont fontWithName:@"NotoSans-Bold" size:36];
     self.titleLabel.minimumScaleFactor = .8/self.titleLabel.font.pointSize;
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -550,6 +550,8 @@ static NSString * const micOnKey = @"micOnKey";
         // self.ornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
 
     } completion:^(BOOL finished) {
+        NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"aiff"];
+        [[AudioController sharedInstance] playAudioFileAtURL:popURL];
         [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.playCornerButton.hidden = NO;
             self.playCornerButton.alpha = 1;
@@ -557,6 +559,8 @@ static NSString * const micOnKey = @"micOnKey";
             self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
             self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
         } completion:^(BOOL finished) {
+            NSURL *popAgainURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+            [[AudioController sharedInstance] playAudioFileAtURL:popAgainURL];
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.playCornerButton.transform = CGAffineTransformIdentity;
                 self.recordCornerButton.transform = CGAffineTransformIdentity;
@@ -1464,19 +1468,17 @@ static NSString * const micOnKey = @"micOnKey";
             [[AudioController sharedInstance] stopPlayingAudio];
             self.tdView.hidden = YES;
             self.menuButton.hidden = NO;
-
-            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+            [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
                 self.menuButton.alpha = .5;
             } completion:^(BOOL finished) {
-                [UIView animateWithDuration:.1 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                     self.menuButton.alpha = 1;
                 } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
-                    } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                    [[AudioController sharedInstance] playAudioFileAtURL:popURL];
+                    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
                         } completion:^(BOOL finished) {
                             if (self.circleState != IntroCircleStateFinished) {
@@ -1499,7 +1501,7 @@ static NSString * const micOnKey = @"micOnKey";
                                     self.circleState = IntroCircleStateNotifications;
                                 }
                             }];
-                        }];
+
                     }];
                 }];
             }];

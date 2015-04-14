@@ -114,7 +114,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.recordLabel.textColor = [UIColor customTextColor];
     self.recordLabel.textAlignment = NSTextAlignmentCenter;
 
-    self.quoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetHeight(self.frame)/12, CGRectGetWidth(self.frame)-CGRectGetWidth(self.frame)/6, CGRectGetHeight(self.frame)-CGRectGetHeight(self.frame)/5)];
+    self.quoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetHeight(self.frame)/12, CGRectGetWidth(self.frame)-CGRectGetWidth(self.frame)/6, CGRectGetHeight(self.frame)-CGRectGetHeight(self.frame)/4)];
     self.quoteLabel.numberOfLines = 0;
     self.quoteLabel.textAlignment = NSTextAlignmentCenter;
     self.quoteLabel.textColor = [UIColor customTextColor];
@@ -919,7 +919,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                }
                 if ([RecordingController sharedInstance].memos.count > 0) {
                     self.tdView.hidden = NO;
-
+                    self.recordCornerButton.hidden = YES;
                     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         self.menuButton.alpha = 0;
                         button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
@@ -975,33 +975,33 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                 self.tdView.hidden = YES;
                 self.menuButton.hidden = NO;
                 self.hasPlayed = YES;
+                self.recordCornerButton.alpha = 0;
+                self.recordCornerButton.hidden = NO;
 
                 //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
                 //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
                 //            }
 
 
-                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
+                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                    self.recordCornerButton.alpha = .5;
                     self.menuButton.alpha = .5;
                 }completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.1 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
                         button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                        self.recordCornerButton.alpha = 1;
                         self.menuButton.alpha = 1;
                     } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .9, .9);
-                        } completion:^(BOOL finished) {
-                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-                            if (self.soundEffectsOn) {
+                        self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                        if (self.soundEffectsOn) {
                             NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
                             [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
-                            }
-                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
+                        }
+                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            button.transform = CGAffineTransformIdentity;
+                        } completion:^(BOOL finished) {
 
-                            } completion:^(BOOL finished) {
-                            }];
                         }];
                     }];
                 }];
