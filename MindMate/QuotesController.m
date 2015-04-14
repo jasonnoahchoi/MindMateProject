@@ -24,16 +24,6 @@
     id bundleQuotes = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[bundle URLForResource:@"quotes" withExtension:@"json"]] options:0 error:nil];
     NSArray *results = bundleQuotes;
     return results;
-//    if (bundleProducts) {
-//        NSSet *products = [NSSet setWithArray:bundleProducts];
-//        return products;
-//    }
-//    return nil;
 }
-
-//- (NSArray *)array {
-//    [[self bundledQuotes] allObjects];
-//     NSUInteger randomIndex = arc4random() % [[[self bundledQuotes] allObjects] count];
-//}
 
 @end

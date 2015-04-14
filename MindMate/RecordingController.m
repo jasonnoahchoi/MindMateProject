@@ -38,7 +38,7 @@
 - (NSArray *)memos {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:recordingEntity];
-    //fetchRequest.predicate = [self predicate];
+    fetchRequest.predicate = [self predicate];
 
     return [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
