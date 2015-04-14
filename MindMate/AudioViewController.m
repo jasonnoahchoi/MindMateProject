@@ -1018,7 +1018,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                 case UIGestureRecognizerStateBegan:
                 {
                     [self recording];
-                    
+
                     [UIView animateWithDuration:.3
                                           delay:.1
                                         options:UIViewAnimationOptionCurveEaseIn
