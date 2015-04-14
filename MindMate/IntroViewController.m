@@ -135,20 +135,24 @@ static NSString * const micOnKey = @"micOnKey";
     self.recordLabel.hidden = YES;
     self.recordLabel.text = @"Press and hold down on the circle to record. Release to stop.";
     self.recordLabel.numberOfLines = 0;
-    self.recordLabel.font = [UIFont systemFontOfSize:16];
+    self.recordLabel.font = [UIFont fontWithName:@"Noto Sans" size:16];
     self.recordLabel.textColor = [UIColor darkGrayColor];
     self.recordLabel.textAlignment = NSTextAlignmentCenter;
     self.middleOfRecordLabel = CGPointMake(CGRectGetMidX(self.recordLabel.frame), CGRectGetMidY(self.recordLabel.frame));
 
     self.topLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/6, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/5, CGRectGetHeight(self.frame)/6)];
     self.topLabel.numberOfLines = 0;
+    self.topLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
     self.topLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.topLabel];
+
     self.middleTopLabel = CGPointMake(CGRectGetMidX(self.topLabel.frame), CGRectGetMidY(self.topLabel.frame));
     self.rightTopLabel = CGPointMake(CGRectGetMaxX(self.frame) + CGRectGetMidX(self.topLabel.frame), CGRectGetMidY(self.topLabel.frame));
     self.leftTopLabel = CGPointMake(CGRectGetMinX(self.frame) - CGRectGetMidX(self.topLabel.frame), CGRectGetMidY(self.topLabel.frame));
+
     self.bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/3, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/5, CGRectGetHeight(self.frame)/6)];
     self.bottomLabel.numberOfLines = 0;
+    self.bottomLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
     self.bottomLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.bottomLabel];
     self.middleBottomLabel = CGPointMake(CGRectGetMidX(self.bottomLabel.frame), CGRectGetMidY(self.bottomLabel.frame));
@@ -157,6 +161,7 @@ static NSString * const micOnKey = @"micOnKey";
 
     self.nextScreenButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/3 - 30, CGRectGetHeight(self.frame)/2 + 70, CGRectGetWidth(self.frame)/3 + 60, 44)];
     [self.view addSubview:self.nextScreenButton];
+
     [self.nextScreenButton setTitle:@"Get Started" forState:UIControlStateNormal];
     [self.nextScreenButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     self.nextScreenButton.layer.borderWidth = 2;
@@ -167,9 +172,10 @@ static NSString * const micOnKey = @"micOnKey";
     [self.nextScreenButton addTarget:self action:@selector(nextPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     self.introLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/6, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/5, CGRectGetHeight(self.frame)/2)];
-    self.introLabel.text = @"Hey! \n\nUse your mic to record. \n\nTap the Square to enable it.";
+
+    self.introLabel.text = @"Hey! \n\nTomorrow uses your mic to record your voice. \n\nTap the Square to enable your microphone.";
     self.introLabel.numberOfLines = 0;
-    self.introLabel.font = [UIFont fontWithName:@"Roboto" size:24];
+    self.introLabel.font = [UIFont fontWithName:@"Noto Sans" size:24];
     self.introLabel.textAlignment = NSTextAlignmentCenter;
     self.introLabel.alpha = 0;
     [self.view addSubview:self.introLabel];
@@ -185,7 +191,7 @@ static NSString * const micOnKey = @"micOnKey";
     self.sloganLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, self.view.frame.size.height/4, CGRectGetWidth(self.frame)/1.2, 120)];
     self.sloganLabel.text = @"Inspire your future self";
     self.sloganLabel.textAlignment = NSTextAlignmentCenter;
-    self.sloganLabel.font = [UIFont fontWithName:@"Roboto" size:24];
+    self.sloganLabel.font = [UIFont fontWithName:@"Noto Sans" size:24];
     self.sloganLabel.alpha = 0;
     self.sloganLabel.numberOfLines = 1;
     self.sloganLabel.minimumScaleFactor = .8/self.sloganLabel.font.pointSize;
@@ -195,7 +201,7 @@ static NSString * const micOnKey = @"micOnKey";
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, 44)];
     self.titleLabel.text = @"Tomorrow";
     self.titleLabel.numberOfLines = 1;
-    self.titleLabel.font = [UIFont fontWithName:@"Roboto" size:36];
+    self.titleLabel.font = [UIFont fontWithName:@"Noto Sans" size:36];
     self.titleLabel.minimumScaleFactor = .8/self.titleLabel.font.pointSize;
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -291,7 +297,7 @@ static NSString * const micOnKey = @"micOnKey";
                     self.topLabel.center = self.leftTopLabel;
                 } completion:^(BOOL finished) {
                     self.bottomLabel.center = self.rightBottomLabel;
-                    self.bottomLabel.font = [UIFont systemFontOfSize:24];
+                    self.bottomLabel.font = [UIFont fontWithName:@"Noto Sans" size:24];
                     self.bottomLabel.text = @"Let's start recording...\nTap the green button!";
                     [UIView animateWithDuration:.3 delay:.4 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                         self.bottomLabel.center = self.middleBottomLabel;
@@ -813,10 +819,10 @@ static NSString * const micOnKey = @"micOnKey";
                         //self.topLabel.numberOfLines = 0;
                         if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
                             self.topLabel.text = @"Tomorrow \nbegins in";
-                            self.topLabel.font = [UIFont boldSystemFontOfSize:24];
+                            self.topLabel.font = [UIFont fontWithName:@"Noto Sans" size:24];
                         } else {
-                            self.topLabel.text = @"Tomorrow \nbegins\nin";
-                            self.topLabel.font = [UIFont boldSystemFontOfSize:24];
+                            self.topLabel.text = @"Tomorrow \n\nbegins in";
+                            self.topLabel.font = [UIFont fontWithName:@"Noto Sans" size:24];
                         }
                         self.topLabel.center = self.rightTopLabel;
                         self.topLabel.hidden = NO;
@@ -826,21 +832,21 @@ static NSString * const micOnKey = @"micOnKey";
                         } completion:^(BOOL finished) {
                             self.bottomLabel.alpha = 0;
                             self.bottomLabel.text = @"3";
-                            self.bottomLabel.font = [UIFont boldSystemFontOfSize:48];
+                            self.bottomLabel.font = [UIFont fontWithName:@"Noto Sans-Bold" size:48];
                             self.bottomLabel.center = self.middleBottomLabel;
                             [UIView animateWithDuration:.8 delay:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 self.bottomLabel.alpha = 1;
                             } completion:^(BOOL finished) {
                                 self.bottomLabel.alpha = 0;
                                 self.bottomLabel.text = @"2";
-                                self.bottomLabel.font = [UIFont boldSystemFontOfSize:48];
+                                self.bottomLabel.font = [UIFont fontWithName:@"Noto Sans-Bold" size:48];
                                 self.bottomLabel.center = self.middleBottomLabel;
                                 [UIView animateWithDuration:.8 delay:.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                     self.bottomLabel.alpha = 1;
                                 } completion:^(BOOL finished) {
                                     self.bottomLabel.alpha = 0;
                                     self.bottomLabel.text = @"1";
-                                    self.bottomLabel.font = [UIFont boldSystemFontOfSize:48];
+                                    self.bottomLabel.font = [UIFont fontWithName:@"Noto Sans-Bold" size:48];
                                     self.bottomLabel.center = self.middleBottomLabel;
                                     [UIView animateWithDuration:.8 delay:.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                         self.bottomLabel.alpha = 1;
@@ -1432,7 +1438,7 @@ static NSString * const micOnKey = @"micOnKey";
                         } completion:^(BOOL finished) {
                             if (self.circleState != IntroCircleStateFinished) {
                                 if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
-                                    self.recordLabel.font = [UIFont systemFontOfSize:15];
+                                    self.recordLabel.font = [UIFont fontWithName:@"Noto Sans" size:16];
                                     self.recordLabel.text = @"As a reminder, you will receive your recording tomorrow.\nTo get your messages, tap the square to enable notifications.";
                                 } else {
                             self.recordLabel.text = @"As a reminder, you will receive your recording tomorrow.\n\nTo get your messages, tap the square to enable notifications.";

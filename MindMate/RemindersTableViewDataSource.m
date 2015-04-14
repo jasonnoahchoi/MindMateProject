@@ -40,6 +40,7 @@ static NSString * const cellIdentifier = @"cell";
     NSInteger index = [RemindersController sharedInstance].reminders.count;
     if (indexPath.row == index) {
         cell.textLabel.text = @"Add Reminder";
+        cell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.backgroundColor = [UIColor darkGrayColor];
 //        cell.textLabel.layer.cornerRadius = 3;

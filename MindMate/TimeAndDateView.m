@@ -17,7 +17,9 @@
         self.timeLabel = [[UILabel alloc] initWithFrame:self.frame];
         self.dateLabel = [[UILabel alloc] initWithFrame:self.frame];
         self.dateLabel.text = @"";
+        self.dateLabel.font = [UIFont fontWithName:@"Noto Sans" size:24];
         self.timeLabel.text = @"";
+        self.timeLabel.font = [UIFont fontWithName:@"Noto Sans" size:24];
         self.dateLabel.textColor = [UIColor whiteColor];
         self.timeLabel.textColor = [UIColor whiteColor];
         self.dateLabel.numberOfLines = 0;

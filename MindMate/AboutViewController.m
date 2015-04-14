@@ -8,6 +8,7 @@
 
 #import "AboutViewController.h"
 #import "UIColor+Colors.h"
+@import WebKit;
 
 @interface AboutViewController ()
 
@@ -30,14 +31,14 @@
     [self.view addSubview:self.menuButton];
     [self.menuButton addTarget:self action:@selector(menuPressed) forControlEvents:UIControlEventTouchUpInside];
 
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/7, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/5, CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)/4)];
-    self.label.font = [UIFont systemFontOfSize:20];
-    self.label.numberOfLines = 0;
-    self.label.text = @"This is where I thank people";
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/7, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/5, CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)/4)];
+    NSString *html = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"] encoding:NSStringEncodingConversionAllowLossy error:nil];
+    [webView loadHTMLString:html baseURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]];
+    [self.view addSubview:webView];
+
    // self.label.text = @"Thank you to the following people: \n\nDesign & UX Guidance: Ben Adamson\nIntro Voice: Krista\nTechnical Guidance: Caleb Hicks, Bryan Bryce, Joshua Howland, Andrew Madsen, Taylor Mott, Daniel Curvelo, Shawn Sou \n\nFinally, a very special thanks to my family and friends for their support and DevMountain for guiding me throughout these past few months.";
 
   //  self.label.backgroundColor = [UIColor blueColor];
-    [self.view addSubview:self.label];
     // Do any additional setup after loading the view.
 }
 

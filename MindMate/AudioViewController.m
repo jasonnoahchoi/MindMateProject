@@ -112,7 +112,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.recordLabel.hidden = YES;
     //self.recordLabel.text = @"Saved";
     self.recordLabel.numberOfLines = 0;
-    self.recordLabel.font = [UIFont systemFontOfSize:16];
+    self.recordLabel.font = [UIFont fontWithName:@"Noto Sans" size:16];
     self.recordLabel.textColor = [UIColor darkGrayColor];
     self.recordLabel.textAlignment = NSTextAlignmentCenter;
 

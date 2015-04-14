@@ -36,6 +36,17 @@
 		08BC57451ADC77B60037C7C3 /* babypopagain.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57431ADC77B60037C7C3 /* babypopagain.aiff */; };
 		08BC57471ADC77BD0037C7C3 /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57461ADC77BD0037C7C3 /* pop.mp3 */; };
 		08BC57491ADC77C30037C7C3 /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57481ADC77C30037C7C3 /* menu.wav */; };
+		08BC574E1ADC9A420037C7C3 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574A1ADC9A420037C7C3 /* NotoSans-Bold.ttf */; };
+		08BC574F1ADC9A420037C7C3 /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574B1ADC9A420037C7C3 /* NotoSans-BoldItalic.ttf */; };
+		08BC57501ADC9A420037C7C3 /* NotoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574C1ADC9A420037C7C3 /* NotoSans-Italic.ttf */; };
+		08BC57511ADC9A420037C7C3 /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574D1ADC9A420037C7C3 /* NotoSans-Regular.ttf */; };
+		08BC57531ADC9A850037C7C3 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574A1ADC9A420037C7C3 /* NotoSans-Bold.ttf */; };
+		08BC57541ADC9A850037C7C3 /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574B1ADC9A420037C7C3 /* NotoSans-BoldItalic.ttf */; };
+		08BC57551ADC9A850037C7C3 /* NotoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574C1ADC9A420037C7C3 /* NotoSans-Italic.ttf */; };
+		08BC57561ADC9A850037C7C3 /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BC574D1ADC9A420037C7C3 /* NotoSans-Regular.ttf */; };
+		08BC57581ADCA6CE0037C7C3 /* Apache License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57571ADCA6CE0037C7C3 /* Apache License.txt */; };
+		08BC575E1ADCA99C0037C7C3 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 08BC575D1ADCA99C0037C7C3 /* about.html */; };
+		08BC57601ADCAD2E0037C7C3 /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = 08BC575F1ADCAD2E0037C7C3 /* privacy.html */; };
 		08C6FD641AD65B7500FFD983 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C6FD631AD65B7500FFD983 /* IntroViewController.m */; };
 		08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */; };
 		08CC1FCB1AC9E1B60083B861 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CC1FCA1AC9E1B60083B861 /* AudioController.m */; };
@@ -106,6 +117,13 @@
 		08BC57431ADC77B60037C7C3 /* babypopagain.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = babypopagain.aiff; path = ../../mindmate/MindMate/babypopagain.aiff; sourceTree = "<group>"; };
 		08BC57461ADC77BD0037C7C3 /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pop.mp3; path = ../../mindmate/MindMate/pop.mp3; sourceTree = "<group>"; };
 		08BC57481ADC77C30037C7C3 /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = menu.wav; path = ../../mindmate/MindMate/menu.wav; sourceTree = "<group>"; };
+		08BC574A1ADC9A420037C7C3 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
+		08BC574B1ADC9A420037C7C3 /* NotoSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		08BC574C1ADC9A420037C7C3 /* NotoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Italic.ttf"; sourceTree = "<group>"; };
+		08BC574D1ADC9A420037C7C3 /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.ttf"; sourceTree = "<group>"; };
+		08BC57571ADCA6CE0037C7C3 /* Apache License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Apache License.txt"; sourceTree = "<group>"; };
+		08BC575D1ADCA99C0037C7C3 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		08BC575F1ADCAD2E0037C7C3 /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
 		08C6FD621AD65B7500FFD983 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		08C6FD631AD65B7500FFD983 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Colors.h"; sourceTree = "<group>"; };
@@ -205,6 +223,8 @@
 				0812912B1ADA5C0F00CD49DF /* SupportViewController.m */,
 				081291271ADA453000CD49DF /* AboutViewController.h */,
 				081291281ADA453000CD49DF /* AboutViewController.m */,
+				08BC575D1ADCA99C0037C7C3 /* about.html */,
+				08BC575F1ADCAD2E0037C7C3 /* privacy.html */,
 				0812912D1ADA5DFD00CD49DF /* TermsViewController.h */,
 				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
 				08BC57461ADC77BD0037C7C3 /* pop.mp3 */,
@@ -212,6 +232,7 @@
 				08BC57421ADC77B60037C7C3 /* babypop.aiff */,
 				08BC57431ADC77B60037C7C3 /* babypopagain.aiff */,
 				081291311ADA746D00CD49DF /* mmwelcome.m4a */,
+				08BC57521ADC9A580037C7C3 /* Fonts */,
 				081291201ADA40B500CD49DF /* Reminders */,
 				083D6E9D1AC4C6E70005E67C /* Stack.h */,
 				083D6E9E1AC4C6E70005E67C /* Stack.m */,
@@ -259,6 +280,18 @@
 				083D6E921AC4C5770005E67C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		08BC57521ADC9A580037C7C3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				08BC57571ADCA6CE0037C7C3 /* Apache License.txt */,
+				08BC574A1ADC9A420037C7C3 /* NotoSans-Bold.ttf */,
+				08BC574B1ADC9A420037C7C3 /* NotoSans-BoldItalic.ttf */,
+				08BC574C1ADC9A420037C7C3 /* NotoSans-Italic.ttf */,
+				08BC574D1ADC9A420037C7C3 /* NotoSans-Regular.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		389A77263D7056F4363E0CD5 /* Frameworks */ = {
@@ -362,14 +395,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08BC57511ADC9A420037C7C3 /* NotoSans-Regular.ttf in Resources */,
+				08BC57581ADCA6CE0037C7C3 /* Apache License.txt in Resources */,
 				08BC57451ADC77B60037C7C3 /* babypopagain.aiff in Resources */,
 				08BC57491ADC77C30037C7C3 /* menu.wav in Resources */,
+				08BC575E1ADCA99C0037C7C3 /* about.html in Resources */,
+				08BC574F1ADC9A420037C7C3 /* NotoSans-BoldItalic.ttf in Resources */,
 				08BC57441ADC77B60037C7C3 /* babypop.aiff in Resources */,
 				083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */,
 				083D6E851AC4C5770005E67C /* Images.xcassets in Resources */,
 				086914301AC891F40064B6AE /* Main.storyboard in Resources */,
+				08BC57601ADCAD2E0037C7C3 /* privacy.html in Resources */,
+				08BC574E1ADC9A420037C7C3 /* NotoSans-Bold.ttf in Resources */,
 				08BC57471ADC77BD0037C7C3 /* pop.mp3 in Resources */,
 				081291321ADA763100CD49DF /* mmwelcome.m4a in Resources */,
+				08BC57501ADC9A420037C7C3 /* NotoSans-Italic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +417,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08BC57531ADC9A850037C7C3 /* NotoSans-Bold.ttf in Resources */,
+				08BC57541ADC9A850037C7C3 /* NotoSans-BoldItalic.ttf in Resources */,
+				08BC57551ADC9A850037C7C3 /* NotoSans-Italic.ttf in Resources */,
+				08BC57561ADC9A850037C7C3 /* NotoSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

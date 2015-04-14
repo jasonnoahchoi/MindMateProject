@@ -8,6 +8,7 @@
 
 #import "TermsViewController.h"
 #import "UIColor+Colors.h"
+@import WebKit;
 
 @interface TermsViewController ()
 
@@ -18,9 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *label = [[UILabel alloc] initWithFrame:self.view.frame];
-    label.text = @"Terms Placeholder";
-    [self.view addSubview:label];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
     self.menuButton.backgroundColor = [UIColor customGrayColor];
@@ -28,6 +28,12 @@
     self.menuButton.layer.cornerRadius = 5;
     [self.view addSubview:self.menuButton];
     [self.menuButton addTarget:self action:@selector(menuPressed) forControlEvents:UIControlEventTouchUpInside];
+
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)/10, CGRectGetHeight(self.view.frame)/7, CGRectGetWidth(self.view.frame) - CGRectGetWidth(self.view.frame)/5, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.view.frame)/4)];
+    NSString *html = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"privacy" withExtension:@"html"] encoding:NSStringEncodingConversionAllowLossy error:nil];
+    [webView loadHTMLString:html baseURL:[[NSBundle mainBundle] URLForResource:@"privacy" withExtension:@"html"]];
+    [self.view addSubview:webView];
+
     // Do any additional setup after loading the view.
 }
 
