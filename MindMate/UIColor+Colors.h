@@ -18,5 +18,7 @@
 + (UIColor *)customDarkPurpleColor;
 + (UIColor *)customMenuColor;
 + (UIColor *)customBlueColor;
++ (UIColor *)customSwitchPurpleColor;
++ (UIColor *)customTextColor;
 
 @end

@@ -18,7 +18,7 @@
 
 + (NSDate *)sixAMTime;
 
-+ (BOOL)currentTimeIsBetweenTimeFromDate1:(NSDate *)date1 andTimeFromDate2:(NSDate *)date2;
++ (BOOL)currentTimeIsBetweenTimeFromStartDate:(NSDate *)startDate andTimeFromEndDate:(NSDate *)endDate;
 
 + (NSDate *)fetchDate;
 

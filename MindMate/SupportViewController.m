@@ -39,7 +39,7 @@
     [self.view addSubview:self.menuButton];
     [self.menuButton addTarget:self action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
 
-    UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 70, CGRectGetWidth(self.view.frame)-40, CGRectGetHeight(self.view.frame)/6)];
+    UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 70, CGRectGetWidth(self.view.frame)-40, CGRectGetHeight(self.view.frame)/2)];
     tempLabel.numberOfLines = 0;
     tempLabel.font = [UIFont fontWithName:@"Noto Sans" size:16];
     tempLabel.text = @"Let me know if you have any questions or suggestions. I will absolutely read and consider every email, but I can't respond to them all. Thank you for understanding.";

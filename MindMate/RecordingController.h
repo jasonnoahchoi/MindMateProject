@@ -26,7 +26,6 @@ static NSString * const queueEntity = @"Queue";
 - (void)addRecordingWithURL:(NSString *)urlPath andIDNumber:(NSString *)idNumber andDateCreated:(NSString *)createdAt andFetchDate:(NSDate *)showAt andSimpleDate:(NSString *)simpleDate andGroupName:(NSString *)groupName andTimeCreated:(NSString *)timeCreated;
 - (void)addGroupID:(NSNumber *)groupID;
 - (void)addRecordingWithFile:(NSData *)memo;
-- (void)addGroupWithName:(NSString *)groupName;
 - (void)removeRecording:(Recording *)recording;
 - (void)receiveRecordingFromUser:(User *)user;
 

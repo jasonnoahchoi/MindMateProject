@@ -42,4 +42,12 @@
     return [UIColor colorWithHue:246.0/360 saturation:.25 brightness:1.0 alpha:1.0];
 }
 
++ (UIColor *)customSwitchPurpleColor {
+    return [UIColor colorWithHue:247.0/360 saturation:.55 brightness:1.0 alpha:1.0];
+}
+
++ (UIColor *)customTextColor {
+    return [UIColor colorWithHue:0 saturation:0 brightness:.1 alpha:1];
+}
+
 @end

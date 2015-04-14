@@ -103,6 +103,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.preferencesCell.backgroundColor = [UIColor customPurpleColor];
     self.preferencesCell.textLabel.textColor = [UIColor whiteColor];
     self.soundToggle = [[UISwitch alloc] init];
+    self.soundToggle.tintColor = [UIColor customSwitchPurpleColor];
+    self.soundToggle.onTintColor = [UIColor customSwitchPurpleColor];
     self.soundToggle.on = YES;
 //    [[NSUserDefaults standardUserDefaults] setBool:self.soundEffectsOn forKey:soundEffectsOnKey];
 //    [[NSUserDefaults standardUserDefaults] synchronize];
