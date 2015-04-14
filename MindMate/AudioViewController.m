@@ -16,6 +16,7 @@
 #import "TimeAndDateView.h"
 #import "MenuViewController.h"
 #import "NSDate+Utils.h"
+#import "QuotesController.h"
 
 static NSString * const hasRecordingsKey = @"hasRecordings";
 static NSString * const numberOfRecordingsKey = @"numberOfRecordings";
@@ -28,37 +29,31 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 @property (nonatomic, strong) TimeAndDateView *tdView;
 @property (nonatomic, strong) Recording *record;
 @property (nonatomic, strong) MenuViewController *menuVC;
+
 @property (nonatomic) CircleState circleState;
 
 @property (nonatomic, strong) NSMutableArray *mutableRecordings;
+@property (nonatomic, strong) UILabel *recordLabel;
+@property (nonatomic, strong) UILabel *quoteLabel;
+@property (nonatomic, strong) UILabel *nameLabel;
 
 @property (nonatomic, strong) UIButton *confirmButton;
 @property (nonatomic, strong) UIButton *recordAgainButton;
-@property (nonatomic, strong) UILabel *confirmLabel;
-@property (nonatomic, strong) UILabel *recordAgainLabel;
+@property (nonatomic, strong) UIButton *recordCornerButton;
+@property (nonatomic, strong) UIButton *playCornerButton;
+@property (nonatomic, strong) UIButton *menuButton;
+@property (nonatomic, strong) UIButton *centerRecordButtonClone;
+@property (nonatomic, strong) UIButton *centerPlayButtonClone;
 
 @property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) CGPoint centerRecordAgainButton;
 @property (nonatomic, assign) CGPoint centerConfirmButton;
 @property (nonatomic, assign) CGPoint endPointRecordAgainButton;
 @property (nonatomic, assign) CGPoint endPointConfirmButton;
-
-@property (nonatomic, strong) UIButton *recordCornerButton;
-@property (nonatomic, strong) UIButton *playCornerButton;
-
 @property (nonatomic, assign) CGPoint centerRecordButton;
 @property (nonatomic, assign) CGPoint centerPlayButton;
 @property (nonatomic, assign) CGPoint endPointRecordCornerButton;
 @property (nonatomic, assign) CGPoint endPointPlayCornerButton;
-
-@property (nonatomic, assign) NSNumber *groupIDNumber;
-@property (nonatomic, assign) NSInteger indexForRecording;
-@property (nonatomic, assign) NSInteger counter;
-
-@property (nonatomic, strong) UIButton *menuButton;
-
-@property (nonatomic, strong) UIButton *centerRecordButtonClone;
-@property (nonatomic, strong) UIButton *centerPlayButtonClone;
 @property (nonatomic, assign) CGPoint hidingPointRecordCornerPoint;
 @property (nonatomic, assign) CGPoint hidingPointPlayCornerPoint;
 @property (nonatomic, assign) CGPoint middlePointRecordCornerButton;
@@ -67,12 +62,16 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 @property (nonatomic, assign) CGPoint halfwayPointRecorderCornerPoint;
 @property (nonatomic, assign) CGPoint halfwayPointPlayCornerPoint;
 @property (nonatomic, assign) CGRect circleRect;
+
+@property (nonatomic, assign) NSInteger indexForRecording;
+@property (nonatomic, assign) NSInteger counter;
+@property (nonatomic, assign) NSUInteger sameRandomIndex;
+@property (nonatomic, assign) NSNumber *groupIDNumber;
 @property (nonatomic, assign) BOOL showedMenuVC;
 @property (nonatomic, assign) BOOL hasRecordings;
 @property (nonatomic, assign) BOOL hasPlayed;
 @property (nonatomic, assign) BOOL micOn;
 @property (nonatomic, assign) BOOL soundEffectsOn;
-@property (nonatomic, strong) UILabel *recordLabel;
 
 @end
 
@@ -86,7 +85,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     //self.title = @"Record";
     self.groupIDNumber = @0;
     self.frame = self.view.frame;
-    [self cornerButtons];
     [self afterRecordButtons];
     [self micCheck];
     CGSize size = self.view.superview.frame.size;
@@ -97,13 +95,13 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         //self.buttonView.center = self.view.center;
     self.buttonView.delegate = self;
     [self.view addSubview:self.buttonView];
-    [self buttonClones];
-    [self initialAnimation];
+    self.buttonView.hidden = YES;
+
 
     self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
 
     [self.view addSubview:self.tdView];
-    [self layoutMenuButton];
+
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
 
@@ -116,7 +114,58 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.recordLabel.textColor = [UIColor customTextColor];
     self.recordLabel.textAlignment = NSTextAlignmentCenter;
 
-   // self.counter = [[NSUserDefaults standardUserDefaults] integerForKey:numberOfRecordingsKey];
+    self.quoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetHeight(self.frame)/12, CGRectGetWidth(self.frame)-CGRectGetWidth(self.frame)/6, CGRectGetHeight(self.frame)-CGRectGetHeight(self.frame)/5)];
+    self.quoteLabel.numberOfLines = 0;
+    self.quoteLabel.textAlignment = NSTextAlignmentCenter;
+    self.quoteLabel.textColor = [UIColor customTextColor];
+    self.quoteLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.quoteLabel.alpha = 0;
+
+    self.nameLabel = [[UILabel alloc] initWithFrame:self.recordLabel.frame];
+    self.nameLabel.textColor = [UIColor customTextColor];
+    self.nameLabel.textAlignment = NSTextAlignmentRight;
+    self.nameLabel.font = [UIFont fontWithName:@"NotoSans-Italic" size:18];
+    self.nameLabel.alpha = 0;
+    [self.view addSubview:self.quoteLabel];
+    [self.view addSubview:self.nameLabel];
+
+    [self showQuote];
+}
+
+- (void)showQuote {
+    NSArray *quotesArray = [[QuotesController sharedInstance] bundledQuotes];
+    NSUInteger randomIndex = arc4random() % quotesArray.count;
+    self.sameRandomIndex = *(&(randomIndex));
+    [UIView animateWithDuration:.5 delay:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.quoteLabel.text = [[quotesArray objectAtIndex:randomIndex] objectForKey:quoteKey];
+        self.quoteLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.5 delay:1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.nameLabel.text = [[quotesArray objectAtIndex:self.sameRandomIndex] objectForKey:nameKey];
+            self.nameLabel.alpha = 1;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.quoteLabel.alpha = 0;
+                self.nameLabel.alpha = 0;
+            } completion:^(BOOL finished) {
+                self.buttonView.alpha = 0;
+                self.buttonView.hidden = NO;
+                [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                    self.buttonView.alpha = 1;
+                } completion:^(BOOL finished) {
+                    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(startScreen) userInfo:nil repeats:NO];
+                }];
+            }];
+        }];
+    }];
+
+}
+
+- (void)startScreen {
+    [self buttonClones];
+    [self initialAnimation];
+    [self layoutMenuButton];
+    [self cornerButtons];
 }
 
 -(BOOL)requestForPermisssion {
@@ -197,15 +246,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
 #pragma mark - Buttons on View Controller
 
-//- (void)layoutEndPoints {
-//    CGRect endPointRecordAgainButton = CGRectMake(0 - self.view.frame.size.width/6, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
-//    self.endPointRecordAgainButton = CGPointMake(endPointRecordAgainButton.origin.x + (endPointRecordAgainButton.size.width/2), endPointRecordAgainButton.origin.y + (endPointRecordAgainButton.size.height/2));
-//
-//    CGRect endPointConfirmButton = CGRectMake(self.view.frame.size.width - self.view.frame.size.width/3, self.view.frame.size.height - self.view.frame.size.height/9.5, self.view.frame.size.width/2, self.view.frame.size.width/2);
-//    self.endPointConfirmButton = CGPointMake(endPointConfirmButton.origin.x + (endPointConfirmButton.size.width/2), endPointConfirmButton.origin.y + (endPointConfirmButton.size.height/2));
-//
-//}
-
 - (void)layoutMenuButton {
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
     self.menuButton.backgroundColor = [UIColor customGrayColor];
@@ -227,12 +267,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     [self.view addSubview:self.recordAgainButton];
     self.centerRecordAgainButton = self.recordAgainButton.center;
 
-    //    self.recordAgainLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - self.view.frame.size.height/11, CGRectGetWidth(self.frame)/4, self.view.frame.size.height/11)];
-    //    self.recordAgainLabel.text = @"Do Over";
-    //    self.recordAgainLabel.textColor = [UIColor whiteColor];
-    //    self.recordAgainLabel.textAlignment = NSTextAlignmentCenter;
-    //    self.recordAgainLabel.hidden = YES;
-    //    [self.view addSubview:self.recordAgainLabel];
     [self.recordAgainButton addTarget:self action:@selector(recordAgainPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     UIImage *greenCheck = [UIImage imageNamed:@"greencheck"];
@@ -320,8 +354,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 #pragma mark - Getters
 
 - (void)recordAgainPressed:(id)sender {
-    self.confirmLabel.alpha = 0;
-    self.recordAgainLabel.alpha = 0;
+//    self.confirmLabel.alpha = 0;
+//    self.recordAgainLabel.alpha = 0;
     Recording *recording = [RecordingController sharedInstance].memos.lastObject;
     [[RecordingController sharedInstance] removeRecording:recording];
     [[RecordingController sharedInstance] save];
@@ -1067,8 +1101,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                                     button.backgroundColor = [UIColor customGreenColor];
                                     self.recordAgainButton.hidden = NO;
                                     self.recordAgainButton.alpha = 0;
-                                    self.recordAgainLabel.hidden = NO;
-                                    self.recordAgainLabel.alpha = 0;
+//                                    self.recordAgainLabel.hidden = NO;
+//                                    self.recordAgainLabel.alpha = 0;
                                     [self zeroState:ButtonStateZero];
                                     //self.title = @"Choose a State";
                                     self.recordCornerButton.hidden = YES;
@@ -1081,7 +1115,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                                         [UIView animateWithDuration:.4 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                             self.recordAgainButton.center = self.endPointRecordAgainButton;
                                             self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
-                                            self.recordAgainLabel.alpha = 1;
+//                                            self.recordAgainLabel.alpha = 1;
                                         } completion:^(BOOL finished) {
                                             [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                                 self.recordAgainButton.transform = CGAffineTransformIdentity;
@@ -1124,9 +1158,9 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
       //  self.confirmLabel.alpha = 0;
     } completion:^(BOOL finished) {
         self.recordAgainButton.hidden = YES;
-        self.recordAgainLabel.hidden = YES;
-        self.recordAgainLabel.alpha = 1;
-        self.confirmLabel.alpha = 1;
+//        self.recordAgainLabel.hidden = YES;
+//        self.recordAgainLabel.alpha = 1;
+//        self.confirmLabel.alpha = 1;
         self.confirmButton.hidden = YES;
     }];
     self.containerView.alpha = 1;
@@ -1136,10 +1170,10 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 - (void)showBottomButtons {
     self.recordAgainButton.alpha = 1;
     self.recordAgainButton.hidden = NO;
-    self.recordAgainLabel.hidden = NO;
+//    self.recordAgainLabel.hidden = NO;
     self.confirmButton.alpha = 1;
     self.confirmButton.hidden = NO;
-    self.confirmLabel.hidden = NO;
+//    self.confirmLabel.hidden = NO;
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.confirmButton.center = self.endPointConfirmButton;
         self.confirmButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);

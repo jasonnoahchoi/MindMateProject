@@ -37,8 +37,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:soundEffectsOnKey];
     }
 
-   // BOOL soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-    //UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+  //  UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     BOOL finishedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:finishedIntroKey];
     if (!finishedIntro) {
         self.window.rootViewController = introVC;
@@ -46,7 +45,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     if (finishedIntro) {
         self.window.rootViewController = self.audioVC;
     }
-    //self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor whiteColor];
+
     [self.window makeKeyAndVisible];
 
     return YES;
