@@ -78,42 +78,6 @@
     return self.recorder;
 }
 
-
-////- (AVAudioPlayer *)playAudio {
-////
-////    NSError *error = nil;
-////    //self.recording = [RecordingController sharedInstance].memos.lastObject;
-////
-////    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
-////    //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:self.recording.urlPath] error:&error];
-////    self.player.delegate = self;
-////    self.player.volume = 1.0;
-////    self.player.numberOfLoops = 0;
-////    [self.player play];
-////    return self.player;
-////}
-//
-//- (AVQueuePlayer *)playQueueAudio:(NSArray *)items {
-//
-//    self.queuePlayer = [[AVQueuePlayer alloc] initWithItems:items];
-//
-//
-////
-////    if (!self.player) {
-////        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
-////    } else {
-////        [self.player play];
-////    }
-//
-//    return self.queuePlayer;
-//}
-//
-//
-//+ (AVQueuePlayer *)queuePlayerWithItems:(NSArray *)items {
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:items.lastObject];
-//    return [AVQueuePlayer queuePlayerWithItems:items];
-//}
-//
 - (void)playAudioFileSoftlyAtURL:(NSURL *)url {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
@@ -137,7 +101,6 @@
     });
 }
 
-
 - (void)playAudioFileAtURL:(NSURL *)url {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
@@ -156,7 +119,8 @@
         } else {
             [self.player play];
         }
-    });}
+    });
+}
 
 - (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -268,13 +232,6 @@
     return destinationString;
 }
 
-//
-//- (NSURL *)urlPath {
-//    NSURL *destinationURL = [NSURL fileURLWithPathComponents:[self documentsPath]];
-//     return destinationURL;
-//}
-
-
 - (NSArray *)documentsPath {
      NSArray *documentsPath = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], [self nowString], nil];
 
@@ -294,11 +251,6 @@
     return recordSettings;
 }
 
-//- (NSDate *)createdAtDate {
-//    NSDate *now = [NSDate date];
-//    return now;
-//}
-
 - (NSString *)simpleDateString {
     NSDate *now = [NSDate createdAtDate];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -309,15 +261,18 @@
 
 - (NSString *)createdAtDateString {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone localTimeZone];
     [formatter setTimeStyle:NSDateFormatterFullStyle];
     NSString *nowString = [formatter stringFromDate:[NSDate createdAtDate]];
+    NSLog(@"CREATEDATDATESTRING: %@", nowString);
     return nowString;
 }
 
 - (NSString *)currentTime {
     NSDateFormatter *myDateFormatter = [[NSDateFormatter alloc] init];
+    myDateFormatter.timeZone = [NSTimeZone localTimeZone];
     [myDateFormatter setDateFormat:@"hh:mm aaa"];
-    return [myDateFormatter stringFromDate:[NSDate date]];
+    return [myDateFormatter stringFromDate:[NSDate createdAtDate]];
 }
 
 
@@ -364,6 +319,40 @@
     }
 }
 
-
+////- (AVAudioPlayer *)playAudio {
+////
+////    NSError *error = nil;
+////    //self.recording = [RecordingController sharedInstance].memos.lastObject;
+////
+////    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:&error];
+////    //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:self.recording.urlPath] error:&error];
+////    self.player.delegate = self;
+////    self.player.volume = 1.0;
+////    self.player.numberOfLoops = 0;
+////    [self.player play];
+////    return self.player;
+////}
+//
+//- (AVQueuePlayer *)playQueueAudio:(NSArray *)items {
+//
+//    self.queuePlayer = [[AVQueuePlayer alloc] initWithItems:items];
+//
+//
+////
+////    if (!self.player) {
+////        NSLog(@"!!!! AudioPlayer Did Not Load Properly: %@", [error description]);
+////    } else {
+////        [self.player play];
+////    }
+//
+//    return self.queuePlayer;
+//}
+//
+//
+//+ (AVQueuePlayer *)queuePlayerWithItems:(NSArray *)items {
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:items.lastObject];
+//    return [AVQueuePlayer queuePlayerWithItems:items];
+//}
+//
 
 @end
