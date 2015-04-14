@@ -783,7 +783,7 @@ static NSString * const micOnKey = @"micOnKey";
 //        }
             break;
         case IntroCircleStateNotifications: {
-             [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
+             [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound categories:nil]];
             self.circleState = IntroCircleStateStarted;
         }
         case IntroCircleStateStarted: {
@@ -1044,7 +1044,7 @@ static NSString * const micOnKey = @"micOnKey";
     }
     if (self.circleState == IntroCircleStateReady) {
         self.centerPlayButtonClone.hidden = YES;
-        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.bottomLabel.center = self.leftBottomLabel;
             self.recordCornerButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
             self.recordCornerButtonClone.center = self.middlePointRecordCornerButton;
@@ -1056,13 +1056,13 @@ static NSString * const micOnKey = @"micOnKey";
         } completion:^(BOOL finished) {
             // if (sender == self.recordCornerButton) {
             //self.playCornerButton.alpha = 0;
-            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                 self.recordCornerButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                 self.recordCornerButtonClone.center = self.halfwayPointRecorderCornerPoint;
                 //  self.centerPlayButtonClone.center = self.middlePointPlayCornerButton;
                 // self.centerPlayButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
             } completion:^(BOOL finished) {
-                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                     self.recordCornerButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
                     self.recordCornerButtonClone.center = self.buttonView.center;
                     //  self.centerPlayButtonClone.center = self.endPointPlayCornerButton;
@@ -1090,31 +1090,23 @@ static NSString * const micOnKey = @"micOnKey";
                         self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, .667, .667);
                         //self.recordCornerButtonClone.center = self.centerRecordButton;
                         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            //       self.playCornerButton.transform = CGAffineTransformIdentity;
+                            self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                            //      //                                    self.buttonView.recordButton.transform = CGAffineTransformIdentity;
                         } completion:^(BOOL finished) {
-                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-                                //      //                                    self.buttonView.recordButton.transform = CGAffineTransformIdentity;
+                            [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                                self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                                self.playCornerButton.transform = CGAffineTransformIdentity;
                             } completion:^(BOOL finished) {
-                                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                    self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-                                    self.playCornerButton.transform = CGAffineTransformIdentity;
+                                [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    self.buttonView.recordButton.transform = CGAffineTransformIdentity;
                                 } completion:^(BOOL finished) {
+                                    self.circleState = IntroCircleStateRecord;
+                                    self.recordLabel.center = self.rightOfRecordLabel;
+                                    self.recordLabel.hidden = NO;
                                     [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                        self.buttonView.recordButton.transform = CGAffineTransformIdentity;
+                                        self.recordLabel.center = self.middleOfRecordLabel;
                                     } completion:^(BOOL finished) {
                                         self.circleState = IntroCircleStateRecord;
-                                        self.recordLabel.center = self.rightOfRecordLabel;
-                                        self.recordLabel.hidden = NO;
-                                        [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                            self.recordLabel.center = self.middleOfRecordLabel;
-                                        } completion:^(BOOL finished) {
-                                            self.circleState = IntroCircleStateRecord;
-
-                                            
-                                        }];
-
-
                                     }];
                                 }];
                             }];
@@ -1149,7 +1141,7 @@ static NSString * const micOnKey = @"micOnKey";
             self.recordLabel.alpha = 0;
         }
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             if (sender == self.recordCornerButton) {
                 self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                 self.recordCornerButton.center = self.middlePointRecordCornerButton;
@@ -1170,13 +1162,13 @@ static NSString * const micOnKey = @"micOnKey";
         } completion:^(BOOL finished) {
             if (sender == self.recordCornerButton) {
                 //self.playCornerButton.alpha = 0;
-                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                     self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                     self.recordCornerButton.center = self.halfwayPointRecorderCornerPoint;
                     self.centerPlayButtonClone.center = self.middlePointPlayCornerButton;
                     self.centerPlayButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
                 } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                         self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
                         self.recordCornerButton.center = self.buttonView.center;
                         self.centerPlayButtonClone.center = self.endPointPlayCornerButton;
@@ -1186,7 +1178,7 @@ static NSString * const micOnKey = @"micOnKey";
                         self.playCornerButton.alpha = 1;
                         self.centerPlayButtonClone.hidden = YES;
                         self.playCornerButton.hidden = NO;
-                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             // self.playCornerButton.transform = CGAffineTransformIdentity;
                             self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
                             self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
@@ -1210,7 +1202,7 @@ static NSString * const micOnKey = @"micOnKey";
                                     self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
 //                                    self.buttonView.recordButton.transform = CGAffineTransformIdentity;
                                 } completion:^(BOOL finished) {
-                                    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                                         self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                                         self.playCornerButton.transform = CGAffineTransformIdentity;
                                     } completion:^(BOOL finished) {
@@ -1226,13 +1218,13 @@ static NSString * const micOnKey = @"micOnKey";
                 }];
             }
             if (sender == self.playCornerButton) {
-                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                     self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                     self.playCornerButton.center = self.halfwayPointPlayCornerPoint;
                     self.centerRecordButtonClone.center = self.middlePointRecordCornerButton;
                     self.centerRecordButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, .8, .8);
                 } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                         self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
                         self.playCornerButton.center = self.buttonView.center;
                         self.centerRecordButtonClone.center = self.endPointRecordCornerButton;
@@ -1242,7 +1234,7 @@ static NSString * const micOnKey = @"micOnKey";
                         self.recordCornerButton.alpha = 1;
                         self.centerRecordButtonClone.hidden = YES;
                         self.recordCornerButton.hidden = NO;
-                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                             self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
                             self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
                             self.centerRecordButtonClone.transform = CGAffineTransformIdentity;
@@ -1264,7 +1256,7 @@ static NSString * const micOnKey = @"micOnKey";
                                     self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                               //      self.buttonView.playButton.transform = CGAffineTransformIdentity;
                                 } completion:^(BOOL finished) {
-                                    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                                         self.buttonView.playButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                                         self.recordCornerButton.transform = CGAffineTransformIdentity;
                                     } completion:^(BOOL finished) {
@@ -1274,16 +1266,13 @@ static NSString * const micOnKey = @"micOnKey";
                                             self.recordLabel.text = @"Pump up the volume! Press and hold down on the circle to playback. Release to stop.";
                                             self.recordLabel.center = self.rightOfRecordLabel;
                                             self.recordLabel.hidden = NO;
-                                            [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                            [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveLinear animations:^{
                                                 self.recordLabel.center = self.middleOfRecordLabel;
                                                 self.recordLabel.alpha = 1;
                                             } completion:^(BOOL finished) {
 
                                             }];
-
                                         }];
-
-                                        
                                     }];
                                 }];
                             }];
