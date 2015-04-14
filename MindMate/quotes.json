@@ -8,7 +8,7 @@
 		"name" : "William Shakespeare"
 	},
 	{
-		"quote" : "Change your thoughts and you change your world",
+		"quote" : "Change your thoughts and you change your world.",
 		"name" : "Norman Vincent Peale"
 	},
 	{
@@ -124,11 +124,11 @@
 		"name" : "Mark Twain"
 	},
 	{
-		"quote" : "What you get by achieving your goals is not as important as what you become by achieving your goals",
+		"quote" : "What you get by achieving your goals is not as important as what you become by achieving your goals.",
 		"name" : "Henry David Thoreau" 
 	},
 	{
-		"quote" : "We may encounter defeats but we must not be defeated",
+		"quote" : "We may encounter defeats but we must not be defeated.",
 		"name" :  "Maya Angelou"
 	},
 	{
@@ -136,15 +136,15 @@
 		"name" : "Thomas A. Edison"
 	},
 	{
-		"quote" : "Well done is better than well said",
+		"quote" : "Well done is better than well said.",
 		"name" : "Benjamin Franklin"
 	},
 	{
-		"quote" : "Never, never, never give up",
+		"quote" : "Never, never, never give up.",
 		"name" :  "Winston Churchill"
 	},
 	{
-		"quote" : "After a storm comes a calm",
+		"quote" : "After a storm comes a calm.",
 		"name" : "Matthew Henry"
 	},
 	{
@@ -224,7 +224,7 @@
 		"name" : "Marcus Auerlius"
 	},
 	{
-		"quote" : "Thought rule the world.",
+		"quote" : "Thought rules the world.",
 		"name" : "Ralph Waldo Emerson"
 	},
 	{
@@ -314,7 +314,7 @@
 	{
 		"quote" : "It's kind of fun to do the impossible.",
 		"name" : "Walt Disney"
-	}
+	},
     {
         "quote" : "The miracle is this: The more we share, the more we have.",
         "name" : "Leonard Nimoy"

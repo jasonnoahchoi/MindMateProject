@@ -118,7 +118,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.quoteLabel.numberOfLines = 0;
     self.quoteLabel.textAlignment = NSTextAlignmentCenter;
     self.quoteLabel.textColor = [UIColor customTextColor];
-    self.quoteLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.quoteLabel.font = [UIFont fontWithName:@"Noto Sans" size:22];
     self.quoteLabel.alpha = 0;
 
     self.nameLabel = [[UILabel alloc] initWithFrame:self.recordLabel.frame];
@@ -134,8 +134,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
 - (void)showQuote {
     NSArray *quotesArray = [[QuotesController sharedInstance] bundledQuotes];
-    uint32_t randomIndex = arc4random_uniform(quotesArray.count);
-    self.sameRandomIndex = randomIndex;
+    uint32_t randomIndex = (uint32_t)arc4random_uniform([quotesArray count]);
+    self.sameRandomIndex = *(&(randomIndex));
     [UIView animateWithDuration:.5 delay:.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         self.quoteLabel.text = [[quotesArray objectAtIndex:randomIndex] objectForKey:quoteKey];
         self.quoteLabel.alpha = 1;

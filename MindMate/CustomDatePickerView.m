@@ -196,11 +196,11 @@ typedef enum : NSInteger {
             [paragraphStyle setAlignment:NSTextAlignmentCenter];
             break;
         case HourPicker:
-            title = [NSString stringWithFormat:@"%02d", row % [self actualNumberOfRowsInComponent:component] + 1];
+            title = [NSString stringWithFormat:@"%02ld", row % [self actualNumberOfRowsInComponent:component] + 1];
             [paragraphStyle setAlignment:NSTextAlignmentRight];
             break;
         case MinutePicker:
-            title = [NSString stringWithFormat:@"%02d", row % [self actualNumberOfRowsInComponent:component]];
+            title = [NSString stringWithFormat:@"%02ld", row % [self actualNumberOfRowsInComponent:component]];
             [paragraphStyle setAlignment:NSTextAlignmentLeft];
             break;
         case MeridiemPicker:
