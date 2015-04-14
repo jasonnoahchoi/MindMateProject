@@ -12,6 +12,7 @@
 
 + (NSDate *)dateWithoutTime {
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    calendar.timeZone = [NSTimeZone localTimeZone];
     NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
     return [calendar dateFromComponents:components];
 }
@@ -20,6 +21,7 @@
 // For instance, if passed a date that contains the time 22:30, return 2230
 + (int)timeAsIntegerFromDate:(NSDate *)date {
     NSCalendar *currentCal      = [NSCalendar currentCalendar];
+    currentCal.timeZone = [NSTimeZone localTimeZone];
     NSDateComponents *nowComps  = [currentCal components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:date];
     return nowComps.hour * 100 + nowComps.minute;
 }
@@ -27,6 +29,7 @@
 + (NSDate *)midnightTime {
     NSDate *date = [NSDate date];
     NSCalendar *cal = [NSCalendar currentCalendar];
+    cal.timeZone = [NSTimeZone localTimeZone];
 
     NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
 
@@ -40,6 +43,7 @@
 + (NSDate *)sixAMTime {
     NSDate *date = [NSDate date];
     NSCalendar *cal = [NSCalendar currentCalendar];
+    cal.timeZone = [NSTimeZone localTimeZone];
 
     NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
 
@@ -57,7 +61,7 @@
     // date2 = [self sixAMTime];
     int time1     = [NSDate timeAsIntegerFromDate:startDate];
     int time2     = [NSDate timeAsIntegerFromDate:endDate];
-    int nowTime   = [NSDate timeAsIntegerFromDate:[NSDate date]];
+    int nowTime   = [NSDate timeAsIntegerFromDate:[self createdAtDate]];
 
     // If the times are the same, we can never be between them
     if (time1 == time2) {
@@ -86,6 +90,7 @@
 
 + (NSDate *)fetchDate {
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+    dayComponent.timeZone = [NSTimeZone localTimeZone];
 
 
     if ([NSDate currentTimeIsBetweenTimeFromStartDate:[NSDate midnightTime] andTimeFromEndDate:[NSDate sixAMTime]]) {
@@ -97,7 +102,7 @@
     }
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[self createdAtDate] options:0];
 
     return nextDate;
 }
@@ -124,12 +129,19 @@
 
 + (NSDate *)fetchDateForRecording {
     NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+    dayComponent.timeZone = [NSTimeZone localTimeZone];
 
-    NSUInteger count = -1;
-    dayComponent.day = count;
+    if ([NSDate currentTimeIsBetweenTimeFromStartDate:[NSDate midnightTime] andTimeFromEndDate:[NSDate sixAMTime]]) {
+        NSUInteger count = 0;
+        dayComponent.day = count;
+    } else {
+        NSUInteger count = -1;
+        dayComponent.day = count;
+    }
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
+    calendar.timeZone = [NSTimeZone localTimeZone];
+    NSDate *nextDate = [calendar dateByAddingComponents:dayComponent toDate:[self createdAtDate] options:0];
 
     return nextDate;
 }
@@ -137,10 +149,11 @@
 + (NSDate *)beginningOfDay {
     NSDate *date = [NSDate fetchDateForRecording];
     NSCalendar *cal = [NSCalendar currentCalendar];
+    cal.timeZone = [NSTimeZone localTimeZone];
 
     NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
 
-    [components setHour:0];
+    [components setHour:6];
     [components setMinute:0];
     [components setSecond:0];
 
@@ -164,6 +177,5 @@
 
     return [cal dateByAddingComponents:components toDate:[NSDate beginningOfDay] options:0];
 }
-
 
 @end
