@@ -92,9 +92,6 @@
 //    }
 //}
 
-- (void)buttonPressed:(id)sender {
-    NSLog(@"Button Pressed");
-}
 
 - (void)longPressForPlay:(UIGestureRecognizer *)gesture {
     if ([self.delegate respondsToSelector:@selector(didTryToPlayWithPlayButton:withGesture:)]) {
