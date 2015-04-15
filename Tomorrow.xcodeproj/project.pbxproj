@@ -47,8 +47,6 @@
 		086914301AC891F40064B6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0869142F1AC891F40064B6AE /* Main.storyboard */; };
 		086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086914311AC893D70064B6AE /* AVFoundation.framework */; };
 		089F37181AD359DF00F069DF /* TimeAndDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089F37171AD359DF00F069DF /* TimeAndDateView.m */; };
-		08BC57441ADC77B60037C7C3 /* babypop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57421ADC77B60037C7C3 /* babypop.aiff */; };
-		08BC57451ADC77B60037C7C3 /* babypopagain.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57431ADC77B60037C7C3 /* babypopagain.aiff */; };
 		08BC57471ADC77BD0037C7C3 /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57461ADC77BD0037C7C3 /* pop.mp3 */; };
 		08BC57491ADC77C30037C7C3 /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57481ADC77C30037C7C3 /* menu.wav */; };
 		08BC575E1ADCA99C0037C7C3 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 08BC575D1ADCA99C0037C7C3 /* about.html */; };
@@ -136,8 +134,6 @@
 		086914311AC893D70064B6AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		089F37161AD359DF00F069DF /* TimeAndDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAndDateView.h; sourceTree = "<group>"; };
 		089F37171AD359DF00F069DF /* TimeAndDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAndDateView.m; sourceTree = "<group>"; };
-		08BC57421ADC77B60037C7C3 /* babypop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = babypop.aiff; path = ../../mindmate/MindMate/babypop.aiff; sourceTree = "<group>"; };
-		08BC57431ADC77B60037C7C3 /* babypopagain.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = babypopagain.aiff; path = ../../mindmate/MindMate/babypopagain.aiff; sourceTree = "<group>"; };
 		08BC57461ADC77BD0037C7C3 /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pop.mp3; path = ../../mindmate/MindMate/pop.mp3; sourceTree = "<group>"; };
 		08BC57481ADC77C30037C7C3 /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = menu.wav; path = ../../mindmate/MindMate/menu.wav; sourceTree = "<group>"; };
 		08BC575D1ADCA99C0037C7C3 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
@@ -254,8 +250,6 @@
 				0801386F1ADEC62E008531C1 /* babypop.caf */,
 				080138731ADEE084008531C1 /* menu.caf */,
 				080138711ADEC63D008531C1 /* babypopagain.caf */,
-				08BC57421ADC77B60037C7C3 /* babypop.aiff */,
-				08BC57431ADC77B60037C7C3 /* babypopagain.aiff */,
 				081291311ADA746D00CD49DF /* mmwelcome.m4a */,
 				0827B9471ADCBD69004F5235 /* quotes.json */,
 				08BC57521ADC9A580037C7C3 /* Fonts */,
@@ -426,14 +420,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				080950941ADE4462005732CF /* OpenSans-LightItalic.ttf in Resources */,
-				08BC57451ADC77B60037C7C3 /* babypopagain.aiff in Resources */,
 				08BC57491ADC77C30037C7C3 /* menu.wav in Resources */,
 				0809508E1ADE4453005732CF /* OpenSans-Bold.ttf in Resources */,
 				0827B9481ADCBD69004F5235 /* quotes.json in Resources */,
 				08BC575E1ADCA99C0037C7C3 /* about.html in Resources */,
 				080950921ADE445C005732CF /* OpenSans-Italic.ttf in Resources */,
 				0809508F1ADE4455005732CF /* OpenSans-BoldItalic.ttf in Resources */,
-				08BC57441ADC77B60037C7C3 /* babypop.aiff in Resources */,
 				083D6E881AC4C5770005E67C /* LaunchScreen.xib in Resources */,
 				080950971ADE446A005732CF /* OpenSans-SemiboldItalic.ttf in Resources */,
 				080138721ADEC63D008531C1 /* babypopagain.caf in Resources */,
