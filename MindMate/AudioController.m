@@ -17,8 +17,9 @@
 @property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, strong) Recording *recording;
 @property (nonatomic, strong) AVQueuePlayer *queuePlayer;
-
-
+@property (nonatomic, strong) NSURL *babyPopURL;
+@property (nonatomic, strong) NSURL *babyPopAgainURL;
+@property (nonatomic, strong) NSURL *menuSoundURL;
 
 @end
 
@@ -32,6 +33,63 @@
         
     });
     return sharedInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.babyPopURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"caf"];
+        self.babyPopAgainURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"caf"];
+        self.menuSoundURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"caf"];
+        self.babyPopPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.babyPopURL fileTypeHint:@"caf" error:nil];
+        [self babyPopPlayerSetup];
+
+        self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.babyPopAgainURL fileTypeHint:@"caf" error:nil];
+        [self babyPopAgainPlayerSetup];
+
+        self.menuSoundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.menuSoundURL fileTypeHint:@"caf" error:nil];
+        [self menuSoundSetup];
+    }
+    return self;
+}
+
+- (void)babyPopPlayerSetup {
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
+
+    // self.babyPopPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURL fileTypeHint:@"caf" error:&catError];
+
+    [self.babyPopPlayer prepareToPlay];
+    //    [self.babyPopPlayer play];
+}
+
+- (void)babyPopAgainPlayerSetup {
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
+
+    // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
+
+    [self.babyPopAgainPlayer prepareToPlay];
+}
+
+- (void)menuSoundSetup {
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
+
+    // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
+
+    [self.menuSoundPlayer prepareToPlay];
+
 }
 
 - (AVAudioRecorder *)recordAudioToDirectory {
@@ -65,7 +123,7 @@
                                                     andSimpleDate:[self simpleDateString]
                                                      andGroupName:[self groupName]
                                                    andTimeCreated:[self currentTime]];
-        NSLog(@"TIMESTAMP: %@, \n\n\nFETCH DATE: %@ \n\n\n\n NOTIFICATION TIME%@ \n\n\n\nMIDNIGHT TIME: %@, \n\n\nSIX AM TIME: %@ \n\n\nFETCHDATEFORRECORDING%@ \n\n\nBEGINNING OFDAY: %@,\n\n\n\nEND OF DAY: %@", [self currentTime], [NSDate fetchDate], [NSDate notificationTime], [NSDate midnightTime], [NSDate sixAMTime], [NSDate fetchDateForRecording], [NSDate beginningOfDay], [NSDate endOfDay]);
+    //    NSLog(@"TIMESTAMP: %@, \n\n\nFETCH DATE: %@ \n\n\n\n NOTIFICATION TIME%@ \n\n\n\nMIDNIGHT TIME: %@, \n\n\nSIX AM TIME: %@ \n\n\nFETCHDATEFORRECORDING%@ \n\n\nBEGINNING OFDAY: %@,\n\n\n\nEND OF DAY: %@", [self currentTime], [NSDate fetchDate], [NSDate notificationTime], [NSDate midnightTime], [NSDate sixAMTime], [NSDate fetchDateForRecording], [NSDate beginningOfDay], [NSDate endOfDay]);
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [[RecordingController sharedInstance] save];
@@ -102,7 +160,8 @@
 }
 
 - (void)playAudioFileAtURL:(NSURL *)url {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
         NSError *error = nil;
         NSError *catError = nil;
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
@@ -110,7 +169,7 @@
             NSLog(@"%@", [catError description]);
         }
         self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
-        self.player.numberOfLoops = 0;
+        //self.player.numberOfLoops = 0;
         [self.player prepareToPlay];
         self.player.volume = 1.0;
         //[self.player play];
@@ -119,7 +178,8 @@
         } else {
             [self.player play];
         }
-    });
+
+//    });
 }
 
 - (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url {
@@ -140,7 +200,8 @@
         } else {
             [self.player play];
         }
-    });    return self.player;
+    });
+    return self.player;
 }
 //
 //- (AVAudioPlayer *)playAudioWithData:(NSData *)data {
@@ -167,6 +228,7 @@
 }
 
 - (void)playAudioWithInt:(int)i {
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSError *error = nil;
 //    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&error];
@@ -189,6 +251,7 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChangePerSong:) name:kLabelDidChange object:nil];
 
     self.index--;
+//        });
 }
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
@@ -264,7 +327,7 @@
     formatter.timeZone = [NSTimeZone localTimeZone];
     [formatter setTimeStyle:NSDateFormatterFullStyle];
     NSString *nowString = [formatter stringFromDate:[NSDate createdAtDate]];
-    NSLog(@"CREATEDATDATESTRING: %@", nowString);
+ //   NSLog(@"CREATEDATDATESTRING: %@", nowString);
     return nowString;
 }
 
