@@ -94,7 +94,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     CGSize size = self.view.superview.frame.size;
     [self.view setCenter:CGPointMake(size.width/2, size.height/2)];
 
-    self.circleRect = CGRectMake(self.view.frame.size.width/(2*4), self.view.frame.size.height/5, self.view.frame.size.width/1.35, self.view.frame.size.width/1.35);
+    self.circleRect = CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, CGRectGetWidth(self.frame)/1.35);
     self.buttonView = [[ButtonView alloc] initWithFrame:self.circleRect];
         //self.buttonView.center = self.view.center;
     self.buttonView.delegate = self;
@@ -110,15 +110,28 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
 
+    [self layoutUnderCircleLabel];
+    [self initQuotes];
+    [self showQuote];
+}
+
+- (void)layoutUnderCircleLabel {
     self.recordLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetMaxY(self.frame) - CGRectGetHeight(self.frame)/2.9, CGRectGetWidth(self.frame) - CGRectGetWidth(self.frame)/6, self.view.frame.size.height/5)];
     [self.view addSubview:self.recordLabel];
     self.recordLabel.hidden = YES;
+    if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
+        self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:14];
+    } else if ([UIScreen mainScreen].bounds.size.width == 320 && [UIScreen mainScreen].bounds.size.height > 480) {
+        self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:16];
+    }
     //self.recordLabel.text = @"Saved";
     self.recordLabel.numberOfLines = 0;
     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
     self.recordLabel.textColor = [UIColor customTextColor];
     self.recordLabel.textAlignment = NSTextAlignmentCenter;
+}
 
+- (void)initQuotes {
     self.quoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetHeight(self.frame)/12, CGRectGetWidth(self.frame)-CGRectGetWidth(self.frame)/6, CGRectGetHeight(self.frame)-CGRectGetHeight(self.frame)/4)];
     self.quoteLabel.numberOfLines = 0;
     self.quoteLabel.textAlignment = NSTextAlignmentCenter;
@@ -133,8 +146,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.nameLabel.alpha = 0;
     [self.view addSubview:self.quoteLabel];
     [self.view addSubview:self.nameLabel];
-
-    [self showQuote];
 }
 
 - (void)showMessageForHasRecordings {
@@ -151,7 +162,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.recordLabel.alpha = 0;
             } completion:^(BOOL finished) {
-                self.recordLabel.text = @"Also, record yourself today for tomorrow.";
+                self.recordLabel.text = @"Record something today for tomorrow with some inspiration from...";
                 [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     self.recordLabel.alpha = 1;
                 } completion:^(BOOL finished) {
@@ -964,22 +975,22 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                     [[button layer] addAnimation:animation forKey:@"position"];
                    // NSLog(@"Shaking");
 
-                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-                    } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            self.recordCornerButton.transform = CGAffineTransformIdentity;
-                        } completion:^(BOOL finished) {
-                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-                            } completion:^(BOOL finished) {
-                                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                    self.recordCornerButton.transform = CGAffineTransformIdentity;
-                                } completion:nil];
-                            }];
-
-                        }];
-                    }];
+//                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+//                    } completion:^(BOOL finished) {
+//                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                            self.recordCornerButton.transform = CGAffineTransformIdentity;
+//                        } completion:^(BOOL finished) {
+//                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+//                            } completion:^(BOOL finished) {
+//                                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//                                    self.recordCornerButton.transform = CGAffineTransformIdentity;
+//                                } completion:nil];
+//                            }];
+//
+//                        }];
+//                    }];
                }
                 if ([RecordingController sharedInstance].memos.count > 0) {
                     self.tdView.hidden = NO;
@@ -1035,6 +1046,54 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                 break;
             case UIGestureRecognizerStateEnded:
             {
+                if ([RecordingController sharedInstance].memos.count < 1) {
+                    [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                        self.recordCornerButton.alpha = .5;
+                        self.menuButton.alpha = .5;
+                    }completion:^(BOOL finished) {
+                        [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                            self.recordCornerButton.alpha = 1;
+                            self.menuButton.alpha = 1;
+                        } completion:^(BOOL finished) {
+                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                            if (self.soundEffectsOn) {
+                                [self.audioHandler.babyPopAgainPlayer play];
+                                //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                                //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                            }
+                            [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+                                button.transform = CGAffineTransformIdentity;
+                            } completion:^(BOOL finished) {
+                                self.recordLabel.alpha = 0;
+                                self.recordLabel.text = @"You have no messages today. Record something inspiring today.";
+                                self.recordLabel.hidden = NO;
+                                [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    self.recordLabel.alpha = 1;
+                                } completion:^(BOOL finished) {
+                                    [UIView animateWithDuration:.2 delay:2.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                        self.recordLabel.alpha = 0;
+                                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                                    } completion:^(BOOL finished) {
+                                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                            self.recordCornerButton.transform = CGAffineTransformIdentity;
+                                        } completion:^(BOOL finished) {
+                                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                                            } completion:^(BOOL finished) {
+                                                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                                    self.recordCornerButton.transform = CGAffineTransformIdentity;
+                                                } completion:^(BOOL finished) {
+                                                }];
+                                            }];
+                                        }];
+                                    }];
+                                }];
+                            }];
+                        }];
+                    }];
+                }
                 [[AudioController sharedInstance] stopPlayingAudio];
                 self.tdView.hidden = YES;
                 self.menuButton.hidden = NO;
@@ -1059,13 +1118,14 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                     } completion:^(BOOL finished) {
                         self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
                         if (self.soundEffectsOn) {
-
+                            [self.audioHandler.babyPopAgainPlayer play];
 //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
 //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
                         }
                         [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                             button.transform = CGAffineTransformIdentity;
                         } completion:^(BOOL finished) {
+
 
                         }];
                     }];
