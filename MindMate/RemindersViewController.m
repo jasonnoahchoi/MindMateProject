@@ -59,17 +59,17 @@
             [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.notificationLabel.alpha = 1;
             } completion:nil];
-            NSLog(@"No permiossion granted");
+           // NSLog(@"No permission granted");
         }
         else if (grantedSettings.types & UIUserNotificationTypeSound & UIUserNotificationTypeAlert ){
-            NSLog(@"Sound and alert permissions ");
+           // NSLog(@"Sound and alert permissions ");
             self.notificationLabel.hidden = YES;
             self.tableView.hidden = NO;
         }
         else if (grantedSettings.types  & UIUserNotificationTypeAlert){
             self.notificationLabel.hidden = YES;
             self.tableView.hidden = NO;
-            NSLog(@"Alert Permission Granted");
+           // NSLog(@"Alert Permission Granted");
         }
     }
 }

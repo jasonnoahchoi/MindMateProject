@@ -22,4 +22,6 @@ typedef NS_ENUM(NSInteger, IntroCircleState) {
 
 @interface IntroViewController : UIViewController
 
+@property (nonatomic, strong) UILocalNotification *notification;
+
 @end

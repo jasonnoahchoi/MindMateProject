@@ -30,8 +30,11 @@
     return [UIColor colorWithHue:0.0 saturation:0.0 brightness:.91 alpha:1];
 }
 
+//+ (UIColor *)customBlueColor {
+//    return [UIColor colorWithHue:199.0/365 saturation:.7 brightness:.94 alpha:1];
+//}
 + (UIColor *)customBlueColor {
-    return [UIColor colorWithHue:199.0/365 saturation:.7 brightness:.94 alpha:1];
+    return [UIColor colorWithHue:227.0/365 saturation:.7 brightness:1 alpha:1];
 }
 
 + (UIColor *)customGreenColor {
@@ -39,7 +42,7 @@
 }
 
 + (UIColor *)customPurpleColor {
-    return [UIColor colorWithHue:246.0/360 saturation:.25 brightness:1.0 alpha:1.0];
+    return [UIColor colorWithHue:258.0/360 saturation:.33 brightness:.94 alpha:1.0];
 }
 
 + (UIColor *)customSwitchPurpleColor {
@@ -47,7 +50,7 @@
 }
 
 + (UIColor *)customTextColor {
-    return [UIColor colorWithHue:0 saturation:0 brightness:.1 alpha:1];
+    return [UIColor colorWithHue:30.0/360 saturation:.05 brightness:.31 alpha:1];
 }
 
 @end

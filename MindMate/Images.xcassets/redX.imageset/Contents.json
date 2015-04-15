@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "checkgreen.png"
+      "filename" : "Xred.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "checkgreen@2x.png"
+      "filename" : "Xred@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "checkgreen@3x.png"
+      "filename" : "Xred@3x.png"
     }
   ],
   "info" : {

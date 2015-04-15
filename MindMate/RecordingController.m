@@ -91,7 +91,7 @@
    // [[QueueManager sharedInstance] addRecording:recording];
 
     [self save];
-     NSLog(@"\n\n\n\n CORE DATA SAVED %@", recording);
+    // NSLog(@"\n\n\n\n CORE DATA SAVED %@", recording);
 }
 
 - (void)addGroupID:(NSNumber *)groupID {
@@ -100,7 +100,7 @@
     recording.groupID = groupID;
     
     [self save];
-    NSLog(@"\n\n\nGroup ID: %@", groupID);
+    //NSLog(@"\n\n\nGroup ID: %@", groupID);
 }
 
 - (void)addRecordingWithFile:(NSData *)memo {

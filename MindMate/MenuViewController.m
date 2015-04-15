@@ -20,6 +20,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
 @interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) AudioController *audioHandler;
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *menuButton;
 
@@ -52,6 +54,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.tableView.scrollEnabled = NO;
     self.tableView.separatorColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.audioHandler = [[AudioController alloc] init];
 
     self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
     self.menuButton.backgroundColor = [UIColor customGrayColor];
@@ -65,12 +68,12 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.aboutCell = [[UITableViewCell alloc] init];
     self.aboutCell.textLabel.text = @"About";
     self.aboutCell.textLabel.textColor = [UIColor whiteColor];
-    self.aboutCell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.aboutCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
     self.aboutCell.backgroundColor = [UIColor customPurpleColor];
 
     self.remindersCell = [[UITableViewCell alloc] init];
     self.remindersCell.textLabel.textColor = [UIColor whiteColor];
-    self.remindersCell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.remindersCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
     self.remindersCell.textLabel.text = @"Reminders";
     self.remindersCell.backgroundColor = [UIColor customPurpleColor];
 
@@ -78,25 +81,25 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.rateCell.textLabel.text = @"Please Rate Tomorrow";
     self.rateCell.backgroundColor = [UIColor customPurpleColor];
     self.rateCell.textLabel.textColor = [UIColor whiteColor];
-    self.rateCell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.rateCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
 
     self.tsCell = [[UITableViewCell alloc] init];
     self.tsCell.textLabel.text = @"Terms of Service";
     self.tsCell.backgroundColor = [UIColor customPurpleColor];
     self.tsCell.textLabel.textColor = [UIColor whiteColor];
-    self.tsCell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.tsCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
 
     self.feedbackCell = [[UITableViewCell alloc] init];
     self.feedbackCell.textLabel.text = @"Send Feedback";
     self.feedbackCell.backgroundColor = [UIColor customPurpleColor];
     self.feedbackCell.textLabel.textColor = [UIColor whiteColor];
-    self.feedbackCell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.feedbackCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
 
     self.introCell = [[UITableViewCell alloc] init];
     self.introCell.textLabel.text = @"View Intro Walkthrough";
     self.introCell.textLabel.textColor = [UIColor whiteColor];
     self.introCell.backgroundColor = [UIColor customPurpleColor];
-    self.introCell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.introCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
 
     self.preferencesCell = [[UITableViewCell alloc] init];
     self.preferencesCell.textLabel.text = @"Sound Effects";
@@ -110,7 +113,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 //    [[NSUserDefaults standardUserDefaults] synchronize];
     [self.soundToggle addTarget:self action:@selector(soundToggleState) forControlEvents:UIControlEventValueChanged];
     self.preferencesCell.accessoryView = self.soundToggle;
-    self.preferencesCell.textLabel.font = [UIFont fontWithName:@"Noto Sans" size:18];
+    self.preferencesCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
     //self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
 }
 
@@ -221,8 +224,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 - (void)menuPressed {
     self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
     if (self.soundEffectsOn) {
-        NSURL *menuURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"wav"];
-        [[AudioController sharedInstance] playAudioFileSoftlyAtURL:menuURL];
+        [self.audioHandler.menuSoundPlayer play];
     }
     [self dismissViewControllerAnimated:YES completion:^{
 

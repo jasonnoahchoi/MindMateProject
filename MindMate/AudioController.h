@@ -26,8 +26,12 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 @property (nonatomic) AudioState audioState;
 @property (nonatomic, strong) NSArray *audioFileQueue;
 @property (nonatomic, assign) int index;
+@property (nonatomic, strong) AVAudioPlayer *babyPopPlayer;
+@property (nonatomic, strong) AVAudioPlayer *babyPopAgainPlayer;
+@property (nonatomic, strong) AVAudioPlayer *menuSoundPlayer;
 
 + (AudioController *)sharedInstance;
+- (instancetype)init;
 //+ (AVQueuePlayer *)queuePlayerWithItems:(NSArray *)items;
 - (AVAudioRecorder *)recordAudioToDirectory;
 - (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url;
@@ -41,8 +45,6 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 - (void)playAudioFileAtURL:(NSURL *)url;
 - (void)playAudioFileSoftlyAtURL:(NSURL *)url;
 //- (AVQueuePlayer *)playQueueAudio:(NSArray *)items;
-//
-//- (id)initWithFileNameQueue:(NSArray *)queue;
 - (void)playAudioWithInt:(int)i;
 
 @end

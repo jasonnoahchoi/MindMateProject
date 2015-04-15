@@ -19,6 +19,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 @interface AppDelegate ()
 
 @property (nonatomic, strong) AudioViewController *audioVC;
+@property (nonatomic, strong) IntroViewController *introVC;
 @end
 
 @implementation AppDelegate
@@ -31,7 +32,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.window.backgroundColor = [UIColor whiteColor];
     //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     self.audioVC = [[AudioViewController alloc] init];
-    IntroViewController *introVC = [[IntroViewController alloc] init];
+    self.introVC = [[IntroViewController alloc] init];
 
     if (![[NSUserDefaults standardUserDefaults] objectForKey:soundEffectsOnKey]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:soundEffectsOnKey];
@@ -40,7 +41,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
   //  UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     BOOL finishedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:finishedIntroKey];
     if (!finishedIntro) {
-        self.window.rootViewController = introVC;
+        self.window.rootViewController = self.introVC;
     }
     if (finishedIntro) {
         self.window.rootViewController = self.audioVC;
@@ -100,6 +101,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     if (notification == self.audioVC.notification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    } else if (notification == self.introVC.notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
     // Handle the notificaton when the app is running
