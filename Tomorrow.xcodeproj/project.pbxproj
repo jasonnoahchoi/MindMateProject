@@ -12,6 +12,7 @@
 		080138741ADEE084008531C1 /* menu.caf in Resources */ = {isa = PBXBuildFile; fileRef = 080138731ADEE084008531C1 /* menu.caf */; };
 		080138771ADEEF87008531C1 /* NSArray+RecordPlayStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */; };
 		0801387A1ADF19E4008531C1 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 080138791ADF19E4008531C1 /* quotes.json */; };
+		0801387C1ADF2447008531C1 /* welcome.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0801387B1ADF2446008531C1 /* welcome.aiff */; };
 		0809508D1ADE43E8005732CF /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0809508C1ADE43E8005732CF /* LICENSE.txt */; };
 		0809508E1ADE4453005732CF /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 080950821ADE43CC005732CF /* OpenSans-Bold.ttf */; };
 		0809508F1ADE4455005732CF /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 080950831ADE43CC005732CF /* OpenSans-BoldItalic.ttf */; };
@@ -77,6 +78,7 @@
 		080138751ADEEF87008531C1 /* NSArray+RecordPlayStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+RecordPlayStrings.h"; sourceTree = "<group>"; };
 		080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+RecordPlayStrings.m"; sourceTree = "<group>"; };
 		080138791ADF19E4008531C1 /* quotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
+		0801387B1ADF2446008531C1 /* welcome.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = welcome.aiff; sourceTree = "<group>"; };
 		080950821ADE43CC005732CF /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		080950831ADE43CC005732CF /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		080950861ADE43CC005732CF /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
 				08BC57461ADC77BD0037C7C3 /* pop.mp3 */,
 				08BC57481ADC77C30037C7C3 /* menu.wav */,
+				0801387B1ADF2446008531C1 /* welcome.aiff */,
 				0801386F1ADEC62E008531C1 /* babypop.caf */,
 				080138731ADEE084008531C1 /* menu.caf */,
 				080138711ADEC63D008531C1 /* babypopagain.caf */,
@@ -433,6 +436,7 @@
 				080138701ADEC62E008531C1 /* babypop.caf in Resources */,
 				08BC57601ADCAD2E0037C7C3 /* privacy.html in Resources */,
 				080138741ADEE084008531C1 /* menu.caf in Resources */,
+				0801387C1ADF2447008531C1 /* welcome.aiff in Resources */,
 				0809508D1ADE43E8005732CF /* LICENSE.txt in Resources */,
 				080950961ADE4467005732CF /* OpenSans-Semibold.ttf in Resources */,
 				08BC57471ADC77BD0037C7C3 /* pop.mp3 in Resources */,

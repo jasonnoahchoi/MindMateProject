@@ -1459,17 +1459,18 @@ static NSString * const micOnKey = @"micOnKey";
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
                     self.menuButton.hidden = YES;
-                    NSURL *welcomeURL = [[NSBundle mainBundle] URLForResource:@"mmwelcome" withExtension:@"m4a"];
+                    [self.audioHandler.welcomePlayer play];
+                    //NSURL *welcomeURL = [[NSBundle mainBundle] URLForResource:@"welcome" withExtension:@"aiff"];
                    // NSData *songFile = [[NSData alloc] initWithContentsOfURL:welcomeURL options:NSDataReadingMappedIfSafe error:&error];
 
-                    [[AudioController sharedInstance] playAudioFileAtURL:welcomeURL];
+                    //[[AudioController sharedInstance] playAudioFileAtURL:welcomeURL];
                 }];
             }
         }
             break;
         case UIGestureRecognizerStateEnded:
         {
-            [[AudioController sharedInstance] stopPlayingAudio];
+            [self.audioHandler.welcomePlayer stop];
             self.tdView.hidden = YES;
             self.menuButton.hidden = NO;
             [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{

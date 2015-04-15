@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSURL *babyPopURL;
 @property (nonatomic, strong) NSURL *babyPopAgainURL;
 @property (nonatomic, strong) NSURL *menuSoundURL;
+@property (nonatomic, strong) NSURL *welcomeURL;
 
 @end
 
@@ -42,6 +43,7 @@
         self.babyPopURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"caf"];
         self.babyPopAgainURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"caf"];
         self.menuSoundURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"caf"];
+        self.welcomeURL = [[NSBundle mainBundle] URLForResource:@"welcome" withExtension:@"aiff"];
         self.babyPopPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.babyPopURL fileTypeHint:@"caf" error:nil];
         [self babyPopPlayerSetup];
 
@@ -50,6 +52,7 @@
 
         self.menuSoundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.menuSoundURL fileTypeHint:@"caf" error:nil];
         [self menuSoundSetup];
+        self.welcomePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.welcomeURL fileTypeHint:@"aiff" error:nil];
     }
     return self;
 }
@@ -90,6 +93,18 @@
 
     [self.menuSoundPlayer prepareToPlay];
 
+}
+
+- (void)welcomeSetup {
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
+
+    // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
+
+    [self.welcomePlayer prepareToPlay];
 }
 
 - (AVAudioRecorder *)recordAudioToDirectory {

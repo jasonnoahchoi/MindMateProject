@@ -162,7 +162,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.recordLabel.alpha = 0;
             } completion:^(BOOL finished) {
-                self.recordLabel.text = @"Record something today for tomorrow with some inspiration from...";
+                self.recordLabel.text = @"Record something today for tomorrow with some inspiration...";
                 [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     self.recordLabel.alpha = 1;
                 } completion:^(BOOL finished) {
@@ -256,8 +256,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                                               withObject:permissionBlock];
     }
 
-
-
     return result;
 }
 
@@ -294,7 +292,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             self.buttonView.recordButton.transform = CGAffineTransformIdentity;
         } completion:nil];
     }];
-  
 }
 
 - (void)buttonClones {
@@ -451,7 +448,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             }];
         }];
         self.containerView.state = ButtonStateNone;
-
     }];
 }
 
