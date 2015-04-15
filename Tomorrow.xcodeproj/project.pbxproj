@@ -11,6 +11,7 @@
 		080138721ADEC63D008531C1 /* babypopagain.caf in Resources */ = {isa = PBXBuildFile; fileRef = 080138711ADEC63D008531C1 /* babypopagain.caf */; };
 		080138741ADEE084008531C1 /* menu.caf in Resources */ = {isa = PBXBuildFile; fileRef = 080138731ADEE084008531C1 /* menu.caf */; };
 		080138771ADEEF87008531C1 /* NSArray+RecordPlayStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */; };
+		0801387A1ADF19E4008531C1 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 080138791ADF19E4008531C1 /* quotes.json */; };
 		0809508D1ADE43E8005732CF /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0809508C1ADE43E8005732CF /* LICENSE.txt */; };
 		0809508E1ADE4453005732CF /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 080950821ADE43CC005732CF /* OpenSans-Bold.ttf */; };
 		0809508F1ADE4455005732CF /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 080950831ADE43CC005732CF /* OpenSans-BoldItalic.ttf */; };
@@ -33,7 +34,6 @@
 		0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082640381ACDD253009B5AF8 /* AudioViewController.m */; };
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
-		0827B9481ADCBD69004F5235 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 0827B9471ADCBD69004F5235 /* quotes.json */; };
 		0827B94D1ADCBE27004F5235 /* QuotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0827B94C1ADCBE27004F5235 /* QuotesController.m */; };
 		0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0833C5861AD4FD7E000C945D /* NSDate+Utils.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
@@ -76,6 +76,7 @@
 		080138731ADEE084008531C1 /* menu.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = menu.caf; sourceTree = "<group>"; };
 		080138751ADEEF87008531C1 /* NSArray+RecordPlayStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+RecordPlayStrings.h"; sourceTree = "<group>"; };
 		080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+RecordPlayStrings.m"; sourceTree = "<group>"; };
+		080138791ADF19E4008531C1 /* quotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
 		080950821ADE43CC005732CF /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		080950831ADE43CC005732CF /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		080950861ADE43CC005732CF /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
@@ -110,7 +111,6 @@
 		0826403A1ACDD253009B5AF8 /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryContainerView.h; sourceTree = "<group>"; };
 		0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryContainerView.m; sourceTree = "<group>"; };
-		0827B9471ADCBD69004F5235 /* quotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
 		0827B94B1ADCBE27004F5235 /* QuotesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuotesController.h; sourceTree = "<group>"; };
 		0827B94C1ADCBE27004F5235 /* QuotesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuotesController.m; sourceTree = "<group>"; };
 		0833C5851AD4FD7E000C945D /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 				080138731ADEE084008531C1 /* menu.caf */,
 				080138711ADEC63D008531C1 /* babypopagain.caf */,
 				081291311ADA746D00CD49DF /* mmwelcome.m4a */,
-				0827B9471ADCBD69004F5235 /* quotes.json */,
+				080138791ADF19E4008531C1 /* quotes.json */,
 				08BC57521ADC9A580037C7C3 /* Fonts */,
 				081291201ADA40B500CD49DF /* Reminders */,
 				083D6E9D1AC4C6E70005E67C /* Stack.h */,
@@ -422,7 +422,6 @@
 				080950941ADE4462005732CF /* OpenSans-LightItalic.ttf in Resources */,
 				08BC57491ADC77C30037C7C3 /* menu.wav in Resources */,
 				0809508E1ADE4453005732CF /* OpenSans-Bold.ttf in Resources */,
-				0827B9481ADCBD69004F5235 /* quotes.json in Resources */,
 				08BC575E1ADCA99C0037C7C3 /* about.html in Resources */,
 				080950921ADE445C005732CF /* OpenSans-Italic.ttf in Resources */,
 				0809508F1ADE4455005732CF /* OpenSans-BoldItalic.ttf in Resources */,
@@ -437,6 +436,7 @@
 				0809508D1ADE43E8005732CF /* LICENSE.txt in Resources */,
 				080950961ADE4467005732CF /* OpenSans-Semibold.ttf in Resources */,
 				08BC57471ADC77BD0037C7C3 /* pop.mp3 in Resources */,
+				0801387A1ADF19E4008531C1 /* quotes.json in Resources */,
 				081291321ADA763100CD49DF /* mmwelcome.m4a in Resources */,
 				080950931ADE445F005732CF /* OpenSans-Light.ttf in Resources */,
 				080950951ADE4465005732CF /* OpenSans-Regular.ttf in Resources */,

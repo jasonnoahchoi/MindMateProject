@@ -28,7 +28,7 @@
 		"name" : "Robert Louis Stevenson"
 	},
 	{
-		"quote" : "I hated every minute of training, but I said, 'Don't quit. Suffer now and live the rest of your life as a champion.",
+		"quote" : "I hated every minute of training, but I said, 'Don't quit. Suffer now and live the rest of your life as a champion.'",
 		"name" : "Muhammad Ali"
 	},
 	{
@@ -318,6 +318,134 @@
     {
         "quote" : "The miracle is this: The more we share, the more we have.",
         "name" : "Leonard Nimoy"
-	}
+	},
+    {
+    	"quote" : "If you don't build your dream, someone else will hire you to help them build theirs.",
+     	"name" : "Dhirubhai Ambani"
+	},
 
+	{
+     	"quote" : "The first step toward success is taken when you refuse to be a captive of the environment in which you first find yourself.",
+     	"name" : "Mark Caine"
+	},
+
+	{
+     	"quote" : "When I dare to be powerful – to use my strength in the service of my vision, then it becomes less and less important whether I am afraid.",
+     	"name" : "Audre Lorde"
+	},
+
+	{
+     	"quote" : "Whenever you find yourself on the side of the majority, it is time to pause and reflect.",
+     	"name" : "Mark Twain"
+	},
+
+	{
+     	"quote" : "Great minds discuss ideas; average minds discuss events; small minds discuss people.",
+     	"name" : "Eleanor Roosevelt"
+	},
+
+	{
+     	"quote" : "I have not failed. I’ve just found 10,000 ways that won’t work.",
+     	"name" : "Thomas A. Edison"
+	},
+
+	{
+     	"quote" : "If you don’t value your time, neither will others. Stop giving away your time and talents. Value what you know & start charging for it.",
+     	"name" : "Kim Garst"
+	},
+
+	{
+     	"quote" : "No one can make you feel inferior without your consent.",
+     	"name" : "Eleanor Roosevelt"
+	},
+
+	{
+     	"quote" : "Let him who would enjoy a good future waste none of his present.",
+     	"name" : "Roger Babson"
+	},
+
+	{
+     	"quote" : "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+     	"name" : "Muhatma Gandhi"
+	},
+
+	{
+     	"quote" : "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack of will.",
+     	"name" : "Vince Lombardi"
+	},
+
+	{
+     	"quote" : "It is our choices, that show what we truly are, far more than our abilities.",
+     	"name" : "J.K Rowling"
+	},
+
+	{
+     	"quote" : "You have to learn the rules of the game. And then you have to play better than anyone else.",
+     	"name" : "Albert Einstein"
+	},
+
+	{
+     	"quote" : "Every great dream begins with a dreamer. Always remember, you have within you the strength, the patience, and the passion to reach for the stars to change the world.",
+     	"name" : "Harriet Tubman"
+	},
+
+	{
+     	"quote" : "I fear not the man who has practiced 10,000 kicks once, but I feear the man who has practiced one kick 10,000 times.",
+     	"name" : "Bruce Lee"
+	},
+
+	{
+     	"quote" : "The successful warrior is the average man, with laser-like focus.",
+     	"name" : "Bruce Lee"
+	},
+
+	{
+     	"quote" : "Develop success from failures. Discouragement and failure are two of the surest stepping stones to success.",
+     	"name" : "Dale Carnegie"
+	},
+
+	{
+     	"quote" : "The question isn’t who is going to let me; it’s who is going to stop me.",
+     	"name" : "Ayn Rand"
+	},
+
+	{
+     	"quote" : "If you genuinely want something, don’t wait for it – teach yourself to be impatient.",
+     	"name" : "Gurbaksh Chahal"
+	},
+
+	{
+     	"quote" : "If you want to make a permanent change, stop focusing on the size of your problems and start focusing on the size of you!",
+     	"name" : "T. Harv Eker"
+	},
+
+	{
+     	"quote" : "Don’t let the fear of losing be greater than the excitement of winning.",
+     	"name" : "Robert Kiyosaki"
+	},
+
+	{
+     	"quote" : "You can’t connect the dots looking forward; you can only connect them looking backwards. So you have to trust that the dots will somehow connect in your future. You have to trust in something – your gut, destiny, life, karma, whatever. This approach has never let me down, and it has made all the difference in my life.",
+     	"name" : "Steve Jobs"
+	},
+
+	{
+     	"quote" : "Be not afraid of life. Believe that life is worth living, and your belief will help create the fact.",
+     	"name" : "William James"
+	},
+
+	{
+     	"quote" : "The real opportunity for sucess lies within the person and not in the job.",
+     	"name" : "Zig Ziglar"
+	},
+
+	{
+     	"quote" : "Nurture your mind with great thoughts. To believe in the heroic makes heroes.",
+     	"name" : "Benjamin Disraeli"
+	},
+
+	{
+     	"quote" : "When I let go of what I am, I become what I might be.",
+     	"name" : "Lao Tzu"
+	}
 ]
