@@ -10,4 +10,6 @@
 
 @interface NSArray (RecordPlayStrings)
 
++ (NSArray *)arrayOfRecordYourselfMessages;
++ (NSArray *)arrayOfMessagesArrived;
 @end
