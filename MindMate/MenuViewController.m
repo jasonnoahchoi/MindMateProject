@@ -137,46 +137,38 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             AboutViewController *aboutVC = [[AboutViewController alloc] init];
             [self presentViewController:aboutVC animated:YES completion:nil];
         }
-           // [[StorePurchaseController sharedInstance] purchaseOptionSelectedObjectIndex:0];
             break;
         case 1: {
             RemindersViewController *reminderVC = [[RemindersViewController alloc] init];
             // UINavigationController *reminderNavController = [[UINavigationController alloc] initWithRootViewController:reminderVC];
             [self presentViewController:reminderVC animated:YES completion:nil];
         }
-          //  [[StorePurchaseController sharedInstance] restorePurchases];
             break;
         case 2: {
             NSString *appID = @"984969197";
             NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
             [[UIApplication sharedApplication] openURL:appStoreURL];
         }
-         //   [[StorePurchaseController sharedInstance] restorePurchases];
+
             break;
         case 3: {
             SupportViewController *supportVC = [[SupportViewController alloc] init];
             [self presentViewController:supportVC animated:YES completion:nil];
         }
-        //    [[StorePurchaseController sharedInstance] restorePurchases];
+
             break;
         case 4: {
             TermsViewController *termsVC = [[TermsViewController alloc] init];
             [self presentViewController:termsVC animated:YES completion:nil];
         }
-         //   [[StorePurchaseController sharedInstance] restorePurchases];
+
             break;
         case 5: {
             IntroViewController *introVC = [[IntroViewController alloc] init];
             [self presentViewController:introVC animated:YES completion:nil];
         }
-            //   [[StorePurchaseController sharedInstance] restorePurchases];
             break;
-        case 6: {
-            
-//            TermsViewController *termsVC = [[TermsViewController alloc] init];
-//            [self presentViewController:termsVC animated:YES completion:nil];
-        }
-            //   [[StorePurchaseController sharedInstance] restorePurchases];
+        case 6:
             break;
         default:
             break;

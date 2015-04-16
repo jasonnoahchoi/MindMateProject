@@ -74,7 +74,7 @@
     MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
     mailComposeViewController.mailComposeDelegate = self;
     
-    [mailComposeViewController setToRecipients:@[@"jasonnoahchoi@gmail.com"]];
+    [mailComposeViewController setToRecipients:@[@"jason@tomorrow.gives"]];
     [mailComposeViewController setSubject:@"Feedback for Tomorrow"];
     [mailComposeViewController.navigationBar setTintColor:[UIColor whiteColor]];
     
