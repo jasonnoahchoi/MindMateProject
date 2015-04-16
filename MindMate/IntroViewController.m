@@ -1451,7 +1451,7 @@ static NSString * const micOnKey = @"micOnKey";
 //                    }];
 //                }];
 //            }
-            if (self.circleState == IntroCircleStatePlay) {
+            if (self.circleState == IntroCircleStatePlay || self.circleState == IntroCircleStateNotifications) {
                 self.tdView.hidden = NO;
                 self.recordLabel.alpha = 0;
                 [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -1489,14 +1489,14 @@ static NSString * const micOnKey = @"micOnKey";
                             if (self.circleState != IntroCircleStateFinished) {
                                 self.recordLabel.alpha = 0;
                                 if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
-                                    self.recordLabel.text = @"\nAs a reminder, you will receive your recording tomorrow.\nTo get your messages, tap the Square to enable notifications.";
+                                    self.recordLabel.text = @"\nIf you missed it, hold and press the circle to hear the message.\nTo get your messages, tap the Square to enable notifications.";
                                     self.recordLabel.textAlignment = NSTextAlignmentCenter;
                                     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:14];
                                 } else if ([[UIScreen mainScreen] bounds].size.width == 320 && [UIScreen mainScreen].bounds.size.height > 480) {
                                     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:16];
-                                    self.recordLabel.text = @"As a reminder, you will receive your recording tomorrow.\nTo get your messages, tap the Square to enable notifications.";
+                                    self.recordLabel.text = @"If you missed it, hold and press the circle to hear the message.\nTo get your messages, tap the Square to enable notifications.";
                                 } else {
-                            self.recordLabel.text = @"As a reminder, you will receive your recording tomorrow.\n\nTo get your messages, tap the Square to enable notifications.";
+                            self.recordLabel.text = @"If you missed it, hold and press the circle to hear the message.\n\nTo get your messages, tap the Square to enable notifications.";
                                 }
                             }
                             [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -1532,6 +1532,16 @@ static NSString * const micOnKey = @"micOnKey";
         [animation setToValue:[NSValue valueWithCGPoint:
                                CGPointMake([button center].x - 20, [button center].y)]];
         [[button layer] addAnimation:animation forKey:@"position"];
+        self.recordLabel.alpha = 0;
+        self.recordLabel.text = @"You must enable your microphone to use the recording feature. Go to Settings > Privacy > Microphone";
+        self.recordLabel.hidden = NO;
+        [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.recordLabel.alpha = 1;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.recordLabel.alpha = 0;
+            } completion:nil];
+        }];
       //  NSLog(@"Shaking");
         return;
     }
@@ -1565,7 +1575,8 @@ static NSString * const micOnKey = @"micOnKey";
 
                         } completion:^(BOOL finished) {
                             [self stopRecording];
-                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"aiff"];
+                           // [self.audioHandler.babyPopTwoPlayer play];
+                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"caf"];
                             [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
                             [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);

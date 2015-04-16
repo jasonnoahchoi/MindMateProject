@@ -96,13 +96,13 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
     self.circleRect = CGRectMake(CGRectGetWidth(self.frame)/8, self.view.frame.size.height/5, CGRectGetWidth(self.frame)/1.35, CGRectGetWidth(self.frame)/1.35);
     self.buttonView = [[ButtonView alloc] initWithFrame:self.circleRect];
-        //self.buttonView.center = self.view.center;
+    //self.buttonView.center = self.view.center;
     self.buttonView.delegate = self;
     [self.view addSubview:self.buttonView];
     self.buttonView.hidden = YES;
 
     self.audioHandler = [[AudioController alloc] init];
-    [AudioController sharedInstance];
+    //[AudioController sharedInstance];
 
     self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
 
@@ -288,7 +288,10 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     [UIView animateWithDuration:.3 delay:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
     } completion:^(BOOL finished) {
-        [self.audioHandler.babyPopPlayer play];
+        self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+        if (self.soundEffectsOn) {
+            [self.audioHandler.babyPopPlayer play];
+        }
         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.buttonView.recordButton.transform = CGAffineTransformIdentity;
         } completion:nil];
@@ -322,7 +325,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 }
 
 - (void)afterRecordButtons {
-  //  [self layoutEndPoints];
+    //  [self layoutEndPoints];
 
     UIImage *redX = [UIImage imageNamed:@"redx"];
     self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.frame), redX.size.width, redX.size.height)];
@@ -410,7 +413,10 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         self.playCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
         self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
     } completion:^(BOOL finished) {
-        [self.audioHandler.babyPopAgainPlayer play];
+        self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+        if (self.soundEffectsOn) {
+            [self.audioHandler.babyPopAgainPlayer play];
+        }
         [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.playCornerButton.transform = CGAffineTransformIdentity;
             self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
@@ -421,8 +427,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 #pragma mark - Getters
 
 - (void)recordAgainPressed:(id)sender {
-//    self.confirmLabel.alpha = 0;
-//    self.recordAgainLabel.alpha = 0;
+    //    self.confirmLabel.alpha = 0;
+    //    self.recordAgainLabel.alpha = 0;
     Recording *recording = [RecordingController sharedInstance].memos.lastObject;
     [[RecordingController sharedInstance] removeRecording:recording];
     [[RecordingController sharedInstance] save];
@@ -497,12 +503,12 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 }
 
 - (void)menuPressed:(id)sender {
-    self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-    if (self.soundEffectsOn) {
+    //self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+   // if (self.soundEffectsOn) {
         [self.audioHandler.menuSoundPlayer play];
-//    NSURL *menuURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"wav"];
-//    [[AudioController sharedInstance] playAudioFileSoftlyAtURL:menuURL];
-    }
+        //    NSURL *menuURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"wav"];
+        //    [[AudioController sharedInstance] playAudioFileSoftlyAtURL:menuURL];
+    //}
     switch (self.circleState) {
         case (CircleStateRecord):
         {
@@ -528,13 +534,13 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                             [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 self.centerRecordButtonClone.transform = CGAffineTransformScale(CGAffineTransformIdentity, .667, .667);
                             }completion:^(BOOL finished) {
-                                 [self presentViewController:self.menuVC animated:YES completion:^{
-                                     self.centerRecordButtonClone.hidden = NO;
+                                [self presentViewController:self.menuVC animated:YES completion:^{
+                                    self.centerRecordButtonClone.hidden = NO;
                                     // self.centerRecordButtonClone.transform = CGAffineTransformIdentity;
                                     // self.centerRecordButtonClone.center = self.buttonView.center;
-                                     self.menuButton.hidden = YES;
-                                     //self.buttonView.hidden = NO;
-                                 }];
+                                    self.menuButton.hidden = YES;
+                                    //self.buttonView.hidden = NO;
+                                }];
                             }];
                         }];
                     }];
@@ -620,13 +626,13 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                                     self.menuButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
                                     self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, .667, .667);
                                 } completion:^(BOOL finished) {
-                                        [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                            self.menuButton.transform = CGAffineTransformIdentity;
-                                            self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-                                        } completion:^(BOOL finished) {
-                                                [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.3 initialSpringVelocity:.4 options:UIViewAnimationOptionCurveLinear animations:^{
-                                                    self.buttonView.recordButton.transform = CGAffineTransformIdentity;
-                                                } completion:nil];
+                                    [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                        self.menuButton.transform = CGAffineTransformIdentity;
+                                        self.buttonView.recordButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                                    } completion:^(BOOL finished) {
+                                        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.3 initialSpringVelocity:.4 options:UIViewAnimationOptionCurveLinear animations:^{
+                                            self.buttonView.recordButton.transform = CGAffineTransformIdentity;
+                                        } completion:nil];
 
                                     }];
                                     //self.buttonView.hidden = NO;
@@ -638,7 +644,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             }];
         }
             break;
-            case (CircleStatePlay):
+        case (CircleStatePlay):
         {
             self.centerPlayButtonClone.hidden = NO;
             [UIView animateWithDuration:.15 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -851,7 +857,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         [animation setToValue:[NSValue valueWithCGPoint:
                                CGPointMake([button center].x - 20, [button center].y)]];
         [[button layer] addAnimation:animation forKey:@"position"];
-     //   NSLog(@"Shaking");
+        //   NSLog(@"Shaking");
         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
         } completion:^(BOOL finished) {
@@ -860,64 +866,81 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             } completion:nil];
         }];
 
-//        switch (sender.state) {
-//            case UIGestureRecognizerStateBegan:
-//            {
-//                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                    button.backgroundColor = [UIColor customGreenColor];
-//                    button.transform = CGAffineTransformScale(button.transform, 0.6, 0.6);
-//                } completion:^(BOOL finished) {
-//                    [[AudioController sharedInstance] playAudio];
-//                }];
-//            }
-//                break;
-//            case UIGestureRecognizerStateEnded:
-//                {
-//                    //button.transform = CGAffineTransformIdentity;
-//                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
-//                } completion:^(BOOL finished) {
-//                    [[[AudioController sharedInstance] playAudio] stop];
-//                    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.75, 0.75);
-//                    } completion:^(BOOL finished) {
-//                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                            button.transform = CGAffineTransformIdentity;
-//                            button.backgroundColor = [UIColor customPurpleColor];
-//                        } completion:nil];
-//                    }];
-//                }];
-//                }
-//                break;
-//                
-//            default:
-//                break;
-//        }
+        //        switch (sender.state) {
+        //            case UIGestureRecognizerStateBegan:
+        //            {
+        //                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        //                    button.backgroundColor = [UIColor customGreenColor];
+        //                    button.transform = CGAffineTransformScale(button.transform, 0.6, 0.6);
+        //                } completion:^(BOOL finished) {
+        //                    [[AudioController sharedInstance] playAudio];
+        //                }];
+        //            }
+        //                break;
+        //            case UIGestureRecognizerStateEnded:
+        //                {
+        //                    //button.transform = CGAffineTransformIdentity;
+        //                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        //                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
+        //                } completion:^(BOOL finished) {
+        //                    [[[AudioController sharedInstance] playAudio] stop];
+        //                    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        //                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.75, 0.75);
+        //                    } completion:^(BOOL finished) {
+        //                        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        //                            button.transform = CGAffineTransformIdentity;
+        //                            button.backgroundColor = [UIColor customPurpleColor];
+        //                        } completion:nil];
+        //                    }];
+        //                }];
+        //                }
+        //                break;
+        //
+        //            default:
+        //                break;
+        //        }
     }
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     NSLog(@"Notification received");
+    self.nameLabel.alpha = 0;
+    self.nameLabel.textColor = [UIColor whiteColor];
+    self.nameLabel.text = @"No more messages";
+    self.tdView.hidden = YES;
+    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.nameLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.5 delay:1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.nameLabel.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.nameLabel.textColor = [UIColor customTextColor];
+            self.nameLabel.text = @"";
+            //self.tdView.hidden = NO;
+           // self.tdView.dateLabel.alpha = 1;
+        }];
+    }];
+
     //self.record = [RecordingController sharedInstance].memoNames.lastObject;
-//    [[RecordingController sharedInstance] removeRecording:self.record];
+    //    [[RecordingController sharedInstance] removeRecording:self.record];
     //self.counter--;
 }
 
 - (void)labelDidChange:(NSNotification *)notification {
 
     if (self.indexForRecording <= (self.mutableRecordings.count)) {
-    self.tdView.timeLabel.text =  self.mutableRecordings[self.indexForRecording];
+        self.tdView.timeLabel.text =  self.mutableRecordings[self.indexForRecording];
 
-    self.tdView.dateLabel.text = self.record.simpleDate;
+        self.tdView.dateLabel.text = self.record.simpleDate;
     } else {
         return;
     }
-     self.indexForRecording--;
+    self.indexForRecording--;
 
-   // NSLog(@"Called Label did change");
+    // NSLog(@"Called Label did change");
 
 
-//    }
+    //    }
 }
 
 - (void) dealloc
@@ -955,156 +978,97 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 }
 
 - (void)didTryToPlayWithPlayButton:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
-//    if ([RecordingController sharedInstance].memos) {
-//        [self predicate];
-        switch (sender.state) {
-            case UIGestureRecognizerStateBegan:
-            {
-                if ([RecordingController sharedInstance].memos.count < 1) {
-                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-                    [animation setDuration:0.07];
-                    [animation setRepeatCount:2];
-                    [animation setAutoreverses:YES];
-                    [animation setFromValue:[NSValue valueWithCGPoint:
-                                             CGPointMake([button center].x + 20, [button center].y)]];
-                    [animation setToValue:[NSValue valueWithCGPoint:
-                                           CGPointMake([button center].x - 20, [button center].y)]];
-                    [[button layer] addAnimation:animation forKey:@"position"];
-                   // NSLog(@"Shaking");
+    //    if ([RecordingController sharedInstance].memos) {
+    //        [self predicate];
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            if ([RecordingController sharedInstance].memos.count < 1) {
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+                [animation setDuration:0.07];
+                [animation setRepeatCount:2];
+                [animation setAutoreverses:YES];
+                [animation setFromValue:[NSValue valueWithCGPoint:
+                                         CGPointMake([button center].x + 20, [button center].y)]];
+                [animation setToValue:[NSValue valueWithCGPoint:
+                                       CGPointMake([button center].x - 20, [button center].y)]];
+                [[button layer] addAnimation:animation forKey:@"position"];
+                // NSLog(@"Shaking");
 
-//                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-//                    } completion:^(BOOL finished) {
-//                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                            self.recordCornerButton.transform = CGAffineTransformIdentity;
-//                        } completion:^(BOOL finished) {
-//                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-//                            } completion:^(BOOL finished) {
-//                                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                                    self.recordCornerButton.transform = CGAffineTransformIdentity;
-//                                } completion:nil];
-//                            }];
-//
-//                        }];
-//                    }];
-               }
-                if ([RecordingController sharedInstance].memos.count > 0) {
-                    self.tdView.hidden = NO;
-                    self.recordCornerButton.hidden = YES;
-                    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        self.menuButton.alpha = 0;
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
-                    } completion:^(BOOL finished) {
-                        self.menuButton.hidden = YES;
-//                        NSArray *array = [RecordingController sharedInstance].memos;
-//                        //NSArray *array = [RecordingController sharedInstance].fetchMemos;
-//                        NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
-//                        self.mutableRecordings = [[NSMutableArray alloc] init];
-//                        //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
-//                        for (int i = 0; i < [array count]; i++) {
-//                            Recording *recording = [RecordingController sharedInstance].memos[i];
-//                           // Recording *recording = [RecordingController sharedInstance].fetchMemos[i];
-//                            [self.mutableRecordings addObject:recording.timeCreated];
-//                            self.tdView.timeLabel.text = recording.timeCreated;
-//                            self.tdView.dateLabel.text = recording.simpleDate;
-//
-//                            //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
-//                            //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
-//                            //[mutableArray addObject:item];
-//                            NSArray *documentsPath = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], recording.urlPath, nil];
-//                            NSURL *urlPath = [NSURL fileURLWithPathComponents:documentsPath];
-//
-//                            [mutableArray addObject:urlPath];
-//
-//                            self.record = recording;
-//                        }
-
-                        self.indexForRecording = self.mutableRecordings.count - 2;
-
-                        for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
-                            [AudioController sharedInstance].index = i;
-                            self.tdView.timeLabel.text = self.record.timeCreated;
-                            self.tdView.dateLabel.text = self.record.simpleDate;
-                            [[AudioController sharedInstance] playAudioWithInt:i];
-                        }
-
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
-
-
-                        //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
-                        //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
-                        //                dispatch_async(dispatch_get_main_queue(), ^{
-                        //                    [[AudioController sharedInstance] playQueueAudio:mutableArray];
-                        //                });
-
-                           }];
-                }
+                //                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                //                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                //                    } completion:^(BOOL finished) {
+                //                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                //                            self.recordCornerButton.transform = CGAffineTransformIdentity;
+                //                        } completion:^(BOOL finished) {
+                //                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                //                                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                //                            } completion:^(BOOL finished) {
+                //                                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                //                                    self.recordCornerButton.transform = CGAffineTransformIdentity;
+                //                                } completion:nil];
+                //                            }];
+                //
+                //                        }];
+                //                    }];
             }
-                break;
-            case UIGestureRecognizerStateEnded:
-            {
-                if ([RecordingController sharedInstance].memos.count < 1) {
-                    [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
-                        self.recordCornerButton.alpha = .5;
-                        self.menuButton.alpha = .5;
-                    }completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-                            self.recordCornerButton.alpha = 1;
-                            self.menuButton.alpha = 1;
-                        } completion:^(BOOL finished) {
-                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-                            if (self.soundEffectsOn) {
-                                [self.audioHandler.babyPopAgainPlayer play];
-                                //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
-                                //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
-                            }
-                            [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
-                                button.transform = CGAffineTransformIdentity;
-                            } completion:^(BOOL finished) {
-                                self.recordLabel.alpha = 0;
-                                self.recordLabel.text = @"You have no messages today. Record something inspiring today.";
-                                self.recordLabel.hidden = NO;
-                                [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                    self.recordLabel.alpha = 1;
-                                } completion:^(BOOL finished) {
-                                    [UIView animateWithDuration:.2 delay:2.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                        self.recordLabel.alpha = 0;
-                                        self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-                                    } completion:^(BOOL finished) {
-                                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                            self.recordCornerButton.transform = CGAffineTransformIdentity;
-                                        } completion:^(BOOL finished) {
-                                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                                self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
-                                            } completion:^(BOOL finished) {
-                                                [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                                    self.recordCornerButton.transform = CGAffineTransformIdentity;
-                                                } completion:^(BOOL finished) {
-                                                }];
-                                            }];
-                                        }];
-                                    }];
-                                }];
-                            }];
-                        }];
-                    }];
-                }
-                [[AudioController sharedInstance] stopPlayingAudio];
-                self.tdView.hidden = YES;
-                self.menuButton.hidden = NO;
-                self.hasPlayed = YES;
-                self.recordCornerButton.alpha = 0;
-                self.recordCornerButton.hidden = NO;
+            if ([RecordingController sharedInstance].memos.count > 0) {
+                self.tdView.hidden = NO;
+                self.recordCornerButton.hidden = YES;
+                [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.menuButton.alpha = 0;
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
+                } completion:^(BOOL finished) {
+                    self.menuButton.hidden = YES;
+                    //                        NSArray *array = [RecordingController sharedInstance].memos;
+                    //                        //NSArray *array = [RecordingController sharedInstance].fetchMemos;
+                    //                        NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+                    //                        self.mutableRecordings = [[NSMutableArray alloc] init];
+                    //                        //Recording *recording = [RecordingController sharedInstance].memos.firstObject;
+                    //                        for (int i = 0; i < [array count]; i++) {
+                    //                            Recording *recording = [RecordingController sharedInstance].memos[i];
+                    //                           // Recording *recording = [RecordingController sharedInstance].fetchMemos[i];
+                    //                            [self.mutableRecordings addObject:recording.timeCreated];
+                    //                            self.tdView.timeLabel.text = recording.timeCreated;
+                    //                            self.tdView.dateLabel.text = recording.simpleDate;
+                    //
+                    //                            //AVAsset *asset = [AVAsset assetWithURL:[[NSURL alloc] initFileURLWithPath:recording.simpleDate]];
+                    //                            //AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
+                    //                            //[mutableArray addObject:item];
+                    //                            NSArray *documentsPath = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], recording.urlPath, nil];
+                    //                            NSURL *urlPath = [NSURL fileURLWithPathComponents:documentsPath];
+                    //
+                    //                            [mutableArray addObject:urlPath];
+                    //
+                    //                            self.record = recording;
+                    //                        }
 
-                //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
-                //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
-                //            }
+                    self.indexForRecording = self.mutableRecordings.count - 2;
+                    //self.tdView.hidden = NO;
+                    for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
+                        [AudioController sharedInstance].index = i;
+                        self.tdView.timeLabel.text = self.record.timeCreated;
+                        self.tdView.dateLabel.text = self.record.simpleDate;
+                        [[AudioController sharedInstance] playAudioWithInt:i];
+                    }
+
+                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
+                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
 
 
+                    //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
+                    //AVQueuePlayer *playing = [[AVQueuePlayer alloc] init];
+                    //                dispatch_async(dispatch_get_main_queue(), ^{
+                    //                    [[AudioController sharedInstance] playQueueAudio:mutableArray];
+                    //                });
+
+                }];
+            }
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+        {
+            if ([RecordingController sharedInstance].memos.count < 1) {
                 [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
                     self.recordCornerButton.alpha = .5;
@@ -1118,22 +1082,81 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                         self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
                         if (self.soundEffectsOn) {
                             [self.audioHandler.babyPopAgainPlayer play];
-//                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
-//                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                            //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                            //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
                         }
                         [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                             button.transform = CGAffineTransformIdentity;
                         } completion:^(BOOL finished) {
-
-
+                            self.recordLabel.alpha = 0;
+                            self.recordLabel.text = @"You have no messages today. Record something inspiring today.";
+                            self.recordLabel.hidden = NO;
+                            [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                self.recordLabel.alpha = 1;
+                            } completion:^(BOOL finished) {
+                                [UIView animateWithDuration:.2 delay:2.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    self.recordLabel.alpha = 0;
+                                    self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                                } completion:^(BOOL finished) {
+                                    [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                        self.recordCornerButton.transform = CGAffineTransformIdentity;
+                                    } completion:^(BOOL finished) {
+                                        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                            self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+                                        } completion:^(BOOL finished) {
+                                            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                                self.recordCornerButton.transform = CGAffineTransformIdentity;
+                                            } completion:^(BOOL finished) {
+                                            }];
+                                        }];
+                                    }];
+                                }];
+                            }];
                         }];
                     }];
                 }];
             }
-                break;
-            default:
-                break;
+            [[AudioController sharedInstance] stopPlayingAudio];
+            self.tdView.hidden = YES;
+            self.menuButton.hidden = NO;
+            self.hasPlayed = YES;
+            self.recordCornerButton.alpha = 0;
+            self.recordCornerButton.hidden = NO;
+
+            //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
+            //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
+            //            }
+
+
+            [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                self.recordCornerButton.alpha = .5;
+                self.menuButton.alpha = .5;
+            }completion:^(BOOL finished) {
+                [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                    self.recordCornerButton.alpha = 1;
+                    self.menuButton.alpha = 1;
+                } completion:^(BOOL finished) {
+                    self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                    if (self.soundEffectsOn) {
+                        [self.audioHandler.babyPopAgainPlayer play];
+                        //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                        //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                    }
+                    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+                        button.transform = CGAffineTransformIdentity;
+                    } completion:^(BOOL finished) {
+
+
+                    }];
+                }];
+            }];
         }
+            break;
+        default:
+            break;
+    }
 
 }
 
@@ -1149,7 +1172,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         [animation setToValue:[NSValue valueWithCGPoint:
                                CGPointMake([button center].x - 20, [button center].y)]];
         [[button layer] addAnimation:animation forKey:@"position"];
-       // NSLog(@"Shaking");
+        // NSLog(@"Shaking");
         self.recordLabel.alpha = 0;
         self.recordLabel.text = @"To record, you must enable your microphone in Settings > Privacy > Microphone";
         self.recordLabel.hidden = NO;
@@ -1159,24 +1182,24 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             [UIView animateWithDuration:.3 delay:.8 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.recordLabel.alpha = 0;
             } completion:^(BOOL finished) {
-              //  self.recordLabel.hidden = YES;
+                //  self.recordLabel.hidden = YES;
             }];
         }];
     } else {
         [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.recordAgainButton.transform = CGAffineTransformIdentity;
-        } completion:nil];
-    }];
+            self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordAgainButton.transform = CGAffineTransformIdentity;
+            } completion:nil];
+        }];
 
         if (self.containerView.state == ButtonStateNone) {
             switch (sender.state) {
                 case UIGestureRecognizerStateBegan:
                 {
-                    [self recording];
                     self.recordLabel.alpha = 0;
+                    [self recording];
                     self.playCornerButton.alpha = 0;
                     [UIView animateWithDuration:.2
                                           delay:.1
@@ -1205,9 +1228,9 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
                         } completion:^(BOOL finished) {
                             [self stopRecording];
+                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
                             if (self.soundEffectsOn) {
-                                // [self.audioHandler.babyPopAgainPlayer play];
-                                NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"aiff"];
+                               NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"caf"];
                                 [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
                             }
 
@@ -1217,8 +1240,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                                 //self.buttonView.recordingComplete = YES;
 
                             } completion:^(BOOL finished) {
-                                self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-                                                                [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+
+                                [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                                     button.transform = CGAffineTransformIdentity;
                                 } completion:^(BOOL finished) {
                                     //                                self.containerView.alpha = 0;
@@ -1227,8 +1250,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                                     button.backgroundColor = [UIColor customGreenColor];
                                     self.recordAgainButton.hidden = NO;
                                     self.recordAgainButton.alpha = 0;
-//                                    self.recordAgainLabel.hidden = NO;
-//                                    self.recordAgainLabel.alpha = 0;
+                                    //                                    self.recordAgainLabel.hidden = NO;
+                                    //                                    self.recordAgainLabel.alpha = 0;
                                     [self zeroState:ButtonStateZero];
                                     //self.title = @"Choose a State";
                                     self.recordCornerButton.hidden = YES;
@@ -1258,7 +1281,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
 - (void)recording {
     [[AudioController sharedInstance] recordAudioToDirectory];
-  //  NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
+    //  NSLog(@"----------RECORDING STARTED-------------- %@", [[AudioController sharedInstance] recordAudioToDirectory]);
     //    }
 }
 
@@ -1271,12 +1294,12 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.recordAgainButton.center = self.centerRecordAgainButton;
         self.confirmButton.center = self.centerConfirmButton;
-       // self.confirmLabel.alpha = 0;
+        // self.confirmLabel.alpha = 0;
     } completion:^(BOOL finished) {
         self.recordAgainButton.hidden = YES;
         //self.recordAgainLabel.hidden = YES;
-       // self.recordAgainLabel.alpha = 1;
-      //  self.confirmLabel.alpha = 1;
+        // self.recordAgainLabel.alpha = 1;
+        //  self.confirmLabel.alpha = 1;
         self.confirmButton.hidden = YES;
     }];
     self.containerView.alpha = 1;
@@ -1287,10 +1310,10 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 - (void)showBottomButtons {
     self.recordAgainButton.alpha = 1;
     self.recordAgainButton.hidden = NO;
-//    self.recordAgainLabel.hidden = NO;
+    //    self.recordAgainLabel.hidden = NO;
     self.confirmButton.alpha = 1;
     self.confirmButton.hidden = NO;
-//    self.confirmLabel.hidden = NO;
+    //    self.confirmLabel.hidden = NO;
     [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.recordAgainButton.center = self.endPointRecordAgainButton;
         self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);

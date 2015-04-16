@@ -34,6 +34,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.audioVC = [[AudioViewController alloc] init];
     self.introVC = [[IntroViewController alloc] init];
 
+    
     if (![[NSUserDefaults standardUserDefaults] objectForKey:soundEffectsOnKey]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:soundEffectsOnKey];
     }
