@@ -1459,18 +1459,18 @@ static NSString * const micOnKey = @"micOnKey";
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
                     self.menuButton.hidden = YES;
-                    [self.audioHandler.welcomePlayer play];
-                    //NSURL *welcomeURL = [[NSBundle mainBundle] URLForResource:@"welcome" withExtension:@"aiff"];
+                    //[self.audioHandler.welcomePlayer play];
+                    NSURL *welcomeURL = [[NSBundle mainBundle] URLForResource:@"welcome" withExtension:@"aiff"];
                    // NSData *songFile = [[NSData alloc] initWithContentsOfURL:welcomeURL options:NSDataReadingMappedIfSafe error:&error];
 
-                    //[[AudioController sharedInstance] playAudioFileAtURL:welcomeURL];
+                    [[AudioController sharedInstance] playAudioFileAtURL:welcomeURL];
                 }];
             }
         }
             break;
         case UIGestureRecognizerStateEnded:
         {
-            [self.audioHandler.welcomePlayer stop];
+            [[AudioController sharedInstance] stopPlayingAudio];
             self.tdView.hidden = YES;
             self.menuButton.hidden = NO;
             [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1481,7 +1481,7 @@ static NSString * const micOnKey = @"micOnKey";
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                     self.menuButton.alpha = 1;
                 } completion:^(BOOL finished) {
-                    [self.audioHandler.babyPopAgainPlayer play];
+                    [self.audioHandler.babyPopAgainTwoPlayer play];
                     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                         button.transform = CGAffineTransformIdentity;
                     } completion:^(BOOL finished) {
@@ -1564,12 +1564,15 @@ static NSString * const micOnKey = @"micOnKey";
                             button.transform = CGAffineTransformScale(button.transform, .9, .9);
 
                         } completion:^(BOOL finished) {
+                            [self stopRecording];
+                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"aiff"];
+                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
                             [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
 
                             } completion:^(BOOL finished) {
-                                [self stopRecording];
-                                [self.audioHandler.babyPopPlayer play];
+
+                                //[self.audioHandler.babyPopTwoPlayer play];
                                 [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                                     button.transform = CGAffineTransformIdentity;
                                 } completion:^(BOOL finished) {

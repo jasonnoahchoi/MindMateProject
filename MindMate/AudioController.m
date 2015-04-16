@@ -43,7 +43,10 @@
         self.babyPopURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"caf"];
         self.babyPopAgainURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"caf"];
         self.menuSoundURL = [[NSBundle mainBundle] URLForResource:@"menu" withExtension:@"caf"];
-        self.welcomeURL = [[NSBundle mainBundle] URLForResource:@"welcome" withExtension:@"aiff"];
+//        self.welcomeURL = [[NSBundle mainBundle] URLForResource:@"welcome" withExtension:@"m4a"];
+//        self.welcomePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.welcomeURL fileTypeHint:@"m4a" error:nil];
+//        [self welcomeSetup];
+
         self.babyPopPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.babyPopURL fileTypeHint:@"caf" error:nil];
         [self babyPopPlayerSetup];
 
@@ -52,7 +55,8 @@
 
         self.menuSoundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.menuSoundURL fileTypeHint:@"caf" error:nil];
         [self menuSoundSetup];
-        self.welcomePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.welcomeURL fileTypeHint:@"aiff" error:nil];
+        self.babyPopTwoPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.babyPopURL error:nil];
+        self.babyPopAgainTwoPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.babyPopAgainURL error:nil];
     }
     return self;
 }
@@ -95,7 +99,19 @@
 
 }
 
-- (void)welcomeSetup {
+//- (void)welcomeSetup {
+//    NSError *catError = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//    if (catError) {
+//        NSLog(@"%@", [catError description]);
+//    }
+//
+//    // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
+//
+//    [self.welcomePlayer prepareToPlay];
+//}
+
+- (void)babyPopTwoSetup {
     NSError *catError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
     if (catError) {
@@ -104,8 +120,20 @@
 
     // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
 
-    [self.welcomePlayer prepareToPlay];
+    [self.babyPopTwoPlayer prepareToPlay];
 }
+- (void)babyPopAgainSetup {
+    NSError *catError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+    if (catError) {
+        NSLog(@"%@", [catError description]);
+    }
+
+    // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
+
+    [self.babyPopAgainTwoPlayer prepareToPlay];
+}
+
 
 - (AVAudioRecorder *)recordAudioToDirectory {
     NSError *error = nil;
@@ -128,8 +156,9 @@
 - (AVAudioRecorder *)stopRecording {
     [self.recorder stop];
  //   NSLog(@"\n\nURL:%@", self.url);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+   // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self data];
+    //     });
 
         [[RecordingController sharedInstance] addRecordingWithURL:[self nowString]
                                                       andIDNumber:[self randomIDNumber]
@@ -140,11 +169,8 @@
                                                    andTimeCreated:[self currentTime]];
     //    NSLog(@"TIMESTAMP: %@, \n\n\nFETCH DATE: %@ \n\n\n\n NOTIFICATION TIME%@ \n\n\n\nMIDNIGHT TIME: %@, \n\n\nSIX AM TIME: %@ \n\n\nFETCHDATEFORRECORDING%@ \n\n\nBEGINNING OFDAY: %@,\n\n\n\nEND OF DAY: %@", [self currentTime], [NSDate fetchDate], [NSDate notificationTime], [NSDate midnightTime], [NSDate sixAMTime], [NSDate fetchDateForRecording], [NSDate beginningOfDay], [NSDate endOfDay]);
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[RecordingController sharedInstance] save];
-        });
-    });
 
+            [[RecordingController sharedInstance] save];
 
     //  NSLog(@"\n\n CURRENT TIME: %@ \n\n\n SIMPLE DATE: %@ \n\n\n DATE CREATED: %@ \n\n\n RECORDINGURLFILENAME: %@", [self currentTime], [self simpleDateString], [self createdAtDateString], [self nowString]);
 

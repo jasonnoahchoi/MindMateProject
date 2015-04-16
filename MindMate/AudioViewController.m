@@ -102,6 +102,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.buttonView.hidden = YES;
 
     self.audioHandler = [[AudioController alloc] init];
+    [AudioController sharedInstance];
 
     self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
 
@@ -1175,6 +1176,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                 case UIGestureRecognizerStateBegan:
                 {
                     [self recording];
+                    self.recordLabel.alpha = 0;
                     self.playCornerButton.alpha = 0;
                     [UIView animateWithDuration:.2
                                           delay:.1
@@ -1202,20 +1204,21 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                             button.transform = CGAffineTransformScale(button.transform, .9, .9);
 
                         } completion:^(BOOL finished) {
+                            [self stopRecording];
+                            if (self.soundEffectsOn) {
+                                // [self.audioHandler.babyPopAgainPlayer play];
+                                NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"aiff"];
+                                [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                            }
+
                             [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
 
                                 //self.buttonView.recordingComplete = YES;
 
                             } completion:^(BOOL finished) {
-                                [self stopRecording];
                                 self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-                                if (self.soundEffectsOn) {
-                                    [self.audioHandler.babyPopPlayer play];
-//                                NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"aiff"];
-//                                [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
-                                }
-                                [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+                                                                [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                                     button.transform = CGAffineTransformIdentity;
                                 } completion:^(BOOL finished) {
                                     //                                self.containerView.alpha = 0;

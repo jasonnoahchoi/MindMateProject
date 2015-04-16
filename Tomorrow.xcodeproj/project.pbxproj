@@ -12,7 +12,6 @@
 		080138741ADEE084008531C1 /* menu.caf in Resources */ = {isa = PBXBuildFile; fileRef = 080138731ADEE084008531C1 /* menu.caf */; };
 		080138771ADEEF87008531C1 /* NSArray+RecordPlayStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */; };
 		0801387A1ADF19E4008531C1 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 080138791ADF19E4008531C1 /* quotes.json */; };
-		0801387C1ADF2447008531C1 /* welcome.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0801387B1ADF2446008531C1 /* welcome.aiff */; };
 		0809508D1ADE43E8005732CF /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0809508C1ADE43E8005732CF /* LICENSE.txt */; };
 		0809508E1ADE4453005732CF /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 080950821ADE43CC005732CF /* OpenSans-Bold.ttf */; };
 		0809508F1ADE4455005732CF /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 080950831ADE43CC005732CF /* OpenSans-BoldItalic.ttf */; };
@@ -31,7 +30,6 @@
 		081291291ADA453000CD49DF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 081291281ADA453000CD49DF /* AboutViewController.m */; };
 		0812912C1ADA5C0F00CD49DF /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812912B1ADA5C0F00CD49DF /* SupportViewController.m */; };
 		0812912F1ADA5DFD00CD49DF /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812912E1ADA5DFD00CD49DF /* TermsViewController.m */; };
-		081291321ADA763100CD49DF /* mmwelcome.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 081291311ADA746D00CD49DF /* mmwelcome.m4a */; };
 		0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082640381ACDD253009B5AF8 /* AudioViewController.m */; };
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
@@ -45,6 +43,7 @@
 		083D6E9F1AC4C6E70005E67C /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E9E1AC4C6E70005E67C /* Stack.m */; };
 		083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */; };
 		083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6EAD1AC4C8550005E67C /* RecordingController.m */; };
+		083E83FC1ADF7B0700041F3A /* welcome.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 083E83FB1ADF7B0700041F3A /* welcome.aiff */; };
 		086914301AC891F40064B6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0869142F1AC891F40064B6AE /* Main.storyboard */; };
 		086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086914311AC893D70064B6AE /* AVFoundation.framework */; };
 		089F37181AD359DF00F069DF /* TimeAndDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089F37171AD359DF00F069DF /* TimeAndDateView.m */; };
@@ -78,7 +77,6 @@
 		080138751ADEEF87008531C1 /* NSArray+RecordPlayStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+RecordPlayStrings.h"; sourceTree = "<group>"; };
 		080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+RecordPlayStrings.m"; sourceTree = "<group>"; };
 		080138791ADF19E4008531C1 /* quotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
-		0801387B1ADF2446008531C1 /* welcome.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = welcome.aiff; sourceTree = "<group>"; };
 		080950821ADE43CC005732CF /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		080950831ADE43CC005732CF /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		080950861ADE43CC005732CF /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 		0812912B1ADA5C0F00CD49DF /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
 		0812912D1ADA5DFD00CD49DF /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		0812912E1ADA5DFD00CD49DF /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
-		081291311ADA746D00CD49DF /* mmwelcome.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = mmwelcome.m4a; sourceTree = "<group>"; };
 		082640371ACDD253009B5AF8 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
 		082640381ACDD253009B5AF8 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
 		082640391ACDD253009B5AF8 /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
@@ -132,6 +129,7 @@
 		083D6EA11AC4C7070005E67C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		083D6EAC1AC4C8550005E67C /* RecordingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingController.h; sourceTree = "<group>"; };
 		083D6EAD1AC4C8550005E67C /* RecordingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingController.m; sourceTree = "<group>"; };
+		083E83FB1ADF7B0700041F3A /* welcome.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = welcome.aiff; sourceTree = "<group>"; };
 		0869142F1AC891F40064B6AE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		086914311AC893D70064B6AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		089F37161AD359DF00F069DF /* TimeAndDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAndDateView.h; sourceTree = "<group>"; };
@@ -249,11 +247,10 @@
 				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
 				08BC57461ADC77BD0037C7C3 /* pop.mp3 */,
 				08BC57481ADC77C30037C7C3 /* menu.wav */,
-				0801387B1ADF2446008531C1 /* welcome.aiff */,
 				0801386F1ADEC62E008531C1 /* babypop.caf */,
 				080138731ADEE084008531C1 /* menu.caf */,
+				083E83FB1ADF7B0700041F3A /* welcome.aiff */,
 				080138711ADEC63D008531C1 /* babypopagain.caf */,
-				081291311ADA746D00CD49DF /* mmwelcome.m4a */,
 				080138791ADF19E4008531C1 /* quotes.json */,
 				08BC57521ADC9A580037C7C3 /* Fonts */,
 				081291201ADA40B500CD49DF /* Reminders */,
@@ -434,14 +431,13 @@
 				083D6E851AC4C5770005E67C /* Images.xcassets in Resources */,
 				086914301AC891F40064B6AE /* Main.storyboard in Resources */,
 				080138701ADEC62E008531C1 /* babypop.caf in Resources */,
+				083E83FC1ADF7B0700041F3A /* welcome.aiff in Resources */,
 				08BC57601ADCAD2E0037C7C3 /* privacy.html in Resources */,
 				080138741ADEE084008531C1 /* menu.caf in Resources */,
-				0801387C1ADF2447008531C1 /* welcome.aiff in Resources */,
 				0809508D1ADE43E8005732CF /* LICENSE.txt in Resources */,
 				080950961ADE4467005732CF /* OpenSans-Semibold.ttf in Resources */,
 				08BC57471ADC77BD0037C7C3 /* pop.mp3 in Resources */,
 				0801387A1ADF19E4008531C1 /* quotes.json in Resources */,
-				081291321ADA763100CD49DF /* mmwelcome.m4a in Resources */,
 				080950931ADE445F005732CF /* OpenSans-Light.ttf in Resources */,
 				080950951ADE4465005732CF /* OpenSans-Regular.ttf in Resources */,
 			);

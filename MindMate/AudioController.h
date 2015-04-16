@@ -30,6 +30,8 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 @property (nonatomic, strong) AVAudioPlayer *babyPopAgainPlayer;
 @property (nonatomic, strong) AVAudioPlayer *menuSoundPlayer;
 @property (nonatomic, strong) AVAudioPlayer *welcomePlayer;
+@property (nonatomic, strong) AVAudioPlayer *babyPopTwoPlayer;
+@property (nonatomic, strong) AVAudioPlayer *babyPopAgainTwoPlayer;
 
 + (AudioController *)sharedInstance;
 - (instancetype)init;

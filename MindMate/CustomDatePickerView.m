@@ -270,7 +270,7 @@ typedef enum : NSInteger {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = @"Record something inspiring today!";
     localNotification.fireDate = selectedDate;
-    localNotification.applicationIconBadgeNumber = 1;
+    //localNotification.applicationIconBadgeNumber = 1;
     
     if ([self.frequency isEqualToString:@"Daily"]) {
         localNotification.repeatInterval = NSCalendarUnitDay;
