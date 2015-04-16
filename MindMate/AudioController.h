@@ -43,6 +43,7 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 - (NSArray *)documentsPath;
 - (NSString *)randomIDNumber;
 - (NSString *)simpleDateString;
+- (NSString *)currentTime;
 - (NSString *)groupName;
 - (NSData *)data;
 - (void)playAudioFileAtURL:(NSURL *)url;
