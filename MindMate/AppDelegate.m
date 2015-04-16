@@ -106,6 +106,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     } else if (notification == self.introVC.notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 1;
     // Handle the notificaton when the app is running
     NSLog(@"Recieved Notification %@", notification);
 

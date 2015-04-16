@@ -788,7 +788,7 @@ static NSString * const micOnKey = @"micOnKey";
 //        }
             break;
         case IntroCircleStateNotifications: {
-             [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound categories:nil]];
+             [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge categories:nil]];
             self.circleState = IntroCircleStateStarted;
         }
         case IntroCircleStateStarted: {
