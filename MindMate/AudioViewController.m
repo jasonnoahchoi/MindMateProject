@@ -1023,6 +1023,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
                         for (int i = 0; i < [AudioController sharedInstance].audioFileQueue.count; i++) {
                             [AudioController sharedInstance].index = i;
+                            self.tdView.timeLabel.text = self.record.timeCreated;
+                            self.tdView.dateLabel.text = self.record.simpleDate;
                             [[AudioController sharedInstance] playAudioWithInt:i];
                         }
 
