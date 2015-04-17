@@ -217,8 +217,6 @@
 			children = (
 				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
-				0827B94B1ADCBE27004F5235 /* QuotesController.h */,
-				0827B94C1ADCBE27004F5235 /* QuotesController.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
 				082640381ACDD253009B5AF8 /* AudioViewController.m */,
 				080138751ADEEF87008531C1 /* NSArray+RecordPlayStrings.h */,
@@ -241,32 +239,12 @@
 				0812912B1ADA5C0F00CD49DF /* SupportViewController.m */,
 				081291271ADA453000CD49DF /* AboutViewController.h */,
 				081291281ADA453000CD49DF /* AboutViewController.m */,
-				08BC575D1ADCA99C0037C7C3 /* about.html */,
-				08BC575F1ADCAD2E0037C7C3 /* privacy.html */,
 				0812912D1ADA5DFD00CD49DF /* TermsViewController.h */,
 				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
-				08BC57461ADC77BD0037C7C3 /* pop.mp3 */,
-				08BC57481ADC77C30037C7C3 /* menu.wav */,
-				0801386F1ADEC62E008531C1 /* babypop.caf */,
-				080138731ADEE084008531C1 /* menu.caf */,
-				083E83FB1ADF7B0700041F3A /* welcome.aiff */,
-				080138711ADEC63D008531C1 /* babypopagain.caf */,
-				080138791ADF19E4008531C1 /* quotes.json */,
 				08BC57521ADC9A580037C7C3 /* Fonts */,
 				081291201ADA40B500CD49DF /* Reminders */,
-				083D6E9D1AC4C6E70005E67C /* Stack.h */,
-				083D6E9E1AC4C6E70005E67C /* Stack.m */,
-				083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */,
-				081291241ADA41F400CD49DF /* Recording.h */,
-				081291251ADA41F400CD49DF /* Recording.m */,
-				08CE94EF1ACBB04F00B83395 /* User.h */,
-				08CE94F01ACBB04F00B83395 /* User.m */,
-				08CE94E91ACBB04F00B83395 /* Queue.h */,
-				08CE94EA1ACBB04F00B83395 /* Queue.m */,
-				083D6EAC1AC4C8550005E67C /* RecordingController.h */,
-				083D6EAD1AC4C8550005E67C /* RecordingController.m */,
-				08CC1FC91AC9E1B60083B861 /* AudioController.h */,
-				08CC1FCA1AC9E1B60083B861 /* AudioController.m */,
+				08C74A1D1AE16838003158EF /* Model */,
+				08C74A1C1AE1682A003158EF /* Handlers */,
 				0869142F1AC891F40064B6AE /* Main.storyboard */,
 				083D6E841AC4C5770005E67C /* Images.xcassets */,
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
@@ -279,6 +257,15 @@
 		083D6E771AC4C5770005E67C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				08BC575D1ADCA99C0037C7C3 /* about.html */,
+				08BC575F1ADCAD2E0037C7C3 /* privacy.html */,
+				08BC57461ADC77BD0037C7C3 /* pop.mp3 */,
+				08BC57481ADC77C30037C7C3 /* menu.wav */,
+				0801386F1ADEC62E008531C1 /* babypop.caf */,
+				080138731ADEE084008531C1 /* menu.caf */,
+				083E83FB1ADF7B0700041F3A /* welcome.aiff */,
+				080138711ADEC63D008531C1 /* babypopagain.caf */,
+				080138791ADF19E4008531C1 /* quotes.json */,
 				083D6E781AC4C5770005E67C /* Info.plist */,
 				083D6E791AC4C5770005E67C /* main.m */,
 			);
@@ -316,6 +303,35 @@
 				0809508B1ADE43CC005732CF /* OpenSans-SemiboldItalic.ttf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		08C74A1C1AE1682A003158EF /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				0827B94B1ADCBE27004F5235 /* QuotesController.h */,
+				0827B94C1ADCBE27004F5235 /* QuotesController.m */,
+				083D6EAC1AC4C8550005E67C /* RecordingController.h */,
+				083D6EAD1AC4C8550005E67C /* RecordingController.m */,
+				08CC1FC91AC9E1B60083B861 /* AudioController.h */,
+				08CC1FCA1AC9E1B60083B861 /* AudioController.m */,
+			);
+			name = Handlers;
+			sourceTree = "<group>";
+		};
+		08C74A1D1AE16838003158EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				083D6E9D1AC4C6E70005E67C /* Stack.h */,
+				083D6E9E1AC4C6E70005E67C /* Stack.m */,
+				083D6EA01AC4C7070005E67C /* Model.xcdatamodeld */,
+				081291241ADA41F400CD49DF /* Recording.h */,
+				081291251ADA41F400CD49DF /* Recording.m */,
+				08CE94EF1ACBB04F00B83395 /* User.h */,
+				08CE94F01ACBB04F00B83395 /* User.m */,
+				08CE94E91ACBB04F00B83395 /* Queue.h */,
+				08CE94EA1ACBB04F00B83395 /* Queue.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		389A77263D7056F4363E0CD5 /* Frameworks */ = {

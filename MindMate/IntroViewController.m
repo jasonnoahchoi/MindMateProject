@@ -217,8 +217,6 @@ static NSString * const micOnKey = @"micOnKey";
             [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.playCornerButton.transform = CGAffineTransformIdentity;
                 self.recordCornerButton.transform = CGAffineTransformIdentity;
-
-                // self.recordCornerButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
             } completion:^(BOOL finished) {
                 self.recordCornerButtonClone.hidden = NO;
                 self.recordCornerButton.hidden = YES;
@@ -248,7 +246,7 @@ static NSString * const micOnKey = @"micOnKey";
         case IntroCircleStateFinished:
         case IntroCircleStateNotifications:
             break;
-        case (IntroCircleStateRecord):
+        case IntroCircleStateRecord:
         {
             self.centerRecordButtonClone.center = self.endPointRecordCornerButton;
             [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -293,7 +291,6 @@ static NSString * const micOnKey = @"micOnKey";
                                             }];
                                         }];
                                     }];
-                                    //self.buttonView.hidden = NO;
                                 }];
                             }];
                         }];
@@ -302,7 +299,7 @@ static NSString * const micOnKey = @"micOnKey";
             }];
         }
             break;
-        case (IntroCircleStatePlay):
+        case IntroCircleStatePlay:
         {
             self.centerPlayButtonClone.hidden = NO;
             [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -822,7 +819,7 @@ static NSString * const micOnKey = @"micOnKey";
             } completion:^(BOOL finished) {
                 self.hasRecordings = YES;
                 self.notification = [[UILocalNotification alloc] init];
-                self.notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
+                self.notification.alertBody = @"Tomorrow has brought you yesterday's messages, today.";
                 self.notification.timeZone = [NSTimeZone localTimeZone];
                 self.notification.fireDate = [NSDate notificationTime];
                 [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];

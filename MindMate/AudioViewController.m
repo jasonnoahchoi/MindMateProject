@@ -617,7 +617,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             self.counter++;
             self.hasRecordings = YES;
             self.notification = [[UILocalNotification alloc] init];
-            self.notification.alertBody = @"Tomorrow has brought you yesterday's inspirations, today.";
+            self.notification.alertBody = @"Tomorrow has brought you yesterday's messages, today.";
             self.notification.timeZone = [NSTimeZone localTimeZone];
             self.notification.fireDate = [NSDate notificationTime];
             [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];
@@ -639,7 +639,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         //    [[AudioController sharedInstance] playAudioFileSoftlyAtURL:menuURL];
     //}
     switch (self.circleState) {
-        case (CircleStateRecord):
+        case CircleStateRecord:
         {
             self.buttonView.hidden = YES;
             self.centerRecordButtonClone.hidden = NO;
@@ -677,7 +677,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             }];
         }
             break;
-        case (CircleStatePlay):
+        case CircleStatePlay:
         {
             self.buttonView.hidden = YES;
             self.centerPlayButtonClone.hidden = NO;
@@ -1233,6 +1233,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     [[AudioController sharedInstance] stopRecording];
 }
 
+// Puts each instance 
 - (void)loadRecordingsToPlay {
     NSArray *array = [RecordingController sharedInstance].memos;
     self.mutableArray = [[NSMutableArray alloc] init];
