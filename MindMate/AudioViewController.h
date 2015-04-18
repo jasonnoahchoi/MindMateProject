@@ -11,8 +11,9 @@
 
 typedef enum {
     CircleStateNone,
+    CircleStateLoad,
     CircleStateRecord,
-    CircleStatePlay,
+    CircleStatePlay
 } CircleState;
 
 @interface AudioViewController : UIViewController

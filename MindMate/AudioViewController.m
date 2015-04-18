@@ -330,53 +330,60 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 }
 
 - (void)showMessageForHasRecordings {
-    if ([RecordingController sharedInstance].memos.count > 0) {
-        self.recordLabel.alpha = 0;
-        self.recordLabel.hidden = NO;
-        NSUInteger randomIndex = arc4random() % [[NSArray arrayOfMessagesArrived] count];
-        NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
-        self.recordLabel.text = [NSArray arrayOfMessagesArrived][randomIndex];
-        //self.recordLabel.text = @"Hooray! Your messages from yesterday are here.";
-        [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.recordLabel.alpha = 1;
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                self.recordLabel.alpha = 0;
+    self.circleState = CircleStateLoad;
+    if (self.circleState == CircleStateLoad) {
+        if ([RecordingController sharedInstance].memos.count > 0) {
+            self.recordLabel.alpha = 0;
+            self.recordLabel.hidden = NO;
+            NSUInteger randomIndex = arc4random() % [[NSArray arrayOfMessagesArrived] count];
+            NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
+            self.recordLabel.text = [NSArray arrayOfMessagesArrived][randomIndex];
+            //self.recordLabel.text = @"Hooray! Your messages from yesterday are here.";
+            [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordLabel.alpha = 1;
             } completion:^(BOOL finished) {
-                self.recordLabel.text = @"Record something today for tomorrow with some inspiration...";
-                [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    self.recordLabel.alpha = 1;
+                [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.recordLabel.alpha = 0;
                 } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.5 delay:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        self.recordLabel.alpha = 0;
+                    self.recordLabel.text = @"Record something today for tomorrow with some inspiration...";
+                    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        self.recordLabel.alpha = 1;
                     } completion:^(BOOL finished) {
-                        self.recordLabel.text = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
-                        [UIView animateWithDuration:.5 delay:.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            self.recordLabel.alpha = 1;
+                        [UIView animateWithDuration:.5 delay:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            self.recordLabel.alpha = 0;
                         } completion:^(BOOL finished) {
-                            [UIView animateWithDuration:.5 delay:2.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                self.recordLabel.alpha = 0;
+                            self.recordLabel.text = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+                            [UIView animateWithDuration:.5 delay:.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                self.recordLabel.alpha = 1;
                             } completion:^(BOOL finished) {
+                                [UIView animateWithDuration:.5 delay:2.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    self.recordLabel.alpha = 0;
+                                } completion:^(BOOL finished) {
+                                    self.circleState = CircleStateRecord;
+                                }];
                             }];
                         }];
-                    }];
 
+                    }];
                 }];
             }];
-        }];
-    } else {
-        self.recordLabel.alpha = 0;
-        self.recordLabel.hidden = NO;
-        NSUInteger randomIndex = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
-        self.recordLabel.text = [NSArray arrayOfRecordYourselfMessages][randomIndex];
-        [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.recordLabel.alpha = 1;
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                self.recordLabel.alpha = 0;
-            } completion:nil];
-        }];
+        } else {
+            self.recordLabel.alpha = 0;
+            self.recordLabel.hidden = NO;
+            NSUInteger randomIndex = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
+            self.recordLabel.text = [NSArray arrayOfRecordYourselfMessages][randomIndex];
+            [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordLabel.alpha = 1;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.recordLabel.alpha = 0;
+                } completion:^(BOOL finished) {
+                    self.circleState = CircleStateRecord;
+                }];
+            }];
+        }
     }
+
 }
 
 - (void)showQuote {
@@ -1067,8 +1074,12 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                 self.recordAgainButton.transform = CGAffineTransformIdentity;
             } completion:nil];
         }];
+        
+        if (self.circleState == CircleStateLoad) {
+            return;
+        }
 
-        if (self.containerView.state == ButtonStateNone) {
+        if (self.containerView.state == ButtonStateNone || self.circleState == CircleStateRecord) {
             switch (sender.state) {
                 case UIGestureRecognizerStateBegan:
                 {
