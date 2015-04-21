@@ -6,15 +6,19 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>D145431F-B984-4B61-8E43-CC1223888558</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MindMate</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C9F22D7A0178440E76392908F86F1E09D93CD935</key>
 		<string>github.com:jasonnoahchoi/MindMateProject.git</string>
 	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MindMate.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>C9F22D7A0178440E76392908F86F1E09D93CD935</key>
-		<string>mindmate/</string>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:jasonnoahchoi/MindMateProject.git</string>
@@ -30,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>C9F22D7A0178440E76392908F86F1E09D93CD935</string>
 			<key>IDESourceControlWCCName</key>
-			<string>mindmate</string>
+			<string>MindMate</string>
 		</dict>
 	</array>
 </dict>
