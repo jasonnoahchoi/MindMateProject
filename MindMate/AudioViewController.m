@@ -1079,7 +1079,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             return;
         }
 
-        if (self.containerView.state == ButtonStateNone || self.circleState == CircleStateRecord) {
+        if (self.containerView.state != ButtonStateZero && self.circleState == CircleStateRecord) {
             switch (sender.state) {
                 case UIGestureRecognizerStateBegan:
                 {
@@ -1136,9 +1136,10 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
                                     self.recordAgainButton.hidden = NO;
                                     self.recordAgainButton.alpha = 0;
                                     [self zeroState:ButtonStateZero];
+                                    self.containerView.state = ButtonStateZero;
                                     self.recordCornerButton.hidden = YES;
                                     self.playCornerButton.hidden = YES;
-                                    [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                                    [UIView animateWithDuration:.01 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                                         //  self.containerView.alpha = 1;
                                         // [self.containerView animateLayoutButtons];
                                         self.recordAgainButton.alpha = 1;
@@ -1159,29 +1160,30 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     }
 }
 
+
 // ---- Not using this for now as I don't need it if I'm not using CategoryContainerView
-//- (void)didTryToPlay:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
-//    if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateAmbition || self.containerView.state == ButtonStateZero) {
-//
-//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-//        [animation setDuration:0.07];
-//        [animation setRepeatCount:2];
-//        [animation setAutoreverses:YES];
-//        [animation setFromValue:[NSValue valueWithCGPoint:
-//                                 CGPointMake([button center].x + 20, [button center].y)]];
-//        [animation setToValue:[NSValue valueWithCGPoint:
-//                               CGPointMake([button center].x - 20, [button center].y)]];
-//        [[button layer] addAnimation:animation forKey:@"position"];
-//        //   NSLog(@"Shaking");
-//        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//            self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
-//        } completion:^(BOOL finished) {
-//            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                self.recordAgainButton.transform = CGAffineTransformIdentity;
-//            } completion:nil];
-//        }];
-//    }
-//}
+- (void)didTryToPlay:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {
+    if (self.containerView.state == ButtonStateFocus || self.containerView.state == ButtonStateFun || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateImagination || self.containerView.state == ButtonStatePresence || self.containerView.state == ButtonStateCourage || self.containerView.state == ButtonStateAmbition || self.containerView.state == ButtonStateZero) {
+
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+        [animation setDuration:0.07];
+        [animation setRepeatCount:2];
+        [animation setAutoreverses:YES];
+        [animation setFromValue:[NSValue valueWithCGPoint:
+                                 CGPointMake([button center].x + 20, [button center].y)]];
+        [animation setToValue:[NSValue valueWithCGPoint:
+                               CGPointMake([button center].x - 20, [button center].y)]];
+        [[button layer] addAnimation:animation forKey:@"position"];
+        //   NSLog(@"Shaking");
+        [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.recordAgainButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.05);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.recordAgainButton.transform = CGAffineTransformIdentity;
+            } completion:nil];
+        }];
+    }
+}
 
 #pragma mark - Notifications
 
