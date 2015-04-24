@@ -11,15 +11,19 @@
 #import "UIColor+Colors.h"
 #import "IntroViewController.h"
 #import "RecordingController.h"
+#import "SupportViewController.h"
 #import "NSDate+Utils.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
 static NSString * const soundEffectsOnKey = @"soundEffects";
+static NSString * const launchCountKey = @"launchCount";
+static NSString * const remindLaterKey = @"remind";
 
 @interface AppDelegate ()
 
 @property (nonatomic, strong) AudioViewController *audioVC;
 @property (nonatomic, strong) IntroViewController *introVC;
+@property (nonatomic, assign) NSInteger launchCount;
 @end
 
 @implementation AppDelegate
@@ -39,6 +43,10 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:soundEffectsOnKey];
     }
 
+    self.launchCount = [[NSUserDefaults standardUserDefaults] integerForKey:launchCountKey];
+
+    [self trackLaunches];
+
   //  UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     BOOL finishedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:finishedIntroKey];
     if (!finishedIntro) {
@@ -51,8 +59,71 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
     [self.window makeKeyAndVisible];
 
+    [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(rateApp) userInfo:nil repeats:NO];
+
     return YES;
 }
+
+- (void)rateApp {
+    if (self.launchCount == 3) {
+        UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"rate app");
+            NSString *appID = @"984969197";
+            NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
+            [[UIApplication sharedApplication] openURL:appStoreURL];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"Cancel");
+            SupportViewController *rateAppVC = [[SupportViewController alloc] init];
+            //UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rateAppVC];
+            [self.window.rootViewController presentViewController:rateAppVC animated:YES completion:nil];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Remind Me Later" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:remindLaterKey];
+        }]];
+
+        [self.window.rootViewController presentViewController:rateAppAlertController animated:YES completion:nil];
+    }
+
+    BOOL remind = [[NSUserDefaults standardUserDefaults] boolForKey:remindLaterKey];
+    if (self.launchCount == 8 && remind) {
+        UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"rate app");
+            NSString *appName = @"984969197";
+            NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appName]];
+            [[UIApplication sharedApplication] openURL:appStoreURL];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"Cancel");
+            SupportViewController *rateAppVC = [[SupportViewController alloc] init];
+            // UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rateAppVC];
+            [self.window.rootViewController presentViewController:rateAppVC animated:YES completion:nil];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"No, thanks" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        }]];
+        [self.window.rootViewController presentViewController:rateAppAlertController animated:YES completion:nil];
+    }
+
+}
+
+#pragma mark - Launch Tracker
+- (void)trackLaunches {
+//    NSInteger launchCount = [[NSUserDefaults standardUserDefaults] integerForKey:launchCountKey];
+
+    if (self.launchCount) {
+        self.launchCount++;
+    } else {
+        self.launchCount = 1;
+    }
+
+    NSLog(@"%ld", (long) self.launchCount);
+
+    [[NSUserDefaults standardUserDefaults] setInteger:self.launchCount forKey:launchCountKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
