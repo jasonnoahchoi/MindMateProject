@@ -46,7 +46,6 @@ static NSString * const micOnKey = @"micOnKey";
 @property (nonatomic, assign) CGPoint endPointRecordAgainButton;
 @property (nonatomic, assign) CGPoint endPointConfirmButton;
 
-
 @property (nonatomic, strong) UIButton *recordCornerButton;
 @property (nonatomic, strong) UIButton *playCornerButton;
 @property (nonatomic, strong) UIButton *recordCornerButtonClone;
@@ -1379,7 +1378,7 @@ static NSString * const micOnKey = @"micOnKey";
                                     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:16];
                                     self.recordLabel.text = @"Your message will be here tomorrow. Press and hold to hear it again.\nTo get your messages, tap the Square to enable notifications.";
                                 } else {
-                            self.recordLabel.text = @"Your message will be here tomorrow. If you need to, press and hold to hear the message again.\n\nTo get your messages, tap the Square to enable notifications.";
+                            self.recordLabel.text = @"Your message will be here tomorrow. Press and hold to hear the message again.\n\nTo get your messages, tap the Square to enable notifications.";
                                 }
                             }
                             [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{

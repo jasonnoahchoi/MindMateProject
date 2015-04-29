@@ -36,11 +36,6 @@
     NSString *html = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"] encoding:NSStringEncodingConversionAllowLossy error:nil];
     [webView loadHTMLString:html baseURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]];
     [self.view addSubview:webView];
-
-   // self.label.text = @"Thank you to the following people: \n\nDesign & UX Guidance: Ben Adamson\nIntro Voice: Krista\nTechnical Guidance: Caleb Hicks, Bryan Bryce, Joshua Howland, Andrew Madsen, Taylor Mott, Daniel Curvelo, Shawn Sou \n\nFinally, a very special thanks to my family and friends for their support and DevMountain for guiding me throughout these past few months.";
-
-  //  self.label.backgroundColor = [UIColor blueColor];
-    // Do any additional setup after loading the view.
 }
 
 

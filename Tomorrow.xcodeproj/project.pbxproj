@@ -222,36 +222,17 @@
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
 				082640381ACDD253009B5AF8 /* AudioViewController.m */,
-				080138751ADEEF87008531C1 /* NSArray+RecordPlayStrings.h */,
-				080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */,
 				08C6FD621AD65B7500FFD983 /* IntroViewController.h */,
 				08C6FD631AD65B7500FFD983 /* IntroViewController.m */,
-				089F37161AD359DF00F069DF /* TimeAndDateView.h */,
-				089F37171AD359DF00F069DF /* TimeAndDateView.m */,
-				0833C5851AD4FD7E000C945D /* NSDate+Utils.h */,
-				0833C5861AD4FD7E000C945D /* NSDate+Utils.m */,
-				08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */,
-				08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */,
-				082640391ACDD253009B5AF8 /* ButtonView.h */,
-				0826403A1ACDD253009B5AF8 /* ButtonView.m */,
-				08E92EB51AF181A400C3687D /* MenuView.h */,
-				08E92EB61AF181A400C3687D /* MenuView.m */,
-				0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */,
-				0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */,
-				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
-				08CC7E571AD616D500D8BA3C /* MenuViewController.m */,
-				0812912A1ADA5C0F00CD49DF /* SupportViewController.h */,
-				0812912B1ADA5C0F00CD49DF /* SupportViewController.m */,
-				081291271ADA453000CD49DF /* AboutViewController.h */,
-				081291281ADA453000CD49DF /* AboutViewController.m */,
-				0812912D1ADA5DFD00CD49DF /* TermsViewController.h */,
-				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
+				08E92EB91AF18C1600C3687D /* Views */,
+				08E92EB81AF18BFE00C3687D /* Menu */,
 				08BC57521ADC9A580037C7C3 /* Fonts */,
 				081291201ADA40B500CD49DF /* Reminders */,
 				08C74A1D1AE16838003158EF /* Model */,
 				08C74A1C1AE1682A003158EF /* Handlers */,
-				0869142F1AC891F40064B6AE /* Main.storyboard */,
+				08E92EBA1AF18C3200C3687D /* Utilities */,
 				083D6E841AC4C5770005E67C /* Images.xcassets */,
+				0869142F1AC891F40064B6AE /* Main.storyboard */,
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
 				083D6E771AC4C5770005E67C /* Supporting Files */,
 			);
@@ -337,6 +318,49 @@
 				08CE94EA1ACBB04F00B83395 /* Queue.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		08E92EB81AF18BFE00C3687D /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
+				08CC7E571AD616D500D8BA3C /* MenuViewController.m */,
+				0812912A1ADA5C0F00CD49DF /* SupportViewController.h */,
+				0812912B1ADA5C0F00CD49DF /* SupportViewController.m */,
+				081291271ADA453000CD49DF /* AboutViewController.h */,
+				081291281ADA453000CD49DF /* AboutViewController.m */,
+				0812912D1ADA5DFD00CD49DF /* TermsViewController.h */,
+				0812912E1ADA5DFD00CD49DF /* TermsViewController.m */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		08E92EB91AF18C1600C3687D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				089F37161AD359DF00F069DF /* TimeAndDateView.h */,
+				089F37171AD359DF00F069DF /* TimeAndDateView.m */,
+				082640391ACDD253009B5AF8 /* ButtonView.h */,
+				0826403A1ACDD253009B5AF8 /* ButtonView.m */,
+				08E92EB51AF181A400C3687D /* MenuView.h */,
+				08E92EB61AF181A400C3687D /* MenuView.m */,
+				0826403B1ACDD253009B5AF8 /* CategoryContainerView.h */,
+				0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		08E92EBA1AF18C3200C3687D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				080138751ADEEF87008531C1 /* NSArray+RecordPlayStrings.h */,
+				080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */,
+				0833C5851AD4FD7E000C945D /* NSDate+Utils.h */,
+				0833C5861AD4FD7E000C945D /* NSDate+Utils.m */,
+				08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */,
+				08CA1C7E1ACF066200D74EFC /* UIColor+Colors.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		389A77263D7056F4363E0CD5 /* Frameworks */ = {
