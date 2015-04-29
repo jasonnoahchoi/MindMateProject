@@ -1222,7 +1222,7 @@ static NSString * const micOnKey = @"micOnKey";
                                         [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.3 initialSpringVelocity:.4 options:UIViewAnimationOptionCurveLinear animations:^{
                                             self.buttonView.playButton.transform = CGAffineTransformIdentity;
                                         } completion:^(BOOL finished) {
-                                            self.recordLabel.text = @"Pump up the volume! Press and hold on the circle to playback. Release to stop.";
+                                            self.recordLabel.text = @"You get your messages tomorrow, but today, press and hold the circle to playback. Release to stop.";
                                             //self.recordLabel.center = self.rightOfRecordLabel;
                                             self.recordLabel.hidden = NO;
                                             [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1372,12 +1372,12 @@ static NSString * const micOnKey = @"micOnKey";
                             if (self.circleState != IntroCircleStateFinished) {
                                 self.recordLabel.alpha = 0;
                                 if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
-                                    self.recordLabel.text = @"\nIf you missed it, press and hold the circle to hear the message.\nTo get your messages, tap the Square to enable notifications.";
+                                    self.recordLabel.text = @"\nYour message will be here tomorrow. Press and hold to hear it.\nTo get your messages, tap the Square to enable notifications.";
                                     self.recordLabel.textAlignment = NSTextAlignmentCenter;
                                     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:14];
                                 } else if ([[UIScreen mainScreen] bounds].size.width == 320 && [UIScreen mainScreen].bounds.size.height > 480) {
                                     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:16];
-                                    self.recordLabel.text = @"If you missed it, hold and press the circle to hear the message.\nTo get your messages, tap the Square to enable notifications.";
+                                    self.recordLabel.text = @"Your message will be here tomorrow. Press and hold to hear it.\nTo get your messages, tap the Square to enable notifications.";
                                 } else {
                             self.recordLabel.text = @"If you missed it, hold and press the circle to hear the message.\n\nTo get your messages, tap the Square to enable notifications.";
                                 }

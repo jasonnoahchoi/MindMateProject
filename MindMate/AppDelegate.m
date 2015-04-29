@@ -177,7 +177,7 @@ static NSString * const remindLaterKey = @"remind";
     } else if (notification == self.introVC.notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 1;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     // Handle the notificaton when the app is running
     NSLog(@"Recieved Notification %@", notification);
 

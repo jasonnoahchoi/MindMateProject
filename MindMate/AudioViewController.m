@@ -22,6 +22,7 @@
 static NSString * const hasRecordingsKey = @"hasRecordings";
 static NSString * const numberOfRecordingsKey = @"numberOfRecordings";
 static NSString * const soundEffectsOnKey = @"soundEffects";
+static NSString * const launchCountKey = @"launchCount";
 
 @interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate, MenuViewControllerDelegate>
 
@@ -935,6 +936,10 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
                     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(labelDidChange:) name:kLabelDidChange object:nil];
                     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:kAudioFileFinished object:nil];
+                    if (self.notification) {
+                        [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
+                        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+                    }
 
 
                     //              [[AudioController sharedInstance] initWithFileNameQueue:mutableArray];
