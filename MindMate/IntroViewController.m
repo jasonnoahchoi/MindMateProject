@@ -31,7 +31,6 @@ static NSString * const micOnKey = @"micOnKey";
 @property (nonatomic, strong) Recording *record;
 @property (nonatomic, strong) MenuViewController *menuVC;
 @property (nonatomic, strong) AudioViewController *audioVC;
-@property (nonatomic, strong) AudioController *audioHandler;
 @property (nonatomic, strong) MenuView *menuView;
 @property (nonatomic) IntroCircleState circleState;
 

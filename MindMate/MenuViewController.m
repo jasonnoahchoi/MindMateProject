@@ -21,7 +21,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 
 @interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) AudioController *audioHandler;
 @property (nonatomic, strong) MenuView *menuView;
 
 @property (nonatomic, strong) UITableView *tableView;
