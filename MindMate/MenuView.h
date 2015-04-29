@@ -10,4 +10,6 @@
 
 @interface MenuView : UIView
 
+@property (nonatomic, strong) UIButton *menuButton;
+
 @end
