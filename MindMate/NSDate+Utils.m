@@ -18,7 +18,6 @@
 }
 
 // Take a date and return an integer based on the time.
-// For instance, if passed a date that contains the time 22:30, return 2230
 + (int)timeAsIntegerFromDate:(NSDate *)date {
     NSCalendar *currentCal      = [NSCalendar currentCalendar];
     currentCal.timeZone = [NSTimeZone localTimeZone];
@@ -119,6 +118,20 @@
 
     [components setSecond:0];
     
+    return [cal dateFromComponents:components];
+}
+
++ (NSDate *)reminderNotificationTime {
+    NSDate *date = [self fetchDate];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+
+    NSDateComponents *components = [cal components:( NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
+    [components setHour:18];
+
+    [components setMinute:0];
+
+    [components setSecond:0];
+
     return [cal dateFromComponents:components];
 }
 

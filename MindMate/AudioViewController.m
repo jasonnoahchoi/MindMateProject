@@ -339,7 +339,6 @@ static NSString * const launchCountKey = @"launchCount";
             NSUInteger randomIndex = arc4random() % [[NSArray arrayOfMessagesArrived] count];
             NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
             self.recordLabel.text = [NSArray arrayOfMessagesArrived][randomIndex];
-            //self.recordLabel.text = @"Hooray! Your messages from yesterday are here.";
             [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.recordLabel.alpha = 1;
             } completion:^(BOOL finished) {
@@ -379,6 +378,12 @@ static NSString * const launchCountKey = @"launchCount";
                 [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     self.recordLabel.alpha = 0;
                 } completion:^(BOOL finished) {
+                    self.reminderNotification = [[UILocalNotification alloc] init];
+                    NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
+                    self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+                    self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
+                    self.reminderNotification.fireDate = [NSDate reminderNotificationTime];
+                    [[UIApplication sharedApplication] scheduleLocalNotification:self.reminderNotification];
                     self.circleState = CircleStateRecord;
                 }];
             }];
@@ -631,7 +636,7 @@ static NSString * const launchCountKey = @"launchCount";
             [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];
 
             if (self.hasRecordings) {
-                return;
+                [[UIApplication sharedApplication] cancelLocalNotification:self.reminderNotification];
             } else {
                 [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
             }
