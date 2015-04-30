@@ -7,12 +7,14 @@
 //
 
 #import "TermsViewController.h"
+#import "MenuView.h"
 #import "UIColor+Colors.h"
 @import WebKit;
 
 @interface TermsViewController ()
 
-@property (nonatomic, strong) UIButton *menuButton;
+@property (nonatomic, strong) MenuView *menuView;
+
 @end
 
 @implementation TermsViewController
@@ -22,12 +24,10 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
 
-    self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
-    self.menuButton.backgroundColor = [UIColor customGrayColor];
-    self.menuButton.layer.masksToBounds = YES;
-    self.menuButton.layer.cornerRadius = 5;
-    [self.view addSubview:self.menuButton];
-    [self.menuButton addTarget:self action:@selector(menuPressed) forControlEvents:UIControlEventTouchUpInside];
+    self.menuView = [[MenuView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
+    [self.view addSubview:self.menuView];
+
+    [self.menuView.menuButton addTarget:self action:@selector(menuPressed) forControlEvents:UIControlEventTouchUpInside];
 
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)/10, CGRectGetHeight(self.view.frame)/7, CGRectGetWidth(self.view.frame) - CGRectGetWidth(self.view.frame)/5, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.view.frame)/4)];
     NSString *html = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"privacy" withExtension:@"html"] encoding:NSStringEncodingConversionAllowLossy error:nil];

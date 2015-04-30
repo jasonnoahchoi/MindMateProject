@@ -21,6 +21,7 @@
 + (BOOL)currentTimeIsBetweenTimeFromStartDate:(NSDate *)startDate andTimeFromEndDate:(NSDate *)endDate;
 
 + (NSDate *)fetchDate;
++ (NSDate *)reminderNotificationTime;
 
 + (NSDate *)notificationTime;
 + (NSDate *)createdAtDate;

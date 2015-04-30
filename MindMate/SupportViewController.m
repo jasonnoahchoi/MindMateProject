@@ -8,13 +8,15 @@
 
 #import "SupportViewController.h"
 #import "UIColor+Colors.h"
+#import "MenuView.h"
 @import MessageUI;
 @import QuartzCore;
 
 
 @interface SupportViewController () <MFMailComposeViewControllerDelegate>
 
-@property (nonatomic, strong) UIButton *menuButton;
+@property (nonatomic, strong) MenuView *menuView;
+@property (nonatomic, strong) UIButton *composeEmailButton;
 @property (nonatomic, assign) CGRect frame;
 
 @end
@@ -26,18 +28,11 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     self.frame = self.view.frame;
-    
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done)];
-//    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCard)];
-//    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 
-    self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
-    self.menuButton.backgroundColor = [UIColor customGrayColor];
-    self.menuButton.layer.masksToBounds = YES;
-    self.menuButton.layer.cornerRadius = 5;
-    [self.view addSubview:self.menuButton];
-    [self.menuButton addTarget:self action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
+    self.menuView = [[MenuView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
+    [self.view addSubview:self.menuView];
+
+    [self.menuView.menuButton addTarget:self action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
 
     UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 70, CGRectGetWidth(self.view.frame)-40, CGRectGetHeight(self.view.frame)/2)];
     tempLabel.numberOfLines = 0;
@@ -47,20 +42,20 @@
     
     
     // Sets email compose
-    UIButton *composeEmailButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/3 - 30, CGRectGetHeight(self.frame)/2 + 70, CGRectGetWidth(self.frame)/3 + 60, 44)];
-    [self.view addSubview:composeEmailButton];
-    [composeEmailButton setTitle:@"Send Feedback" forState:UIControlStateNormal];
-    [composeEmailButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    composeEmailButton.layer.borderWidth = 2;
-    composeEmailButton.layer.cornerRadius = 10;
-     composeEmailButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    composeEmailButton.tintColor = [UIColor lightGrayColor];
-    [composeEmailButton addTarget:self action:@selector(sendFeedbackEmail:) forControlEvents:UIControlEventTouchUpInside];
-    [composeEmailButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.composeEmailButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/3 - 30, CGRectGetHeight(self.frame)/2 + 70, CGRectGetWidth(self.frame)/3 + 60, 44)];
+    [self.view addSubview:self.composeEmailButton];
+    [self.composeEmailButton setTitle:@"Send Feedback" forState:UIControlStateNormal];
+    [self.composeEmailButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    self.composeEmailButton.layer.borderWidth = 2;
+    self.composeEmailButton.layer.cornerRadius = 10;
+    self.composeEmailButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    self.composeEmailButton.tintColor = [UIColor darkGrayColor];
+    [self.composeEmailButton addTarget:self action:@selector(sendFeedbackEmail:) forControlEvents:UIControlEventTouchUpInside];
+    //[composeEmailButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     
     [self.view addSubview:tempLabel];
-    [self.view addSubview:composeEmailButton];
+    [self.view addSubview:self.composeEmailButton];
     
 }
 
@@ -76,7 +71,7 @@
     
     [mailComposeViewController setToRecipients:@[@"jason@tomorrow.gives"]];
     [mailComposeViewController setSubject:@"Feedback for Tomorrow"];
-    [mailComposeViewController.navigationBar setTintColor:[UIColor whiteColor]];
+    [mailComposeViewController.navigationBar setTintColor:[UIColor customBlueColor]];
     
     if ([MFMailComposeViewController canSendMail]) {
         [self presentViewController:mailComposeViewController animated:YES completion:nil];

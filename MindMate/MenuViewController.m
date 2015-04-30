@@ -15,15 +15,15 @@
 #import "TermsViewController.h"
 #import "AudioController.h"
 #import "IntroViewController.h"
+#import "MenuView.h"
 
 static NSString * const soundEffectsOnKey = @"soundEffects";
 
 @interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) AudioController *audioHandler;
+@property (nonatomic, strong) MenuView *menuView;
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *menuButton;
 
 @property (nonatomic, strong) UITableViewCell *aboutCell;
 @property (nonatomic, strong) UITableViewCell *remindersCell;
@@ -54,14 +54,11 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.tableView.scrollEnabled = NO;
     self.tableView.separatorColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.audioHandler = [[AudioController alloc] init];
+    //self.audioHandler = [AudioController sharedInstance];
+    self.menuView = [[MenuView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
+    [self.view addSubview:self.menuView];
 
-    self.menuButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
-    self.menuButton.backgroundColor = [UIColor customGrayColor];
-    self.menuButton.layer.masksToBounds = YES;
-    self.menuButton.layer.cornerRadius = 5;
-    [self.view addSubview:self.menuButton];
-    [self.menuButton addTarget:self action:@selector(menuPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.menuView.menuButton addTarget:self action:@selector(menuPressed) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)layoutTableViewCells {
@@ -216,7 +213,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 - (void)menuPressed {
     self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
     if (self.soundEffectsOn) {
-        [self.audioHandler.menuSoundPlayer play];
+        [[AudioController sharedInstance].menuSoundPlayer play];
     }
     [self dismissViewControllerAnimated:YES completion:^{
 
