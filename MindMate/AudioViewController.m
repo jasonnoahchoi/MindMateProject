@@ -19,6 +19,7 @@
 #import "NSDate+Utils.h"
 #import "QuotesController.h"
 #import "NSArray+RecordPlayStrings.h"
+#import "RecordPlayView.h"
 
 static NSString * const hasRecordingsKey = @"hasRecordings";
 static NSString * const numberOfRecordingsKey = @"numberOfRecordings";
@@ -33,6 +34,7 @@ static NSString * const launchCountKey = @"launchCount";
 @property (nonatomic, strong) Recording *record;
 @property (nonatomic, strong) MenuViewController *menuVC;
 @property (nonatomic, strong) MenuView *menuView;
+@property (nonatomic, strong) RecordPlayView *recordPlayView;
 
 @property (nonatomic) CircleState circleState;
 
@@ -109,6 +111,9 @@ static NSString * const launchCountKey = @"launchCount";
     self.tdView = [[TimeAndDateView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 30, self.view.frame.size.width/2-10, 100)];
 
     [self.view addSubview:self.tdView];
+    self.recordPlayView = [[RecordPlayView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetHeight(self.frame)/18, CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/10)];
+    [self.view addSubview:self.recordPlayView];
+    self.recordPlayView.hidden = YES;
 
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
@@ -907,6 +912,18 @@ static NSString * const launchCountKey = @"launchCount";
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
                     self.menuView.menuButton.hidden = YES;
+                    self.recordPlayView.hidden = NO;
+                    self.recordPlayView.recordImageView.alpha = 0;
+                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                    [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                    [animation setDuration:0.5f];
+                    [animation setTimingFunction:[CAMediaTimingFunction
+                                                  functionWithName:kCAMediaTimingFunctionLinear]];
+                    [animation setAutoreverses:YES];
+                    [animation setRepeatCount:HUGE_VALF];
+                    [self.recordPlayView.playImageView.layer addAnimation:animation forKey:@"opacity"];
+
                     // ---- Another Queue Player Attempt
                     //                        NSArray *array = [RecordingController sharedInstance].memos;
                     //                        //NSArray *array = [RecordingController sharedInstance].fetchMemos;
@@ -999,6 +1016,7 @@ static NSString * const launchCountKey = @"launchCount";
                                             [UIView animateWithDuration:.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                                 self.recordCornerButton.transform = CGAffineTransformIdentity;
                                             } completion:^(BOOL finished) {
+                                                
                                             }];
                                         }];
                                     }];
@@ -1007,43 +1025,40 @@ static NSString * const launchCountKey = @"launchCount";
                         }];
                     }];
                 }];
-            }
-            [[AudioController sharedInstance] stopPlayingAudio];
-            self.tdView.hidden = YES;
-            self.menuView.menuButton.hidden = NO;
-            self.hasPlayed = YES;
-            self.recordCornerButton.alpha = 0;
-            self.recordCornerButton.hidden = NO;
+            } else {
+                [[AudioController sharedInstance] stopPlayingAudio];
+                [self.recordPlayView.playImageView.layer removeAllAnimations];
+                self.recordPlayView.hidden = YES;
+                self.tdView.hidden = YES;
+                self.menuView.menuButton.hidden = NO;
+                self.hasPlayed = YES;
+                self.recordCornerButton.alpha = 0;
+                self.recordCornerButton.hidden = NO;
 
-            //            for (int i = 0; i < self.mutableRecordings.count ; i++) {
-            //               // [[NSNotificationCenter defaultCenter] postNotificationName:kAudioFileFinished object:self userInfo:nil];
-            //            }
-
-
-            [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
-                self.recordCornerButton.alpha = .5;
-                self.menuView.menuButton.alpha = .5;
-            }completion:^(BOOL finished) {
-                [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-                    self.recordCornerButton.alpha = 1;
-                    self.menuView.menuButton.alpha = 1;
+                [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                    self.recordCornerButton.alpha = .5;
+                    self.menuView.menuButton.alpha = .5;
                 } completion:^(BOOL finished) {
-                    self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-                    if (self.soundEffectsOn) {
-                        [[AudioController sharedInstance].babyPopAgainPlayer play];
-                        //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
-                        //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
-                    }
-                    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
-                        button.transform = CGAffineTransformIdentity;
+                    [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                        self.recordCornerButton.alpha = 1;
+                        self.menuView.menuButton.alpha = 1;
                     } completion:^(BOOL finished) {
-
-
+                        self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                        if (self.soundEffectsOn) {
+                            [[AudioController sharedInstance].babyPopAgainPlayer play];
+                            //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                            //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                        }
+                        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+                            button.transform = CGAffineTransformIdentity;
+                        } completion:^(BOOL finished) {
+                            
+                        }];
                     }];
                 }];
-            }];
+            }
         }
             break;
         default:
@@ -1105,13 +1120,27 @@ static NSString * const launchCountKey = @"launchCount";
                                          button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
                                          button.alpha = .7;
                                          self.playCornerButton.hidden = YES;
-                                     } completion:nil];
+                                     } completion:^(BOOL finished) {
+                                         self.recordPlayView.hidden = NO;
+                                         self.recordPlayView.playImageView.alpha = 0;
+                                         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                                         [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                                         [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                                         [animation setDuration:0.5f];
+                                         [animation setTimingFunction:[CAMediaTimingFunction
+                                                                       functionWithName:kCAMediaTimingFunctionLinear]];
+                                         [animation setAutoreverses:YES];
+                                         [animation setRepeatCount:HUGE_VALF];
+                                         [self.recordPlayView.recordImageView.layer addAnimation:animation forKey:@"opacity"];
+                                     }];
                     // self.buttonView.playButton.enabled = NO;
                     //self.on = YES;
 
                 } break;
                 case UIGestureRecognizerStateEnded:
                 {
+                    [self.recordPlayView.recordImageView.layer removeAllAnimations];
+                    self.recordPlayView.hidden = YES;
                     self.menuView.menuButton.alpha = 0;
                     [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                         button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
@@ -1233,15 +1262,9 @@ static NSString * const launchCountKey = @"launchCount";
     self.indexForRecording--;
 
     NSLog(@"Called Label did change");
-
-
-    //    }
 }
 
 - (void)dealloc {
-    // If you don't remove yourself as an observer, the Notification Center
-    // will continue to try and send notification objects to the deallocated
-    // object.
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

@@ -10,4 +10,9 @@
 
 @interface RecordPlayView : UIView
 
+@property (nonatomic, strong) UIImage *playImage;
+@property (nonatomic, strong) UIImage *recordImage;
+@property (nonatomic, strong) UIImageView *playImageView;
+@property (nonatomic, strong) UIImageView *recordImageView;
+
 @end

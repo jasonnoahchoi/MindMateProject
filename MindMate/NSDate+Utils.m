@@ -25,6 +25,10 @@
     return nowComps.hour * 100 + nowComps.minute;
 }
 
+//- (NSDate *)dateByAddingHours:(NSInteger)hours {
+//    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] + 
+//}
+
 + (NSDate *)midnightTime {
     NSDate *date = [NSDate date];
     NSCalendar *cal = [NSCalendar currentCalendar];
