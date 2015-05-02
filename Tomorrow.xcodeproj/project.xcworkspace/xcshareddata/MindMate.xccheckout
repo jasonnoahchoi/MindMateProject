@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0762230E-6BB3-4223-84A5-B95975E4199C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MindMate</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C9F22D7A0178440E76392908F86F1E09D93CD935</key>
+		<string>github.com:jasonnoahchoi/MindMateProject.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MindMate.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C9F22D7A0178440E76392908F86F1E09D93CD935</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:jasonnoahchoi/MindMateProject.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C9F22D7A0178440E76392908F86F1E09D93CD935</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C9F22D7A0178440E76392908F86F1E09D93CD935</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MindMate</string>
+		</dict>
+	</array>
+</dict>
+</plist>
