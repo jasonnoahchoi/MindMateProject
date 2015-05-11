@@ -367,7 +367,7 @@ static NSString * const launchCountKey = @"launchCount";
                                 [UIView animateWithDuration:.5 delay:2.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                                     self.recordLabel.alpha = 0;
                                 } completion:^(BOOL finished) {
-                                    self.circleState = CircleStateRecord;
+//                                    self.circleState = CircleStateRecord;
                                 }];
                             }];
                         }];
@@ -392,7 +392,7 @@ static NSString * const launchCountKey = @"launchCount";
                     self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
                     self.reminderNotification.fireDate = [NSDate reminderNotificationTime];
                     [[UIApplication sharedApplication] scheduleLocalNotification:self.reminderNotification];
-                    self.circleState = CircleStateRecord;
+//                    self.circleState = CircleStateRecord;
                 }];
             }];
         }
@@ -1101,11 +1101,17 @@ static NSString * const launchCountKey = @"launchCount";
             } completion:nil];
         }];
         
-        if (self.circleState == CircleStateLoad) {
-            return;
-        }
+//        if (self.circleState == CircleStateLoad) {
+//            return;
+//        }
 
-        if (self.containerView.state != ButtonStateZero && self.circleState == CircleStateRecord) {
+        if (self.containerView.state != ButtonStateZero) {
+            self.circleState = CircleStateRecord;
+            if (self.circleState == CircleStateRecord) {
+                self.recordLabel.hidden = YES;
+            }
+//        if (self.containerView.state != ButtonStateZero && self.circleState == CircleStateRecord) {
+
             switch (sender.state) {
                 case UIGestureRecognizerStateBegan:
                 {
