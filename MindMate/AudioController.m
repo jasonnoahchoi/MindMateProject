@@ -78,12 +78,12 @@
 }
 
 - (void)babyPopAgainPlayerSetup {
-    NSError *catError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
-    if (catError) {
-        NSLog(@"%@", [catError description]);
-    }
-    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
+//    NSError *catError = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//    if (catError) {
+//        NSLog(@"%@", [catError description]);
+//    }
+//    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
 
 
     // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
@@ -92,12 +92,12 @@
 }
 
 - (void)menuSoundSetup {
-    NSError *catError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
-    if (catError) {
-        NSLog(@"%@", [catError description]);
-    }
-    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
+//    NSError *catError = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//    if (catError) {
+//        NSLog(@"%@", [catError description]);
+//    }
+//    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
 
 
     // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
@@ -119,12 +119,12 @@
 //}
 
 - (void)babyPopTwoSetup {
-    NSError *catError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
-    if (catError) {
-        NSLog(@"%@", [catError description]);
-    }
-    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
+//    NSError *catError = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//    if (catError) {
+//        NSLog(@"%@", [catError description]);
+//    }
+//    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
 
 
     // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
@@ -132,12 +132,12 @@
     [self.babyPopTwoPlayer prepareToPlay];
 }
 - (void)babyPopAgainSetup {
-    NSError *catError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
-    if (catError) {
-        NSLog(@"%@", [catError description]);
-    }
-    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
+//    NSError *catError = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//    if (catError) {
+//        NSLog(@"%@", [catError description]);
+//    }
+//    [[AVAudioSession sharedInstance] setActive:YES error:&catError];
 
 
     // self.babyPopAgainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.popURLAgain fileTypeHint:@"caf" error:&catError];
@@ -195,10 +195,10 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
         NSError *catError = nil;
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
-        if (catError) {
-            NSLog(@"%@", [catError description]);
-        }
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//        if (catError) {
+//            NSLog(@"%@", [catError description]);
+//        }
 
         self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
         self.player.numberOfLoops = 0;
@@ -219,10 +219,10 @@
 
     NSError *error = nil;
     NSError *catError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
-    if (catError) {
-        NSLog(@"%@", [catError description]);
-    }
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//    if (catError) {
+//        NSLog(@"%@", [catError description]);
+//    }
     self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
     //self.player.numberOfLoops = 0;
     [self.player prepareToPlay];
@@ -242,10 +242,10 @@
         NSError *error;
         [self data];
         NSError *catError = nil;
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
-        if (catError) {
-            NSLog(@"%@", [catError description]);
-        }
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&catError];
+//        if (catError) {
+//            NSLog(@"%@", [catError description]);
+//        }
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         self.player.delegate = self;
         self.player.volume = 1.0;
@@ -285,8 +285,8 @@
 - (void)playAudioWithInt:(int)i {
    // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSError *error = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&error];
-    [[AVAudioSession sharedInstance] setActive:YES error:&error];
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&error];
+//    [[AVAudioSession sharedInstance] setActive:YES error:&error];
     //self.player = [[AVAudioPlayer alloc] initWithData:self.audioFileQueue[i] error:&error];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileQueue[i] error:&error];
     self.player.delegate = self;
