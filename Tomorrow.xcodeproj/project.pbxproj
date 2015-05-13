@@ -49,6 +49,10 @@
 		089BB7A71AF42F1300D9EB4A /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 089BB7A61AF42F1300D9EB4A /* NSDate+Utilities.m */; };
 		089BB7AA1AF43BDA00D9EB4A /* RecordPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089BB7A91AF43BDA00D9EB4A /* RecordPlayView.m */; };
 		089F37181AD359DF00F069DF /* TimeAndDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089F37171AD359DF00F069DF /* TimeAndDateView.m */; };
+		08B840CF1B02BADA0060BE78 /* StorePurchaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B840CB1B02BADA0060BE78 /* StorePurchaseController.m */; };
+		08B840D01B02BADA0060BE78 /* PurchasedDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B840CD1B02BADA0060BE78 /* PurchasedDataController.m */; };
+		08B840D11B02BADA0060BE78 /* Products.json in Resources */ = {isa = PBXBuildFile; fileRef = 08B840CE1B02BADA0060BE78 /* Products.json */; };
+		08B840D41B02CCC00060BE78 /* IAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B840D31B02CCC00060BE78 /* IAPViewController.m */; };
 		08BC57471ADC77BD0037C7C3 /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57461ADC77BD0037C7C3 /* pop.mp3 */; };
 		08BC57491ADC77C30037C7C3 /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 08BC57481ADC77C30037C7C3 /* menu.wav */; };
 		08BC575E1ADCA99C0037C7C3 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 08BC575D1ADCA99C0037C7C3 /* about.html */; };
@@ -141,6 +145,13 @@
 		089BB7A91AF43BDA00D9EB4A /* RecordPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordPlayView.m; sourceTree = "<group>"; };
 		089F37161AD359DF00F069DF /* TimeAndDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAndDateView.h; sourceTree = "<group>"; };
 		089F37171AD359DF00F069DF /* TimeAndDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAndDateView.m; sourceTree = "<group>"; };
+		08B840CA1B02BADA0060BE78 /* StorePurchaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorePurchaseController.h; sourceTree = "<group>"; };
+		08B840CB1B02BADA0060BE78 /* StorePurchaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorePurchaseController.m; sourceTree = "<group>"; };
+		08B840CC1B02BADA0060BE78 /* PurchasedDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchasedDataController.h; sourceTree = "<group>"; };
+		08B840CD1B02BADA0060BE78 /* PurchasedDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchasedDataController.m; sourceTree = "<group>"; };
+		08B840CE1B02BADA0060BE78 /* Products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Products.json; sourceTree = "<group>"; };
+		08B840D21B02CCC00060BE78 /* IAPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPViewController.h; sourceTree = "<group>"; };
+		08B840D31B02CCC00060BE78 /* IAPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPViewController.m; sourceTree = "<group>"; };
 		08BC57461ADC77BD0037C7C3 /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pop.mp3; path = ../../mindmate/MindMate/pop.mp3; sourceTree = "<group>"; };
 		08BC57481ADC77C30037C7C3 /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = menu.wav; path = ../../mindmate/MindMate/menu.wav; sourceTree = "<group>"; };
 		08BC575D1ADCA99C0037C7C3 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
@@ -232,6 +243,11 @@
 				089BB7A91AF43BDA00D9EB4A /* RecordPlayView.m */,
 				08C6FD621AD65B7500FFD983 /* IntroViewController.h */,
 				08C6FD631AD65B7500FFD983 /* IntroViewController.m */,
+				08B840CA1B02BADA0060BE78 /* StorePurchaseController.h */,
+				08B840CB1B02BADA0060BE78 /* StorePurchaseController.m */,
+				08B840CC1B02BADA0060BE78 /* PurchasedDataController.h */,
+				08B840CD1B02BADA0060BE78 /* PurchasedDataController.m */,
+				08B840CE1B02BADA0060BE78 /* Products.json */,
 				08E92EB91AF18C1600C3687D /* Views */,
 				08E92EB81AF18BFE00C3687D /* Menu */,
 				08BC57521ADC9A580037C7C3 /* Fonts */,
@@ -333,6 +349,8 @@
 			children = (
 				08CC7E561AD616D500D8BA3C /* MenuViewController.h */,
 				08CC7E571AD616D500D8BA3C /* MenuViewController.m */,
+				08B840D21B02CCC00060BE78 /* IAPViewController.h */,
+				08B840D31B02CCC00060BE78 /* IAPViewController.m */,
 				0812912A1ADA5C0F00CD49DF /* SupportViewController.h */,
 				0812912B1ADA5C0F00CD49DF /* SupportViewController.m */,
 				081291271ADA453000CD49DF /* AboutViewController.h */,
@@ -485,6 +503,7 @@
 				080138721ADEC63D008531C1 /* babypopagain.caf in Resources */,
 				083D6E851AC4C5770005E67C /* Images.xcassets in Resources */,
 				086914301AC891F40064B6AE /* Main.storyboard in Resources */,
+				08B840D11B02BADA0060BE78 /* Products.json in Resources */,
 				080138701ADEC62E008531C1 /* babypop.caf in Resources */,
 				083E83FC1ADF7B0700041F3A /* welcome.aiff in Resources */,
 				08BC57601ADCAD2E0037C7C3 /* privacy.html in Resources */,
@@ -557,16 +576,19 @@
 				0812911F1ADA3D1600CD49DF /* RemindersTableViewDataSource.m in Sources */,
 				08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */,
 				0827B94D1ADCBE27004F5235 /* QuotesController.m in Sources */,
+				08B840D41B02CCC00060BE78 /* IAPViewController.m in Sources */,
 				083D6EA21AC4C7070005E67C /* Model.xcdatamodeld in Sources */,
 				083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */,
 				08E92EB71AF181A400C3687D /* MenuView.m in Sources */,
 				08C6FD641AD65B7500FFD983 /* IntroViewController.m in Sources */,
 				08CC7E581AD616D500D8BA3C /* MenuViewController.m in Sources */,
+				08B840D01B02BADA0060BE78 /* PurchasedDataController.m in Sources */,
 				08CE94F11ACBB04F00B83395 /* User.m in Sources */,
 				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
 				089BB7A71AF42F1300D9EB4A /* NSDate+Utilities.m in Sources */,
 				0812911E1ADA3D1600CD49DF /* RemindersViewController.m in Sources */,
 				080138771ADEEF87008531C1 /* NSArray+RecordPlayStrings.m in Sources */,
+				08B840CF1B02BADA0060BE78 /* StorePurchaseController.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
 				08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */,

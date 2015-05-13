@@ -13,17 +13,22 @@
 #import "RecordingController.h"
 #import "SupportViewController.h"
 #import "NSDate+Utils.h"
+#import "NSArray+RecordPlayStrings.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
 static NSString * const soundEffectsOnKey = @"soundEffects";
 static NSString * const launchCountKey = @"launchCount";
 static NSString * const remindLaterKey = @"remind";
+static NSString * const clickedRateKey = @"rate";
 
 @interface AppDelegate ()
 
 @property (nonatomic, strong) AudioViewController *audioVC;
 @property (nonatomic, strong) IntroViewController *introVC;
 @property (nonatomic, assign) NSInteger launchCount;
+@property (nonatomic, assign) BOOL clickedRate;
+@property (nonatomic, strong) UILocalNotification *reminderNotification;
+
 @end
 
 @implementation AppDelegate
@@ -42,6 +47,8 @@ static NSString * const remindLaterKey = @"remind";
     if (![[NSUserDefaults standardUserDefaults] objectForKey:soundEffectsOnKey]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:soundEffectsOnKey];
     }
+
+    self.clickedRate = [[NSUserDefaults standardUserDefaults] boolForKey:clickedRateKey];
 
     self.launchCount = [[NSUserDefaults standardUserDefaults] integerForKey:launchCountKey];
 
@@ -68,6 +75,7 @@ static NSString * const remindLaterKey = @"remind";
     if (self.launchCount == 3) {
         UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
         [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:clickedRateKey];
             NSLog(@"rate app");
             NSString *appID = @"984969197";
             NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
@@ -131,6 +139,23 @@ static NSString * const remindLaterKey = @"remind";
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    for (UILocalNotification *localNotification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        if ([[localNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+            [[UIApplication sharedApplication]cancelLocalNotification:localNotification];
+            break;
+        }
+    }
+
+    self.reminderNotification = [[UILocalNotification alloc] init];
+    NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
+    self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+    self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
+    self.reminderNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Been a while"] forKey:@"reminding"];
+    self.reminderNotification.fireDate = [NSDate beenLongTimeNotification];
+    self.reminderNotification.applicationIconBadgeNumber = 1;
+    self.reminderNotification.soundName = @"babypopagain.caf";
+    [[UIApplication sharedApplication] scheduleLocalNotification:self.reminderNotification];
+
        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 //    NSInteger numberOfRecordings = [[NSUserDefaults standardUserDefaults] integerForKey:numberOfRecordingsKey];
@@ -172,7 +197,11 @@ static NSString * const remindLaterKey = @"remind";
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    if (notification == self.audioVC.notification) {
+    if (notification == self.reminderNotification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    } else if (notification == self.audioVC.notification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    } else if (notification == self.audioVC.reminderNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     } else if (notification == self.introVC.notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
