@@ -147,6 +147,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             RemindersViewController *reminderVC = [[RemindersViewController alloc] init];
             // UINavigationController *reminderNavController = [[UINavigationController alloc] initWithRootViewController:reminderVC];
             [self presentViewController:reminderVC animated:YES completion:nil];
+            break;
         }
         case 2: {
             IAPViewController *iapVC = [[IAPViewController alloc] init];

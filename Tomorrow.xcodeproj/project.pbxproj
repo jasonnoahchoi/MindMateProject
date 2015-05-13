@@ -46,7 +46,6 @@
 		083E83FC1ADF7B0700041F3A /* welcome.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 083E83FB1ADF7B0700041F3A /* welcome.aiff */; };
 		086914301AC891F40064B6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0869142F1AC891F40064B6AE /* Main.storyboard */; };
 		086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 086914311AC893D70064B6AE /* AVFoundation.framework */; };
-		089BB7A71AF42F1300D9EB4A /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 089BB7A61AF42F1300D9EB4A /* NSDate+Utilities.m */; };
 		089BB7AA1AF43BDA00D9EB4A /* RecordPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089BB7A91AF43BDA00D9EB4A /* RecordPlayView.m */; };
 		089F37181AD359DF00F069DF /* TimeAndDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089F37171AD359DF00F069DF /* TimeAndDateView.m */; };
 		08B840CF1B02BADA0060BE78 /* StorePurchaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B840CB1B02BADA0060BE78 /* StorePurchaseController.m */; };
@@ -139,8 +138,6 @@
 		083E83FB1ADF7B0700041F3A /* welcome.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = welcome.aiff; sourceTree = "<group>"; };
 		0869142F1AC891F40064B6AE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		086914311AC893D70064B6AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		089BB7A51AF42F1300D9EB4A /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
-		089BB7A61AF42F1300D9EB4A /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		089BB7A81AF43BDA00D9EB4A /* RecordPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordPlayView.h; sourceTree = "<group>"; };
 		089BB7A91AF43BDA00D9EB4A /* RecordPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordPlayView.m; sourceTree = "<group>"; };
 		089F37161AD359DF00F069DF /* TimeAndDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAndDateView.h; sourceTree = "<group>"; };
@@ -381,8 +378,6 @@
 			children = (
 				080138751ADEEF87008531C1 /* NSArray+RecordPlayStrings.h */,
 				080138761ADEEF87008531C1 /* NSArray+RecordPlayStrings.m */,
-				089BB7A51AF42F1300D9EB4A /* NSDate+Utilities.h */,
-				089BB7A61AF42F1300D9EB4A /* NSDate+Utilities.m */,
 				0833C5851AD4FD7E000C945D /* NSDate+Utils.h */,
 				0833C5861AD4FD7E000C945D /* NSDate+Utils.m */,
 				08CA1C7D1ACF066200D74EFC /* UIColor+Colors.h */,
@@ -585,7 +580,6 @@
 				08B840D01B02BADA0060BE78 /* PurchasedDataController.m in Sources */,
 				08CE94F11ACBB04F00B83395 /* User.m in Sources */,
 				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
-				089BB7A71AF42F1300D9EB4A /* NSDate+Utilities.m in Sources */,
 				0812911E1ADA3D1600CD49DF /* RemindersViewController.m in Sources */,
 				080138771ADEEF87008531C1 /* NSArray+RecordPlayStrings.m in Sources */,
 				08B840CF1B02BADA0060BE78 /* StorePurchaseController.m in Sources */,

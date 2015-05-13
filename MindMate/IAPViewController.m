@@ -40,10 +40,8 @@
     UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, CGRectGetWidth(self.frame)- 40, CGRectGetHeight(self.frame)/1.5)];
     tempLabel.numberOfLines = 0;
     tempLabel.font = [UIFont fontWithName:@"Open Sans" size:15];
-    tempLabel.text = @"CURRENTLY:\n- More quotes\n- Quotes displayed after playback of recording\n- Minor improved sound quality\n\nFUTURE:\n- Social\n- Scheduled messages\n- Send me some suggestions :)\n\nNOTE: One more screen will pop up to confirm you actually do want to unlock everything";
+    tempLabel.text = @"CURRENTLY:\n- Even More quotes\n- Quote displayed after playback of recording\n- Minor improved sound quality\n\nFUTURE:\n- Social\n- Scheduled messages\n- Send me some suggestions :)\n\nNOTE: One more screen will pop up to confirm you actually do want to unlock everything";
     [self.view addSubview:tempLabel];
-    //tempLabel.textAlignment = NSTextAlignmentCenter;
-    // Do any additional setup after loading the view.
 
     UILabel *unlockLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)/4.4, CGRectGetWidth(self.frame)/2, 44)];
     unlockLabel.textColor = [UIColor customTextColor];
@@ -64,7 +62,6 @@
     self.restoreButton.layer.masksToBounds = YES;
     self.restoreButton.layer.shouldRasterize = YES;
     [self.restoreButton addTarget:self action:@selector(restoreFeatures) forControlEvents:UIControlEventTouchUpInside];
-
 
     self.unlockButton = [[UIButton alloc] initWithFrame:CGRectMake(0 - CGRectGetWidth(self.frame)/6, CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)/6, CGRectGetWidth(self.frame)/2, CGRectGetWidth(self.frame)/2)];
     [self.view addSubview:self.unlockButton];
