@@ -16,6 +16,7 @@
 #import "AudioController.h"
 #import "IntroViewController.h"
 #import "MenuView.h"
+#import "IAPViewController.h"
 
 static NSString * const soundEffectsOnKey = @"soundEffects";
 
@@ -32,6 +33,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 @property (nonatomic, strong) UITableViewCell *feedbackCell;
 @property (nonatomic, strong) UITableViewCell *preferencesCell;
 @property (nonatomic, strong) UITableViewCell *introCell;
+@property (nonatomic, strong) UITableViewCell *IAPCell;
 
 @property (nonatomic, strong) UISwitch *soundToggle;
 @property (nonatomic, assign) BOOL soundEffectsOn;
@@ -68,6 +70,12 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.aboutCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
     self.aboutCell.backgroundColor = [UIColor customPurpleColor];
 
+    self.IAPCell = [[UITableViewCell alloc] init];
+    self.IAPCell.textLabel.text = @"Unlock Everything";
+    self.IAPCell.textLabel.textColor = [UIColor customGreenColor];
+    self.IAPCell.backgroundColor = [UIColor customPurpleColor];
+    self.IAPCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
+
     self.remindersCell = [[UITableViewCell alloc] init];
     self.remindersCell.textLabel.textColor = [UIColor whiteColor];
     self.remindersCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
@@ -77,7 +85,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.rateCell = [[UITableViewCell alloc] init];
     self.rateCell.textLabel.text = @"Please Rate Tomorrow";
     self.rateCell.backgroundColor = [UIColor customPurpleColor];
-    self.rateCell.textLabel.textColor = [UIColor whiteColor];
+    self.rateCell.textLabel.textColor = [UIColor customBlueColor];
     self.rateCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
 
     self.tsCell = [[UITableViewCell alloc] init];
@@ -93,7 +101,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.feedbackCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
 
     self.introCell = [[UITableViewCell alloc] init];
-    self.introCell.textLabel.text = @"View Intro Walkthrough";
+    self.introCell.textLabel.text = @"How to Use Tomorrow";
     self.introCell.textLabel.textColor = [UIColor whiteColor];
     self.introCell.backgroundColor = [UIColor customPurpleColor];
     self.introCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
@@ -140,32 +148,33 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             // UINavigationController *reminderNavController = [[UINavigationController alloc] initWithRootViewController:reminderVC];
             [self presentViewController:reminderVC animated:YES completion:nil];
         }
-            break;
         case 2: {
+            IAPViewController *iapVC = [[IAPViewController alloc] init];
+            [self presentViewController:iapVC animated:YES completion:nil];
+        }
+            break;
+        case 3: {
             NSString *appID = @"984969197";
             NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
             [[UIApplication sharedApplication] openURL:appStoreURL];
         }
-
             break;
-        case 3: {
+        case 4: {
             SupportViewController *supportVC = [[SupportViewController alloc] init];
             [self presentViewController:supportVC animated:YES completion:nil];
         }
-
             break;
-        case 4: {
+        case 5: {
             TermsViewController *termsVC = [[TermsViewController alloc] init];
             [self presentViewController:termsVC animated:YES completion:nil];
         }
-
             break;
-        case 5: {
+        case 6: {
             IntroViewController *introVC = [[IntroViewController alloc] init];
             [self presentViewController:introVC animated:YES completion:nil];
         }
             break;
-        case 6:
+        case 7:
             break;
         default:
             break;
@@ -181,18 +190,21 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             return self.remindersCell;
             break;
         case 2:
-            return self.rateCell;
+            return self.IAPCell;
             break;
         case 3:
-            return self.feedbackCell;
+            return self.rateCell;
             break;
         case 4:
-            return self.tsCell;
+            return self.feedbackCell;
             break;
         case 5:
-            return self.introCell;
+            return self.tsCell;
             break;
         case 6:
+            return self.introCell;
+            break;
+        case 7:
             return self.preferencesCell;
             break;
         default:
@@ -202,11 +214,11 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.view.frame.size.height/10.5;
+    return self.view.frame.size.height/12;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 
