@@ -251,7 +251,7 @@ static NSString * const clickedRateKey = @"rate";
 - (void)reanimateCircles {
     switch (self.circleState) {
         case (CircleStateNone):
-            break;
+        case (CircleStateLoad):
         case (CircleStateRecord):
         {
             self.centerRecordButtonClone.center = self.endPointRecordCornerButton;
@@ -1148,7 +1148,7 @@ static NSString * const clickedRateKey = @"rate";
 
 - (void)rateApp {
     BOOL remind = [[NSUserDefaults standardUserDefaults] boolForKey:remindLaterKey];
-    if (self.clickedRate != YES && ([RecordingController sharedInstance].memos.count == 1 || remind)) {
+    if (self.clickedRate != YES && ([RecordingController sharedInstance].memos.count > 2 || remind)) {
         UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
         [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSLog(@"rate app");
