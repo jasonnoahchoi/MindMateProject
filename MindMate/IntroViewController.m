@@ -17,6 +17,7 @@
 #import "TimeAndDateView.h"
 #import "MenuViewController.h"
 #import "AudioViewController.h"
+#import "RecordPlayView.h"
 #import "NSDate+Utils.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
@@ -32,6 +33,7 @@ static NSString * const micOnKey = @"micOnKey";
 @property (nonatomic, strong) MenuViewController *menuVC;
 @property (nonatomic, strong) AudioViewController *audioVC;
 @property (nonatomic, strong) MenuView *menuView;
+@property (nonatomic, strong) RecordPlayView *recordPlayView;
 @property (nonatomic) IntroCircleState circleState;
 
 @property (nonatomic, strong) NSMutableArray *mutableRecordings;
@@ -126,6 +128,11 @@ static NSString * const micOnKey = @"micOnKey";
     [self layoutMenuButton];
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
+
+    self.recordPlayView = [[RecordPlayView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/12, CGRectGetHeight(self.frame)/18, CGRectGetWidth(self.frame)/10, CGRectGetHeight(self.frame)/10)];
+    [self.view addSubview:self.recordPlayView];
+    self.recordPlayView.hidden = YES;
+
 
     [self layoutLabels];
 
@@ -1337,6 +1344,18 @@ static NSString * const micOnKey = @"micOnKey";
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
                     self.menuView.menuButton.hidden = YES;
+                    self.recordPlayView.hidden = NO;
+                    self.recordPlayView.recordImageView.alpha = 0;
+                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                    [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                    [animation setDuration:0.5f];
+                    [animation setTimingFunction:[CAMediaTimingFunction
+                                                  functionWithName:kCAMediaTimingFunctionLinear]];
+                    [animation setAutoreverses:YES];
+                    [animation setRepeatCount:HUGE_VALF];
+                    [self.recordPlayView.playImageView.layer addAnimation:animation forKey:@"opacity"];
+
                     self.tdView.timeLabel.alpha = 1;
                     self.tdView.dateLabel.alpha = 1;
                     self.tdView.timeLabel.text = [[AudioController sharedInstance] currentTime];
@@ -1352,6 +1371,8 @@ static NSString * const micOnKey = @"micOnKey";
             break;
         case UIGestureRecognizerStateEnded:
         {
+            [self.recordPlayView.playImageView.layer removeAllAnimations];
+            self.recordPlayView.hidden = YES;
             [[AudioController sharedInstance] stopPlayingAudio];
             self.tdView.hidden = YES;
             self.menuView.menuButton.hidden = NO;
@@ -1370,7 +1391,7 @@ static NSString * const micOnKey = @"micOnKey";
 
                             if (self.circleState != IntroCircleStateFinished) {
                                 self.recordLabel.alpha = 0;
-                                if ([[UIScreen mainScreen] bounds].size.width == 320 && [[UIScreen mainScreen] bounds].size.height == 480) {
+                                if ([[UIScreen mainScreen] bounds].size.width == 320) {
                                     self.recordLabel.text = @"\nYour message will be here tomorrow. Press and hold to hear it again.\nTo get your messages, tap the Square to enable notifications.";
                                     self.recordLabel.textAlignment = NSTextAlignmentCenter;
                                     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:14];
@@ -1441,10 +1462,25 @@ static NSString * const micOnKey = @"micOnKey";
                                          button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
                                          button.alpha = .7;
                                          self.playCornerButton.hidden = YES;
-                                     } completion:nil];
-                } break;
+                                     } completion:^(BOOL finished) {
+                                         self.recordPlayView.hidden = NO;
+                                         self.recordPlayView.playImageView.alpha = 0;
+                                         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                                         [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                                         [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                                         [animation setDuration:0.5f];
+                                         [animation setTimingFunction:[CAMediaTimingFunction
+                                                                       functionWithName:kCAMediaTimingFunctionLinear]];
+                                         [animation setAutoreverses:YES];
+                                         [animation setRepeatCount:HUGE_VALF];
+                                         [self.recordPlayView.recordImageView.layer addAnimation:animation forKey:@"opacity"];
+                                     }];
+                }
+                    break;
                 case UIGestureRecognizerStateEnded:
                 {
+                    [self.recordPlayView.recordImageView.layer removeAllAnimations];
+                    self.recordPlayView.hidden = YES;
                     [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                         button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
                         button.alpha = 1;

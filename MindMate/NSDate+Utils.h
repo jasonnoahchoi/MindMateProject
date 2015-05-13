@@ -22,6 +22,7 @@
 
 + (NSDate *)fetchDate;
 + (NSDate *)reminderNotificationTime;
++ (NSDate *)beenLongTimeNotification;
 
 + (NSDate *)notificationTime;
 + (NSDate *)createdAtDate;
