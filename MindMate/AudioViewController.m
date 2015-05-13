@@ -183,6 +183,32 @@ static NSString * const clickedRateKey = @"rate";
     [self.view addSubview:self.nameLabel];
 }
 
+- (void)rateApp {
+    BOOL remind = [[NSUserDefaults standardUserDefaults] boolForKey:remindLaterKey];
+    if (self.clickedRate != YES && ([RecordingController sharedInstance].memos.count > 2 || remind)) {
+        UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"rate app");
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:clickedRateKey];
+            NSString *appID = @"984969197";
+            NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
+            [[UIApplication sharedApplication] openURL:appStoreURL];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"Cancel");
+            SupportViewController *rateAppVC = [[SupportViewController alloc] init];
+            //UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rateAppVC];
+            [self presentViewController:rateAppVC animated:YES completion:nil];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Remind Me Later" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:remindLaterKey];
+        }]];
+
+        [self presentViewController:rateAppAlertController animated:YES completion:nil];
+    }
+}
+
+
 #pragma mark - In App Purchases
 - (void)inAppPurchase {
     [[StorePurchaseController sharedInstance] requestProducts];
@@ -381,21 +407,21 @@ static NSString * const clickedRateKey = @"rate";
             [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.recordLabel.alpha = 1;
             } completion:^(BOOL finished) {
-                [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                     self.recordLabel.alpha = 0;
                 } completion:^(BOOL finished) {
                     self.recordLabel.text = @"Record something today for tomorrow with some inspiration...";
-                    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                         self.recordLabel.alpha = 1;
                     } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:.5 delay:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        [UIView animateWithDuration:.5 delay:1 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                             self.recordLabel.alpha = 0;
                         } completion:^(BOOL finished) {
                             self.recordLabel.text = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
-                            [UIView animateWithDuration:.5 delay:.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            [UIView animateWithDuration:.5 delay:.5 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                                 self.recordLabel.alpha = 1;
                             } completion:^(BOOL finished) {
-                                [UIView animateWithDuration:.5 delay:2.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                [UIView animateWithDuration:.5 delay:2.5 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                                     self.recordLabel.alpha = 0;
                                 } completion:^(BOOL finished) {
 //                                    self.circleState = CircleStateRecord;
@@ -411,10 +437,10 @@ static NSString * const clickedRateKey = @"rate";
             self.recordLabel.hidden = NO;
             NSUInteger randomIndex = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
             self.recordLabel.text = [NSArray arrayOfRecordYourselfMessages][randomIndex];
-            [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [UIView animateWithDuration:.5 delay:1.5 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                 self.recordLabel.alpha = 1;
             } completion:^(BOOL finished) {
-                [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                     self.recordLabel.alpha = 0;
                 } completion:^(BOOL finished) {
                     self.reminderNotification = [[UILocalNotification alloc] init];
@@ -1144,32 +1170,6 @@ static NSString * const clickedRateKey = @"rate";
         default:
             break;
     }
-}
-
-- (void)rateApp {
-    BOOL remind = [[NSUserDefaults standardUserDefaults] boolForKey:remindLaterKey];
-    if (self.clickedRate != YES && ([RecordingController sharedInstance].memos.count > 2 || remind)) {
-        UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
-        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            NSLog(@"rate app");
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:clickedRateKey];
-            NSString *appID = @"984969197";
-            NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
-            [[UIApplication sharedApplication] openURL:appStoreURL];
-        }]];
-        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            NSLog(@"Cancel");
-            SupportViewController *rateAppVC = [[SupportViewController alloc] init];
-            //UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rateAppVC];
-            [self presentViewController:rateAppVC animated:YES completion:nil];
-        }]];
-        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Remind Me Later" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:remindLaterKey];
-        }]];
-
-        [self presentViewController:rateAppAlertController animated:YES completion:nil];
-    }
-
 }
 
 - (void)didTryToZoom:(UIButton *)button withGesture:(UIGestureRecognizer *)sender {

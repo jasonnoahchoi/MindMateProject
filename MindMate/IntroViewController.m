@@ -1339,7 +1339,7 @@ static NSString * const micOnKey = @"micOnKey";
             if (self.circleState == IntroCircleStatePlay || self.circleState == IntroCircleStateNotifications) {
                 self.tdView.hidden = NO;
                 self.recordLabel.alpha = 0;
-                [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                     self.menuView.menuButton.alpha = 0;
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
@@ -1399,7 +1399,7 @@ static NSString * const micOnKey = @"micOnKey";
                                     self.recordLabel.font = [UIFont fontWithName:@"Open Sans" size:16];
                                     self.recordLabel.text = @"Your message will be here tomorrow. Press and hold to hear it again.\nTo get your messages, tap the Square to enable notifications.";
                                 } else {
-                            self.recordLabel.text = @"Your message will be here tomorrow. Press and hold to hear the message again.\n\nTo get your messages, tap the Square to enable notifications.";
+                            self.recordLabel.text = @"Your message will be here tomorrow. Press and hold to hear the message again.\nTo get your messages, tap the Square to enable notifications.";
                                 }
                             }
                             [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{

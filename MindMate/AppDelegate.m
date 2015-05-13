@@ -14,6 +14,7 @@
 #import "SupportViewController.h"
 #import "NSDate+Utils.h"
 #import "NSArray+RecordPlayStrings.h"
+#import "Harpy.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
 static NSString * const soundEffectsOnKey = @"soundEffects";
@@ -43,7 +44,6 @@ static NSString * const clickedRateKey = @"rate";
     self.audioVC = [[AudioViewController alloc] init];
     self.introVC = [[IntroViewController alloc] init];
 
-    
     if (![[NSUserDefaults standardUserDefaults] objectForKey:soundEffectsOnKey]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:soundEffectsOnKey];
     }
@@ -63,12 +63,22 @@ static NSString * const clickedRateKey = @"rate";
         self.window.rootViewController = self.audioVC;
     }
     self.window.backgroundColor = [UIColor whiteColor];
+    [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(rateApp) userInfo:nil repeats:NO];
 
     [self.window makeKeyAndVisible];
 
-    [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(rateApp) userInfo:nil repeats:NO];
+
+    [NSTimer scheduledTimerWithTimeInterval:7 target:self selector:@selector(presentHarpy) userInfo:nil repeats:NO];
 
     return YES;
+}
+
+- (void)presentHarpy {
+    [[Harpy sharedInstance] setAppID:@"984969197"];
+    [[Harpy sharedInstance] setPresentingViewController:self.audioVC];
+    [[Harpy sharedInstance] setAppName:@"Tomorrow"];
+    [[Harpy sharedInstance] setAlertType:HarpyAlertTypeForce];
+    [[Harpy sharedInstance] checkVersion];
 }
 
 - (void)rateApp {
@@ -172,10 +182,13 @@ static NSString * const clickedRateKey = @"rate";
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+     [[Harpy sharedInstance] checkVersion];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[Harpy sharedInstance] checkVersionDaily];
+    [[Harpy sharedInstance] checkVersionWeekly];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
