@@ -20,11 +20,16 @@
 #import "QuotesController.h"
 #import "NSArray+RecordPlayStrings.h"
 #import "RecordPlayView.h"
+#import "PurchasedDataController.h"
+#import "StorePurchaseController.h"
+#import "SupportViewController.h"
 
 static NSString * const hasRecordingsKey = @"hasRecordings";
 static NSString * const numberOfRecordingsKey = @"numberOfRecordings";
 static NSString * const soundEffectsOnKey = @"soundEffects";
 static NSString * const launchCountKey = @"launchCount";
+static NSString * const remindLaterKey = @"remind";
+static NSString * const clickedRateKey = @"rate";
 
 @interface AudioViewController () <CategoryContainerViewDelegate, ButtonViewDelegate, MenuViewControllerDelegate>
 
@@ -78,6 +83,8 @@ static NSString * const launchCountKey = @"launchCount";
 @property (nonatomic, assign) BOOL hasPlayed;
 @property (nonatomic, assign) BOOL micOn;
 @property (nonatomic, assign) BOOL soundEffectsOn;
+@property (nonatomic, assign) BOOL goPro;
+@property (nonatomic, assign) BOOL clickedRate;
 
 @end
 
@@ -118,6 +125,11 @@ static NSString * const launchCountKey = @"launchCount";
     self.menuVC = [[MenuViewController alloc] init];
     self.menuVC.delegate = self;
     self.menuView = [[MenuView alloc] init];
+
+    self.goPro = [PurchasedDataController sharedInstance].goPro;
+    [self inAppPurchase];
+
+    self.clickedRate = [[NSUserDefaults standardUserDefaults] boolForKey:clickedRateKey];
 
     [self layoutUnderCircleLabel];
     [self initQuotes];
@@ -169,6 +181,25 @@ static NSString * const launchCountKey = @"launchCount";
     self.nameLabel.alpha = 0;
     [self.view addSubview:self.quoteLabel];
     [self.view addSubview:self.nameLabel];
+}
+
+#pragma mark - In App Purchases
+- (void)inAppPurchase {
+    [[StorePurchaseController sharedInstance] requestProducts];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsRequested:) name:kInAppPurchaseFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsPurchased:) name:kInAppPurchaseCompletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsRestored:) name:kInAppPurchaseRestoredNotification object:nil];
+}
+
+- (void)productsRequested:(NSNotification *)notification {
+}
+
+- (void)productsPurchased:(NSNotification *)notification {
+    self.goPro = YES;
+}
+
+- (void)productsRestored:(NSNotification *)notification {
+    self.goPro = YES;
 }
 
 #pragma mark - Animations
@@ -391,6 +422,8 @@ static NSString * const launchCountKey = @"launchCount";
                     self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
                     self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
                     self.reminderNotification.fireDate = [NSDate reminderNotificationTime];
+                    self.reminderNotification.applicationIconBadgeNumber = 1;
+                    self.reminderNotification.soundName = @"babypopagain.caf";
                     [[UIApplication sharedApplication] scheduleLocalNotification:self.reminderNotification];
 //                    self.circleState = CircleStateRecord;
                 }];
@@ -416,12 +449,19 @@ static NSString * const launchCountKey = @"launchCount";
                 self.quoteLabel.alpha = 0;
                 self.nameLabel.alpha = 0;
             } completion:^(BOOL finished) {
+                if (self.circleState == CircleStatePlay) {
+                    return;
+                }
                 self.buttonView.alpha = 0;
                 self.buttonView.hidden = NO;
                 [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                     self.buttonView.alpha = 1;
                 } completion:^(BOOL finished) {
-                    [NSTimer scheduledTimerWithTimeInterval:.4 target:self selector:@selector(startScreen) userInfo:nil repeats:NO];
+                    if (self.circleState == CircleStatePlay) {
+                        return;
+                    } else {
+                        [NSTimer scheduledTimerWithTimeInterval:.4 target:self selector:@selector(startScreen) userInfo:nil repeats:NO];
+                    }
                 }];
             }];
         }];
@@ -639,10 +679,14 @@ static NSString * const launchCountKey = @"launchCount";
             self.notification.alertBody = @"Tomorrow has brought you yesterday's messages, today.";
             self.notification.timeZone = [NSTimeZone localTimeZone];
             self.notification.fireDate = [NSDate notificationTime];
+            self.notification.applicationIconBadgeNumber = 1;
+            self.notification.soundName = @"babypop.caf";
             [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];
 
             if (self.hasRecordings) {
-                [[UIApplication sharedApplication] cancelLocalNotification:self.reminderNotification];
+                if (self.reminderNotification) {
+                    [[UIApplication sharedApplication] cancelLocalNotification:self.reminderNotification];
+                }
             } else {
                 [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
             }
@@ -659,6 +703,7 @@ static NSString * const launchCountKey = @"launchCount";
     //}
     switch (self.circleState) {
         case CircleStateRecord:
+        case CircleStateLoad:
         {
             self.buttonView.hidden = YES;
             self.centerRecordButtonClone.hidden = NO;
@@ -1035,34 +1080,94 @@ static NSString * const launchCountKey = @"launchCount";
                 self.recordCornerButton.alpha = 0;
                 self.recordCornerButton.hidden = NO;
 
-                [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
-                    self.recordCornerButton.alpha = .5;
-                    self.menuView.menuButton.alpha = .5;
-                } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
-                        self.recordCornerButton.alpha = 1;
-                        self.menuView.menuButton.alpha = 1;
+                if ([PurchasedDataController sharedInstance].goPro == YES) {
+                    self.quoteLabel.textColor = [UIColor whiteColor];
+                    self.nameLabel.textColor = [UIColor whiteColor];
+                    [self showQuote];
+                }
+                if ([PurchasedDataController sharedInstance].goPro == YES) {
+                    [UIView animateWithDuration:.13 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                        self.recordCornerButton.alpha = .5;
+                        self.menuView.menuButton.alpha = .5;
                     } completion:^(BOOL finished) {
-                        self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-                        if (self.soundEffectsOn) {
-                            [[AudioController sharedInstance].babyPopAgainPlayer play];
-                            //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
-                            //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
-                        }
-                        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
-                            button.transform = CGAffineTransformIdentity;
+                        [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                            self.recordCornerButton.alpha = 1;
+                            self.menuView.menuButton.alpha = 1;
                         } completion:^(BOOL finished) {
-                            
+                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                            if (self.soundEffectsOn) {
+                                [[AudioController sharedInstance].babyPopAgainPlayer play];
+                                //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                                //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                            }
+                            [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+                                button.transform = CGAffineTransformIdentity;
+                            } completion:^(BOOL finished) {
+                                self.quoteLabel.textColor = [UIColor customTextColor];
+                                self.quoteLabel.textColor = [UIColor customTextColor];
+                                [self rateApp];
+                            }];
                         }];
                     }];
-                }];
+                } else {
+                    [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                        self.recordCornerButton.alpha = .5;
+                        self.menuView.menuButton.alpha = .5;
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:.13 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                            self.recordCornerButton.alpha = 1;
+                            self.menuView.menuButton.alpha = 1;
+                        } completion:^(BOOL finished) {
+                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                            if (self.soundEffectsOn) {
+                                [[AudioController sharedInstance].babyPopAgainPlayer play];
+                                //                            NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypopagain" withExtension:@"aiff"];
+                                //                            [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                            }
+                            [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+                                button.transform = CGAffineTransformIdentity;
+                            } completion:^(BOOL finished) {
+                                self.quoteLabel.textColor = [UIColor customTextColor];
+                                self.quoteLabel.textColor = [UIColor customTextColor];
+                                [self rateApp];
+                            }];
+                        }];
+                    }];
+                }
             }
         }
             break;
         default:
             break;
+    }
+}
+
+- (void)rateApp {
+    BOOL remind = [[NSUserDefaults standardUserDefaults] boolForKey:remindLaterKey];
+    if (self.clickedRate != YES && ([RecordingController sharedInstance].memos.count == 1 || remind)) {
+        UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"rate app");
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:clickedRateKey];
+            NSString *appID = @"984969197";
+            NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
+            [[UIApplication sharedApplication] openURL:appStoreURL];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"Cancel");
+            SupportViewController *rateAppVC = [[SupportViewController alloc] init];
+            //UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rateAppVC];
+            [self presentViewController:rateAppVC animated:YES completion:nil];
+        }]];
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Remind Me Later" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:remindLaterKey];
+        }]];
+
+        [self presentViewController:rateAppAlertController animated:YES completion:nil];
     }
 
 }
