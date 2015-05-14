@@ -28,7 +28,6 @@ static NSString * const clickedRateKey = @"rate";
 @property (nonatomic, strong) IntroViewController *introVC;
 @property (nonatomic, assign) NSInteger launchCount;
 @property (nonatomic, assign) BOOL clickedRate;
-@property (nonatomic, strong) UILocalNotification *reminderNotification;
 
 @end
 
@@ -66,7 +65,6 @@ static NSString * const clickedRateKey = @"rate";
     [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(rateApp) userInfo:nil repeats:NO];
 
     [self.window makeKeyAndVisible];
-
 
     [NSTimer scheduledTimerWithTimeInterval:7 target:self selector:@selector(presentHarpy) userInfo:nil repeats:NO];
 
@@ -149,22 +147,45 @@ static NSString * const clickedRateKey = @"rate";
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    for (UILocalNotification *localNotification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
-        if ([[localNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
-            [[UIApplication sharedApplication]cancelLocalNotification:localNotification];
-            break;
-        }
+    if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+        [[UIApplication sharedApplication]cancelLocalNotification:self.audioVC.longTimeNotification];
+        NSLog(@"No more Long Time");
+    }
+    if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+        [[UIApplication sharedApplication]cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        NSLog(@"No more Really Long Time");
     }
 
-    self.reminderNotification = [[UILocalNotification alloc] init];
-    NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
-    self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
-    self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
-    self.reminderNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Been a while"] forKey:@"reminding"];
-    self.reminderNotification.fireDate = [NSDate beenLongTimeNotification];
-    self.reminderNotification.applicationIconBadgeNumber = 1;
-    self.reminderNotification.soundName = @"babypopagain.caf";
-    [[UIApplication sharedApplication] scheduleLocalNotification:self.reminderNotification];
+    if (self.audioVC.hasRecordings) {
+        if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.longTimeNotification];
+        }
+        if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        }
+        return;
+    } else {
+        self.audioVC.longTimeNotification = [[UILocalNotification alloc] init];
+        NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
+        self.audioVC.longTimeNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+        self.audioVC.longTimeNotification.timeZone = [NSTimeZone localTimeZone];
+        self.audioVC.longTimeNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Been a while"] forKey:@"reminding"];
+        self.audioVC.longTimeNotification.fireDate = [NSDate beenLongTimeNotification];
+        self.audioVC.longTimeNotification.applicationIconBadgeNumber = 1;
+        self.audioVC.longTimeNotification.soundName = @"babypopagain.caf";
+        [[UIApplication sharedApplication] scheduleLocalNotification:self.audioVC.longTimeNotification];
+
+        self.audioVC.reallyLongTimeNotification = [[UILocalNotification alloc] init];
+        self.audioVC.reallyLongTimeNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+        self.audioVC.reallyLongTimeNotification.timeZone = [NSTimeZone localTimeZone];
+        self.audioVC.reallyLongTimeNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Really long while"] forKey:@"remindingAgain"];
+        self.audioVC.reallyLongTimeNotification.fireDate = [NSDate reallyLongTimeNotification];
+        self.audioVC.reallyLongTimeNotification.applicationIconBadgeNumber = 1;
+        self.audioVC.reallyLongTimeNotification.soundName = @"babypopagain.caf";
+        if (!self.audioVC.notification) {
+            [[UIApplication sharedApplication] scheduleLocalNotification:self.audioVC.reallyLongTimeNotification];
+        }
+    }
 
        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -189,6 +210,13 @@ static NSString * const clickedRateKey = @"rate";
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[Harpy sharedInstance] checkVersionDaily];
     [[Harpy sharedInstance] checkVersionWeekly];
+    if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"] || [[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+          [[UIApplication sharedApplication]cancelLocalNotification:self.audioVC.longTimeNotification];
+        self.audioVC.longTimeNotification = nil;
+        [[UIApplication sharedApplication]cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        self.audioVC.reallyLongTimeNotification = nil;
+    }
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -210,14 +238,34 @@ static NSString * const clickedRateKey = @"rate";
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    if (notification == self.reminderNotification) {
+    if (notification == self.audioVC.longTimeNotification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    } else if (notification == self.audioVC.reallyLongTimeNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     } else if (notification == self.audioVC.notification) {
+        if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.longTimeNotification];
+        }
+        if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        }
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     } else if (notification == self.audioVC.reminderNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.longTimeNotification];
+        }
+        if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        }
     } else if (notification == self.introVC.notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.longTimeNotification];
+        }
+        if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        }
     }
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     // Handle the notificaton when the app is running

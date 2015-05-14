@@ -79,7 +79,6 @@ static NSString * const clickedRateKey = @"rate";
 @property (nonatomic, assign) NSUInteger sameRandomIndex;
 @property (nonatomic, assign) NSNumber *groupIDNumber;
 @property (nonatomic, assign) BOOL showedMenuVC;
-@property (nonatomic, assign) BOOL hasRecordings;
 @property (nonatomic, assign) BOOL hasPlayed;
 @property (nonatomic, assign) BOOL micOn;
 @property (nonatomic, assign) BOOL soundEffectsOn;
@@ -129,6 +128,7 @@ static NSString * const clickedRateKey = @"rate";
     self.goPro = [PurchasedDataController sharedInstance].goPro;
     [self inAppPurchase];
 
+    
     self.clickedRate = [[NSUserDefaults standardUserDefaults] boolForKey:clickedRateKey];
 
     [self layoutUnderCircleLabel];
@@ -713,8 +713,23 @@ static NSString * const clickedRateKey = @"rate";
                 if (self.reminderNotification) {
                     [[UIApplication sharedApplication] cancelLocalNotification:self.reminderNotification];
                 }
+                if ([[self.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+                    [[UIApplication sharedApplication] cancelLocalNotification:self.longTimeNotification];
+                    }
+                if ([[self.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+                    [[UIApplication sharedApplication] cancelLocalNotification:self.reallyLongTimeNotification];
+                }
             } else {
-                [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
+                if (self.notification) {
+                    [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
+                }
+                if ([[self.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
+                    [[UIApplication sharedApplication] cancelLocalNotification:self.longTimeNotification];
+                }
+                if ([[self.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
+                    [[UIApplication sharedApplication] cancelLocalNotification:self.reallyLongTimeNotification];
+                }
+
             }
         }];
     }
@@ -1131,6 +1146,7 @@ static NSString * const clickedRateKey = @"rate";
                             [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                                 button.transform = CGAffineTransformIdentity;
                             } completion:^(BOOL finished) {
+                                self.hasRecordings = NO;
                                 self.quoteLabel.textColor = [UIColor customTextColor];
                                 self.quoteLabel.textColor = [UIColor customTextColor];
                                 [self rateApp];
@@ -1157,6 +1173,7 @@ static NSString * const clickedRateKey = @"rate";
                             [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
                                 button.transform = CGAffineTransformIdentity;
                             } completion:^(BOOL finished) {
+                                self.hasRecordings = NO;
                                 self.quoteLabel.textColor = [UIColor customTextColor];
                                 self.quoteLabel.textColor = [UIColor customTextColor];
                                 [self rateApp];

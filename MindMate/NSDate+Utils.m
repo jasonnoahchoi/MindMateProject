@@ -158,6 +158,26 @@
     return fireDateOfNotification;
 }
 
++ (NSDate *)reallyLongTimeNotification {
+    NSDate *date = [self fetchDate];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+
+    NSDateComponents *components = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+    [components setHour: 18];
+    [components setMinute:00];
+    [components setSecond:00];
+
+    NSDate *tempDate = [cal dateFromComponents: components];
+
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:7];
+    NSDate *fireDateOfNotification = [cal dateByAddingComponents:comps
+                                                          toDate:tempDate
+                                                         options:0];
+    return fireDateOfNotification;
+}
+
+
 + (NSDate *)createdAtDate {
     NSDate *now = [NSDate date];
     return now;
