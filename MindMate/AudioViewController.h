@@ -20,6 +20,10 @@ typedef enum {
 
 @property (nonatomic, strong) UILocalNotification *reminderNotification;
 @property (nonatomic, strong) UILocalNotification *notification;
+@property (nonatomic, strong) UILocalNotification *longTimeNotification;
+@property (nonatomic, strong) UILocalNotification *reallyLongTimeNotification;
+
+@property (nonatomic, assign) BOOL hasRecordings;
 
 @end
 

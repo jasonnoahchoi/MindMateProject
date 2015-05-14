@@ -59,7 +59,7 @@ static NSString * const kGoPro = @"goPro";
     
     NSString *productIdentifer = notification.userInfo[kProductIDKey];
     
-    if ([productIdentifer isEqualToString:@"gives.tomorrow.jason.Tomorrow.goPro"]) {
+    if ([productIdentifer isEqualToString:@"gives.tomorrow.jason.Tomorrow.gopro"]) {
         self.goPro = YES;
     }
 
