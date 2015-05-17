@@ -13,7 +13,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        //self.backgroundColor = [UIColor blueColor];
         self.timeLabel = [[UILabel alloc] initWithFrame:self.frame];
         self.dateLabel = [[UILabel alloc] initWithFrame:self.frame];
         self.dateLabel.text = @"";
@@ -30,15 +29,9 @@
         [self addSubview:self.dateLabel];
         [self.dateLabel setNeedsLayout];
         [self.timeLabel setNeedsLayout];
-        //self.timeLabel.backgroundColor = [UIColor greenColor];
-        //self.dateLabel.backgroundColor = [UIColor cyanColor];
-
         
         [self.timeLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.dateLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-//        NSDictionary *labelDictionary = NSDictionaryOfVariableBindings(_timeLabel);
-//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-200-[_timeLabel]-20-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:labelDictionary]];
 
         NSDictionary *buttonsDictionary = NSDictionaryOfVariableBindings(_timeLabel, _dateLabel);
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_timeLabel]-[_dateLabel]-|" options:0 metrics:nil views:buttonsDictionary]];

@@ -270,6 +270,7 @@ typedef enum : NSInteger {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = @"Record something inspiring today!";
     localNotification.fireDate = selectedDate;
+    localNotification.soundName = @"babypop.caf";
     localNotification.applicationIconBadgeNumber = 0;
     
     if ([self.frequency isEqualToString:@"Daily"]) {
