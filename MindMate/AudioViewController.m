@@ -23,6 +23,7 @@
 #import "PurchasedDataController.h"
 #import "StorePurchaseController.h"
 #import "SupportViewController.h"
+#import "IntroViewController.h"
 
 static NSString * const hasRecordingsKey = @"hasRecordings";
 static NSString * const numberOfRecordingsKey = @"numberOfRecordings";
@@ -40,6 +41,7 @@ static NSString * const clickedRateKey = @"rate";
 @property (nonatomic, strong) MenuViewController *menuVC;
 @property (nonatomic, strong) MenuView *menuView;
 @property (nonatomic, strong) RecordPlayView *recordPlayView;
+@property (nonatomic, strong) IntroViewController *introVC;
 
 @property (nonatomic) CircleState circleState;
 

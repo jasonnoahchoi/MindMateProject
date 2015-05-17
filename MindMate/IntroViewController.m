@@ -831,9 +831,16 @@ static NSString * const micOnKey = @"micOnKey";
                 [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];
 
                 if (self.hasRecordings) {
-                    return;
+                    if (self.audioVC.reminderNotification) {
+                        [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reminderNotification];
+                    }
+                    if (self.audioVC.notification) {
+                        [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.notification];
+                    }
                 } else {
-                    [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
+                    if (self.notification) {
+                        [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
+                    }
                 }
             }];
         }];
