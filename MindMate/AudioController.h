@@ -35,7 +35,6 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 
 + (AudioController *)sharedInstance;
 - (instancetype)init;
-//+ (AVQueuePlayer *)queuePlayerWithItems:(NSArray *)items;
 - (AVAudioRecorder *)recordAudioToDirectory;
 - (AVAudioPlayer *)playAudioWithURLPath:(NSURL *)url;
 - (AVAudioPlayer *)stopPlayingAudio;
@@ -48,7 +47,6 @@ static NSString *const kLabelDidChange = @"LabelDidChange";
 - (NSData *)data;
 - (void)playAudioFileAtURL:(NSURL *)url;
 - (void)playAudioFileSoftlyAtURL:(NSURL *)url;
-//- (AVQueuePlayer *)playQueueAudio:(NSArray *)items;
 - (void)playAudioWithInt:(int)i;
 
 @end

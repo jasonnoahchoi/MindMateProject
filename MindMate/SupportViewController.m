@@ -39,9 +39,7 @@
     tempLabel.font = [UIFont fontWithName:@"Open Sans" size:16];
     tempLabel.text = @"Let me know if you have any questions or suggestions. I will absolutely read and consider every email, but I can't respond to them all. Thank you for understanding.";
     tempLabel.textAlignment = NSTextAlignmentCenter;
-    
-    
-    // Sets email compose
+
     self.composeEmailButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/3 - 30, CGRectGetHeight(self.frame)/2 + 70, CGRectGetWidth(self.frame)/3 + 60, 44)];
     [self.view addSubview:self.composeEmailButton];
     [self.composeEmailButton setTitle:@"Send Feedback" forState:UIControlStateNormal];
@@ -51,9 +49,7 @@
     self.composeEmailButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
     self.composeEmailButton.tintColor = [UIColor darkGrayColor];
     [self.composeEmailButton addTarget:self action:@selector(sendFeedbackEmail:) forControlEvents:UIControlEventTouchUpInside];
-    //[composeEmailButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    
+
     [self.view addSubview:tempLabel];
     [self.view addSubview:self.composeEmailButton];
     
@@ -78,14 +74,12 @@
     }
 }
 
-// allows user to hit 'cancel' and exit
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)done {
-//    [self.drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

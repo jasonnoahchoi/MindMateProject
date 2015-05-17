@@ -33,8 +33,6 @@
     NSString *html = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"privacy" withExtension:@"html"] encoding:NSStringEncodingConversionAllowLossy error:nil];
     [webView loadHTMLString:html baseURL:[[NSBundle mainBundle] URLForResource:@"privacy" withExtension:@"html"]];
     [self.view addSubview:webView];
-
-    // Do any additional setup after loading the view.
 }
 
 - (void)menuPressed {

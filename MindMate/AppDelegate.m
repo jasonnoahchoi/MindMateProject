@@ -37,9 +37,7 @@ static NSString * const clickedRateKey = @"rate";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundgradient"]];
     self.window.backgroundColor = [UIColor whiteColor];
-    //AudioRecorderViewController *viewController = [[AudioRecorderViewController alloc] init];
     self.audioVC = [[AudioViewController alloc] init];
     self.introVC = [[IntroViewController alloc] init];
 
@@ -53,7 +51,6 @@ static NSString * const clickedRateKey = @"rate";
 
     [self trackLaunches];
 
-  //  UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     BOOL finishedIntro = [[NSUserDefaults standardUserDefaults] boolForKey:finishedIntroKey];
     if (!finishedIntro) {
         self.window.rootViewController = self.introVC;
@@ -92,7 +89,6 @@ static NSString * const clickedRateKey = @"rate";
         [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSLog(@"Cancel");
             SupportViewController *rateAppVC = [[SupportViewController alloc] init];
-            //UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rateAppVC];
             [self.window.rootViewController presentViewController:rateAppVC animated:YES completion:nil];
         }]];
         [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Remind Me Later" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -114,7 +110,6 @@ static NSString * const clickedRateKey = @"rate";
         [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSLog(@"Cancel");
             SupportViewController *rateAppVC = [[SupportViewController alloc] init];
-            // UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rateAppVC];
             [self.window.rootViewController presentViewController:rateAppVC animated:YES completion:nil];
         }]];
         [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"No, thanks" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -126,8 +121,6 @@ static NSString * const clickedRateKey = @"rate";
 
 #pragma mark - Launch Tracker
 - (void)trackLaunches {
-//    NSInteger launchCount = [[NSUserDefaults standardUserDefaults] integerForKey:launchCountKey];
-
     if (self.launchCount) {
         self.launchCount++;
     } else {
@@ -186,17 +179,6 @@ static NSString * const clickedRateKey = @"rate";
             [[UIApplication sharedApplication] scheduleLocalNotification:self.audioVC.reallyLongTimeNotification];
         }
     }
-
-       // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-//    NSInteger numberOfRecordings = [[NSUserDefaults standardUserDefaults] integerForKey:numberOfRecordingsKey];
-//    if (numberOfRecordings > [RecordingController sharedInstance].memos.count) {
-//
-//        UILocalNotification *notification = [[UILocalNotification alloc] init];
-//        notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
-//        notification.fireDate = [NSDate notificationTime];
-//        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-//    }
 }
 
 
@@ -221,16 +203,6 @@ static NSString * const clickedRateKey = @"rate";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    //BOOL hasRecordings = [[NSUserDefaults standardUserDefaults] boolForKey:hasRecordingsKey];
-//    NSInteger numberOfRecordings = [[NSUserDefaults standardUserDefaults] integerForKey:numberOfRecordingsKey];
-//    if (numberOfRecordings > [RecordingController sharedInstance].memos.count) {
-//
-//        UILocalNotification *notification = [[UILocalNotification alloc] init];
-//        notification.alertBody = @"Tomorrow has brought you yesterday's recordings, today.";
-//        notification.fireDate = [NSDate notificationTime];
-//        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-//    }
-
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

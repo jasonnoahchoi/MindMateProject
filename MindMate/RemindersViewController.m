@@ -59,17 +59,14 @@
             [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 self.notificationLabel.alpha = 1;
             } completion:nil];
-           // NSLog(@"No permission granted");
         }
         else if (grantedSettings.types & UIUserNotificationTypeSound & UIUserNotificationTypeAlert ){
-           // NSLog(@"Sound and alert permissions ");
             self.notificationLabel.hidden = YES;
             self.tableView.hidden = NO;
         }
         else if (grantedSettings.types  & UIUserNotificationTypeAlert){
             self.notificationLabel.hidden = YES;
             self.tableView.hidden = NO;
-           // NSLog(@"Alert Permission Granted");
         }
     }
 }
@@ -79,7 +76,6 @@
 }
 
 - (void)done {
-//    [self.drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
