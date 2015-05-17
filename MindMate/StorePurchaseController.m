@@ -28,10 +28,6 @@
 }
 
 - (NSSet *)bundledProducts {
-    
-    // gets all product IDs from the Products.json file
-    // grabs different items in there and get the item IDs to send to Apple to get products
-    
     NSBundle *bundle = [NSBundle mainBundle];
     NSArray *bundleProducts = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[bundle URLForResource:@"Products" withExtension:@"json"]] options:0 error:nil];
     if (bundleProducts) {
@@ -44,9 +40,6 @@
 
 - (void)requestProducts {
     if (!self.productsRequest) {
-        
-        // grabs product IDs
-        
         self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[self bundledProducts]];
         self.productsRequest.delegate = self;
     }

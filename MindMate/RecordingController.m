@@ -52,8 +52,6 @@
 - (NSArray *)memoNames {
     NSMutableArray *mutableMemoNames = [[NSMutableArray alloc] init];
     for (Recording *recording in self.memos) {
-       // NSString *string = recording.createdAt;
-       // [mutableMemoNames addObject:nowDate];
         NSDate *fetchDate = recording.showAt;
         [mutableMemoNames addObject:fetchDate];
         NSString *urlPath = recording.urlPath;
@@ -62,12 +60,6 @@
         [mutableMemoNames addObject:idNumber];
         NSString *simpleDate = recording.simpleDate;
         [mutableMemoNames addObject:simpleDate];
-        
-
-//        NSData *memoFile = recording.memo;
-//        [mutableMemoNames addObject:memoFile];
-        //User *memoFromUser = recording.fromUser;
-       // [mutableMemoNames addObject:memoFromUser];
     }
     return mutableMemoNames;
 }
@@ -86,12 +78,8 @@
     recording.simpleDate = simpleDate;
     recording.groupName = groupName;
     recording.timeCreated = timeCreated;
-    
-    
-   // [[QueueManager sharedInstance] addRecording:recording];
 
     [self save];
-    // NSLog(@"\n\n\n\n CORE DATA SAVED %@", recording);
 }
 
 - (void)addGroupID:(NSNumber *)groupID {
@@ -100,7 +88,6 @@
     recording.groupID = groupID;
     
     [self save];
-    //NSLog(@"\n\n\nGroup ID: %@", groupID);
 }
 
 - (void)addRecordingWithFile:(NSData *)memo {

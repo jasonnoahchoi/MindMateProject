@@ -56,7 +56,6 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.tableView.scrollEnabled = NO;
     self.tableView.separatorColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    //self.audioHandler = [AudioController sharedInstance];
     self.menuView = [[MenuView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - (self.view.frame.size.width/6), self.view.frame.size.height/18, self.view.frame.size.width/8, self.view.frame.size.width/7.8)];
     [self.view addSubview:self.menuView];
 
@@ -114,12 +113,9 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
     self.soundToggle.tintColor = [UIColor customSwitchPurpleColor];
     self.soundToggle.onTintColor = [UIColor customSwitchPurpleColor];
     self.soundToggle.on = YES;
-//    [[NSUserDefaults standardUserDefaults] setBool:self.soundEffectsOn forKey:soundEffectsOnKey];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
     [self.soundToggle addTarget:self action:@selector(soundToggleState) forControlEvents:UIControlEventValueChanged];
     self.preferencesCell.accessoryView = self.soundToggle;
     self.preferencesCell.textLabel.font = [UIFont fontWithName:@"Open Sans" size:18];
-    //self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
 }
 
 - (void)soundToggleState {

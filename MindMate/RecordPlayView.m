@@ -15,10 +15,6 @@
     if (self) {
         self.playImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"playgreen"]];
         self.recordImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"recordred"]];
-//        self.playImageView.image = [UIImage imageNamed:@"playgreen"];
-//        self.playImageView.frame = frame;
-//        self.recordImageView.image = [UIImage imageNamed:@"recordred"];
-//        self.recordImageView.frame = frame;
         [self addSubview:self.playImageView];
         [self addSubview:self.recordImageView];
     }

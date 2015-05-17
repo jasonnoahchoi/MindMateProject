@@ -60,8 +60,6 @@
 
 // Check to see if the current time is between the two arbitrary times, ignoring the date portion:
 + (BOOL)currentTimeIsBetweenTimeFromStartDate:(NSDate *)startDate andTimeFromEndDate:(NSDate *)endDate {
-    // date1 = [self midnightTime];
-    // date2 = [self sixAMTime];
     int time1     = [NSDate timeAsIntegerFromDate:startDate];
     int time2     = [NSDate timeAsIntegerFromDate:endDate];
     int nowTime   = [NSDate timeAsIntegerFromDate:[self createdAtDate]];
@@ -220,16 +218,10 @@
     NSDate *date = [NSDate fetchDateForRecording];
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:date];
-    //    [components setYear:0];
-    //    [components setMonth:0];
-    //    [components setDay:1];
 
     [components setHour:23];
     [components setMinute:59];
     [components setSecond:59];
-
-    //    NSUInteger count = 1;
-    //    components.day = count;
 
     return [cal dateByAddingComponents:components toDate:[NSDate beginningOfDay] options:0];
 }

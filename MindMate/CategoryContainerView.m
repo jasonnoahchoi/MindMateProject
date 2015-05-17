@@ -30,35 +30,6 @@
         return;
     }
     _state = state;
-
-//    switch (state) {
-//        case ButtonStateNone:
-//            [self.delegate noneState:ButtonStateNone];
-//            break;
-//        case ButtonStateFocus:
-//                self.focusButton.layer.borderColor = [UIColor greenColor].CGColor;
-//            [self.delegate focusState:ButtonStateFocus];
-//                [self.focusButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-//
-//            break;
-//        case ButtonStateCourage:
-//
-//                self.courageButton.layer.borderColor = [UIColor redColor].CGColor;
-//            [self.delegate courageState:ButtonStateCourage];
-//                [self.courageButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-//
-//            break;
-//        case ButtonStateAmbition:
-//
-//            break;
-//
-//        default:
-//            break;
-////    }
-//    if (state == ButtonStateLaunch) {
-//        [self.delegate focusState:ButtonStateLaunch];
-//        return;
-//    }
     if (state == ButtonStateNone || state == ButtonStateZero) {
         switch (state) {
             case ButtonStateNone:
@@ -83,9 +54,6 @@
         [self.funButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         self.presenceButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
         [self.presenceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-
-//        ButtonView *view = [[ButtonView alloc] init];
-//        [view gestureRecognizer:view.longPressGesture shouldRequireFailureOfGestureRecognizer:view.longPressGesture];
     }
     if (state == ButtonStateFocus) {
         self.focusButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
