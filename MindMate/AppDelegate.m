@@ -59,6 +59,7 @@ static NSString * const clickedRateKey = @"rate";
         self.window.rootViewController = self.audioVC;
     }
     self.window.backgroundColor = [UIColor whiteColor];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(rateApp) userInfo:nil repeats:NO];
 
     [self.window makeKeyAndVisible];
@@ -91,7 +92,7 @@ static NSString * const clickedRateKey = @"rate";
             SupportViewController *rateAppVC = [[SupportViewController alloc] init];
             [self.window.rootViewController presentViewController:rateAppVC animated:YES completion:nil];
         }]];
-        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Remind Me Later" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not Right Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:remindLaterKey];
         }]];
 
@@ -112,7 +113,7 @@ static NSString * const clickedRateKey = @"rate";
             SupportViewController *rateAppVC = [[SupportViewController alloc] init];
             [self.window.rootViewController presentViewController:rateAppVC animated:YES completion:nil];
         }]];
-        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"No, thanks" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"No, thanks" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         }]];
         [self.window.rootViewController presentViewController:rateAppAlertController animated:YES completion:nil];
     }
@@ -192,13 +193,13 @@ static NSString * const clickedRateKey = @"rate";
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[Harpy sharedInstance] checkVersionDaily];
     [[Harpy sharedInstance] checkVersionWeekly];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"] || [[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
           [[UIApplication sharedApplication]cancelLocalNotification:self.audioVC.longTimeNotification];
         self.audioVC.longTimeNotification = nil;
         [[UIApplication sharedApplication]cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
         self.audioVC.reallyLongTimeNotification = nil;
     }
-
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

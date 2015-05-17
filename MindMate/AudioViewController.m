@@ -183,7 +183,7 @@ static NSString * const clickedRateKey = @"rate";
 
 - (void)rateApp {
     BOOL remind = [[NSUserDefaults standardUserDefaults] boolForKey:remindLaterKey];
-    if (self.clickedRate != YES && ([RecordingController sharedInstance].memos.count > 2 || remind)) {
+    if (self.clickedRate != YES && ([RecordingController sharedInstance].memos.count > 3 || remind)) {
         UIAlertController *rateAppAlertController = [UIAlertController alertControllerWithTitle:@"Rate Tomorrow" message:@"If you enjoy using Tomorrow, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!" preferredStyle:UIAlertControllerStyleAlert];
         [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Rate It Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSLog(@"rate app");
@@ -192,12 +192,13 @@ static NSString * const clickedRateKey = @"rate";
             NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appID]];
             [[UIApplication sharedApplication] openURL:appStoreURL];
         }]];
-        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not a Fan" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"No, thanks" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSLog(@"Cancel");
             SupportViewController *rateAppVC = [[SupportViewController alloc] init];
             [self presentViewController:rateAppVC animated:YES completion:nil];
+            self.clickedRate = YES;
         }]];
-        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Remind Me Later" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [rateAppAlertController addAction:[UIAlertAction actionWithTitle:@"Not Right Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:remindLaterKey];
         }]];
 
