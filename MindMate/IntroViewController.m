@@ -1339,23 +1339,23 @@ static NSString * const micOnKey = @"micOnKey";
             if (self.circleState == IntroCircleStatePlay || self.circleState == IntroCircleStateNotifications) {
                 self.tdView.hidden = NO;
                 self.recordLabel.alpha = 0;
+                self.recordPlayView.hidden = NO;
+                self.recordPlayView.recordImageView.alpha = 0;
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                [animation setDuration:0.5f];
+                [animation setTimingFunction:[CAMediaTimingFunction
+                                              functionWithName:kCAMediaTimingFunctionLinear]];
+                [animation setAutoreverses:YES];
+                [animation setRepeatCount:HUGE_VALF];
+                [self.recordPlayView.playImageView.layer addAnimation:animation forKey:@"opacity"];
+
                 [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                     self.menuView.menuButton.alpha = 0;
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
                     self.menuView.menuButton.hidden = YES;
-                    self.recordPlayView.hidden = NO;
-                    self.recordPlayView.recordImageView.alpha = 0;
-                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-                    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
-                    [animation setToValue:[NSNumber numberWithFloat:0.0]];
-                    [animation setDuration:0.5f];
-                    [animation setTimingFunction:[CAMediaTimingFunction
-                                                  functionWithName:kCAMediaTimingFunctionLinear]];
-                    [animation setAutoreverses:YES];
-                    [animation setRepeatCount:HUGE_VALF];
-                    [self.recordPlayView.playImageView.layer addAnimation:animation forKey:@"opacity"];
-
                     self.tdView.timeLabel.alpha = 1;
                     self.tdView.dateLabel.alpha = 1;
                     self.tdView.timeLabel.text = [[AudioController sharedInstance] currentTime];
@@ -1453,8 +1453,19 @@ static NSString * const micOnKey = @"micOnKey";
                 case UIGestureRecognizerStateBegan:
                 {
                     [self recording];
+                    self.recordPlayView.hidden = NO;
+                    self.recordPlayView.playImageView.alpha = 0;
+                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                    [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                    [animation setDuration:0.5f];
+                    [animation setTimingFunction:[CAMediaTimingFunction
+                                                  functionWithName:kCAMediaTimingFunctionLinear]];
+                    [animation setAutoreverses:YES];
+                    [animation setRepeatCount:HUGE_VALF];
+                    [self.recordPlayView.recordImageView.layer addAnimation:animation forKey:@"opacity"];
                     [UIView animateWithDuration:.2
-                                          delay:.1
+                                          delay:0
                                         options:UIViewAnimationOptionCurveLinear
                                      animations:^{
                                          self.menuView.menuButton.alpha = 0;
@@ -1463,17 +1474,7 @@ static NSString * const micOnKey = @"micOnKey";
                                          button.alpha = .7;
                                          self.playCornerButton.hidden = YES;
                                      } completion:^(BOOL finished) {
-                                         self.recordPlayView.hidden = NO;
-                                         self.recordPlayView.playImageView.alpha = 0;
-                                         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-                                         [animation setFromValue:[NSNumber numberWithFloat:1.0]];
-                                         [animation setToValue:[NSNumber numberWithFloat:0.0]];
-                                         [animation setDuration:0.5f];
-                                         [animation setTimingFunction:[CAMediaTimingFunction
-                                                                       functionWithName:kCAMediaTimingFunctionLinear]];
-                                         [animation setAutoreverses:YES];
-                                         [animation setRepeatCount:HUGE_VALF];
-                                         [self.recordPlayView.recordImageView.layer addAnimation:animation forKey:@"opacity"];
+
                                      }];
                 }
                     break;

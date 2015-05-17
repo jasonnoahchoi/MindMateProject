@@ -993,22 +993,23 @@ static NSString * const clickedRateKey = @"rate";
             if ([RecordingController sharedInstance].memos.count > 0) {
                 self.tdView.hidden = NO;
                 self.recordCornerButton.hidden = YES;
+                self.recordPlayView.hidden = NO;
+                self.recordPlayView.recordImageView.alpha = 0;
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                [animation setDuration:0.5f];
+                [animation setTimingFunction:[CAMediaTimingFunction
+                                              functionWithName:kCAMediaTimingFunctionLinear]];
+                [animation setAutoreverses:YES];
+                [animation setRepeatCount:HUGE_VALF];
+                [self.recordPlayView.playImageView.layer addAnimation:animation forKey:@"opacity"];
+
                 [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     self.menuView.menuButton.alpha = 0;
                     button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 3.5, 3.5);
                 } completion:^(BOOL finished) {
                     self.menuView.menuButton.hidden = YES;
-                    self.recordPlayView.hidden = NO;
-                    self.recordPlayView.recordImageView.alpha = 0;
-                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-                    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
-                    [animation setToValue:[NSNumber numberWithFloat:0.0]];
-                    [animation setDuration:0.5f];
-                    [animation setTimingFunction:[CAMediaTimingFunction
-                                                  functionWithName:kCAMediaTimingFunctionLinear]];
-                    [animation setAutoreverses:YES];
-                    [animation setRepeatCount:HUGE_VALF];
-                    [self.recordPlayView.playImageView.layer addAnimation:animation forKey:@"opacity"];
 
                     // ---- Another Queue Player Attempt
                     //                        NSArray *array = [RecordingController sharedInstance].memos;
@@ -1240,8 +1241,19 @@ static NSString * const clickedRateKey = @"rate";
                     self.recordLabel.alpha = 0;
                     [self recording];
                     self.playCornerButton.alpha = 0;
+                    self.recordPlayView.hidden = NO;
+                    self.recordPlayView.playImageView.alpha = 0;
+                    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+                    [animation setToValue:[NSNumber numberWithFloat:0.0]];
+                    [animation setDuration:0.5f];
+                    [animation setTimingFunction:[CAMediaTimingFunction
+                                                  functionWithName:kCAMediaTimingFunctionLinear]];
+                    [animation setAutoreverses:YES];
+                    [animation setRepeatCount:HUGE_VALF];
+                    [self.recordPlayView.recordImageView.layer addAnimation:animation forKey:@"opacity"];
                     [UIView animateWithDuration:.2
-                                          delay:.1
+                                          delay:0
                                         options:UIViewAnimationOptionCurveEaseIn
                                      animations:^{
                                          self.menuView.menuButton.alpha = 0;
@@ -1249,17 +1261,7 @@ static NSString * const clickedRateKey = @"rate";
                                          button.alpha = .7;
                                          self.playCornerButton.hidden = YES;
                                      } completion:^(BOOL finished) {
-                                         self.recordPlayView.hidden = NO;
-                                         self.recordPlayView.playImageView.alpha = 0;
-                                         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-                                         [animation setFromValue:[NSNumber numberWithFloat:1.0]];
-                                         [animation setToValue:[NSNumber numberWithFloat:0.0]];
-                                         [animation setDuration:0.5f];
-                                         [animation setTimingFunction:[CAMediaTimingFunction
-                                                                       functionWithName:kCAMediaTimingFunctionLinear]];
-                                         [animation setAutoreverses:YES];
-                                         [animation setRepeatCount:HUGE_VALF];
-                                         [self.recordPlayView.recordImageView.layer addAnimation:animation forKey:@"opacity"];
+
                                      }];
                     // self.buttonView.playButton.enabled = NO;
                     //self.on = YES;
