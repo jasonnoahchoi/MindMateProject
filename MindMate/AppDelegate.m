@@ -238,34 +238,25 @@ static NSString * const clickedRateKey = @"rate";
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    if (notification == self.audioVC.longTimeNotification) {
-        [[UIApplication sharedApplication] cancelLocalNotification:notification];
-    } else if (notification == self.audioVC.reallyLongTimeNotification) {
-        [[UIApplication sharedApplication] cancelLocalNotification:notification];
-    } else if (notification == self.audioVC.notification) {
-        if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.longTimeNotification];
+    if (notification == self.audioVC.notification) {
+        if (notification == self.audioVC.reminderNotification) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reminderNotification];
         }
-        if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        if (notification == self.introVC.notification) {
+             [[UIApplication sharedApplication] cancelLocalNotification:self.introVC.notification];
         }
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     } else if (notification == self.audioVC.reminderNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
-        if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.longTimeNotification];
-        }
-        if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
-        }
     } else if (notification == self.introVC.notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
-        if ([[self.audioVC.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.longTimeNotification];
+        if (notification == self.audioVC.reminderNotification) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reminderNotification];
         }
-        if ([[self.audioVC.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reallyLongTimeNotification];
+        if (notification == self.audioVC.notification) {
+            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.notification];
         }
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     // Handle the notificaton when the app is running
