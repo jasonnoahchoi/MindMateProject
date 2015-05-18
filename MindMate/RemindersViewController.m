@@ -64,7 +64,7 @@
             self.notificationLabel.hidden = YES;
             self.tableView.hidden = NO;
         }
-        else if (grantedSettings.types  & UIUserNotificationTypeAlert){
+        else if (grantedSettings.types & UIUserNotificationTypeAlert){
             self.notificationLabel.hidden = YES;
             self.tableView.hidden = NO;
         }

@@ -601,7 +601,8 @@ static NSString * const clickedRateKey = @"rate";
                 } completion:^(BOOL finished) {
                     self.reminderNotification = [[UILocalNotification alloc] init];
                     NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
-                    self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+                    self.reminderNotification.alertBody = @"Line 604 AudioVC";
+//                    self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
                     self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
                     self.reminderNotification.fireDate = [NSDate reminderNotificationTime];
                     self.reminderNotification.applicationIconBadgeNumber = 1;
@@ -1179,8 +1180,8 @@ static NSString * const clickedRateKey = @"rate";
             }];
         }];
     } else {
-//        if (self.containerView.state != ButtonStateZero) {
-//            self.circleState = CircleStateRecord;
+        if (self.containerView.state != ButtonStateZero) {
+            self.circleState = CircleStateRecord;
         if (self.circleState == CircleStateRecord || self.circleState == CircleStateLoad) {
                 self.recordLabel.hidden = YES;
             switch (sender.state) {
@@ -1250,6 +1251,7 @@ static NSString * const clickedRateKey = @"rate";
                     break;
             }
         }
+    }
     }
 }
 
