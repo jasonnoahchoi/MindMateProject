@@ -877,7 +877,7 @@ static NSString * const micOnKey = @"micOnKey";
         [self hideBottomButtons];
         self.recordLabel.alpha = 0;
         self.recordLabel.text = @"Hold down on the circle to record again.";
-        self.circleState = IntroCircleStatePlay;
+        self.circleState = IntroCircleStateRecord;
         self.containerView.state = ButtonStateNone;
         [self noneState:ButtonStateNone];
         [UIView animateWithDuration:.3 delay:.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
