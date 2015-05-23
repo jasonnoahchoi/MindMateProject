@@ -599,15 +599,18 @@ static NSString * const clickedRateKey = @"rate";
                 [UIView animateWithDuration:.5 delay:2 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction animations:^{
                     self.recordLabel.alpha = 0;
                 } completion:^(BOOL finished) {
-                    self.reminderNotification = [[UILocalNotification alloc] init];
-                    NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
-                    self.reminderNotification.alertBody = @"Line 604 AudioVC";
-//                    self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
-                    self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
-                    self.reminderNotification.fireDate = [NSDate reminderNotificationTime];
-                    self.reminderNotification.applicationIconBadgeNumber = 1;
-                    self.reminderNotification.soundName = @"babypopagain.caf";
-                    [[UIApplication sharedApplication] scheduleLocalNotification:self.reminderNotification];
+                    if (!self.reminderNotification) {
+                        self.reminderNotification = [[UILocalNotification alloc] init];
+                        NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
+                        self.reminderNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+                        self.reminderNotification.timeZone = [NSTimeZone localTimeZone];
+                        self.reminderNotification.fireDate = [NSDate reminderNotificationTime];
+                        self.reminderNotification.applicationIconBadgeNumber = 1;
+                        self.reminderNotification.soundName = @"babypopagain.caf";
+                        [[UIApplication sharedApplication] scheduleLocalNotification:self.reminderNotification];
+                    } else {
+                        return;
+                    }
                 }];
             }];
         }
@@ -851,13 +854,15 @@ static NSString * const clickedRateKey = @"rate";
 
             self.counter++;
             self.hasRecordings = YES;
-            self.notification = [[UILocalNotification alloc] init];
-            self.notification.alertBody = @"Tomorrow has brought you yesterday's messages, today.";
-            self.notification.timeZone = [NSTimeZone localTimeZone];
-            self.notification.fireDate = [NSDate notificationTime];
-            self.notification.applicationIconBadgeNumber = 1;
-            self.notification.soundName = @"babypop.caf";
-            [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];
+            if (!self.notification) {
+                self.notification = [[UILocalNotification alloc] init];
+                self.notification.alertBody = @"Tomorrow has brought you yesterday's messages, today.";
+                self.notification.timeZone = [NSTimeZone localTimeZone];
+                self.notification.fireDate = [NSDate notificationTime];
+                self.notification.applicationIconBadgeNumber = 1;
+                self.notification.soundName = @"babypop.caf";
+                [[UIApplication sharedApplication] scheduleLocalNotification:self.notification];
+            }
 
             if (self.hasRecordings) {
                 if (self.reminderNotification) {
@@ -870,11 +875,11 @@ static NSString * const clickedRateKey = @"rate";
                     [[UIApplication sharedApplication] cancelLocalNotification:self.reallyLongTimeNotification];
                 }
             } else {
-                if (self.notification) {
-                    [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
-                }
                 if ([[self.longTimeNotification.userInfo valueForKey:@"reminding"] isEqualToString:@"Been a while"]) {
                     [[UIApplication sharedApplication] cancelLocalNotification:self.longTimeNotification];
+                }
+                if (self.notification) {
+                    [[UIApplication sharedApplication] cancelLocalNotification:self.notification];
                 }
                 if ([[self.reallyLongTimeNotification.userInfo valueForKey:@"remindingAgain"] isEqualToString:@"Really long while"]) {
                     [[UIApplication sharedApplication] cancelLocalNotification:self.reallyLongTimeNotification];

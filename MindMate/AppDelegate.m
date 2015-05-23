@@ -159,24 +159,25 @@ static NSString * const clickedRateKey = @"rate";
         }
         return;
     } else {
-        self.audioVC.longTimeNotification = [[UILocalNotification alloc] init];
         NSUInteger randomIndexRecord = arc4random() % [[NSArray arrayOfRecordYourselfMessages] count];
-        self.audioVC.longTimeNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
-        self.audioVC.longTimeNotification.timeZone = [NSTimeZone localTimeZone];
-        self.audioVC.longTimeNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Been a while"] forKey:@"reminding"];
-        self.audioVC.longTimeNotification.fireDate = [NSDate beenLongTimeNotification];
-        self.audioVC.longTimeNotification.applicationIconBadgeNumber = 1;
-        self.audioVC.longTimeNotification.soundName = @"babypopagain.caf";
-        [[UIApplication sharedApplication] scheduleLocalNotification:self.audioVC.longTimeNotification];
-
-        self.audioVC.reallyLongTimeNotification = [[UILocalNotification alloc] init];
-        self.audioVC.reallyLongTimeNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
-        self.audioVC.reallyLongTimeNotification.timeZone = [NSTimeZone localTimeZone];
-        self.audioVC.reallyLongTimeNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Really long while"] forKey:@"remindingAgain"];
-        self.audioVC.reallyLongTimeNotification.fireDate = [NSDate reallyLongTimeNotification];
-        self.audioVC.reallyLongTimeNotification.applicationIconBadgeNumber = 1;
-        self.audioVC.reallyLongTimeNotification.soundName = @"babypopagain.caf";
-        if (!self.audioVC.notification) {
+        if (!self.audioVC.longTimeNotification) {
+            self.audioVC.longTimeNotification = [[UILocalNotification alloc] init];
+            self.audioVC.longTimeNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+            self.audioVC.longTimeNotification.timeZone = [NSTimeZone localTimeZone];
+            self.audioVC.longTimeNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Been a while"] forKey:@"reminding"];
+            self.audioVC.longTimeNotification.fireDate = [NSDate beenLongTimeNotification];
+            self.audioVC.longTimeNotification.applicationIconBadgeNumber = 1;
+            self.audioVC.longTimeNotification.soundName = @"babypopagain.caf";
+            [[UIApplication sharedApplication] scheduleLocalNotification:self.audioVC.longTimeNotification];
+        }
+        if (!self.audioVC.reallyLongTimeNotification) {
+            self.audioVC.reallyLongTimeNotification = [[UILocalNotification alloc] init];
+            self.audioVC.reallyLongTimeNotification.alertBody = [NSArray arrayOfRecordYourselfMessages][randomIndexRecord];
+            self.audioVC.reallyLongTimeNotification.timeZone = [NSTimeZone localTimeZone];
+            self.audioVC.reallyLongTimeNotification.userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Really long while"] forKey:@"remindingAgain"];
+            self.audioVC.reallyLongTimeNotification.fireDate = [NSDate reallyLongTimeNotification];
+            self.audioVC.reallyLongTimeNotification.applicationIconBadgeNumber = 1;
+            self.audioVC.reallyLongTimeNotification.soundName = @"babypopagain.caf";
             [[UIApplication sharedApplication] scheduleLocalNotification:self.audioVC.reallyLongTimeNotification];
         }
     }
