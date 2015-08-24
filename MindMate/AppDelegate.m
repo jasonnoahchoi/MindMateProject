@@ -15,6 +15,10 @@
 #import "NSDate+Utils.h"
 #import "NSArray+RecordPlayStrings.h"
 #import "Harpy.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#import <DigitsKit/DigitsKit.h>
+#import "Tomorrow-Swift.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
 static NSString * const soundEffectsOnKey = @"soundEffects";
@@ -35,6 +39,7 @@ static NSString * const clickedRateKey = @"rate";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Fabric with:@[CrashlyticsKit, DigitsKit]];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -59,7 +64,7 @@ static NSString * const clickedRateKey = @"rate";
         self.window.rootViewController = self.audioVC;
     }
     self.window.backgroundColor = [UIColor whiteColor];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
     [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(rateApp) userInfo:nil repeats:NO];
 
     [self.window makeKeyAndVisible];

@@ -34,6 +34,7 @@
 		0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403A1ACDD253009B5AF8 /* ButtonView.m */; };
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
 		0827B94D1ADCBE27004F5235 /* QuotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0827B94C1ADCBE27004F5235 /* QuotesController.m */; };
+		0830A0DA1B8BB54800AA31A7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830A0D91B8BB54800AA31A7 /* LoginViewController.swift */; };
 		0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0833C5861AD4FD7E000C945D /* NSDate+Utils.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
 		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
@@ -118,6 +119,8 @@
 		0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryContainerView.m; sourceTree = "<group>"; };
 		0827B94B1ADCBE27004F5235 /* QuotesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuotesController.h; sourceTree = "<group>"; };
 		0827B94C1ADCBE27004F5235 /* QuotesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuotesController.m; sourceTree = "<group>"; };
+		0830A0D81B8BB54700AA31A7 /* Tomorrow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tomorrow-Bridging-Header.h"; sourceTree = "<group>"; };
+		0830A0D91B8BB54800AA31A7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0833C5851AD4FD7E000C945D /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
 		0833C5861AD4FD7E000C945D /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		083D6E741AC4C5770005E67C /* Tomorrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomorrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +235,7 @@
 		083D6E761AC4C5770005E67C /* Tomorrow */ = {
 			isa = PBXGroup;
 			children = (
+				0830A0D91B8BB54800AA31A7 /* LoginViewController.swift */,
 				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
@@ -256,6 +260,7 @@
 				0869142F1AC891F40064B6AE /* Main.storyboard */,
 				083D6E861AC4C5770005E67C /* LaunchScreen.xib */,
 				083D6E771AC4C5770005E67C /* Supporting Files */,
+				0830A0D81B8BB54700AA31A7 /* Tomorrow-Bridging-Header.h */,
 			);
 			name = Tomorrow;
 			path = MindMate;
@@ -416,6 +421,7 @@
 				083D6E711AC4C5770005E67C /* Frameworks */,
 				083D6E721AC4C5770005E67C /* Resources */,
 				B1507186F1F459C4394A0C9A /* Copy Pods Resources */,
+				0830A0D71B8BB1F100AA31A7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -522,6 +528,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0830A0D71B8BB1F100AA31A7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" cbbbf6cc8326ba8060abf2df22f60fc81f7046ad 1c27bf88d22678c42443b4a2a9f3fd583ea23e1e5810a6b205001b96a8bc09b9";
+		};
 		87CCCABD72612E04EB124009 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -580,6 +599,7 @@
 				08B840D01B02BADA0060BE78 /* PurchasedDataController.m in Sources */,
 				08CE94F11ACBB04F00B83395 /* User.m in Sources */,
 				0826403D1ACDD253009B5AF8 /* AudioViewController.m in Sources */,
+				0830A0DA1B8BB54800AA31A7 /* LoginViewController.swift in Sources */,
 				0812911E1ADA3D1600CD49DF /* RemindersViewController.m in Sources */,
 				080138771ADEEF87008531C1 /* NSArray+RecordPlayStrings.m in Sources */,
 				08B840CF1B02BADA0060BE78 /* StorePurchaseController.m in Sources */,
@@ -661,6 +681,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = Tomorrow;
+				PRODUCT_NAME = Tomorrow;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -695,6 +717,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_MODULE_NAME = Tomorrow;
+				PRODUCT_NAME = Tomorrow;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -705,6 +729,7 @@
 			baseConfigurationReference = 4F47C3241880CF0F720F6C19 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MindMate/Info.plist;
@@ -712,6 +737,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Tomorrow;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MindMate/Tomorrow-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -721,6 +748,7 @@
 			baseConfigurationReference = DDDD9BD0EB2DF803753FA4DD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MindMate/Info.plist;
@@ -728,6 +756,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Tomorrow;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MindMate/Tomorrow-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

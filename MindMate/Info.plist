@@ -20,6 +20,31 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>25</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>cbbbf6cc8326ba8060abf2df22f60fc81f7046ad</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>lnksVMJoipDEFY8OoidrBW97e</string>
+					<key>consumerSecret</key>
+					<string>pVy3b9MPNYAZM1Jp6vGj7GiX1XGcD4bBRlaV4fi1HIgkZH3EHI</string>
+				</dict>
+				<key>KitName</key>
+				<string>Digits</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
