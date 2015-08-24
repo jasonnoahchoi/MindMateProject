@@ -35,6 +35,7 @@
 		0826403F1ACDD253009B5AF8 /* CategoryContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826403C1ACDD253009B5AF8 /* CategoryContainerView.m */; };
 		0827B94D1ADCBE27004F5235 /* QuotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0827B94C1ADCBE27004F5235 /* QuotesController.m */; };
 		0830A0DA1B8BB54800AA31A7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830A0D91B8BB54800AA31A7 /* LoginViewController.swift */; };
+		0830A0DC1B8BC99300AA31A7 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0830A0DB1B8BC99300AA31A7 /* ParseHelper.swift */; };
 		0833C5871AD4FD7E000C945D /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0833C5861AD4FD7E000C945D /* NSDate+Utils.m */; };
 		083D6E7A1AC4C5770005E67C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E791AC4C5770005E67C /* main.m */; };
 		083D6E7D1AC4C5770005E67C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D6E7C1AC4C5770005E67C /* AppDelegate.m */; };
@@ -121,6 +122,7 @@
 		0827B94C1ADCBE27004F5235 /* QuotesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuotesController.m; sourceTree = "<group>"; };
 		0830A0D81B8BB54700AA31A7 /* Tomorrow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tomorrow-Bridging-Header.h"; sourceTree = "<group>"; };
 		0830A0D91B8BB54800AA31A7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0830A0DB1B8BC99300AA31A7 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		0833C5851AD4FD7E000C945D /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
 		0833C5861AD4FD7E000C945D /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		083D6E741AC4C5770005E67C /* Tomorrow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomorrow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				0830A0D91B8BB54800AA31A7 /* LoginViewController.swift */,
+				0830A0DB1B8BC99300AA31A7 /* ParseHelper.swift */,
 				083D6E7B1AC4C5770005E67C /* AppDelegate.h */,
 				083D6E7C1AC4C5770005E67C /* AppDelegate.m */,
 				082640371ACDD253009B5AF8 /* AudioViewController.h */,
@@ -605,6 +608,7 @@
 				08B840CF1B02BADA0060BE78 /* StorePurchaseController.m in Sources */,
 				083D6E7A1AC4C5770005E67C /* main.m in Sources */,
 				083D6EAE1AC4C8550005E67C /* RecordingController.m in Sources */,
+				0830A0DC1B8BC99300AA31A7 /* ParseHelper.swift in Sources */,
 				08CA1C7F1ACF066200D74EFC /* UIColor+Colors.m in Sources */,
 				0826403E1ACDD253009B5AF8 /* ButtonView.m in Sources */,
 				08CC1FCB1AC9E1B60083B861 /* AudioController.m in Sources */,
