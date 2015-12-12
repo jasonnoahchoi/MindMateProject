@@ -20,10 +20,10 @@ class ParseHelper: NSObject {
     func login(username:String, password:String, completionHandler: (success:Bool, message:String) -> ()) {
         PFUser.logInWithUsernameInBackground(username, password: password) { (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
-                println("Login successful")
+                print("Login successful")
                 completionHandler(success: true, message: "")
             }else{
-                var parseErrorMessage:String = error!.userInfo?["error"] as! String
+                var parseErrorMessage:String = error!.userInfo["error"] as! String
                 completionHandler(success: false, message: parseErrorMessage)
             }
         }
@@ -38,10 +38,10 @@ class ParseHelper: NSObject {
 
         newUser.signUpInBackgroundWithBlock{ (success:Bool, error:NSError?) -> Void in
             if let error = error {
-                let parseErrorMessage = error.userInfo?["error"] as? NSString
+                let parseErrorMessage = error.userInfo["error"] as? NSString
                 completionHandler(success: false, message: parseErrorMessage! as NSString)
             }else{
-                println("Sign up successful")
+                print("Sign up successful")
                 Crashlytics.sharedInstance().setUserEmail(emailLowercase)
                 completionHandler(success: true, message: "")
             }
