@@ -1,5 +1,4 @@
 pod 'Parse'
-pod 'Bolts'
 pod 'Crashlytics'
 pod 'Digits'
 pod 'SVProgressHUD'
