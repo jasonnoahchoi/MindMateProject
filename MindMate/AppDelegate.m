@@ -35,7 +35,6 @@ static NSString * const clickedRateKey = @"rate";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     self.audioVC = [[AudioViewController alloc] init];
@@ -213,24 +212,15 @@ static NSString * const clickedRateKey = @"rate";
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     if (notification == self.audioVC.notification) {
-        if (notification == self.audioVC.reminderNotification) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reminderNotification];
-        }
-        if (notification == self.introVC.notification) {
-             [[UIApplication sharedApplication] cancelLocalNotification:self.introVC.notification];
-        }
+        [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reminderNotification];
+        [[UIApplication sharedApplication] cancelLocalNotification:self.introVC.notification];
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     } else if (notification == self.audioVC.reminderNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     } else if (notification == self.introVC.notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
-        if (notification == self.audioVC.reminderNotification) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reminderNotification];
-        }
-        if (notification == self.audioVC.notification) {
-            [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.notification];
-        }
-        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.reminderNotification];
+        [[UIApplication sharedApplication] cancelLocalNotification:self.audioVC.notification];
     }
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     // Handle the notificaton when the app is running
