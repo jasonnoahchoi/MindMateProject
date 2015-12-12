@@ -17,7 +17,6 @@
 #import "Harpy.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <DigitsKit/DigitsKit.h>
 #import <Parse/Parse.h>
 
 static NSString * const finishedIntroKey = @"finishedIntro";
@@ -41,7 +40,6 @@ static NSString * const clickedRateKey = @"rate";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Parse setApplicationId:@"noTa6X5Pb7mBfw2UAWfcuZcngL8GadB7jRt63yTu"
                   clientKey:@"PQBRXL1gL5EGO8pz5WMdmBNB9HnNPSe1YNGdaIjJ"];
-    [Fabric with:@[CrashlyticsKit, DigitsKit]];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
