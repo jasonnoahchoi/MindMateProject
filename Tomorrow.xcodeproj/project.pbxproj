@@ -459,7 +459,7 @@
 		083D6E6C1AC4C5770005E67C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Jason Choi";
 				TargetAttributes = {
 					083D6E731AC4C5770005E67C = {
@@ -668,6 +668,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -739,6 +740,7 @@
 				INFOPLIST_FILE = MindMate/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "gives.tomorrow.jason.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Tomorrow;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MindMate/Tomorrow-Bridging-Header.h";
@@ -758,6 +760,7 @@
 				INFOPLIST_FILE = MindMate/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "gives.tomorrow.jason.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Tomorrow;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MindMate/Tomorrow-Bridging-Header.h";
@@ -779,6 +782,7 @@
 				);
 				INFOPLIST_FILE = MindMateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jasonnoahchoi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TomorrowTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomorrow.app/Tomorrow";
 			};
@@ -794,6 +798,7 @@
 				);
 				INFOPLIST_FILE = MindMateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jasonnoahchoi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TomorrowTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomorrow.app/Tomorrow";
 			};
