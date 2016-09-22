@@ -22,7 +22,7 @@
     NSCalendar *currentCal      = [NSCalendar currentCalendar];
     currentCal.timeZone = [NSTimeZone localTimeZone];
     NSDateComponents *nowComps  = [currentCal components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:date];
-    return nowComps.hour * 100 + nowComps.minute;
+    return (int)nowComps.hour * 100 + (int)nowComps.minute;
 }
 
 //- (NSDate *)dateByAddingHours:(NSInteger)hours {

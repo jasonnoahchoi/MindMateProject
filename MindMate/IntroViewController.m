@@ -708,9 +708,9 @@ static NSString * const micOnKey = @"micOnKey";
 }
 
 - (void)afterRecordButtons {
-    UIImage *redX = [UIImage imageNamed:@"redx"];
+    UIImage *redX = [UIImage imageNamed:@"redX"];
     self.recordAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.frame), redX.size.width, redX.size.height)];
-    [self.recordAgainButton setImage:[UIImage imageNamed:@"redx"] forState:UIControlStateNormal];
+    [self.recordAgainButton setImage:[UIImage imageNamed:@"redX"] forState:UIControlStateNormal];
     self.recordAgainButton.layer.shouldRasterize = YES;
     self.recordAgainButton.hidden = YES;
     [self.view addSubview:self.recordAgainButton];

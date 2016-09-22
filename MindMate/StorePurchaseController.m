@@ -27,6 +27,10 @@
     return sharedInstance;
 }
 
+- (UIViewController *)topVC {
+    return [[UIApplication sharedApplication] keyWindow].rootViewController;
+}
+
 - (NSSet *)bundledProducts {
     NSBundle *bundle = [NSBundle mainBundle];
     NSArray *bundleProducts = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[bundle URLForResource:@"Products" withExtension:@"json"]] options:0 error:nil];
@@ -63,7 +67,7 @@
 #pragma mark - Actions
 
 - (void)purchaseOptionSelectedObjectIndex:(NSUInteger)index {
-
+    
     if ([SKPaymentQueue canMakePayments]) {
         if ([self.products count] > 0) {
             
@@ -72,22 +76,14 @@
             SKPayment *payment = [SKPayment paymentWithProduct:self.products[index]];
             [[SKPaymentQueue defaultQueue] addPayment:payment];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                      initWithTitle:@"Unable to Purchase"
-                                      message:@"This purchase is currently unavailable. Please try again later."
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-            [alertView show];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Unable to Purchase" message:@"This purchase is currently unavailable. Please try again later." preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+            [[self topVC] presentViewController:alert animated:YES completion:nil];
         }
     } else {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Unable to Purchase"
-                                  message:@"In-app purchases are disabled. You'll have to enable them to enjoy the full app."
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Unable to Purchase" message:@"In-app purchases are disabled. You'll have to enable them to enjoy the full app." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [[self topVC] presentViewController:alert animated:YES completion:nil];
 	}
 }
 
@@ -143,14 +139,10 @@
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction {
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Restore Upgrade"
-                              message:@"Finished restoring. Enjoy!"
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-    [alertView show];
-    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Restore Upgrade" message:@"Finished restoring. Enjoy!" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[self topVC] presentViewController:alert animated:YES completion:nil];
+
     // notifies app that purchase was restored and passes the product identifier
 
     NSString *productIdentifier = @"";
@@ -171,13 +163,9 @@
     if (transaction.error.code != SKErrorPaymentCancelled) {
 		NSLog(@"Error: %@", [transaction error]);
         NSString *error = [NSString stringWithFormat:@"Error: %@", [transaction error]];
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Oh no! Is your Apple ID correct?"
-                                  message:error
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oh no! Is your Apple ID correct?" message:error preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [[self topVC] presentViewController:alert animated:YES completion:nil];
 
         [self finishTransaction:transaction wasSuccessful:NO];
     } else {

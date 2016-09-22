@@ -15,6 +15,7 @@
 #import "NSDate+Utils.h"
 #import "NSArray+RecordPlayStrings.h"
 #import "Harpy.h"
+#import "Fabric.h"
 
 static NSString * const finishedIntroKey = @"finishedIntro";
 static NSString * const soundEffectsOnKey = @"soundEffects";
@@ -64,6 +65,8 @@ static NSString * const clickedRateKey = @"rate";
     [self.window makeKeyAndVisible];
 
     [NSTimer scheduledTimerWithTimeInterval:7 target:self selector:@selector(presentHarpy) userInfo:nil repeats:NO];
+    
+    
 
     return YES;
 }
