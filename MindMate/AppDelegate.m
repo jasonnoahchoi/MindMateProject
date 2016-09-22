@@ -15,7 +15,9 @@
 #import "NSDate+Utils.h"
 #import "NSArray+RecordPlayStrings.h"
 #import "Harpy.h"
-#import "Fabric.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#import <DigitsKit/DigitsKit.h>
 
 static NSString * const finishedIntroKey = @"finishedIntro";
 static NSString * const soundEffectsOnKey = @"soundEffects";

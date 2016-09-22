@@ -1,6 +1,10 @@
 target 'Tomorrow' do
 platform :ios, '9.0'
-pod 'Harpy', '~> 3.3.4'
+
+pod 'Harpy'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'Digits'
+pod 'TwitterCore'
+
 end
