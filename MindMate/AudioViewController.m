@@ -1178,75 +1178,76 @@ static NSString * const clickedRateKey = @"rate";
             }];
         }];
     } else {
-//        if (self.containerView.state != ButtonStateZero) {
-//            self.circleState = CircleStateRecord;
-        if (self.circleState == CircleStateRecord || self.circleState == CircleStateLoad) {
+        if (self.containerView.state != ButtonStateZero) {
+            self.circleState = CircleStateRecord;
+            if (self.circleState == CircleStateRecord || self.circleState == CircleStateLoad) {
                 self.recordLabel.hidden = YES;
-            switch (sender.state) {
-                case UIGestureRecognizerStateBegan:
-                {
-                    self.recordLabel.alpha = 0;
-                    [self recording];
-                    self.playCornerButton.alpha = 0;
-                    [self recordPlayBlinkingAnimation];
-                    [UIView animateWithDuration:.2
-                                          delay:0
-                                        options:UIViewAnimationOptionCurveEaseIn
-                                     animations:^{
-                                         self.menuView.menuButton.alpha = 0;
-                                         button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
-                                         button.alpha = .7;
-                                         self.playCornerButton.hidden = YES;
-                                     } completion:nil];
-                }
-                    break;
-                case UIGestureRecognizerStateEnded:
-                {
-                    [self.recordPlayView.recordImageView.layer removeAllAnimations];
-                    self.recordPlayView.hidden = YES;
-                    self.menuView.menuButton.alpha = 0;
-                    [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                        button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
-                        button.alpha = 1;
-                    } completion:^(BOOL finished) {
+                switch (sender.state) {
+                    case UIGestureRecognizerStateBegan:
+                    {
+                        self.recordLabel.alpha = 0;
+                        [self recording];
+                        self.playCornerButton.alpha = 0;
+                        [self recordPlayBlinkingAnimation];
+                        [UIView animateWithDuration:.2
+                                              delay:0
+                                            options:UIViewAnimationOptionCurveEaseIn
+                                         animations:^{
+                                             self.menuView.menuButton.alpha = 0;
+                                             button.transform = CGAffineTransformScale(button.transform, 3.5, 3.5);
+                                             button.alpha = .7;
+                                             self.playCornerButton.hidden = YES;
+                                         } completion:nil];
+                    }
+                        break;
+                    case UIGestureRecognizerStateEnded:
+                    {
+                        [self.recordPlayView.recordImageView.layer removeAllAnimations];
+                        self.recordPlayView.hidden = YES;
+                        self.menuView.menuButton.alpha = 0;
                         [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                            button.transform = CGAffineTransformScale(button.transform, .9, .9);
-
+                            button.transform = CGAffineTransformScale(CGAffineTransformIdentity, .7, .7);
+                            button.alpha = 1;
                         } completion:^(BOOL finished) {
-                            [self stopRecording];
-                            self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
-                            if (self.soundEffectsOn) {
-                               NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"caf"];
-                                [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
-                            }
-
-                            [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                                button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
+                            [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                                button.transform = CGAffineTransformScale(button.transform, .9, .9);
+                                
                             } completion:^(BOOL finished) {
-                                [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
-                                    button.transform = CGAffineTransformIdentity;
+                                [self stopRecording];
+                                self.soundEffectsOn = [[NSUserDefaults standardUserDefaults] boolForKey:soundEffectsOnKey];
+                                if (self.soundEffectsOn) {
+                                    NSURL *popURL = [[NSBundle mainBundle] URLForResource:@"babypop" withExtension:@"caf"];
+                                    [[AudioController sharedInstance] playAudioFileSoftlyAtURL:popURL];
+                                }
+                                
+                                [UIView animateWithDuration:.13 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                    button.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2);
                                 } completion:^(BOOL finished) {
-                                    button.backgroundColor = [UIColor customGreenColor];
-                                    self.recordAgainButton.hidden = NO;
-                                    self.recordAgainButton.alpha = 0;
-                                    [self zeroState:ButtonStateZero];
-                                    self.containerView.state = ButtonStateZero;
-                                    self.recordCornerButton.hidden = YES;
-                                    self.playCornerButton.hidden = YES;
-                                    [UIView animateWithDuration:.01 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-                                        self.recordAgainButton.alpha = 1;
+                                    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.15 initialSpringVelocity:.08 options:UIViewAnimationOptionCurveLinear animations:^{
+                                        button.transform = CGAffineTransformIdentity;
                                     } completion:^(BOOL finished) {
-                                        [self showBottomButtons];
-                                        self.menuView.menuButton.enabled = YES;
+                                        button.backgroundColor = [UIColor customGreenColor];
+                                        self.recordAgainButton.hidden = NO;
+                                        self.recordAgainButton.alpha = 0;
+                                        [self zeroState:ButtonStateZero];
+                                        self.containerView.state = ButtonStateZero;
+                                        self.recordCornerButton.hidden = YES;
+                                        self.playCornerButton.hidden = YES;
+                                        [UIView animateWithDuration:.01 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                                            self.recordAgainButton.alpha = 1;
+                                        } completion:^(BOOL finished) {
+                                            [self showBottomButtons];
+                                            self.menuView.menuButton.enabled = YES;
+                                        }];
                                     }];
                                 }];
                             }];
                         }];
-                    }];
+                    }
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                default:
-                    break;
             }
         }
     }

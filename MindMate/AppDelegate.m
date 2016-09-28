@@ -74,7 +74,6 @@ static NSString * const clickedRateKey = @"rate";
 }
 
 - (void)presentHarpy {
-    [[Harpy sharedInstance] setAppID:@"984969197"];
     [[Harpy sharedInstance] setPresentingViewController:self.audioVC];
     [[Harpy sharedInstance] setAppName:@"Tomorrow"];
     [[Harpy sharedInstance] setAlertType:HarpyAlertTypeForce];

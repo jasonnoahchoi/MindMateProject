@@ -61,7 +61,7 @@
 		08CE94EB1ACBB04F00B83395 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94EA1ACBB04F00B83395 /* Queue.m */; };
 		08CE94F11ACBB04F00B83395 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE94F01ACBB04F00B83395 /* User.m */; };
 		08E92EB71AF181A400C3687D /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E92EB61AF181A400C3687D /* MenuView.m */; };
-		C38BFD2BFFE28BADA1A7E933 /* libPods-Tomorrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E57B0B64A7F6B9A202D7F193 /* libPods-Tomorrow.a */; };
+		426DDE8971081764B4BC5F91 /* libPods-Tomorrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67694D0E9D7A3F461B21945E /* libPods-Tomorrow.a */; };
 		E88A5E6F1D9114CB0045C66A /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = E88A5E6E1D9114CB0045C66A /* menu.wav */; };
 		E88A5E711D9114D40045C66A /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E88A5E701D9114D40045C66A /* pop.mp3 */; };
 /* End PBXBuildFile section */
@@ -165,9 +165,9 @@
 		08CE94F01ACBB04F00B83395 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		08E92EB51AF181A400C3687D /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
 		08E92EB61AF181A400C3687D /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
-		4A6A5F005452EC734BB38442 /* Pods-Tomorrow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomorrow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tomorrow/Pods-Tomorrow.debug.xcconfig"; sourceTree = "<group>"; };
-		AD2A91A7B1859EE07A371A37 /* Pods-Tomorrow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomorrow.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tomorrow/Pods-Tomorrow.release.xcconfig"; sourceTree = "<group>"; };
-		E57B0B64A7F6B9A202D7F193 /* libPods-Tomorrow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tomorrow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22E6B9D801632891CAAF3EB0 /* Pods-Tomorrow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomorrow.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tomorrow/Pods-Tomorrow.release.xcconfig"; sourceTree = "<group>"; };
+		657CA31F50B90B720E100126 /* Pods-Tomorrow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomorrow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tomorrow/Pods-Tomorrow.debug.xcconfig"; sourceTree = "<group>"; };
+		67694D0E9D7A3F461B21945E /* libPods-Tomorrow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tomorrow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E88A5E6E1D9114CB0045C66A /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu.wav; sourceTree = "<group>"; };
 		E88A5E701D9114D40045C66A /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pop.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,7 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				086914321AC893D70064B6AE /* AVFoundation.framework in Frameworks */,
-				C38BFD2BFFE28BADA1A7E933 /* libPods-Tomorrow.a in Frameworks */,
+				426DDE8971081764B4BC5F91 /* libPods-Tomorrow.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +216,7 @@
 				083D6E901AC4C5770005E67C /* MindMateTests */,
 				083D6E751AC4C5770005E67C /* Products */,
 				389A77263D7056F4363E0CD5 /* Frameworks */,
-				2F034CC1CBBD085D4D68AFDD /* Pods */,
+				276CB15F09D153B2C6278125 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -386,11 +386,11 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		2F034CC1CBBD085D4D68AFDD /* Pods */ = {
+		276CB15F09D153B2C6278125 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4A6A5F005452EC734BB38442 /* Pods-Tomorrow.debug.xcconfig */,
-				AD2A91A7B1859EE07A371A37 /* Pods-Tomorrow.release.xcconfig */,
+				657CA31F50B90B720E100126 /* Pods-Tomorrow.debug.xcconfig */,
+				22E6B9D801632891CAAF3EB0 /* Pods-Tomorrow.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -399,7 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				086914311AC893D70064B6AE /* AVFoundation.framework */,
-				E57B0B64A7F6B9A202D7F193 /* libPods-Tomorrow.a */,
+				67694D0E9D7A3F461B21945E /* libPods-Tomorrow.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -725,7 +725,7 @@
 		};
 		083D6E981AC4C5780005E67C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A6A5F005452EC734BB38442 /* Pods-Tomorrow.debug.xcconfig */;
+			baseConfigurationReference = 657CA31F50B90B720E100126 /* Pods-Tomorrow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -734,6 +734,40 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"DigitsKit\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TwitterCore\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "gives.tomorrow.jason.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Tomorrow;
 				PROVISIONING_PROFILE = "";
@@ -743,7 +777,7 @@
 		};
 		083D6E991AC4C5780005E67C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD2A91A7B1859EE07A371A37 /* Pods-Tomorrow.release.xcconfig */;
+			baseConfigurationReference = 22E6B9D801632891CAAF3EB0 /* Pods-Tomorrow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -752,6 +786,40 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"DigitsKit\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TwitterCore\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "gives.tomorrow.jason.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Tomorrow;
 				PROVISIONING_PROFILE = "";
