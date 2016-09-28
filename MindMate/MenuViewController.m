@@ -45,7 +45,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 - (void)viewDidLoad {
     [super viewDidLoad];
     //self.view.backgroundColor = [UIColor whiteColor];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/8, self.view.frame.size.height/6, self.view.frame.size.width - self.view.frame.size.width/4, self.view.frame.size.height/9*6)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/8, self.view.frame.size.height/6, self.view.frame.size.width - self.view.frame.size.width/4, self.view.frame.size.height/12*7)];
     //self.tableView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.tableView];
     self.tableView.layer.cornerRadius = 5;
@@ -140,9 +140,8 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         }
             break;
         case 1: {
-            RemindersViewController *reminderVC = [[RemindersViewController alloc] init];
-            // UINavigationController *reminderNavController = [[UINavigationController alloc] initWithRootViewController:reminderVC];
-            [self presentViewController:reminderVC animated:YES completion:nil];
+            SupportViewController *supportVC = [[SupportViewController alloc] init];
+            [self presentViewController:supportVC animated:YES completion:nil];
             break;
         }
         case 2: {
@@ -157,21 +156,16 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
         }
             break;
         case 4: {
-            SupportViewController *supportVC = [[SupportViewController alloc] init];
-            [self presentViewController:supportVC animated:YES completion:nil];
-        }
-            break;
-        case 5: {
             TermsViewController *termsVC = [[TermsViewController alloc] init];
             [self presentViewController:termsVC animated:YES completion:nil];
         }
             break;
-        case 6: {
+        case 5: {
             IntroViewController *introVC = [[IntroViewController alloc] init];
             [self presentViewController:introVC animated:YES completion:nil];
         }
             break;
-        case 7:
+        case 6:
             break;
         default:
             break;
@@ -184,7 +178,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             return self.aboutCell;
             break;
         case 1:
-            return self.remindersCell;
+            return self.feedbackCell;
             break;
         case 2:
             return self.IAPCell;
@@ -193,15 +187,12 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
             return self.rateCell;
             break;
         case 4:
-            return self.feedbackCell;
-            break;
-        case 5:
             return self.tsCell;
             break;
-        case 6:
+        case 5:
             return self.introCell;
             break;
-        case 7:
+        case 6:
             return self.preferencesCell;
             break;
         default:
@@ -215,7 +206,7 @@ static NSString * const soundEffectsOnKey = @"soundEffects";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    return 7;
 }
 
 
